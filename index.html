@@ -3,21 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080910">
-  <meta name="description" content="صفحه شخصی من؛ دنیایی از علایق، ایده‌ها و خلاقیت.">
-  <title>دنیای شخصی من</title>
+  <meta name="theme-color" content="#080810">
+  <meta name="description" content="وب‌سایت شخصی من؛ دنیایی از ایده‌ها، طراحی و پروژه‌های خلاقانه.">
+  <title>دنیای من | وب‌سایت شخصی</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
-
     :root {
-      --bg: #080910;
-      --text: #f5f3ff;
-      --muted: #aaa9bd;
-      --purple: #a78bfa;
-      --blue: #67d5ff;
+      --bg: #080810;
       --glass: rgba(255, 255, 255, 0.055);
       --border: rgba(255, 255, 255, 0.13);
+      --text: #f7f4ff;
+      --muted: #aaa6bd;
+      --purple: #b8a0ff;
+      --blue: #8bc5ff;
     }
 
     * {
@@ -28,19 +30,16 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 90px;
+      scroll-padding-top: 85px;
     }
 
     body {
       min-height: 100vh;
       overflow-x: hidden;
-      background:
-        radial-gradient(ellipse at 15% 15%, #29204a 0%, transparent 38%),
-        radial-gradient(ellipse at 90% 45%, #102b3b 0%, transparent 34%),
-        var(--bg);
+      background: var(--bg);
       color: var(--text);
-      font-family: "Vazirmatn", Tahoma, sans-serif;
-      line-height: 1.9;
+      font-family: "Vazirmatn", sans-serif;
+      line-height: 1.8;
     }
 
     a {
@@ -48,16 +47,15 @@
       text-decoration: none;
     }
 
-    button, a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .ambient {
+    .background-glow {
       position: fixed;
       inset: 0;
+      z-index: -2;
       overflow: hidden;
       pointer-events: none;
-      z-index: -1;
+      background:
+        radial-gradient(ellipse at 50% 0%, #211537 0%, transparent 55%),
+        #080810;
     }
 
     .orb {
@@ -66,82 +64,84 @@
       height: 260px;
       border-radius: 50%;
       filter: blur(85px);
-      opacity: 0.27;
-      animation: float 13s ease-in-out infinite alternate;
+      opacity: 0.38;
+      animation: float 12s ease-in-out infinite alternate;
     }
 
-    .orb.one {
-      background: #8b5cf6;
+    .orb-one {
       top: 8%;
-      right: -100px;
+      right: -110px;
+      background: #7844d8;
     }
 
-    .orb.two {
-      background: #0891b2;
-      top: 48%;
-      left: -120px;
-      animation-delay: -5s;
+    .orb-two {
+      top: 45%;
+      left: -130px;
+      background: #174b91;
+      animation-delay: -4s;
     }
 
-    .orb.three {
-      background: #db2777;
+    .orb-three {
       bottom: -100px;
       right: 35%;
-      animation-delay: -8s;
+      background: #592b81;
+      animation-delay: -7s;
     }
 
     @keyframes float {
-      from { transform: translate(0, 0) scale(1); }
-      to { transform: translate(35px, -45px) scale(1.2); }
+      from {
+        transform: translate3d(0, 0, 0);
+      }
+      to {
+        transform: translate3d(35px, -45px, 0);
+      }
     }
 
     .container {
-      width: min(100% - 32px, 1000px);
+      width: min(1080px, 100% - 36px);
       margin-inline: auto;
     }
 
     .glass {
-      background: var(--glass);
       border: 1px solid var(--border);
-      box-shadow:
-        0 18px 60px rgba(0, 0, 0, 0.22),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      -webkit-backdrop-filter: blur(18px);
+      background: var(--glass);
       backdrop-filter: blur(18px);
-      border-radius: 24px;
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
     }
 
-    header {
+    /* نوار بالای سایت */
+
+    .navbar {
       position: sticky;
       top: 10px;
       z-index: 10;
-      margin-top: 14px;
-    }
-
-    nav {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 10px;
       padding: 12px 18px;
       border-radius: 18px;
     }
 
-    .brand {
-      font-size: 1rem;
+    .logo {
+      font-size: 17px;
       font-weight: 800;
-      letter-spacing: -0.4px;
+      white-space: nowrap;
     }
 
-    .brand span {
+    .logo span {
       color: var(--purple);
     }
 
     .nav-links {
       display: flex;
-      gap: 18px;
-      font-size: 0.84rem;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
       color: var(--muted);
+      font-size: 12px;
     }
 
     .nav-links a {
@@ -152,643 +152,653 @@
       color: white;
     }
 
+    /* صفحه اصلی */
+
     .hero {
-      padding: 85px 0 55px;
+      min-height: 78vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 85px 0 70px;
       text-align: center;
     }
 
-    .eyebrow {
+    .status {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
+      gap: 9px;
+      margin-bottom: 25px;
+      padding: 8px 15px;
       border: 1px solid var(--border);
-      border-radius: 99px;
-      background: rgba(255,255,255,0.04);
-      color: #d9d0ff;
-      font-size: 0.82rem;
-      margin-bottom: 24px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #d8d1ef;
+      font-size: 12px;
     }
 
     .status-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: #7ef0bd;
-      box-shadow: 0 0 12px #7ef0bd;
+      background: #9df2c2;
+      box-shadow: 0 0 12px #9df2c2;
     }
 
-    h1 {
-      font-size: clamp(2.2rem, 7vw, 4.6rem);
+    .hero h1 {
+      max-width: 850px;
+      font-size: clamp(38px, 8vw, 76px);
+      font-weight: 800;
       line-height: 1.35;
-      letter-spacing: -1.5px;
-      margin-bottom: 18px;
+      letter-spacing: -2px;
     }
 
     .gradient-text {
-      background: linear-gradient(100deg, #ffffff 10%, #c4b5fd 50%, #67d5ff 90%);
+      background: linear-gradient(90deg, #c3a7ff, #91d1ff, #e0c6ff);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
     .hero p {
+      max-width: 570px;
+      margin-top: 22px;
       color: var(--muted);
-      max-width: 590px;
-      margin: 0 auto;
-      font-size: 1rem;
+      font-size: 15px;
+      line-height: 2.1;
     }
 
-    .actions {
+    .hero-actions {
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 12px;
       margin-top: 30px;
     }
 
-    .btn {
+    .button {
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      min-height: 48px;
-      padding: 10px 22px;
-      border-radius: 14px;
-      font: inherit;
-      font-weight: 600;
-      font-size: 0.92rem;
+      gap: 8px;
+      min-height: 45px;
+      padding: 11px 21px;
       border: 1px solid var(--border);
-      transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .btn-primary {
-      color: #100d1c;
-      border-color: transparent;
-      background: linear-gradient(110deg, #c4b5fd, #83dcff);
-      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.2);
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.045);
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.05);
       color: white;
+      font-family: inherit;
+      font-size: 13px;
+      transition: transform 0.25s, background 0.25s;
     }
 
-    section {
-      padding: 25px 0;
+    .button-primary {
+      border-color: transparent;
+      background: linear-gradient(110deg, #7750cf, #496cb7);
     }
 
-    .section-title {
-      font-size: clamp(1.4rem, 4vw, 2rem);
-      margin-bottom: 8px;
+    .button:hover {
+      transform: translateY(-3px);
+      background-color: rgba(255, 255, 255, 0.12);
     }
 
-    .section-subtitle {
+    .button-primary:hover {
+      background: linear-gradient(110deg, #8b65e4, #5d81d0);
+    }
+
+    .hero-note {
+      margin-top: 38px;
+      color: #77738b;
+      font-size: 11px;
+    }
+
+    /* بخش‌های عمومی */
+
+    .section {
+      padding: 65px 0;
+    }
+
+    .section-heading {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      color: var(--purple);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+    }
+
+    .section-heading h2 {
+      margin-top: 8px;
+      font-size: clamp(26px, 5vw, 36px);
+    }
+
+    .section-heading p {
+      margin-top: 9px;
       color: var(--muted);
-      font-size: 0.94rem;
-      margin-bottom: 24px;
+      font-size: 13px;
     }
 
-    .about {
-      padding: 26px;
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 22px;
-      align-items: center;
+    /* درباره من */
+
+    .about-card {
+      max-width: 820px;
+      margin-inline: auto;
+      padding: 30px;
+      border-radius: 24px;
+      text-align: center;
     }
 
-    .avatar {
-      width: 100px;
-      aspect-ratio: 1;
+    .about-symbol {
       display: grid;
       place-items: center;
-      border-radius: 28px;
-      font-size: 2.8rem;
-      background: linear-gradient(135deg, #8b5cf6aa, #38bdf855);
-      border: 1px solid #ffffff30;
-      box-shadow: 0 0 35px #8b5cf620;
+      width: 65px;
+      height: 65px;
+      margin: 0 auto 18px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: rgba(184, 160, 255, 0.09);
+      font-size: 29px;
     }
 
-    .about h3 {
-      font-size: 1.2rem;
-      margin-bottom: 6px;
+    .about-card h3 {
+      margin-bottom: 12px;
+      font-size: 21px;
     }
 
-    .about p {
+    .about-card p {
       color: var(--muted);
-      font-size: 0.93rem;
+      font-size: 14px;
+      line-height: 2.2;
     }
 
-    .grid {
+    /* مهارت‌ها */
+
+    .skills-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
     }
 
-    .interest {
-      padding: 22px;
-      min-height: 170px;
+    .skill-card {
+      padding: 23px 12px;
+      border-radius: 19px;
+      text-align: center;
       transition: transform 0.3s, border-color 0.3s;
     }
 
-    .interest:hover {
-      transform: translateY(-5px);
-      border-color: #c4b5fd70;
+    .skill-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(184, 160, 255, 0.5);
     }
 
-    .interest-icon {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
+    .skill-icon {
+      margin-bottom: 9px;
+      font-size: 28px;
     }
 
-    .interest h3 {
-      font-size: 1.02rem;
-      margin-bottom: 5px;
+    .skill-card h3 {
+      font-size: 14px;
     }
 
-    .interest p {
+    .skill-card p {
+      margin-top: 4px;
       color: var(--muted);
-      font-size: 0.85rem;
+      font-size: 11px;
     }
 
-    .quote {
-      padding: 30px;
-      text-align: center;
-      background:
-        linear-gradient(120deg, rgba(139,92,246,0.12), rgba(56,189,248,0.07)),
-        var(--glass);
+    /* پروژه‌ها */
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
     }
 
-    .quote-mark {
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      padding: 23px 19px;
+      border-radius: 22px;
+      transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+      animation: appear 0.7s both;
+    }
+
+    .project-card:nth-child(2) {
+      animation-delay: 0.12s;
+    }
+
+    .project-card:nth-child(3) {
+      animation-delay: 0.24s;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: rgba(143, 104, 255, 0.17);
+      filter: blur(35px);
+      pointer-events: none;
+      transition: background 0.35s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(190, 165, 255, 0.55);
+      box-shadow: 0 22px 48px rgba(103, 65, 190, 0.17);
+    }
+
+    .project-card:hover::before {
+      background: rgba(143, 104, 255, 0.32);
+    }
+
+    .project-icon {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 51px;
+      height: 51px;
+      margin-bottom: 17px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.06);
+      font-size: 25px;
+    }
+
+    .project-number {
       color: var(--purple);
-      font-size: 2.5rem;
-      line-height: 1;
+      font-size: 10px;
+      letter-spacing: 2px;
     }
 
-    .quote p {
-      font-size: 1.15rem;
-      margin: 10px auto;
+    .project-card h3 {
+      margin: 11px 0 8px;
+      font-size: 18px;
     }
 
-    .quote small {
+    .project-card p {
+      min-height: 77px;
       color: var(--muted);
+      font-size: 12px;
+      line-height: 2;
     }
 
-    footer {
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 16px 0;
+    }
+
+    .project-tags span {
+      padding: 5px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.045);
+      color: #d9d2f4;
+      font-size: 10px;
+    }
+
+    .project-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 17px;
+      padding-top: 13px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #d2c2ff;
+      font-size: 12px;
+      transition: color 0.25s;
+    }
+
+    .project-link:hover {
+      color: white;
+    }
+
+    .project-link span {
+      font-size: 18px;
+    }
+
+    /* تماس */
+
+    .contact-card {
+      max-width: 760px;
+      margin-inline: auto;
+      padding: 32px 22px;
+      border-radius: 24px;
       text-align: center;
+    }
+
+    .contact-card h3 {
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .contact-card p {
+      margin-bottom: 22px;
       color: var(--muted);
-      font-size: 0.83rem;
-      padding: 38px 0 28px;
+      font-size: 13px;
     }
 
-    footer .heart {
-      color: #f0a6cf;
+    /* پابرگ */
+
+    .footer {
+      margin-top: 35px;
+      padding: 27px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: #89849d;
+      text-align: center;
+      font-size: 11px;
     }
 
-    @media (max-width: 650px) {
-      .container {
-        width: min(100% - 22px, 1000px);
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
       }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-      nav {
-        padding: 10px 12px;
+    /* نمایش روی گوشی */
+
+    @media (max-width: 760px) {
+      .navbar {
+        align-items: flex-start;
       }
 
       .nav-links {
-        gap: 10px;
-        font-size: 0.76rem;
-      }
-
-      .brand {
-        font-size: 0.88rem;
+        justify-content: flex-end;
+        gap: 10px 13px;
       }
 
       .hero {
-        padding: 65px 0 38px;
+        min-height: 70vh;
+        padding: 70px 0 50px;
       }
 
-      .hero p {
-        font-size: 0.92rem;
+      .hero h1 {
+        letter-spacing: -1px;
       }
 
-      .about {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding: 22px;
-      }
-
-      .avatar {
-        width: 82px;
-        margin-inline: auto;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
+      .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
       }
 
-      .interest {
+      .project-card {
+        padding: 18px 14px;
+      }
+
+      .project-card p {
+        min-height: 105px;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 420px) {
+      .container {
+        width: calc(100% - 24px);
+      }
+
+      .navbar {
+        padding: 12px;
+      }
+
+      .logo {
+        font-size: 14px;
+      }
+
+      .nav-links {
+        gap: 8px;
+        font-size: 10px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card p {
         min-height: auto;
-        padding: 18px;
       }
 
-      .interest-icon {
-        margin-bottom: 3px;
+      .section {
+        padding: 45px 0;
       }
 
-      .quote {
-        padding: 24px 18px;
+      .about-card {
+        padding: 23px 17px;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
+      *,
+      *::before,
+      *::after {
         scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
+        animation: none !important;
+        transition: none !important;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="ambient" aria-hidden="true">
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
+  <div class="background-glow" aria-hidden="true">
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+    <div class="orb orb-three"></div>
   </div>
 
-  <div class="container">
-    <header>
-      <nav class="glass" aria-label="منوی اصلی">
-        <a class="brand" href="#home">MY<span>WORLD.</span></a>
-        <div class="nav-links">
-          <a href="#about">درباره من</a>
-          <a href="#interests">علایق</a>
-          <a href="#contact">پایین صفحه</a>
-        </div>
-      </nav>
-    </header>
+  <header class="container">
+    <nav class="navbar glass" aria-label="منوی اصلی">
+      <a class="logo" href="#home">دنیای<span> من.</span></a>
 
-    <main>
-      <section class="hero" id="home">
-        <div class="eyebrow">
-          <span class="status-dot"></span>
-          به گوشهٔ کوچیک دنیای من خوش اومدی
-        </div>
+      <div class="nav-links">
+        <a href="#home">خانه</a>
+        <a href="#about">درباره من</a>
+        <a href="#skills">مهارت‌ها</a>
+        <a href="#projects">پروژه‌ها</a>
+        <a href="#contact">تماس</a>
+      </div>
+    </nav>
+  </header>
 
-        <h1>
-          سلام، من <span class="gradient-text">اسم تو</span> هستم!
-        </h1>
+  <main>
+    <!-- صفحه اصلی -->
+    <section class="hero container" id="home">
+      <div class="status">
+        <span class="status-dot"></span>
+        در حال یادگیری و ساختن
+      </div>
 
+      <h1>
+        به دنیای من
+        <br>
+        <span class="gradient-text">خوش اومدی.</span>
+      </h1>
+
+      <p>
+        اینجا فضای شخصی منه؛ جایی برای ایده‌های تازه،
+        طراحی‌های خلاقانه و پروژه‌هایی که قدم‌به‌قدم می‌سازم.
+      </p>
+
+      <div class="hero-actions">
+        <a class="button button-primary" href="#projects">
+          دیدن پروژه‌ها <span>↗</span>
+        </a>
+        <a class="button" href="#about">بیشتر درباره من</a>
+      </div>
+
+      <div class="hero-note">
+        طراحی با علاقه، یادگیری با کنجکاوی ✦
+      </div>
+    </section>
+
+    <!-- درباره من -->
+    <section class="section container" id="about">
+      <div class="section-heading">
+        <span class="eyebrow">ABOUT ME</span>
+        <h2>درباره من</h2>
+        <p>کمی درباره دنیای من</p>
+      </div>
+
+      <div class="about-card glass">
+        <div class="about-symbol">✧</div>
+        <h3>سلام، من سازنده این دنیام!</h3>
         <p>
-          اینجا دنیای شخصی منه؛ جایی برای ایده‌ها،
-          چیزهایی که دوست دارم و مسیر یادگیری من.
-          خوشحالم که اینجایی ✨
+          به تکنولوژی، طراحی و ایده‌های خلاقانه علاقه دارم.
+          این وب‌سایت رو ساختم تا چیزهایی که یاد می‌گیرم
+          و پروژه‌هایی که می‌سازم، در یک جای زیبا جمع کنم.
+          اینجا هر ایده می‌تونه شروع یک ماجرای جدید باشه.
         </p>
+      </div>
+    </section>
 
-        <div class="actions">
-          <a class="btn btn-primary" href="#about">بیشتر دربارهٔ من ←</a>
-          <a class="btn btn-secondary" href="#interests">علایق من ✦</a>
-        </div>
-      </section>
+    <!-- مهارت‌ها و علاقه‌ها -->
+    <section class="section container" id="skills">
+      <div class="section-heading">
+        <span class="eyebrow">MY INTERESTS</span>
+        <h2>علاقه‌مندی‌های من</h2>
+        <p>چیزهایی که دوست دارم کشف کنم و یاد بگیرم</p>
+      </div>
 
-      <section id="about">
-        <h2 class="section-title">کمی دربارهٔ من</h2>
-        <p class="section-subtitle">چند خط دربارهٔ دنیای من</p>
+      <div class="skills-grid">
+        <article class="skill-card glass">
+          <div class="skill-icon">💻</div>
+          <h3>برنامه‌نویسی</h3>
+          <p>ساختن ایده‌های دیجیتال</p>
+        </article>
 
-        <div class="about glass">
-          <div class="avatar" aria-hidden="true">🌙</div>
-          <div>
-            <h3>یک آدم کنجکاو با کلی ایده</h3>
-            <p>
-              من دوست دارم چیزهای تازه یاد بگیرم، خلاق باشم
-              و قدم‌به‌قدم به ایده‌هام شکل بدم.
-              این سایت اولین قدم من در دنیای ساخت وب‌سایته.
-            </p>
+        <article class="skill-card glass">
+          <div class="skill-icon">🎨</div>
+          <h3>طراحی</h3>
+          <p>زیبایی و خلاقیت</p>
+        </article>
+
+        <article class="skill-card glass">
+          <div class="skill-icon">🚀</div>
+          <h3>تکنولوژی</h3>
+          <p>کشف دنیای جدید</p>
+        </article>
+
+        <article class="skill-card glass">
+          <div class="skill-icon">💡</div>
+          <h3>ایده‌پردازی</h3>
+          <p>فکر کردن متفاوت</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- پروژه‌ها -->
+    <section class="section container" id="projects">
+      <div class="section-heading">
+        <span class="eyebrow">MY WORK</span>
+        <h2>پروژه‌های من <span class="gradient-text">✦</span></h2>
+        <p>ایده‌هام رو قدم‌به‌قدم به واقعیت تبدیل می‌کنم.</p>
+      </div>
+
+      <div class="projects-grid">
+        <article class="project-card glass">
+          <div class="project-icon">🌐</div>
+          <span class="project-number">PROJECT 01</span>
+          <h3>وب‌سایت شخصی</h3>
+          <p>
+            یک فضای دیجیتال با طراحی شیشه‌ای،
+            نورهای متحرک و ظاهری مدرن.
+          </p>
+          <div class="project-tags">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>Glassmorphism</span>
           </div>
-        </div>
-      </section>
+          <a class="project-link" href="#home">
+            صفحه اصلی <span>↗</span>
+          </a>
+        </article>
 
-      <section id="interests">
-        <h2 class="section-title">چیزهایی که دوست دارم</h2>
-        <p class="section-subtitle">این کارت‌ها رو می‌تونی با علایق خودت عوض کنی.</p>
+        <article class="project-card glass">
+          <div class="project-icon">💡</div>
+          <span class="project-number">PROJECT 02</span>
+          <h3>ایده خلاقانه</h3>
+          <p>
+            یک پروژه برای تمرین طراحی،
+            خلاقیت و ساخت تجربه‌های جذاب.
+          </p>
+          <div class="project-tags">
+            <span>Design</span>
+            <span>Creative</span>
+          </div>
+          <a class="project-link" href="#projects">
+            به‌زودی <span>↗</span>
+          </a>
+        </article>
 
-        <div class="grid">
-          <article class="interest glass">
-            <div class="interest-icon" aria-hidden="true">🎨</div>
-            <h3>خلاقیت و طراحی</h3>
-            <p>ساختن چیزهای تازه با ایده‌های متفاوت.</p>
-          </article>
+        <article class="project-card glass">
+          <div class="project-icon">🚀</div>
+          <span class="project-number">PROJECT 03</span>
+          <h3>پروژه بعدی</h3>
+          <p>
+            این کارت منتظر ایده بعدی منه.
+            هر چیزی که بسازم، می‌تونه اینجا قرار بگیره.
+          </p>
+          <div class="project-tags">
+            <span>Coming Soon</span>
+            <span>New Idea</span>
+          </div>
+          <a class="project-link" href="#projects">
+            به‌زودی <span>↗</span>
+          </a>
+        </article>
+      </div>
+    </section>
 
-          <article class="interest glass">
-            <div class="interest-icon" aria-hidden="true">💻</div>
-            <h3>یادگیری تکنولوژی</h3>
-            <p>کشف دنیای برنامه‌نویسی و اینترنت.</p>
-          </article>
+    <!-- تماس -->
+    <section class="section container" id="contact">
+      <div class="section-heading">
+        <span class="eyebrow">GET IN TOUCH</span>
+        <h2>بخش پایانی</h2>
+        <p>این دنیای کوچک، هر روز می‌تونه بزرگ‌تر بشه.</p>
+      </div>
 
-          <article class="interest glass">
-            <div class="interest-icon" aria-hidden="true">🌌</div>
-            <h3>دنیای ایده‌ها</h3>
-            <p>فکر کردن، تجربه کردن و یاد گرفتن.</p>
-          </article>
-        </div>
-      </section>
+      <div class="contact-card glass">
+        <h3>ایده‌های جدید در راه‌اند ✨</h3>
+        <p>
+          این وب‌سایت به‌مرور با پروژه‌ها و تجربه‌های جدید کامل‌تر می‌شه.
+        </p>
+        <a class="button button-primary" href="#home">
+          برگشت به بالا ↑
+        </a>
+      </div>
+    </section>
+  </main>
 
-      <section>
-        <div class="quote glass">
-          <div class="quote-mark">“</div>
-          <p>هر چیز بزرگی، یک روز از یک قدم کوچیک شروع شده.</p>
-          <small>یادآوری برای خودم ✦</small>
-        </div>
-      </section>
-    </main>
+  <footer class="footer">
+    <div class="container">
+      ساخته‌شده با علاقه و کمی جادوی شیشه‌ای ✦
+      <br>
+      <span id="year"></span> © دنیای من
+    </div>
+  </footer>
 
-    <footer id="contact">
-      <p>ساخته‌شده با <span class="heart">♥</span> و کمی خلاقیت</p>
-      <p>© 2026 دنیای شخصی من</p>
-    </footer>
-  </div>
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
 </body>
-  </html>
-<!-- بخش پروژه‌های من -->
-<section class="projects-section" id="projects" dir="rtl">
-  <div class="projects-heading">
-    <span class="projects-label">MY WORK</span>
-    <h2>پروژه‌های من <span>✦</span></h2>
-    <p>اینجا ایده‌هام رو به واقعیت تبدیل می‌کنم.</p>
-  </div>
-
-  <div class="projects-grid">
-
-    <article class="project-card">
-      <div class="project-icon">🌐</div>
-      <span class="project-number">PROJECT 01</span>
-      <h3>وب‌سایت شخصی</h3>
-      <p>
-        یک فضای دیجیتال با طراحی شیشه‌ای،
-        نورهای متحرک و ظاهر مدرن.
-      </p>
-      <div class="project-tags">
-        <span>HTML</span>
-        <span>CSS</span>
-        <span>Glassmorphism</span>
-      </div>
-      <a class="project-link" href="#projects">
-        پروژه اول <span>↗</span>
-      </a>
-    </article>
-
-    <article class="project-card">
-      <div class="project-icon">💡</div>
-      <span class="project-number">PROJECT 02</span>
-      <h3>ایده خلاقانه</h3>
-      <p>
-        یک پروژه جدید برای تمرین طراحی،
-        خلاقیت و ساخت تجربه‌های جذاب.
-      </p>
-      <div class="project-tags">
-        <span>Design</span>
-        <span>Creative</span>
-      </div>
-      <a class="project-link" href="#projects">
-        به‌زودی <span>↗</span>
-      </a>
-    </article>
-
-    <article class="project-card">
-      <div class="project-icon">🚀</div>
-      <span class="project-number">PROJECT 03</span>
-      <h3>پروژه بعدی</h3>
-      <p>
-        این کارت منتظر ایده بعدی توئه.
-        هر چیزی که بسازی، می‌تونه اینجا باشه.
-      </p>
-      <div class="project-tags">
-        <span>Coming Soon</span>
-        <span>New Idea</span>
-      </div>
-      <a class="project-link" href="#projects">
-        به‌زودی <span>↗</span>
-      </a>
-    </article>
-
-  </div>
-</section>
-
-<style>
-/* Projects: black glass design */
-.projects-section {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  padding: 75px 18px;
-  color: #fff;
-  font-family: Vazirmatn, sans-serif;
-}
-
-.projects-heading {
-  text-align: center;
-  margin-bottom: 35px;
-}
-
-.projects-label {
-  color: #b6a0ff;
-  font-size: 11px;
-  letter-spacing: 4px;
-}
-
-.projects-heading h2 {
-  margin: 12px 0;
-  font-size: clamp(26px, 6vw, 38px);
-}
-
-.projects-heading h2 span {
-  color: #b6a0ff;
-}
-
-.projects-heading p {
-  color: #aaa7bb;
-  font-size: 14px;
-  line-height: 1.9;
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  max-width: 1050px;
-  margin: auto;
-}
-
-.project-card {
-  position: relative;
-  overflow: hidden;
-  padding: 25px 21px;
-  border: 1px solid rgba(255, 255, 255, .13);
-  border-radius: 23px;
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, .10),
-    rgba(255, 255, 255, .025)
-  );
-  box-shadow: 0 15px 40px rgba(0, 0, 0, .22);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  transition: transform .35s ease,
-              border-color .35s ease,
-              box-shadow .35s ease;
-  animation: projectAppear .7s both;
-}
-
-.project-card:nth-child(2) {
-  animation-delay: .12s;
-}
-
-.project-card:nth-child(3) {
-  animation-delay: .24s;
-}
-
-.project-card::before {
-  content: "";
-  position: absolute;
-  top: -65px;
-  right: -55px;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background: rgba(155, 115, 255, .18);
-  filter: blur(35px);
-  pointer-events: none;
-  transition: background .35s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-9px);
-  border-color: rgba(190, 165, 255, .55);
-  box-shadow: 0 22px 48px rgba(103, 65, 190, .18);
-}
-
-.project-card:hover::before {
-  background: rgba(155, 115, 255, .34);
-}
-
-.project-icon {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  margin-bottom: 20px;
-  border: 1px solid rgba(255, 255, 255, .16);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, .07);
-  font-size: 25px;
-}
-
-.project-number {
-  color: #b6a0ff;
-  font-size: 10px;
-  letter-spacing: 2px;
-}
-
-.project-card h3 {
-  margin: 13px 0 10px;
-  font-size: 19px;
-}
-
-.project-card p {
-  min-height: 75px;
-  color: #c1bdcf;
-  font-size: 13px;
-  line-height: 2;
-}
-
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin: 18px 0;
-}
-
-.project-tags span {
-  padding: 6px 10px;
-  border: 1px solid rgba(255, 255, 255, .10);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, .05);
-  color: #d9d2f4;
-  font-size: 10px;
-}
-
-.project-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid rgba(255, 255, 255, .10);
-  color: #d2c2ff;
-  font-size: 13px;
-  text-decoration: none;
-  transition: color .25s ease;
-}
-
-.project-link:hover {
-  color: #fff;
-}
-
-.project-link span {
-  font-size: 19px;
-}
-
-@keyframes projectAppear {
-  from {
-    opacity: 0;
-    transform: translateY(22px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* گوشی و تبلت */
-@media (max-width: 760px) {
-  .projects-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .project-card {
-    padding: 19px 15px;
-    border-radius: 19px;
-  }
-
-  .project-card p {
-    min-height: 100px;
-  }
-}
-
-@media (max-width: 420px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .project-card p {
-    min-height: auto;
-  }
-}
-
-/* احترام به تنظیم کاهش حرکت دستگاه */
-@media (prefers-reduced-motion: reduce) {
-  .project-card {
-    animation: none;
-    transition: none;
-  }
-}
-</style>
+</html>
