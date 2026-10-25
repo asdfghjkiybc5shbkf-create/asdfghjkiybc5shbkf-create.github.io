@@ -3,903 +3,520 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080810">
-  <meta name="description" content="وب‌سایت شخصی شیشه‌ای من">
-  <title>دنیای من | سایت شخصی</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080811">
+  <title>دنیای من | وب‌سایت شخصی</title>
   <style>
     :root {
-      --bg: #080810;
-      --glass: rgba(255,255,255,.055);
-      --border: rgba(255,255,255,.13);
-      --text: #f7f4ff;
-      --muted: #aaa6bd;
-      --purple: #b8a0ff;
-      --blue: #8bc5ff;
+      --bg: #080811;
+      --panel: rgba(255,255,255,.055);
+      --line: rgba(255,255,255,.12);
+      --text: #f6f2ff;
+      --muted: #aaa4bf;
+      --purple: #b99aff;
+      --blue: #8edcff;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 90px;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 15% 10%, #292044 0, transparent 34%),
+        radial-gradient(ellipse at 90% 45%, #10283a 0, transparent 32%),
+        var(--bg);
+      font-family: Tahoma, Arial, sans-serif;
+      line-height: 1.9;
       min-height: 100vh;
       overflow-x: hidden;
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Vazirmatn", sans-serif;
-      line-height: 1.8;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button, input {
-      font: inherit;
-    }
-
-    button, a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .background-glow {
+    .glow {
       position: fixed;
-      inset: 0;
-      z-index: -1;
-      overflow: hidden;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse at 50% 0%, #211537, transparent 55%),
-        #080810;
-    }
-
-    .orb {
-      position: absolute;
-      width: 270px;
-      height: 270px;
+      width: 240px;
+      height: 240px;
       border-radius: 50%;
-      filter: blur(85px);
-      opacity: .36;
+      filter: blur(90px);
+      opacity: .18;
+      pointer-events: none;
+      z-index: -1;
       animation: float 12s ease-in-out infinite alternate;
     }
 
-    .orb-one {
-      top: 8%;
-      right: -110px;
-      background: #7844d8;
-    }
-
-    .orb-two {
-      top: 45%;
-      left: -130px;
-      background: #174b91;
-      animation-delay: -4s;
-    }
-
-    .orb-three {
-      bottom: -100px;
-      right: 35%;
-      background: #592b81;
-      animation-delay: -7s;
-    }
+    .glow.one { background: #9c68ff; top: 10%; right: -100px; }
+    .glow.two { background: #4ac8ff; bottom: 5%; left: -110px; animation-delay: -5s; }
 
     @keyframes float {
-      to {
-        transform: translate(35px, -45px);
-      }
+      from { transform: translate(0,0); }
+      to { transform: translate(40px,50px); }
     }
 
+    a { color: inherit; text-decoration: none; }
+
     .container {
-      width: min(1050px, calc(100% - 28px));
+      width: min(1080px, calc(100% - 32px));
       margin-inline: auto;
     }
 
     .glass {
-      border: 1px solid var(--border);
-      background: var(--glass);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 18px 50px rgba(0,0,0,.18);
+      box-shadow: 0 15px 45px rgba(0,0,0,.16);
     }
 
-    .navbar {
-      position: sticky;
-      top: 8px;
-      z-index: 10;
+    header { padding: 18px 0; }
+
+    nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      margin-top: 8px;
-      padding: 12px 17px;
-      border-radius: 18px;
+      padding: 13px 18px;
     }
 
     .logo {
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .logo span {
-      color: var(--purple);
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(90deg,var(--purple),var(--blue));
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
     }
 
     .nav-links {
       display: flex;
+      gap: 18px;
       flex-wrap: wrap;
-      gap: 15px;
+      font-size: 13px;
       color: var(--muted);
-      font-size: 12px;
     }
 
-    .nav-links a:hover {
-      color: white;
-    }
+    .nav-links a:hover { color: white; }
 
     .hero {
-      min-height: 66vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 70px 0 45px;
       text-align: center;
+      padding: 78px 12px 58px;
     }
 
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 23px;
-      padding: 7px 14px;
-      border: 1px solid var(--border);
-      border-radius: 40px;
-      color: #d8d1ef;
+    .eyebrow {
+      display: inline-block;
+      padding: 5px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--blue);
       font-size: 12px;
+      background: rgba(255,255,255,.035);
     }
 
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #9df2c2;
-      box-shadow: 0 0 12px #9df2c2;
-    }
-
-    .hero h1 {
-      font-size: clamp(38px, 8vw, 70px);
+    h1 {
+      font-size: clamp(34px, 8vw, 64px);
       line-height: 1.4;
-      font-weight: 800;
+      margin: 18px 0;
     }
 
-    .gradient-text {
-      background: linear-gradient(90deg, #c3a7ff, #91d1ff, #e0c6ff);
-      -webkit-background-clip: text;
-      background-clip: text;
+    .gradient {
+      background: linear-gradient(90deg,#c9aaff,#91dcff);
       color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
     }
 
     .hero p {
-      max-width: 570px;
-      margin-top: 17px;
+      max-width: 610px;
+      margin: 0 auto 24px;
       color: var(--muted);
-      font-size: 14px;
-      line-height: 2.2;
+      font-size: 15px;
     }
 
     .button {
       display: inline-flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      min-height: 44px;
-      padding: 10px 19px;
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      background: rgba(255,255,255,.05);
+      padding: 11px 19px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.07);
       color: white;
-      cursor: pointer;
+      font: inherit;
       font-size: 13px;
-      transition: transform .25s, background .25s;
+      cursor: pointer;
+      transition: .2s;
     }
 
     .button:hover {
       transform: translateY(-2px);
-      background: rgba(255,255,255,.12);
+      border-color: #b99aff;
     }
 
-    .primary {
-      border-color: transparent;
-      background: linear-gradient(110deg, #7750cf, #496cb7);
+    .button.primary {
+      background: linear-gradient(110deg,#9e77ed,#639edc);
+      border: none;
+      color: #100d1c;
+      font-weight: bold;
     }
 
-    .primary:hover {
-      background: linear-gradient(110deg, #8b65e4, #5d81d0);
-    }
+    section { padding: 24px 0; scroll-margin-top: 20px; }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 11px;
-      margin-top: 25px;
-    }
-
-    .section {
-      padding: 55px 0;
-    }
-
-    .section-heading {
-      margin-bottom: 27px;
+    .section-title {
       text-align: center;
+      margin-bottom: 22px;
     }
 
-    .eyebrow {
-      color: var(--purple);
-      font-size: 11px;
-      letter-spacing: 3px;
+    .section-title h2 {
+      font-size: clamp(23px,5vw,32px);
+      margin: 0 0 6px;
     }
 
-    .section-heading h2 {
-      margin-top: 8px;
-      font-size: clamp(25px, 5vw, 35px);
-    }
-
-    .section-heading p {
-      margin-top: 7px;
+    .section-title p {
       color: var(--muted);
       font-size: 13px;
+      margin: 0;
     }
-
-    /* ساعت و تاریخ */
 
     .clock-card {
       max-width: 650px;
       margin-inline: auto;
       padding: 28px 18px;
-      border-radius: 24px;
       text-align: center;
     }
 
-    .clock-icon {
-      font-size: 28px;
-    }
+    .clock-icon { font-size: 28px; }
 
     .clock-time {
       margin: 8px 0;
-      font-size: clamp(36px, 9vw, 55px);
+      font-size: clamp(36px,9vw,55px);
       font-weight: 700;
       direction: ltr;
       font-variant-numeric: tabular-nums;
-      background: linear-gradient(90deg, #c3a7ff, #91d1ff);
-      -webkit-background-clip: text;
-      background-clip: text;
+      background: linear-gradient(90deg,#c3a7ff,#91d1ff);
       color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
     }
 
-    .clock-date {
-      color: var(--muted);
-      font-size: 14px;
-    }
+    .clock-date { color: var(--muted); font-size: 14px; }
+    .clock-zone { margin-top: 8px; color: #aaa0c7; font-size: 11px; }
 
-    .clock-zone {
-      margin-top: 8px;
-      color: #817b99;
-      font-size: 11px;
-    }
-
-    /* درباره من */
-
-    .about-card {
-      max-width: 780px;
-      margin-inline: auto;
-      padding: 28px;
-      border-radius: 23px;
-      text-align: center;
-    }
-
-    .about-icon {
-      margin-bottom: 10px;
-      font-size: 35px;
-    }
-
-    .about-card h3 {
-      margin-bottom: 10px;
-    }
-
-    .about-card p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 2.2;
-    }
-
-    /* علاقه‌مندی‌ها */
-
-    .skills-grid {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 13px;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 16px;
     }
 
-    .skill-card {
-      padding: 20px 10px;
-      border-radius: 18px;
-      text-align: center;
-      transition: transform .3s;
-    }
+    .card { padding: 23px; }
 
-    .skill-card:hover {
-      transform: translateY(-5px);
-    }
+    .card h3 { margin: 0 0 8px; font-size: 18px; }
+    .card p { color: var(--muted); font-size: 13px; margin: 0; }
 
-    .skill-icon {
-      font-size: 27px;
-    }
-
-    .skill-card h3 {
-      margin-top: 6px;
-      font-size: 13px;
-    }
-
-    .skill-card p {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    /* پروژه‌ها */
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 15px;
-    }
-
-    .project-card {
-      position: relative;
-      overflow: hidden;
-      padding: 21px 17px;
-      border-radius: 22px;
-      transition: transform .3s, border-color .3s;
-    }
-
-    .project-card:hover {
-      transform: translateY(-7px);
-      border-color: rgba(190,165,255,.55);
-    }
-
-    .project-icon {
+    .icon-box {
+      width: 45px;
+      height: 45px;
       display: grid;
       place-items: center;
-      width: 49px;
-      height: 49px;
-      margin-bottom: 15px;
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      background: rgba(255,255,255,.06);
-      font-size: 24px;
+      border-radius: 14px;
+      background: rgba(180,150,255,.12);
+      border: 1px solid var(--line);
+      font-size: 21px;
+      margin-bottom: 12px;
     }
 
-    .project-number {
-      color: var(--purple);
-      font-size: 10px;
-      letter-spacing: 2px;
-    }
-
-    .project-card h3 {
-      margin: 9px 0;
-      font-size: 17px;
-    }
-
-    .project-card p {
-      min-height: 75px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 2;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 14px 0;
-    }
-
-    .tags span {
-      padding: 4px 9px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      color: #d9d2f4;
-      font-size: 10px;
-    }
-
-    .project-link {
-      display: block;
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-      color: #d2c2ff;
-      font-size: 12px;
-    }
-
-    /* ساخت حساب */
-
-    .auth-card {
-      max-width: 460px;
+    .account-card {
+      max-width: 570px;
       margin-inline: auto;
       padding: 25px;
-      border-radius: 24px;
     }
 
-    .auth-card h3 {
-      text-align: center;
-      font-size: 21px;
-    }
+    .account-card h3 { margin-top: 0; }
 
-    .auth-description {
-      margin: 7px 0 20px;
-      color: var(--muted);
-      text-align: center;
+    .field { margin: 14px 0; }
+
+    .field label {
+      display: block;
       font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
     }
 
-    .google-button {
+    input {
       width: 100%;
-      margin-bottom: 18px;
+      padding: 13px;
+      color: white;
+      background: rgba(0,0,0,.22);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font: inherit;
+      font-size: 14px;
+      direction: rtl;
+      outline: none;
     }
 
-    .divider-text {
+    input:focus { border-color: var(--purple); }
+
+    .full { width: 100%; margin-top: 10px; }
+
+    .notice {
+      margin-top: 15px;
+      font-size: 11px;
+      line-height: 1.9;
+      color: var(--muted);
+    }
+
+    .separator {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin: 14px 0;
       color: var(--muted);
-      font-size: 11px;
-    }
-
-    .divider-text::before,
-    .divider-text::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .field {
-      display: block;
-      margin: 12px 0;
-      color: #ded9ed;
       font-size: 12px;
+      margin: 15px 0;
     }
 
-    .field input {
-      display: block;
-      width: 100%;
-      min-height: 45px;
-      margin-top: 7px;
-      padding: 11px 13px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      outline: none;
-      background: rgba(0,0,0,.2);
-      color: white;
-      direction: rtl;
+    .separator::before, .separator::after {
+      content: "";
+      height: 1px;
+      background: var(--line);
+      flex: 1;
     }
 
-    .field input:focus {
-      border-color: var(--purple);
-    }
-
-    .field input::placeholder {
-      color: #77738b;
-    }
-
-    .auth-submit {
-      width: 100%;
-      margin-top: 10px;
-    }
-
-    .small-note {
-      margin-top: 15px;
-      color: #89849d;
-      font-size: 10px;
+    .product {
+      max-width: 380px;
+      margin-inline: auto;
+      padding: 24px;
       text-align: center;
-      line-height: 2;
     }
 
-    /* خرید */
-
-    .shop-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 280px));
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .product-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 25px 20px;
-      border-radius: 23px;
-      text-align: center;
-      transition: transform .3s, border-color .3s;
-    }
-
-    .product-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(184,160,255,.5);
-    }
-
-    .product-badge {
-      padding: 4px 11px;
-      border: 1px solid rgba(184,160,255,.3);
-      border-radius: 30px;
-      background: rgba(184,160,255,.09);
-      color: var(--purple);
-      font-size: 10px;
-    }
-
-    .product-icon {
+    .product-art {
+      width: 100%;
+      aspect-ratio: 1 / 1;
       display: grid;
       place-items: center;
-      width: 115px;
-      height: 115px;
-      margin: 20px 0;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background: linear-gradient(145deg,
-        rgba(184,160,255,.16),
-        rgba(139,197,255,.04));
-      font-size: 48px;
-    }
-
-    .product-card h3 {
-      font-size: 19px;
-    }
-
-    .product-description {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 12px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      margin-bottom: 18px;
+      background:
+        radial-gradient(circle at center,#65469c 0,transparent 45%),
+        rgba(255,255,255,.035);
+      font-size: 68px;
     }
 
     .price {
-      margin: 20px 0;
-      color: #d4c5ff;
-      font-size: 26px;
-      font-weight: 800;
+      font-size: 29px;
+      font-weight: bold;
+      margin: 10px 0;
     }
 
-    .price small {
+    .price small { font-size: 13px; color: var(--muted); }
+
+    .product p { color: var(--muted); font-size: 12px; }
+
+    .status {
+      margin-top: 12px;
       font-size: 12px;
-      font-weight: 400;
+      color: var(--blue);
+      min-height: 24px;
     }
 
-    .purchase-button {
-      width: 100%;
-    }
-
-    .product-note {
-      margin-top: 13px;
-      color: #89849d;
-      font-size: 10px;
-    }
-
-    /* پابرگ */
-
-    .footer {
-      margin-top: 35px;
-      padding: 26px 0;
-      border-top: 1px solid rgba(255,255,255,.08);
-      color: #89849d;
+    footer {
       text-align: center;
-      font-size: 11px;
+      color: var(--muted);
+      padding: 38px 10px;
+      font-size: 12px;
     }
 
-    @media (max-width: 760px) {
-      .navbar {
-        align-items: flex-start;
-      }
-
-      .nav-links {
-        justify-content: flex-end;
-        gap: 7px 11px;
-        font-size: 10px;
-      }
-
-      .projects-grid {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-      }
-
-      .skills-grid {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-      }
-
-      .project-card {
-        padding: 17px 13px;
-      }
-
-      .project-card p {
-        min-height: 95px;
-      }
+    @media(max-width:640px) {
+      nav { align-items: flex-start; flex-direction: column; }
+      .nav-links { gap: 12px; }
+      .hero { padding-top: 52px; }
+      .grid { grid-template-columns: 1fr; }
+      .card, .account-card, .product { padding: 20px; }
     }
 
-    @media (max-width: 420px) {
-      .navbar {
-        padding: 11px;
-      }
-
-      .logo {
-        font-size: 13px;
-      }
-
-      .nav-links {
-        gap: 5px 8px;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .project-card p {
-        min-height: auto;
-      }
-
-      .auth-card {
-        padding: 20px 15px;
-      }
-
-      .section {
-        padding: 40px 0;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
+    @media(prefers-reduced-motion:reduce) {
       *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
+        animation-duration: .01ms !important;
         scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
       }
     }
   </style>
 </head>
-
 <body>
-  <div class="background-glow" aria-hidden="true">
-    <div class="orb orb-one"></div>
-    <div class="orb orb-two"></div>
-    <div class="orb orb-three"></div>
-  </div>
+  <div class="glow one"></div>
+  <div class="glow two"></div>
 
   <header class="container">
-    <nav class="navbar glass" aria-label="منوی اصلی">
-      <a class="logo" href="#home">دنیای<span> من.</span></a>
+    <nav class="glass">
+      <a class="logo" href="#home">✦ دنیای من</a>
       <div class="nav-links">
         <a href="#home">خانه</a>
         <a href="#about">درباره من</a>
         <a href="#clock">ساعت</a>
-        <a href="#projects">پروژه‌ها</a>
-        <a href="#account">حساب کاربری</a>
+        <a href="#account">ساخت حساب</a>
         <a href="#shop">خرید</a>
       </div>
     </nav>
   </header>
 
-  <main>
-    <section class="hero container" id="home">
-      <div class="status">
-        <span class="status-dot"></span>
-        به دنیای شیشه‌ای من خوش اومدی
-      </div>
-
-      <h1>
-        ایده‌های من،
-        <br>
-        <span class="gradient-text">دنیای من.</span>
-      </h1>
-
+  <main class="container">
+    <section class="hero" id="home">
+      <span class="eyebrow">✧ خوش اومدی به دنیای من ✧</span>
+      <h1>یک دنیای <span class="gradient">متفاوت</span><br>برای ایده‌های تو</h1>
       <p>
-        اینجا جایی برای ایده‌های تازه، طراحی‌های خلاقانه
-        و پروژه‌هایی است که قدم‌به‌قدم می‌سازم.
+        اینجا فضای شخصی من است؛ ساده، مدرن و شیشه‌ای،
+        با نورهای ملایم و بخش‌هایی برای معرفی، حساب کاربری و محصولات.
       </p>
+      <a class="button primary" href="#about">بیا شروع کنیم ←</a>
+    </section>
 
-      <div class="hero-actions">
-        <a class="button primary" href="#projects">دیدن پروژه‌ها ↗</a>
-        <a class="button" href="#account">ساخت حساب</a>
+    <section id="about">
+      <div class="section-title">
+        <h2>درباره این سایت</h2>
+        <p>یک فضای کوچک با حال‌وهوای لوکس و مدرن</p>
+      </div>
+      <div class="grid">
+        <article class="glass card">
+          <div class="icon-box">🌙</div>
+          <h3>طراحی آرام</h3>
+          <p>پس‌زمینه تیره، نورهای ملایم و کارت‌های شیشه‌ای برای تجربه‌ای زیبا.</p>
+        </article>
+        <article class="glass card">
+          <div class="icon-box">✨</div>
+          <h3>همیشه در حال رشد</h3>
+          <p>بعداً می‌توانیم امکانات واقعی حساب کاربری و محصولات را به سایت اضافه کنیم.</p>
+        </article>
       </div>
     </section>
 
-    <section class="section container" id="clock">
-      <div class="section-heading">
-        <span class="eyebrow">LIVE CLOCK</span>
-        <h2>زمان در دنیای من</h2>
-        <p>ساعت و تاریخ دستگاهت به‌صورت زنده نمایش داده می‌شود.</p>
+    <section id="clock">
+      <div class="section-title">
+        <h2>ساعت و تاریخ</h2>
+        <p>زمان زنده دستگاه شما</p>
       </div>
-
-      <div class="clock-card glass">
-        <div class="clock-icon">🕰️</div>
+      <div class="glass clock-card">
+        <div class="clock-icon">🕒</div>
         <div class="clock-time" id="clockTime">--:--:--</div>
-        <div class="clock-date" id="clockDate">در حال بارگذاری تاریخ...</div>
-        <div class="clock-zone">بر اساس زمان محلی دستگاهت</div>
+        <div class="clock-date" id="clockDate">در حال آماده‌سازی تاریخ…</div>
+        <div class="clock-zone" id="clockZone">زمان محلی دستگاه</div>
       </div>
     </section>
 
-    <section class="section container" id="about">
-      <div class="section-heading">
-        <span class="eyebrow">ABOUT ME</span>
-        <h2>درباره من</h2>
+    <section id="account">
+      <div class="section-title">
+        <h2>حساب کاربری</h2>
+        <p>در آینده با گوگل یا ایمیل وارد شو</p>
       </div>
+      <div class="glass account-card">
+        <h3>ساخت حساب یا ورود</h3>
+        <p>روش موردنظرت را انتخاب کن.</p>
 
-      <div class="about-card glass">
-        <div class="about-icon">✧</div>
-        <h3>سلام، به فضای شخصی من خوش اومدی!</h3>
-        <p>
-          به تکنولوژی، طراحی و ایده‌های خلاقانه علاقه دارم.
-          این سایت رو ساخته‌ام تا پروژه‌ها و چیزهایی رو که یاد می‌گیرم
-          در یک فضای زیبا کنار هم قرار بدم.
-        </p>
-      </div>
-    </section>
-
-    <section class="section container" id="skills">
-      <div class="section-heading">
-        <span class="eyebrow">INTERESTS</span>
-        <h2>علاقه‌مندی‌ها</h2>
-      </div>
-
-      <div class="skills-grid">
-        <article class="skill-card glass">
-          <div class="skill-icon">💻</div>
-          <h3>برنامه‌نویسی</h3>
-          <p>ساخت ایده‌های دیجیتال</p>
-        </article>
-        <article class="skill-card glass">
-          <div class="skill-icon">🎨</div>
-          <h3>طراحی</h3>
-          <p>خلاقیت و زیبایی</p>
-        </article>
-        <article class="skill-card glass">
-          <div class="skill-icon">🚀</div>
-          <h3>تکنولوژی</h3>
-          <p>کشف چیزهای تازه</p>
-        </article>
-        <article class="skill-card glass">
-          <div class="skill-icon">💡</div>
-          <h3>ایده‌پردازی</h3>
-          <p>فکر کردن متفاوت</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section container" id="projects">
-      <div class="section-heading">
-        <span class="eyebrow">MY WORK</span>
-        <h2>پروژه‌های من <span class="gradient-text">✦</span></h2>
-        <p>ایده‌ها به‌مرور به پروژه‌های واقعی تبدیل می‌شوند.</p>
-      </div>
-
-      <div class="projects-grid">
-        <article class="project-card glass">
-          <div class="project-icon">🌐</div>
-          <span class="project-number">PROJECT 01</span>
-          <h3>وب‌سایت شخصی</h3>
-          <p>سایت شخصی من با طراحی شیشه‌ای، نورهای متحرک و ظاهر مدرن.</p>
-          <div class="tags"><span>HTML</span><span>CSS</span></div>
-          <a class="project-link" href="#home">صفحه اصلی ↗</a>
-        </article>
-
-        <article class="project-card glass">
-          <div class="project-icon">💡</div>
-          <span class="project-number">PROJECT 02</span>
-          <h3>ایده خلاقانه</h3>
-          <p>فضایی برای یک پروژه تازه که بعداً می‌سازم.</p>
-          <div class="tags"><span>Design</span><span>Creative</span></div>
-          <a class="project-link" href="#projects">به‌زودی ↗</a>
-        </article>
-
-        <article class="project-card glass">
-          <div class="project-icon">🚀</div>
-          <span class="project-number">PROJECT 03</span>
-          <h3>پروژه بعدی</h3>
-          <p>یک ایده تازه که می‌تواند به تجربه جدیدی تبدیل شود.</p>
-          <div class="tags"><span>Coming Soon</span></div>
-          <a class="project-link" href="#projects">به‌زودی ↗</a>
-        </article>
-      </div>
-    </section>
-
-    <section class="section container" id="account">
-      <div class="section-heading">
-        <span class="eyebrow">YOUR ACCOUNT</span>
-        <h2>ساخت حساب کاربری</h2>
-        <p>این فرم فعلاً نمایشی است و حساب واقعی نمی‌سازد.</p>
-      </div>
-
-      <div class="auth-card glass">
-        <h3>به دنیای من بپیوند</h3>
-        <p class="auth-description">
-          برای نسخه واقعی، ورود امن باید راه‌اندازی شود.
-        </p>
-
-        <button class="button google-button" id="googleButton" type="button">
-          <span>🌐</span> ادامه با گوگل
+        <button class="button full" id="googleButton" type="button">
+          🌐 ادامه با گوگل
         </button>
 
-        <div class="divider-text">یا با ایمیل</div>
+        <div class="separator">یا با ایمیل</div>
 
-        <form id="signupForm">
-          <label class="field">
-            نام نمایشی
-            <input
-              type="text"
-              name="displayName"
-              placeholder="یک نام دلخواه"
-              autocomplete="nickname"
-              maxlength="40"
-              required
-            >
-          </label>
-
-          <label class="field">
-            آدرس ایمیل
-            <input
-              type="email"
-              name="email"
-              placeholder="you@example.com"
-              autocomplete="email"
-              required
-            >
-          </label>
-
-          <label class="field">
-            رمز عبور دلخواه
-            <input
-              type="password"
-              name="password"
-              placeholder="حداقل ۸ نویسه"
-              minlength="8"
-              autocomplete="new-password"
-              required
-            >
-          </label>
-
-          <button class="button primary auth-submit" type="submit">
-            ساخت حساب آزمایشی
-          </button>
+        <form id="emailForm">
+          <div class="field">
+            <label for="email">آدرس ایمیل</label>
+            <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="password">رمز عبور</label>
+            <input id="password" type="password" placeholder="حداقل ۶ نویسه" minlength="6" autocomplete="new-password" required>
+          </div>
+          <button class="button primary full" type="submit">ساخت حساب / ورود</button>
         </form>
 
-        <p class="small-note">
-          این نسخه هیچ حسابی نمی‌سازد و اطلاعات فرم را ذخیره یا ارسال نمی‌کند.
-          رمز واقعی حساب‌های دیگرت را وارد نکن.
+        <div class="status" id="accountStatus" role="status" aria-live="polite"></div>
+        <p class="notice">
+          نسخه آزمایشی: هنوز حسابی ساخته نمی‌شود و اطلاعات به جایی ارسال نمی‌شود.
+          برای فعال‌شدن ورود واقعی، ابتدا باید سرویس احراز هویت راه‌اندازی شود.
         </p>
       </div>
     </section>
 
-    <section class="section container" id="shop">
-      <div class="section-heading">
-        <span class="eyebrow">MINI SHOP</span>
-        <h2>فروشگاه شیشه‌ای</h2>
-        <p>نمونه اولیه کارت خرید</p>
+    <section id="shop">
+      <div class="section-title">
+        <h2>فروشگاه</h2>
+        <p>محصول پیشنهادی</p>
       </div>
+      <div class="glass product">
+        <div class="product-art">✦</div>
+        <h3>محصول ویژه</h3>
+        <div class="price">۹۹٬۰۰۰ <small>تومان</small></div>
+        <p>برای دریافت محصول، ابتدا باید پرداخت امن راه‌اندازی شود.</p>
+        <button class="button primary full" id="buyButton" type="button">خرید و دریافت</button>
+        <div class="status" id="buyStatus" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
 
-      <div class="shop-grid">
-        <article class="product-card glass">
-          <span class="product-badge">محصول نمونه</span>
-          <div class="product-icon">💎</div>
-          <h3>بسته ویژه</h3>
-      
+  <footer>
+    ساخته‌شده با ✦ برای دنیای من
+  </footer>
+
+  <script>
+    (() => {
+      const timeEl = document.getElementById("clockTime");
+      const dateEl = document.getElementById("clockDate");
+      const zoneEl = document.getElementById("clockZone");
+
+      function updateClock() {
+        const now = new Date();
+
+        try {
+          timeEl.textContent = new Intl.DateTimeFormat("fa-IR", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false
+          }).format(now);
+
+          dateEl.textContent = new Intl.DateTimeFormat("fa-IR", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            calendar: "persian"
+          }).format(now);
+
+          zoneEl.textContent =
+            "زمان محلی دستگاه · " +
+            (Intl.DateTimeFormat().resolvedOptions().timeZone || "Local");
+        } catch (error) {
+          timeEl.textContent = now.toLocaleTimeString();
+          dateEl.textContent = now.toLocaleDateString();
+          zoneEl.textContent = "زمان محلی دستگاه";
+        }
+      }
+
+      updateClock();
+      window.setInterval(updateClock, 1000);
+
+      const accountStatus = document.getElementById("accountStatus");
+
+      document.getElementById("googleButton").addEventListener("click", () => {
+        accountStatus.textContent =
+          "ورود با گوگل هنوز فعال نشده؛ در مرحله بعد Firebase را وصل می‌کنیم.";
+      });
+
+      document.getElementById("emailForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        accountStatus.textContent =
+          "این فرم فعلاً آزمایشی است. برای ساخت حساب واقعی باید احراز هویت فعال شود.";
+      });
+
+      document.getElementById("buyButton").addEventListener("click", () => {
+        document.getElementById("buyStatus").textContent =
+          "پرداخت هنوز فعال نیست؛ این دکمه فعلاً آزمایشی است.";
+      });
+    })();
+  </script>
+</body>
+</html>
