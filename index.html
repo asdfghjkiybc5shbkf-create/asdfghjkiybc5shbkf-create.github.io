@@ -1,4 +1,5 @@
-<!DOCTYPE html>  
+```html
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">  
 <head>  
 <meta charset="UTF-8">  
@@ -56,6 +57,7 @@ body::before,body::after{
 body::before{background:var(--blob1);top:10%;left:-90px}  
 body::after{background:var(--blob2);bottom:0;right:-100px;animation-delay:-5s}  
 @keyframes float{to{transform:translate(45px,35px) scale(1.18)}}  
+@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}  
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}  
 @keyframes spin{to{transform:rotate(360deg)}}  
 @keyframes popIn{from{opacity:0;transform:scale(.92) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}  
@@ -120,7 +122,7 @@ input:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(
 .button:disabled{opacity:.6;cursor:wait}  
 .button.secondary{background:var(--panel2);color:var(--text)}  
 .button.full{width:100%;margin-top:10px}  
-.status{font-size:13px;min-height:28px;overflow-wrap:anywhere;color:var(--blue)}  
+.status{font-size:13px;min-height:28px;margin-top:10px;overflow-wrap:anywhere;color:var(--blue)}  
 [hidden]{display:none!important}  
   
 .tag{  
@@ -245,7 +247,7 @@ footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size
     <p>فضایی مدرن، تاریک/روشن و شیشه‌ای برای تو.</p>  
     <span class="tag">Dark · Light · Glass</span>  
   </section>    
-
+  
   <section id="shop" class="card glass product">  
     <div class="product-icon">✧</div>  
     <span class="tag">محصول ویژه</span>  
@@ -255,12 +257,12 @@ footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size
     <button id="buyButton" class="button" type="button">خرید محصول</button>  
     <div id="buyStatus" class="status" role="status">پرداخت هنوز راه‌اندازی نشده است.</div>  
   </section>    
-
+  
   <section class="card glass">  
     <h2>دربارهٔ سایت</h2>  
     <p>یک وب‌سایت شخصی با طراحی واکنش‌گرا، افکت شیشه‌ای و احراز هویت Firebase. حساب کاربری از منوی سه‌نقطه بالا در دسترس است.</p>  
   </section>    
-
+  
   <section id="support" class="card glass support-card">  
     <div style="font-size:32px">💬</div>  
     <h2>پشتیبانی و ارتباط با ما</h2>  
@@ -287,12 +289,12 @@ footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size
       <h2>حساب کاربری</h2>  
       <p>با گوگل وارد شو یا با ایمیل حساب بساز.</p>  
       <button id="googleButton" class="button secondary full" type="button">🌐 ورود با گوگل</button>  
-      <form id="emailForm">  
+      <form id="emailForm" onsubmit="return false;">  
         <label for="email">ایمیل</label>  
         <input id="email" type="email" autocomplete="email" placeholder="name@example.com" required>  
         <label for="password">رمز عبور</label>  
         <input id="password" type="password" minlength="6" autocomplete="current-password" placeholder="حداقل ۶ نویسه" required>  
-        <button id="signupButton" class="button full" type="submit">ساخت حساب</button>  
+        <button id="signupButton" class="button full" type="button">ساخت حساب</button>  
         <button id="loginButton" class="button secondary full" type="button">ورود به حساب</button>  
         <button id="resetButton" class="button secondary full" type="button">فراموشی رمز عبور</button>  
       </form>  
@@ -331,82 +333,11 @@ footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size
       </div>  
       <div id="dashStatus" class="status" role="status" aria-live="polite"></div>  
     </div>  
+
   </div>  
 </div>  
 
-<script>  
-/* ===== تم تاریک/روشن (مستقل و بدون خطا) ===== */  
-const root = document.documentElement;  
-function applyTheme(t){  
-  root.setAttribute("data-theme", t);  
-  const btn = document.getElementById("themeToggle");  
-  if(btn) btn.textContent = t === "light" ? "☀️" : "🌙";  
-  try{ localStorage.setItem("myspace-theme", t); }catch(e){}  
-}  
-let savedTheme = "dark";  
-try{ savedTheme = localStorage.getItem("myspace-theme") || "dark"; }catch(e){}  
-applyTheme(savedTheme);  
-
-const themeToggleBtn = document.getElementById("themeToggle");  
-if(themeToggleBtn){  
-  themeToggleBtn.addEventListener("click", () => {  
-    applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");  
-  });  
-}  
-
-/* ===== Dynamic Island: ساعت و تاریخ زنده ===== */  
-const islandModes = ["time","date"];  
-let islandIndex = 0;  
-function renderIsland(){  
-  const mode = islandModes[islandIndex];  
-  const icon = document.getElementById("islandIcon");  
-  const main = document.getElementById("islandMain");  
-  const sub = document.getElementById("islandSub");  
-  if(!icon || !main || !sub) return;  
-  
-  if (mode === "time"){  
-    icon.textContent = "🕰️";  
-    main.removeAttribute("dir");  
-    main.textContent = new Intl.DateTimeFormat("fa-IR",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(new Date());  
-    sub.textContent = "ساعت محلی دستگاه";  
-  } else {  
-    icon.textContent = "📅";  
-    main.setAttribute("dir","rtl");  
-    main.textContent = new Intl.DateTimeFormat("fa-IR",{weekday:"long",day:"numeric",month:"long",calendar:"persian"}).format(new Date());  
-    sub.textContent = "تاریخ امروز";  
-  }  
-  for(let i=0; i<2; i++){  
-    const dot = document.getElementById("dot"+i);  
-    if(dot) dot.classList.toggle("active", i === islandIndex);  
-  }  
-}  
-renderIsland();  
-setInterval(renderIsland, 1000);  
-
-const islandEl = document.getElementById("island");  
-if(islandEl){  
-  const cycleIsland = () => { islandIndex = (islandIndex + 1) % islandModes.length; renderIsland(); };  
-  islandEl.addEventListener("click", cycleIsland);  
-  islandEl.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); cycleIsland(); } });  
-}  
-
-/* ===== باز/بسته‌کردن داشبورد (سه‌نقطه) ===== */  
-const dashboardOverlay = document.getElementById("dashboardOverlay");  
-const menuButton = document.getElementById("menuButton");  
-const closeDashboardBtn = document.getElementById("closeDashboard");  
-const overlayBackdrop = document.getElementById("overlayBackdrop");  
-
-function openDashboard(){ if(dashboardOverlay) dashboardOverlay.hidden = false; }  
-function closeDashboard(){ if(dashboardOverlay) dashboardOverlay.hidden = true; }  
-
-if(menuButton) menuButton.addEventListener("click", openDashboard);  
-if(closeDashboardBtn) closeDashboardBtn.addEventListener("click", closeDashboard);  
-if(overlayBackdrop) overlayBackdrop.addEventListener("click", closeDashboard);  
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeDashboard(); });  
-</script>  
-
 <script type="module">  
-/* ===== بخش احراز هویت فایربیس (ایزوله شده) ===== */  
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";  
 import {  
   getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult,  
@@ -423,26 +354,93 @@ const firebaseConfig = {
   appId: "1:655059266329:web:9f3c81205c0f1de3c23388",  
   measurementId: "G-EKREB5DRC1"  
 };  
+  
+const app = initializeApp(firebaseConfig);  
+const auth = getAuth(app);  
+const googleProvider = new GoogleAuthProvider();  
+const $ = id => document.getElementById(id);  
+const emailInput = $("email");  
+const passwordInput = $("password");  
+const status = $("accountStatus");  
+let busy = false;  
+  
+function message(t){ status.textContent = t; }  
+function dashMessage(t){ $("dashStatus").textContent = t; }  
+function errorMessage(error){  
+  const m = {  
+    "auth/email-already-in-use":"این ایمیل قبلاً ثبت شده است.",  
+    "auth/invalid-email":"فرمت ایمیل صحیح نیست.",  
+    "auth/weak-password":"رمز عبور باید حداقل ۶ نویسه باشد.",  
+    "auth/invalid-credential":"ایمیل یا رمز عبور اشتباه است.",  
+    "auth/user-not-found":"حسابی با این مشخصات پیدا نشد.",  
+    "auth/wrong-password":"رمز عبور اشتباه است.",  
+    "auth/unauthorized-domain":"دامنه سایت در Firebase مجاز نیست.",  
+    "auth/operation-not-allowed":"این روش ورود در Firebase فعال نیست.",  
+    "auth/network-request-failed":"اتصال اینترنت را بررسی کن.",  
+    "auth/too-many-requests":"تلاش‌های زیادی انجام شده؛ بعداً دوباره امتحان کن."  
+  };  
+  return m[error.code] || "خطا: " + (error.message || error.code);  
+}  
+function setBusy(v){  
+  busy = v;  
+  ["googleButton","signupButton","loginButton","resetButton"].forEach(id => {
+    const el = $(id);
+    if(el) el.disabled = v;
+  });  
+}  
+function formatDateTime(iso){  
+  if (!iso) return "—";  
+  return new Intl.DateTimeFormat("fa-IR",{year:"numeric",month:"long",day:"numeric",hour:"2-digit",minute:"2-digit",calendar:"persian"}).format(new Date(iso));  
+}  
+  
+/* ===== تم تاریک/روشن ===== */  
+const root = document.documentElement;  
+function applyTheme(t){  
+  root.setAttribute("data-theme", t);  
+  $("themeToggle").textContent = t === "light" ? "☀️" : "🌙";  
+  try{ localStorage.setItem("myspace-theme", t); }catch{}  
+}  
+let savedTheme = "dark";  
+try{ savedTheme = localStorage.getItem("myspace-theme") || "dark"; }catch{}  
+applyTheme(savedTheme);  
+$("themeToggle").addEventListener("click", () => {  
+  applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");  
+});  
+  
+/* ===== Dynamic Island: فقط ساعت و تاریخ، با ضربه تغییر می‌کند ===== */  
+const islandModes = ["time","date"];  
+let islandIndex = 0;  
+function renderIsland(){  
+  const mode = islandModes[islandIndex];  
+  const icon = $("islandIcon"), main = $("islandMain"), sub = $("islandSub");  
+  if (mode === "time"){  
+    icon.textContent = "🕰️";  
+    main.removeAttribute("dir");  
+    main.textContent = new Intl.DateTimeFormat("fa-IR",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(new Date());  
+    sub.textContent = "ساعت محلی دستگاه";  
+  } else {  
+    icon.textContent = "📅";  
+    main.setAttribute("dir","rtl");  
+    main.textContent = new Intl.DateTimeFormat("fa-IR",{weekday:"long",day:"numeric",month:"long",calendar:"persian"}).format(new Date());  
+    sub.textContent = "تاریخ امروز";  
+  }  
+  [0,1].forEach(i => $("dot"+i).classList.toggle("active", i === islandIndex));  
+}  
+renderIsland();  
+setInterval(renderIsland, 1000);  
+function cycleIsland(){ islandIndex = (islandIndex + 1) % islandModes.length; renderIsland(); }  
+$("island").addEventListener("click", cycleIsland);  
+$("island").addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); cycleIsland(); } });  
+  
+/* ===== باز/بسته‌کردن داشبورد با دکمهٔ سه‌نقطه ===== */  
+function openDashboard(){ $("dashboardOverlay").hidden = false; }  
+function closeDashboard(){ $("dashboardOverlay").hidden = true; }  
+$("menuButton").addEventListener("click", openDashboard);  
+$("closeDashboard").addEventListener("click", closeDashboard);  
+$("overlayBackdrop").addEventListener("click", closeDashboard);  
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeDashboard(); });  
 
+/* ===== منطق Firebase و لاگین ===== */
 try {  
-  const app = initializeApp(firebaseConfig);  
-  const auth = getAuth(app);  
-  const googleProvider = new GoogleAuthProvider();  
-  const $ = id => document.getElementById(id);  
-  const emailInput = $("email");  
-  const passwordInput = $("password");  
-  const status = $("accountStatus");  
-  let busy = false;  
-    
-  function message(t){ if(status) status.textContent = t; }  
-  function errorMessage(error){  
-    const m = {  
-      "auth/email-already-in-use":"این ایمیل قبلاً ثبت شده است.",  
-      "auth/invalid-email":"فرمت ایمیل صحیح نیست.",  
-      "auth/weak-password":"رمز عبور باید حداقل ۶ نویسه باشد.",  
-      "auth/invalid-credential":"ایمیل یا رمز عبور اشتباه است.",  
-      "auth/user-not-found":"حسابی با این مشخصات پیدا نشد.",  
-      "auth/wrong-password":"رمز عبور اشتباه است.",  
-      "auth/unauthorized-domain":"دامنه سایت در Firebase مجاز نیست.",  
-      "auth/operation-not-allowed":"این روش ورود در Firebase فعال نیست.",  
-      "auth/network-request-failed":"اتصال اینترنت
+  const result = await getRedirectResult(auth);  
+  if (re
