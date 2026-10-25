@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080a12">
 <title>فضای شخصی علی</title>
 
@@ -16,9 +15,13 @@
   --muted:#aaa8c0;
   --purple:#b8a1ff;
   --blue:#8bd8ff;
+  --footer-color:#4fb3a6;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
 body{
   margin:0;min-height:100vh;
   background:
@@ -73,16 +76,6 @@ p{color:var(--muted)}
 }
 .card{padding:25px;min-width:0}
 .card h2{font-size:21px;margin:0 0 10px}
-.clock-card{text-align:center;margin-bottom:20px}
-.clock-icon{font-size:30px}
-.clock-time{
-  font-size:clamp(34px,8vw,54px);font-weight:800;
-  direction:ltr;font-variant-numeric:tabular-nums;
-  background:linear-gradient(90deg,var(--purple),var(--blue));
-  color:transparent;background-clip:text;-webkit-background-clip:text
-}
-.clock-date{font-size:14px;color:var(--muted)}
-.clock-zone{font-size:11px;color:#817b99;margin-top:7px}
 
 label{display:block;font-size:13px;color:#d9d5eb;margin:12px 0 5px}
 input,textarea{
@@ -139,9 +132,35 @@ textarea{resize:vertical;min-height:110px}
 
 .support-card{margin-top:25px;text-align:center}
 .support-links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
-.support-email{direction:ltr;display:inline-block;margin-top:16px}
-footer{text-align:center;padding:25px 0 35px;color:#77748d;font-size:12px}
-.footer-name{color:var(--purple);font-weight:bold}
+
+footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size:12px}
+.footer-name{color:var(--footer-color);font-weight:bold}
+
+/* ===== Dynamic Island ===== */
+.island-wrap{
+  position:sticky;top:calc(env(safe-area-inset-top,0px) + 10px);
+  z-index:20;display:flex;justify-content:center;margin:10px 0 18px;
+}
+.island{
+  background:#000;border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;padding:12px 26px;
+  min-width:210px;max-width:92vw;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;
+  box-shadow:0 10px 30px #0008, inset 0 0 0 1px rgba(255,255,255,.03);
+  transition:transform .15s ease;
+}
+.island:active{transform:scale(.96)}
+.island-icon{font-size:18px;line-height:1}
+.island-main{
+  font-size:15px;font-weight:700;white-space:nowrap;
+  direction:ltr;font-variant-numeric:tabular-nums;
+}
+.island-main[dir="rtl"]{direction:rtl}
+.island-sub{font-size:11px;color:var(--muted);white-space:nowrap}
+.island-dots{display:flex;gap:4px;margin-inline-start:4px}
+.island-dots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25)}
+.island-dots span.active{background:var(--blue)}
 
 @media(max-width:700px){
   .grid{grid-template-columns:1fr}
@@ -158,12 +177,26 @@ footer{text-align:center;padding:25px 0 35px;color:#77748d;font-size:12px}
 <header class="wrap">
   <div class="brand">MY<span>SPACE</span> ✦</div>
   <nav>
-    <a href="#clock">ساعت</a>
     <a href="#account">حساب کاربری</a>
     <a href="#shop">خرید</a>
     <a href="#support">پشتیبانی</a>
   </nav>
 </header>
+
+<div class="wrap">
+  <div class="island-wrap">
+    <div id="island" class="island" role="button" tabindex="0" aria-label="تغییر نمایش">
+      <span id="islandIcon" class="island-icon">⛅</span>
+      <div>
+        <div id="islandMain" class="island-main">در حال بارگذاری…</div>
+        <div id="islandSub" class="island-sub"></div>
+      </div>
+      <div class="island-dots">
+        <span id="dot0"></span><span id="dot1"></span><span id="dot2"></span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <main class="wrap">
   <section class="hero glass">
@@ -171,14 +204,6 @@ footer{text-align:center;padding:25px 0 35px;color:#77748d;font-size:12px}
     <h1>به فضای <span class="gradient">شخصی من</span> خوش آمدی</h1>
     <p>فضایی مدرن، تاریک و شیشه‌ای برای تو.</p>
     <span class="tag">Dark · Glass · Minimal</span>
-  </section>
-
-  <section id="clock" class="card glass clock-card">
-    <div class="clock-icon">🕰️</div>
-    <h2>ساعت و تاریخ</h2>
-    <div id="clockTime" class="clock-time">--:--:--</div>
-    <div id="clockDate" class="clock-date">در حال بارگذاری…</div>
-    <div id="clockZone" class="clock-zone">زمان محلی دستگاه</div>
   </section>
 
   <div class="grid">
@@ -260,7 +285,6 @@ footer{text-align:center;padding:25px 0 35px;color:#77748d;font-size:12px}
     <p>یک وب‌سایت شخصی با طراحی واکنش‌گرا، افکت شیشه‌ای و احراز هویت Firebase.</p>
   </section>
 
-  <!-- پشتیبانی، پیشنهادها و گزارش باگ‌ها -->
   <section id="support" class="card glass support-card">
     <div style="font-size:32px">💬</div>
     <h2>پشتیبانی و ارتباط با ما</h2>
@@ -276,10 +300,6 @@ footer{text-align:center;padding:25px 0 35px;color:#77748d;font-size:12px}
         💡 پیشنهاد / گزارش باگ‌ها
       </a>
     </div>
-
-    <a class="support-email" href="mailto:yeganehali019@gmail.com">
-      yeganehali019@gmail.com
-    </a>
   </section>
 </main>
 
@@ -350,24 +370,51 @@ function setBusy(value) {
     .forEach(id => $(id).disabled = value);
 }
 
-/* ساعت و تاریخ */
-function updateClock() {
-  const now = new Date();
+/* ===== Dynamic Island: weather / time / date, cycling on tap ===== */
+const islandModes = ["weather","time","date"];
+let islandIndex = 0;
 
-  $("clockTime").textContent = new Intl.DateTimeFormat("fa-IR", {
-    hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false
-  }).format(now);
+/* دادهٔ آب‌وهوا نمایشی است (دمو) چون این صفحه به API بیرونی وصل نمی‌شود */
+const demoWeather = { icon:"⛅", temp:"۲۲°", desc:"نیمه‌ابری" };
 
-  $("clockDate").textContent = new Intl.DateTimeFormat("fa-IR", {
-    weekday:"long", year:"numeric", month:"long", day:"numeric",
-    calendar:"persian"
-  }).format(now);
+function renderIsland() {
+  const mode = islandModes[islandIndex];
+  const icon = $("islandIcon"), main = $("islandMain"), sub = $("islandSub");
 
-  $("clockZone").textContent = "زمان محلی دستگاه · " +
-    (Intl.DateTimeFormat().resolvedOptions().timeZone || "Local");
+  if (mode === "weather") {
+    icon.textContent = demoWeather.icon;
+    main.setAttribute("dir","rtl");
+    main.textContent = demoWeather.temp + " · " + demoWeather.desc;
+    sub.textContent = "آب و هوا (نمایشی)";
+  } else if (mode === "time") {
+    icon.textContent = "🕰️";
+    main.removeAttribute("dir");
+    main.textContent = new Intl.DateTimeFormat("fa-IR", {
+      hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false
+    }).format(new Date());
+    sub.textContent = "ساعت محلی دستگاه";
+  } else {
+    icon.textContent = "📅";
+    main.setAttribute("dir","rtl");
+    main.textContent = new Intl.DateTimeFormat("fa-IR", {
+      weekday:"long", day:"numeric", month:"long", calendar:"persian"
+    }).format(new Date());
+    sub.textContent = "تاریخ امروز";
+  }
+
+  [0,1,2].forEach(i => $("dot"+i).classList.toggle("active", i === islandIndex));
 }
-updateClock();
-setInterval(updateClock, 1000);
+renderIsland();
+setInterval(renderIsland, 1000);
+
+function cycleIsland() {
+  islandIndex = (islandIndex + 1) % islandModes.length;
+  renderIsland();
+}
+$("island").addEventListener("click", cycleIsland);
+$("island").addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); cycleIsland(); }
+});
 
 /* بررسی نتیجه ورود گوگل */
 try {
