@@ -1,352 +1,21 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#080a12">
-<title>فضای شخصی علی</title>
-
-<style>
-:root{
-  --bg:#080a12;
-  --panel:rgba(255,255,255,.055);
-  --panel2:rgba(255,255,255,.08);
-  --line:rgba(255,255,255,.12);
-  --text:#f4f2ff;
-  --muted:#aaa8c0;
-  --purple:#b8a1ff;
-  --blue:#8bd8ff;
-  --footer-color:#4fb3a6;
-  --blob1:#7560ff;--blob2:#39b8ff;--blob-op:.17;
-  color-scheme:dark;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
-}
-html[data-theme="light"]{
-  --bg:#eef0f7;
-  --panel:rgba(255,255,255,.55);
-  --panel2:rgba(255,255,255,.72);
-  --line:rgba(20,20,40,.12);
-  --text:#1c1c2b;
-  --muted:#5c5a78;
-  --purple:#6a4bf0;
-  --blue:#0f86c9;
-  --footer-color:#1f6f63;
-  --blob1:#a79bff;--blob2:#8fd6ff;--blob-op:.3;
-  color-scheme:light;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
-body{
-  margin:0;min-height:100vh;transition:background-color .3s ease,color .3s ease;
-  background:
-    radial-gradient(ellipse at 15% 10%,color-mix(in srgb,var(--blob1) 55%,transparent) 0,transparent 42%),
-    radial-gradient(ellipse at 85% 35%,color-mix(in srgb,var(--blob2) 45%,transparent) 0,transparent 38%),
-    var(--bg);
-  color:var(--text);
-  font-family:Tahoma,Arial,sans-serif;
-  line-height:1.8;
-}
-body::before,body::after{
-  content:"";position:fixed;width:260px;height:260px;
-  border-radius:50%;filter:blur(80px);opacity:var(--blob-op);
-  pointer-events:none;z-index:-1;
-  animation:float 12s ease-in-out infinite alternate;
-}
-body::before{background:var(--blob1);top:10%;left:-90px}
-body::after{background:var(--blob2);bottom:0;right:-100px;animation-delay:-5s}
-@keyframes float{to{transform:translate(45px,35px) scale(1.18)}}
-@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes popIn{from{opacity:0;transform:scale(.92) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
-
-.wrap{width:min(1050px,92%);margin:auto}
-header{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:16px;padding:22px 0;flex-wrap:wrap
-}
-.brand{font-weight:800;font-size:20px}
-.brand span{color:var(--purple)}
-nav{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-a{color:var(--muted);text-decoration:none}
-a:hover{color:var(--text)}
-
-.icon-button{
-  width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
-  background:var(--panel);color:var(--text);font-size:17px;cursor:pointer;
-  display:grid;place-items:center;transition:transform .15s ease,background .2s ease
-}
-.icon-button:hover{transform:translateY(-2px);background:var(--panel2)}
-.icon-button:active{transform:translateY(0) scale(.95)}
-
-.glass{
-  background:var(--panel);
-  border:1px solid var(--line);
-  box-shadow:0 18px 55px #0003;
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-  border-radius:24px
-}
-.hero{padding:48px 24px;text-align:center;margin:14px 0 24px}
-.eyebrow{color:var(--blue);font-size:13px;letter-spacing:1px}
-h1{font-size:clamp(30px,6vw,52px);line-height:1.4;margin:12px 0}
-.gradient{
-  background:linear-gradient(90deg,var(--purple),var(--blue));
-  color:transparent;background-clip:text;-webkit-background-clip:text
-}
-p{color:var(--muted)}
-.card{padding:25px;min-width:0}
-.card h2{font-size:21px;margin:0 0 10px}
-
-label{display:block;font-size:13px;color:var(--muted);margin:12px 0 5px}
-input,textarea{
-  width:100%;background:color-mix(in srgb,var(--bg) 70%,transparent);
-  border:1px solid var(--line);border-radius:12px;padding:12px;
-  color:var(--text);font:inherit;outline:none;
-  transition:border-color .2s ease,box-shadow .2s ease
-}
-input:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(184,161,255,.15)}
-
-.button{
-  border:1px solid var(--line);
-  background:linear-gradient(110deg,#8d70ec,#5f91e7);
-  color:#fff;padding:11px 15px;border-radius:13px;
-  font:inherit;font-weight:700;cursor:pointer;
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  transition:filter .2s ease,transform .15s ease
-}
-.button:hover{filter:brightness(1.12);transform:translateY(-1px)}
-.button:active{transform:translateY(0) scale(.98)}
-.button:disabled{opacity:.6;cursor:wait}
-.button.secondary{background:var(--panel2);color:var(--text)}
-.button.full{width:100%;margin-top:10px}
-.status{font-size:13px;min-height:28px;overflow-wrap:anywhere;color:var(--blue)}
-[hidden]{display:none!important}
-
-.tag{
-  display:inline-block;padding:3px 11px;border:1px solid var(--line);
-  border-radius:999px;color:var(--muted);font-size:12px
-}
-.product{
-  min-height:250px;display:flex;flex-direction:column;
-  justify-content:center;text-align:center;align-items:center;
-  max-width:420px;margin:20px auto
-}
-.product-icon{font-size:40px}
-.price{font-size:32px;font-weight:800;margin:12px 0;color:var(--blue)}
-
-.support-card{margin-top:25px;text-align:center}
-.support-links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
-
-footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size:12px}
-.footer-name{color:var(--footer-color);font-weight:bold}
-
-/* ===== Dynamic Island (ساعت و تاریخ) ===== */
-.island-wrap{position:sticky;top:calc(env(safe-area-inset-top,0px) + 10px);z-index:20;display:flex;justify-content:center;margin:10px 0 18px}
-.island{
-  background:#000;color:#fff;border:1px solid rgba(255,255,255,.14);
-  border-radius:999px;padding:12px 26px;min-width:190px;max-width:92vw;
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;
-  box-shadow:0 10px 30px #0008, inset 0 0 0 1px rgba(255,255,255,.03);
-  transition:transform .15s ease;
-}
-.island:active{transform:scale(.96)}
-.island-icon{font-size:18px;line-height:1}
-.island-main{font-size:15px;font-weight:700;white-space:nowrap;direction:ltr;font-variant-numeric:tabular-nums}
-.island-main[dir="rtl"]{direction:rtl}
-.island-sub{font-size:11px;color:#b8b6c8;white-space:nowrap}
-.island-dots{display:flex;gap:4px;margin-inline-start:4px}
-.island-dots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25)}
-.island-dots span.active{background:var(--blue)}
-
-/* ===== Dashboard overlay ===== */
-.overlay{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 70px) 16px 20px}
-.overlay-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(3px)}
-.overlay-panel{
-  position:relative;z-index:1;width:min(480px,100%);max-height:85vh;overflow-y:auto;
-  padding:26px;animation:popIn .25s ease
-}
-.overlay-close{
-  position:absolute;top:14px;left:14px;width:34px;height:34px;border-radius:50%;
-  border:1px solid var(--line);background:var(--panel2);color:var(--text);
-  font-size:15px;cursor:pointer;display:grid;place-items:center
-}
-
-/* ===== Dashboard cards ===== */
-.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-top:6px}
-.dash-card{
-  position:relative;overflow:hidden;padding:18px;border-radius:18px;
-  background:var(--panel2);border:1px solid var(--line);
-  animation:fadeUp .5s ease both;
-  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
-}
-.dash-card:nth-child(1){animation-delay:.03s}
-.dash-card:nth-child(2){animation-delay:.1s}
-.dash-card:nth-child(3){animation-delay:.17s}
-.dash-card:nth-child(4){animation-delay:.24s}
-.dash-card::before{
-  content:"";position:absolute;inset:-150% -60%;
-  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.18) 50%,transparent 65%);
-  transform:rotate(20deg) translateX(-65%);transition:transform .8s ease;pointer-events:none
-}
-.dash-card:hover::before{transform:rotate(20deg) translateX(65%)}
-.dash-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px #0005;border-color:rgba(184,161,255,.35)}
-.dash-label{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:8px}
-.dash-value{font-size:14px;font-weight:700;overflow-wrap:anywhere}
-.dash-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:999px;margin-top:4px}
-.dash-badge.ok{background:rgba(120,230,170,.18);color:#4fcf8c}
-.dash-badge.warn{background:rgba(255,195,120,.18);color:#d98f2c}
-
-.dash-profile{grid-column:1/-1;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.dash-avatar-ring{width:66px;height:66px;border-radius:50%;padding:3px;flex:none;background:conic-gradient(from 0deg,var(--purple),var(--blue),var(--purple));animation:spin 7s linear infinite}
-.dash-avatar-inner{width:100%;height:100%;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:26px}
-.dash-id{direction:ltr;text-align:left;font-size:11px;color:var(--muted);overflow-wrap:anywhere}
-.dash-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.dash-actions .button{flex:1;min-width:140px}
-
-@media(max-width:700px){
-  .hero{padding:35px 18px}
-  .card{padding:20px}
-  header{justify-content:center}
-  .support-links{grid-template-columns:1fr}
-  .overlay-panel{padding:22px}
-}
-</style>
-</head>
-
-<body>
-<header class="wrap">
-  <div class="brand">MY<span>SPACE</span> ✦</div>
-  <nav>
-    <a href="#shop">خرید</a>
-    <a href="#support">پشتیبانی</a>
-    <button id="themeToggle" class="icon-button" type="button" aria-label="تغییر تم" title="تغییر تم">🌙</button>
-    <button id="menuButton" class="icon-button" type="button" aria-label="باز کردن داشبورد" title="داشبورد">⋮</button>
-  </nav>
-</header>
-
-<div class="wrap">
-  <div class="island-wrap">
-    <div id="island" class="island" role="button" tabindex="0" aria-label="تغییر نمایش">
-      <span id="islandIcon" class="island-icon">🕰️</span>
-      <div>
-        <div id="islandMain" class="island-main">—</div>
-        <div id="islandSub" class="island-sub"></div>
-      </div>
-      <div class="island-dots"><span id="dot0"></span><span id="dot1"></span></div>
-    </div>
-  </div>
-</div>
-
-<main class="wrap">
-  <section class="hero glass">
-    <div class="eyebrow">YOUR PERSONAL SPACE</div>
-    <h1>به فضای <span class="gradient">شخصی من</span> خوش آمدی</h1>
-    <p>فضایی مدرن، تاریک/روشن و شیشه‌ای برای تو.</p>
-    <span class="tag">Dark · Light · Glass</span>
-  </section>
-
-  <section id="shop" class="card glass product">
-    <div class="product-icon">✧</div>
-    <span class="tag">محصول ویژه</span>
-    <h2 style="margin-top:12px">خرید و دریافت</h2>
-    <p>دسترسی به محصول دیجیتال</p>
-    <div class="price">۹۹٬۰۰۰ تومان</div>
-    <button id="buyButton" class="button" type="button">خرید محصول</button>
-    <div id="buyStatus" class="status" role="status">پرداخت هنوز راه‌اندازی نشده است.</div>
-  </section>
-
-  <section class="card glass">
-    <h2>دربارهٔ سایت</h2>
-    <p>یک وب‌سایت شخصی با طراحی واکنش‌گرا، افکت شیشه‌ای و احراز هویت Firebase. حساب کاربری از منوی سه‌نقطه بالا در دسترس است.</p>
-  </section>
-
-  <section id="support" class="card glass support-card">
-    <div style="font-size:32px">💬</div>
-    <h2>پشتیبانی و ارتباط با ما</h2>
-    <p>سؤال، پیشنهاد یا مشکلی داری؟ از گزینه‌های زیر استفاده کن.</p>
-    <div class="support-links">
-      <a class="button secondary" href="mailto:yeganehali019@gmail.com">✉️ ایمیل پشتیبانی</a>
-      <a class="button secondary" href="mailto:yeganehali019@gmail.com?subject=Suggestion%20%2F%20Bug%20Report">💡 پیشنهاد / گزارش باگ‌ها</a>
-    </div>
-  </section>
-</main>
-
-<footer class="wrap">
-  <div>ساخته شده با ✦ توسط <span class="footer-name">علی</span></div>
-  <div>© 2026 · تمامی حقوق محفوظ است</div>
-</footer>
-
-<!-- داشبورد / حساب کاربری -->
-<div id="dashboardOverlay" class="overlay" hidden>
-  <div id="overlayBackdrop" class="overlay-backdrop"></div>
-  <div class="overlay-panel glass">
-    <button id="closeDashboard" class="overlay-close" type="button" aria-label="بستن">✕</button>
-
-    <div id="loginBox">
-      <h2>حساب کاربری</h2>
-      <p>با گوگل وارد شو یا با ایمیل حساب بساز.</p>
-      <button id="googleButton" class="button secondary full" type="button">🌐 ورود با گوگل</button>
-      <form id="emailForm">
-        <label for="email">ایمیل</label>
-        <input id="email" type="email" autocomplete="email" placeholder="name@example.com" required>
-        <label for="password">رمز عبور</label>
-        <input id="password" type="password" minlength="6" autocomplete="current-password" placeholder="حداقل ۶ نویسه" required>
-        <button id="signupButton" class="button full" type="submit">ساخت حساب</button>
-        <button id="loginButton" class="button secondary full" type="button">ورود به حساب</button>
-        <button id="resetButton" class="button secondary full" type="button">فراموشی رمز عبور</button>
-      </form>
-      <div id="accountStatus" class="status" role="status" aria-live="polite"></div>
-    </div>
-
-    <div id="dashboardBox" hidden>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-        <h2 style="margin:0">داشبورد من</h2>
-        <span class="tag">فعال ✦</span>
-      </div>
-      <div class="dash-grid">
-        <div class="dash-card dash-profile">
-          <div class="dash-avatar-ring"><div class="dash-avatar-inner">👤</div></div>
-          <div style="min-width:0">
-            <div id="dashName" class="dash-value">—</div>
-            <div id="dashEmail" style="font-size:13px;color:var(--muted);overflow-wrap:anywhere">—</div>
-            <div id="dashUid" class="dash-id">—</div>
-          </div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-label">✅ وضعیت ایمیل</div>
-          <div id="dashVerifiedBadge" class="dash-badge">—</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-label">🗓️ تاریخ عضویت</div>
-          <div id="dashCreated" class="dash-value">—</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-label">⏱️ آخرین ورود</div>
-          <div id="dashLastLogin" class="dash-value">—</div>
-        </div>
-      </div>
-      <div class="dash-actions">
-        <button id="logoutButton" class="button" type="button">خروج از حساب</button>
-      </div>
-      <div id="dashStatus" class="status" role="status" aria-live="polite"></div>
-    </div>
-  </div>
-</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {
-  getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult,
-  createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged, signOut
+  getAuth,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAXcp4kU3UXsQygFZcZ-CkFrKkBgak53zQ",
+  apiKey: "AIzaSyAXcp4kU3UXsQygFZcZ-CkFrKkBgak53Q",
   authDomain: "myweb-dddb3.firebaseapp.com",
   projectId: "myweb-dddb3",
   storageBucket: "myweb-dddb3.firebasestorage.app",
@@ -359,108 +28,348 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const $ = id => document.getElementById(id);
+
+const root = document.documentElement;
 const emailInput = $("email");
 const passwordInput = $("password");
-const status = $("accountStatus");
+
 let busy = false;
+let currentUser = null;
 
-function message(t){ status.textContent = t; }
-function dashMessage(t){ $("dashStatus").textContent = t; }
-function errorMessage(error){
-  const m = {
-    "auth/email-already-in-use":"این ایمیل قبلاً ثبت شده است.",
-    "auth/invalid-email":"فرمت ایمیل صحیح نیست.",
-    "auth/weak-password":"رمز عبور باید حداقل ۶ نویسه باشد.",
-    "auth/invalid-credential":"ایمیل یا رمز عبور اشتباه است.",
-    "auth/user-not-found":"حسابی با این مشخصات پیدا نشد.",
-    "auth/wrong-password":"رمز عبور اشتباه است.",
-    "auth/unauthorized-domain":"دامنه سایت در Firebase مجاز نیست.",
-    "auth/operation-not-allowed":"این روش ورود در Firebase فعال نیست.",
-    "auth/network-request-failed":"اتصال اینترنت را بررسی کن.",
-    "auth/too-many-requests":"تلاش‌های زیادی انجام شده؛ بعداً دوباره امتحان کن."
+/* ===== پیام‌ها و مدیریت دکمه‌ها ===== */
+function message(text) {
+  $("accountStatus").textContent = text;
+}
+
+function dashMessage(text) {
+  $("dashStatus").textContent = text;
+}
+
+function setBusy(value) {
+  busy = value;
+
+  ["googleButton", "signupButton", "loginButton", "resetButton"]
+    .forEach(id => {
+      const button = $(id);
+      if (button) button.disabled = value;
+    });
+}
+
+function errorMessage(error) {
+  const messages = {
+    "auth/email-already-in-use": "این ایمیل قبلاً ثبت شده است.",
+    "auth/invalid-email": "فرمت ایمیل صحیح نیست.",
+    "auth/weak-password": "رمز عبور باید حداقل ۶ نویسه باشد.",
+    "auth/invalid-credential": "ایمیل یا رمز عبور اشتباه است.",
+    "auth/user-not-found": "حسابی با این مشخصات پیدا نشد.",
+    "auth/wrong-password": "رمز عبور اشتباه است.",
+    "auth/unauthorized-domain": "دامنه سایت در Firebase مجاز نیست.",
+    "auth/operation-not-allowed": "این روش ورود در Firebase فعال نیست.",
+    "auth/network-request-failed": "اتصال اینترنت را بررسی کن.",
+    "auth/too-many-requests": "تلاش‌های زیادی انجام شده؛ بعداً دوباره امتحان کن.",
+    "auth/popup-closed-by-user": "فرایند ورود لغو شد.",
+    "auth/invalid-action-code": "درخواست معتبر نیست؛ دوباره امتحان کن."
   };
-  return m[error.code] || "خطا: " + (error.message || error.code);
-}
-function setBusy(v){
-  busy = v;
-  ["googleButton","signupButton","loginButton","resetButton"].forEach(id => $(id).disabled = v);
-}
-function formatDateTime(iso){
-  if (!iso) return "—";
-  return new Intl.DateTimeFormat("fa-IR",{year:"numeric",month:"long",day:"numeric",hour:"2-digit",minute:"2-digit",calendar:"persian"}).format(new Date(iso));
+
+  return messages[error.code] || "خطا: " + (error.message || error.code);
 }
 
-/* ===== تم تاریک/روشن ===== */
-const root = document.documentElement;
-function applyTheme(t){
-  root.setAttribute("data-theme", t);
-  $("themeToggle").textContent = t === "light" ? "☀️" : "🌙";
-  try{ localStorage.setItem("myspace-theme", t); }catch{}
+function formatDateTime(dateValue) {
+  if (!dateValue) return "—";
+
+  const date = new Date(dateValue);
+  if (Number.isNaN(date.getTime())) return "—";
+
+  return new Intl.DateTimeFormat("fa-IR", {
+    calendar: "persian",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  }).format(date);
 }
+
+/* ===== تم روشن و تاریک ===== */
+function applyTheme(theme) {
+  const safeTheme = theme === "light" ? "light" : "dark";
+
+  root.setAttribute("data-theme", safeTheme);
+  $("themeToggle").textContent = safeTheme === "light" ? "☀️" : "🌙";
+  $("themeToggle").title =
+    safeTheme === "light" ? "فعال‌کردن حالت تاریک" : "فعال‌کردن حالت روشن";
+
+  try {
+    localStorage.setItem("myspace-theme", safeTheme);
+  } catch {}
+}
+
 let savedTheme = "dark";
-try{ savedTheme = localStorage.getItem("myspace-theme") || "dark"; }catch{}
+
+try {
+  savedTheme = localStorage.getItem("myspace-theme") || "dark";
+} catch {}
+
 applyTheme(savedTheme);
+
 $("themeToggle").addEventListener("click", () => {
-  applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");
+  const nextTheme =
+    root.getAttribute("data-theme") === "light" ? "dark" : "light";
+
+  applyTheme(nextTheme);
 });
 
-/* ===== Dynamic Island: فقط ساعت و تاریخ، با ضربه تغییر می‌کند ===== */
-const islandModes = ["time","date"];
+/* ===== ساعت و تاریخ شمسی ===== */
+const islandModes = ["time", "date"];
 let islandIndex = 0;
-function renderIsland(){
+
+function renderIsland() {
+  const now = new Date();
   const mode = islandModes[islandIndex];
-  const icon = $("islandIcon"), main = $("islandMain"), sub = $("islandSub");
-  if (mode === "time"){
+
+  const icon = $("islandIcon");
+  const main = $("islandMain");
+  const sub = $("islandSub");
+
+  if (mode === "time") {
     icon.textContent = "🕰️";
     main.removeAttribute("dir");
-    main.textContent = new Intl.DateTimeFormat("fa-IR",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(new Date());
+
+    main.textContent = new Intl.DateTimeFormat("fa-IR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false
+    }).format(now);
+
     sub.textContent = "ساعت محلی دستگاه";
   } else {
     icon.textContent = "📅";
-    main.setAttribute("dir","rtl");
-    main.textContent = new Intl.DateTimeFormat("fa-IR",{weekday:"long",day:"numeric",month:"long",calendar:"persian"}).format(new Date());
+    main.setAttribute("dir", "rtl");
+
+    main.textContent = new Intl.DateTimeFormat("fa-IR", {
+      calendar: "persian",
+      weekday: "long",
+      day: "numeric",
+      month: "long"
+    }).format(now);
+
     sub.textContent = "تاریخ امروز";
   }
-  [0,1].forEach(i => $("dot"+i).classList.toggle("active", i === islandIndex));
+
+  [0, 1].forEach(i => {
+    $("dot" + i).classList.toggle("active", i === islandIndex);
+  });
 }
+
+function cycleIsland() {
+  islandIndex = (islandIndex + 1) % islandModes.length;
+  renderIsland();
+}
+
 renderIsland();
 setInterval(renderIsland, 1000);
-function cycleIsland(){ islandIndex = (islandIndex + 1) % islandModes.length; renderIsland(); }
-$("island").addEventListener("click", cycleIsland);
-$("island").addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); cycleIsland(); } });
 
-/* ===== باز/بسته‌کردن داشبورد با دکمهٔ سه‌نقطه ===== */
-function openDashboard(){ $("dashboardOverlay").hidden = false; }
-function closeDashboard(){ $("dashboardOverlay").hidden = true; }
+$("island").addEventListener("click", cycleIsland);
+
+$("island").addEventListener("keydown", event => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    cycleIsland();
+  }
+});
+
+/* ===== باز و بسته‌کردن داشبورد ===== */
+function openDashboard() {
+  $("dashboardOverlay").hidden = false;
+}
+
+function closeDashboard() {
+  $("dashboardOverlay").hidden = true;
+}
+
 $("menuButton").addEventListener("click", openDashboard);
 $("closeDashboard").addEventListener("click", closeDashboard);
 $("overlayBackdrop").addEventListener("click", closeDashboard);
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeDashboard(); });
 
-try{
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeDashboard();
+});
+
+/* ===== نمایش اطلاعات حساب ===== */
+function renderUser(user) {
+  currentUser = user;
+
+  $("loginBox").hidden = !!user;
+  $("dashboardBox").hidden = !user;
+
+  if (!user) return;
+
+  $("dashName").textContent =
+    user.displayName || (user.email ? user.email.split("@")[0] : "کاربر");
+
+  $("dashEmail").textContent = user.email || "ایمیل ثبت نشده";
+  $("dashUid").textContent = "UID: " + user.uid;
+
+  const verified = user.emailVerified || user.providerData.some(
+    provider => provider.providerId === "google.com"
+  );
+
+  $("dashVerifiedBadge").textContent =
+    verified ? "تأیید شده ✓" : "تأیید نشده";
+
+  $("dashVerifiedBadge").className =
+    "dash-badge " + (verified ? "ok" : "warn");
+
+  const createdAt = user.metadata.creationTime;
+  const lastLogin = user.metadata.lastSignInTime;
+
+  $("dashCreated").textContent = formatDateTime(createdAt);
+  $("dashLastLogin").textContent = formatDateTime(lastLogin);
+}
+
+/* ===== بررسی نتیجه ورود گوگل ===== */
+try {
   const result = await getRedirectResult(auth);
-  if (result?.user) message("با موفقیت وارد شدی!");
-}catch(error){ message(errorMessage(error)); }
 
+  if (result?.user) {
+    message("ورود با موفقیت انجام شد!");
+    openDashboard();
+  }
+} catch (error) {
+  message(errorMessage(error));
+}
+
+/* ===== ورود با گوگل ===== */
 $("googleButton").addEventListener("click", async () => {
   if (busy) return;
-  setBusy(true); message("در حال انتقال به گوگل…");
-  try{ await signInWithRedirect(auth, googleProvider); }
-  catch(error){ message(errorMessage(error)); setBusy(false); }
+
+  setBusy(true);
+  message("در حال انتقال به گوگل…");
+
+  try {
+    await signInWithRedirect(auth, googleProvider);
+  } catch (error) {
+    message(errorMessage(error));
+    setBusy(false);
+  }
 });
 
-$("emailForm").addEventListener("submit", async e => {
-  e.preventDefault();
+/* ===== ثبت‌نام با ایمیل ===== */
+$("emailForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
   if (busy) return;
-  setBusy(true); message("در حال ساخت حساب…");
-  try{
-    const credential = await createUserWithEmailAndPassword(auth, emailInput.value.trim(), passwordInput.value);
-    try{ await sendEmailVerification(credential.user); message("حساب ساخته شد؛ ایمیلت را برای تأیید بررسی کن."); }
-    catch{ message("حساب ساخته شد، اما ارسال ایمیل تأیید ناموفق بود."); }
-  }catch(error){ message(errorMessage(error)); }
-  finally{ setBusy(false); }
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  setBusy(true);
+  message("در حال ساخت حساب…");
+
+  try {
+    const credential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    try {
+      await sendEmailVerification(credential.user);
+      message("حساب ساخته شد؛ ایمیلت را برای تأیید بررسی کن.");
+    } catch {
+      message("حساب ساخته شد، اما ارسال ایمیل تأیید ناموفق بود.");
+    }
+  } catch (error) {
+    message(errorMessage(error));
+  } finally {
+    setBusy(false);
+  }
 });
 
+/* ===== ورود با ایمیل ===== */
 $("loginButton").addEventListener("click", async () => {
   if (busy) return;
-  if (!emailInput.value.trim() || !
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  if (!email || !password) {
+    message("ایمیل و رمز عبور را وارد کن.");
+    return;
+  }
+
+  setBusy(true);
+  message("در حال ورود…");
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    message("با موفقیت وارد شدی!");
+    openDashboard();
+  } catch (error) {
+    message(errorMessage(error));
+  } finally {
+    setBusy(false);
+  }
+});
+
+/* ===== بازیابی رمز عبور ===== */
+$("resetButton").addEventListener("click", async () => {
+  if (busy) return;
+
+  const email = emailInput.value.trim();
+
+  if (!email) {
+    message("ابتدا ایمیلت را وارد کن.");
+    emailInput.focus();
+    return;
+  }
+
+  setBusy(true);
+  message("در حال ارسال ایمیل بازیابی…");
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    message("اگر حسابی با این ایمیل وجود داشته باشد، لینک بازیابی ارسال می‌شود.");
+  } catch (error) {
+    message(errorMessage(error));
+  } finally {
+    setBusy(false);
+  }
+});
+
+/* ===== خروج از حساب ===== */
+$("logoutButton").addEventListener("click", async () => {
+  if (busy) return;
+
+  setBusy(true);
+  dashMessage("در حال خروج…");
+
+  try {
+    await signOut(auth);
+    message("از حساب خارج شدی.");
+    closeDashboard();
+  } catch (error) {
+    dashMessage(errorMessage(error));
+  } finally {
+    setBusy(false);
+  }
+});
+
+/* ===== هماهنگ‌سازی رابط با وضعیت واقعی ورود ===== */
+onAuthStateChanged(auth, user => {
+  renderUser(user);
+
+  if (user) {
+    setBusy(false);
+  }
+});
+
+/* ===== دکمه خرید نمایشی ===== */
+$("buyButton").addEventListener("click", () => {
+  $("buyStatus").textContent =
+    "خرید آنلاین هنوز فعال نیست؛ این دکمه فعلاً نمایشی است.";
+});
+</script>
+</body>
+</html>
