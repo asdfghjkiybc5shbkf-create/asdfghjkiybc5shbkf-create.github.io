@@ -1,5 +1,4 @@
-```html
-<!DOCTYPE html>
+<!DOCTYPE html>  
 <html lang="fa" dir="rtl">  
 <head>  
 <meta charset="UTF-8">  
@@ -8,211 +7,223 @@
 <title>فضای شخصی علی</title>  
 <style>  
 :root{  
-  --bg:#080a12;  
-  --panel:rgba(255,255,255,.055);  
-  --panel2:rgba(255,255,255,.08);  
-  --line:rgba(255,255,255,.12);  
+  --bg:#05070d;  
+  --panel:rgba(255,255,255,.04);  
+  --panel2:rgba(255,255,255,.07);  
+  --line:rgba(255,255,255,.1);  
   --text:#f4f2ff;  
-  --muted:#aaa8c0;  
-  --purple:#b8a1ff;  
-  --blue:#8bd8ff;  
-  --footer-color:#4fb3a6;  
-  --blob1:#7560ff;--blob2:#39b8ff;--blob-op:.17;  
+  --muted:#9d9bb8;  
+  --purple:#a78bfa;  
+  --blue:#38bdf8;  
+  --footer-color:#2dd4bf;  
+  --blob1:#6366f1; --blob2:#0ea5e9; --blob-op:.18;  
   color-scheme:dark;  
-  box-sizing:border-box;  
-  padding-top:env(safe-area-inset-top,0px);  
-  padding-bottom:env(safe-area-inset-bottom,0px);  
 }  
 html[data-theme="light"]{  
-  --bg:#eef0f7;  
-  --panel:rgba(255,255,255,.55);  
-  --panel2:rgba(255,255,255,.72);  
-  --line:rgba(20,20,40,.12);  
-  --text:#1c1c2b;  
-  --muted:#5c5a78;  
-  --purple:#6a4bf0;  
-  --blue:#0f86c9;  
-  --footer-color:#1f6f63;  
-  --blob1:#a79bff;--blob2:#8fd6ff;--blob-op:.3;  
+  --bg:#f8fafc;  
+  --panel:rgba(255,255,255,.7);  
+  --panel2:rgba(255,255,255,.9);  
+  --line:rgba(15,23,42,.08);  
+  --text:#0f172a;  
+  --muted:#64748b;  
+  --purple:#7c3aed;  
+  --blue:#0284c7;  
+  --footer-color:#0d9488;  
+  --blob1:#c4b5fd; --blob2:#7dd3fc; --blob-op:.4;  
   color-scheme:light;  
 }  
 *{box-sizing:border-box}  
-html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}  
+html{scroll-behavior:smooth}  
 body{  
-  margin:0;min-height:100vh;transition:background-color .3s ease,color .3s ease;  
+  margin:0; min-height:100vh; transition:background-color .4s ease, color .4s ease;  
   background:  
-    radial-gradient(ellipse at 15% 10%,color-mix(in srgb,var(--blob1) 55%,transparent) 0,transparent 42%),  
-    radial-gradient(ellipse at 85% 35%,color-mix(in srgb,var(--blob2) 45%,transparent) 0,transparent 38%),  
+    radial-gradient(circle at 10% 15%, color-mix(in srgb, var(--blob1) 60%, transparent) 0, transparent 45%),  
+    radial-gradient(circle at 90% 85%, color-mix(in srgb, var(--blob2) 50%, transparent) 0, transparent 45%),  
     var(--bg);  
   color:var(--text);  
-  font-family:Tahoma,Arial,sans-serif;  
+  font-family:Tahoma, Arial, sans-serif;  
   line-height:1.8;  
+  overflow-x:hidden;  
 }  
-body::before,body::after{  
-  content:"";position:fixed;width:260px;height:260px;  
-  border-radius:50%;filter:blur(80px);opacity:var(--blob-op);  
-  pointer-events:none;z-index:-1;  
-  animation:float 12s ease-in-out infinite alternate;  
+body::before, body::after{  
+  content:""; position:fixed; width:320px; height:320px;  
+  border-radius:50%; filter:blur(100px); opacity:var(--blob-op);  
+  pointer-events:none; z-index:-1;  
+  animation:float 14s ease-in-out infinite alternate;  
 }  
-body::before{background:var(--blob1);top:10%;left:-90px}  
-body::after{background:var(--blob2);bottom:0;right:-100px;animation-delay:-5s}  
-@keyframes float{to{transform:translate(45px,35px) scale(1.18)}}  
-@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}  
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}  
+body::before{background:var(--blob1); top:5%; left:-50px}  
+body::after{background:var(--blob2); bottom:5%; right:-50px; animation-delay:-7s}  
+@keyframes float{to{transform:translate(50px, 40px) scale(1.12)}}  
 @keyframes spin{to{transform:rotate(360deg)}}  
-@keyframes popIn{from{opacity:0;transform:scale(.92) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}  
-  
-.wrap{width:min(1050px,92%);margin:auto}  
+@keyframes popIn{from{opacity:0; transform:scale(.92) translateY(10px)}to{opacity:1; transform:scale(1) translateY(0)}}  
+
+.wrap{width:min(1050px, 92%); margin:auto}  
 header{  
-  display:flex;align-items:center;justify-content:space-between;  
-  gap:16px;padding:22px 0;flex-wrap:wrap  
+  display:flex; align-items:center; justify-content:space-between;  
+  gap:16px; padding:24px 0; flex-wrap:wrap;  
 }  
-.brand{font-weight:800;font-size:20px}  
+.brand{font-weight:900; font-size:21px; letter-spacing:-0.5px}  
 .brand span{color:var(--purple)}  
-nav{display:flex;gap:16px;align-items:center;flex-wrap:wrap}  
-a{color:var(--muted);text-decoration:none}  
+nav{display:flex; gap:14px; align-items:center; flex-wrap:wrap}  
+a{color:var(--muted); text-decoration:none; transition:color .2s}  
 a:hover{color:var(--text)}  
-  
+
 .icon-button{  
-  width:40px;height:40px;border-radius:50%;border:1px solid var(--line);  
-  background:var(--panel);color:var(--text);font-size:17px;cursor:pointer;  
-  display:grid;place-items:center;transition:transform .15s ease,background .2s ease  
+  width:42px; height:42px; border-radius:50%; border:1px solid var(--line);  
+  background:var(--panel); color:var(--text); font-size:17px; cursor:pointer;  
+  display:grid; place-items:center; transition:all .2s ease;  
+  backdrop-filter:blur(10px);  
 }  
-.icon-button:hover{transform:translateY(-2px);background:var(--panel2)}  
-.icon-button:active{transform:translateY(0) scale(.95)}  
-  
-.glass{  
-  background:var(--panel);  
-  border:1px solid var(--line);  
-  box-shadow:0 18px 55px #0003;  
-  backdrop-filter:blur(18px);  
-  -webkit-backdrop-filter:blur(18px);  
-  border-radius:24px  
+.icon-button:hover{transform:translateY(-3px); background:var(--panel2); border-color:var(--purple)}  
+.icon-button:active{transform:scale(.95)}  
+
+/* افکت شیشه‌ای مدرن و پیشرفته با تعامل نور ماوس */  
+.glass {  
+  background: var(--panel);  
+  border: 1px solid var(--line);  
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);  
+  backdrop-filter: blur(24px);  
+  -webkit-backdrop-filter: blur(24px);  
+  border-radius: 28px;  
+  position: relative;  
+  overflow: hidden;  
 }  
-.hero{padding:48px 24px;text-align:center;margin:14px 0 24px}  
-.eyebrow{color:var(--blue);font-size:13px;letter-spacing:1px}  
-h1{font-size:clamp(30px,6vw,52px);line-height:1.4;margin:12px 0}  
+
+/* نور تعاملی زیر دست (موس) روی کارت‌ها */  
+.glass::before {  
+  content: "";  
+  position: absolute;  
+  top: var(--mouse-y, -200px);  
+  left: var(--mouse-x, -200px);  
+  width: 350px;  
+  height: 350px;  
+  background: radial-gradient(circle, color-mix(in srgb, var(--purple) 25%, transparent) 0%, transparent 70%);  
+  transform: translate(-50%, -50%);  
+  pointer-events: none;  
+  opacity: 0;  
+  transition: opacity 0.3s ease;  
+}  
+.glass:hover::before {  
+  opacity: 1;  
+}  
+
+.hero{padding:56px 24px; text-align:center; margin:14px 0 28px}  
+.eyebrow{color:var(--blue); font-size:12px; letter-spacing:2px; font-weight:700; text-transform:uppercase}  
+h1{font-size:clamp(32px, 6vw, 54px); line-height:1.3; margin:14px 0}  
 .gradient{  
-  background:linear-gradient(90deg,var(--purple),var(--blue));  
-  color:transparent;background-clip:text;-webkit-background-clip:text  
+  background:linear-gradient(135deg, var(--purple), var(--blue));  
+  color:transparent; background-clip:text; -webkit-background-clip:text  
 }  
 p{color:var(--muted)}  
-.card{padding:25px;min-width:0}  
-.card h2{font-size:21px;margin:0 0 10px}  
-  
-label{display:block;font-size:13px;color:var(--muted);margin:12px 0 5px}  
-input,textarea{  
-  width:100%;background:color-mix(in srgb,var(--bg) 70%,transparent);  
-  border:1px solid var(--line);border-radius:12px;padding:12px;  
-  color:var(--text);font:inherit;outline:none;  
-  transition:border-color .2s ease,box-shadow .2s ease  
+.card{padding:30px; min-width:0; margin-bottom:20px; transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease}  
+.card:hover{transform:translateY(-5px); border-color:color-mix(in srgb, var(--purple) 40%, var(--line)); box-shadow:0 25px 60px rgba(0,0,0,0.2)}  
+.card h2{font-size:22px; margin:0 0 10px}  
+
+label{display:block; font-size:13px; color:var(--muted); margin:12px 0 6px}  
+input, textarea{  
+  width:100%; background:color-mix(in srgb, var(--bg) 60%, transparent);  
+  border:1px solid var(--line); border-radius:14px; padding:14px;  
+  color:var(--text); font:inherit; outline:none;  
+  transition:all .2s ease;  
 }  
-input:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(184,161,255,.15)}  
-  
+input:focus, textarea:focus{border-color:var(--purple); box-shadow:0 0 0 4px color-mix(in srgb, var(--purple) 20%, transparent)}  
+
 .button{  
   border:1px solid var(--line);  
-  background:linear-gradient(110deg,#8d70ec,#5f91e7);  
-  color:#fff;padding:11px 15px;border-radius:13px;  
-  font:inherit;font-weight:700;cursor:pointer;  
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;  
-  transition:filter .2s ease,transform .15s ease  
+  background:linear-gradient(135deg, var(--purple), var(--blue));  
+  color:#fff; padding:13px 20px; border-radius:14px;  
+  font:inherit; font-weight:700; cursor:pointer;  
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;  
+  transition:all .25s ease;  
+  box-shadow:0 10px 25px color-mix(in srgb, var(--purple) 30%, transparent);  
 }  
-.button:hover{filter:brightness(1.12);transform:translateY(-1px)}  
-.button:active{transform:translateY(0) scale(.98)}  
-.button:disabled{opacity:.6;cursor:wait}  
-.button.secondary{background:var(--panel2);color:var(--text)}  
-.button.full{width:100%;margin-top:10px}  
-.status{font-size:13px;min-height:28px;margin-top:10px;overflow-wrap:anywhere;color:var(--blue)}  
+.button:hover{filter:brightness(1.1); transform:translateY(-2px); box-shadow:0 15px 35px color-mix(in srgb, var(--purple) 45%, transparent)}  
+.button:active{transform:scale(.97)}  
+.button:disabled{opacity:.6; cursor:wait}  
+.button.secondary{background:var(--panel2); color:var(--text); box-shadow:none}  
+.button.full{width:100%; margin-top:12px}  
+.status{font-size:13px; min-height:28px; overflow-wrap:anywhere; color:var(--blue); margin-top:8px}  
 [hidden]{display:none!important}  
-  
+
 .tag{  
-  display:inline-block;padding:3px 11px;border:1px solid var(--line);  
-  border-radius:999px;color:var(--muted);font-size:12px  
+  display:inline-block; padding:4px 12px; border:1px solid var(--line);  
+  border-radius:999px; color:var(--muted); font-size:12px; background:var(--panel)  
 }  
 .product{  
-  min-height:250px;display:flex;flex-direction:column;  
-  justify-content:center;text-align:center;align-items:center;  
-  max-width:420px;margin:20px auto  
+  min-height:260px; display:flex; flex-direction:column;  
+  justify-content:center; text-align:center; align-items:center;  
+  max-width:440px; margin:24px auto  
 }  
-.product-icon{font-size:40px}  
-.price{font-size:32px;font-weight:800;margin:12px 0;color:var(--blue)}  
-  
-.support-card{margin-top:25px;text-align:center}  
-.support-links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}  
-  
-footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size:12px}  
-.footer-name{color:var(--footer-color);font-weight:bold}  
-  
-/* ===== Dynamic Island (ساعت و تاریخ) ===== */  
-.island-wrap{position:sticky;top:calc(env(safe-area-inset-top,0px) + 10px);z-index:20;display:flex;justify-content:center;margin:10px 0 18px}  
+.product-icon{font-size:42px}  
+.price{font-size:34px; font-weight:900; margin:12px 0; color:var(--blue)}  
+
+.support-card{margin-top:28px; text-align:center}  
+.support-links{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px}  
+
+footer{text-align:center; padding:30px 0 40px; color:var(--footer-color); font-size:13px}  
+.footer-name{color:var(--footer-color); font-weight:bold}  
+
+/* ===== Dynamic Island (ساعت و تاریخ متحرک) ===== */  
+.island-wrap{position:sticky; top:calc(env(safe-area-inset-top, 0px) + 12px); z-index:20; display:flex; justify-content:center; margin:10px 0 20px}  
 .island{  
-  background:#000;color:#fff;border:1px solid rgba(255,255,255,.14);  
-  border-radius:999px;padding:12px 26px;min-width:190px;max-width:92vw;  
-  display:flex;align-items:center;justify-content:center;gap:10px;  
-  cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;  
-  box-shadow:0 10px 30px #0008, inset 0 0 0 1px rgba(255,255,255,.03);  
-  transition:transform .15s ease;  
+  background:#000; color:#fff; border:1px solid rgba(255,255,255,.18);  
+  border-radius:999px; padding:12px 28px; min-width:200px; max-width:92vw;  
+  display:flex; align-items:center; justify-content:center; gap:12px;  
+  cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;  
+  box-shadow:0 15px 35px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,.05);  
+  transition:transform .2s ease, box-shadow .2s ease;  
 }  
+.island:hover{transform:scale(1.02); box-shadow:0 20px 45px rgba(0,0,0,0.6)}  
 .island:active{transform:scale(.96)}  
-.island-icon{font-size:18px;line-height:1}  
-.island-main{font-size:15px;font-weight:700;white-space:nowrap;direction:ltr;font-variant-numeric:tabular-nums}  
+.island-icon{font-size:19px; line-height:1}  
+.island-main{font-size:15px; font-weight:700; white-space:nowrap; direction:ltr; font-variant-numeric:tabular-nums}  
 .island-main[dir="rtl"]{direction:rtl}  
-.island-sub{font-size:11px;color:#b8b6c8;white-space:nowrap}  
-.island-dots{display:flex;gap:4px;margin-inline-start:4px}  
-.island-dots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25)}  
+.island-sub{font-size:11px; color:#a1a1aa; white-space:nowrap}  
+.island-dots{display:flex; gap:5px; margin-inline-start:6px}  
+.island-dots span{width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.3); transition:background .3px}  
 .island-dots span.active{background:var(--blue)}  
-  
+
 /* ===== Dashboard overlay ===== */  
-.overlay{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 70px) 16px 20px}  
-.overlay-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(3px)}  
+.overlay{position:fixed; inset:0; z-index:50; display:flex; align-items:flex-start; justify-content:center; padding:calc(env(safe-area-inset-top, 0px) + 70px) 16px 20px}  
+.overlay-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.6); backdrop-filter:blur(6px); animation:fadeIn .3s ease}  
 .overlay-panel{  
-  position:relative;z-index:1;width:min(480px,100%);max-height:85vh;overflow-y:auto;  
-  padding:26px;animation:popIn .25s ease  
+  position:relative; z-index:1; width:min(500px, 100%); max-height:85vh; overflow-y:auto;  
+  padding:30px; animation:popIn .3s cubic-bezier(0.16, 1, 0.3, 1)  
 }  
 .overlay-close{  
-  position:absolute;top:14px;left:14px;width:34px;height:34px;border-radius:50%;  
-  border:1px solid var(--line);background:var(--panel2);color:var(--text);  
-  font-size:15px;cursor:pointer;display:grid;place-items:center  
+  position:absolute; top:16px; left:16px; width:36px; height:36px; border-radius:50%;  
+  border:1px solid var(--line); background:var(--panel2); color:var(--text);  
+  font-size:16px; cursor:pointer; display:grid; place-items:center; transition:transform .2s;  
 }  
-  
+.overlay-close:hover{transform:scale(1.1)}  
+
 /* ===== Dashboard cards ===== */  
-.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-top:6px}  
+.dash-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:16px; margin-top:10px}  
 .dash-card{  
-  position:relative;overflow:hidden;padding:18px;border-radius:18px;  
-  background:var(--panel2);border:1px solid var(--line);  
-  animation:fadeUp .5s ease both;  
-  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;  
+  position:relative; overflow:hidden; padding:20px; border-radius:20px;  
+  background:var(--panel2); border:1px solid var(--line);  
+  transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;  
 }  
-.dash-card:nth-child(1){animation-delay:.03s}  
-.dash-card:nth-child(2){animation-delay:.1s}  
-.dash-card:nth-child(3){animation-delay:.17s}  
-.dash-card:nth-child(4){animation-delay:.24s}  
-.dash-card::before{  
-  content:"";position:absolute;inset:-150% -60%;  
-  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.18) 50%,transparent 65%);  
-  transform:rotate(20deg) translateX(-65%);transition:transform .8s ease;pointer-events:none  
-}  
-.dash-card:hover::before{transform:rotate(20deg) translateX(65%)}  
-.dash-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px #0005;border-color:rgba(184,161,255,.35)}  
-.dash-label{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:8px}  
-.dash-value{font-size:14px;font-weight:700;overflow-wrap:anywhere}  
-.dash-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:999px;margin-top:4px}  
-.dash-badge.ok{background:rgba(120,230,170,.18);color:#4fcf8c}  
-.dash-badge.warn{background:rgba(255,195,120,.18);color:#d98f2c}  
-  
-.dash-profile{grid-column:1/-1;display:flex;align-items:center;gap:14px;flex-wrap:wrap}  
-.dash-avatar-ring{width:66px;height:66px;border-radius:50%;padding:3px;flex:none;background:conic-gradient(from 0deg,var(--purple),var(--blue),var(--purple));animation:spin 7s linear infinite}  
-.dash-avatar-inner{width:100%;height:100%;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:26px}  
-.dash-id{direction:ltr;text-align:left;font-size:11px;color:var(--muted);overflow-wrap:anywhere}  
-.dash-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}  
-.dash-actions .button{flex:1;min-width:140px}  
-  
+.dash-card:hover{transform:translateY(-4px); box-shadow:0 18px 45px rgba(0,0,0,0.25); border-color:var(--purple)}  
+.dash-label{font-size:12px; color:var(--muted); display:flex; align-items:center; gap:6px; margin-bottom:8px}  
+.dash-value{font-size:14px; font-weight:700; overflow-wrap:anywhere}  
+.dash-badge{display:inline-flex; align-items:center; gap:5px; font-size:12px; padding:4px 10px; border-radius:999px; margin-top:4px}  
+.dash-badge.ok{background:rgba(52,211,153,.18); color:#34d399}  
+.dash-badge.warn{background:rgba(251,191,36,.18); color:#fbbf24}  
+
+.dash-profile{grid-column:1/-1; display:flex; align-items:center; gap:16px; flex-wrap:wrap}  
+.dash-avatar-ring{width:70px; height:70px; border-radius:50%; padding:3px; flex:none; background:conic-gradient(from 0deg, var(--purple), var(--blue), var(--purple)); animation:spin 8s linear infinite}  
+.dash-avatar-inner{width:100%; height:100%; border-radius:50%; background:var(--bg); display:grid; place-items:center; font-size:28px}  
+.dash-id{direction:ltr; text-align:left; font-size:11px; color:var(--muted); overflow-wrap:anywhere}  
+.dash-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}  
+.dash-actions .button{flex:1; min-width:140px}  
+
 @media(max-width:700px){  
-  .hero{padding:35px 18px}  
-  .card{padding:20px}  
+  .hero{padding:40px 16px}  
+  .card{padding:22px}  
   header{justify-content:center}  
   .support-links{grid-template-columns:1fr}  
-  .overlay-panel{padding:22px}  
+  .overlay-panel{padding:24px}  
 }  
 </style>  
 </head>  
@@ -245,9 +256,9 @@ footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size
     <div class="eyebrow">YOUR PERSONAL SPACE</div>  
     <h1>به فضای <span class="gradient">شخصی من</span> خوش آمدی</h1>  
     <p>فضایی مدرن، تاریک/روشن و شیشه‌ای برای تو.</p>  
-    <span class="tag">Dark · Light · Glass</span>  
+    <span class="tag">Dark · Light · Glassmorphism</span>  
   </section>    
-  
+
   <section id="shop" class="card glass product">  
     <div class="product-icon">✧</div>  
     <span class="tag">محصول ویژه</span>  
@@ -257,14 +268,14 @@ footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size
     <button id="buyButton" class="button" type="button">خرید محصول</button>  
     <div id="buyStatus" class="status" role="status">پرداخت هنوز راه‌اندازی نشده است.</div>  
   </section>    
-  
+
   <section class="card glass">  
     <h2>دربارهٔ سایت</h2>  
-    <p>یک وب‌سایت شخصی با طراحی واکنش‌گرا، افکت شیشه‌ای و احراز هویت Firebase. حساب کاربری از منوی سه‌نقطه بالا در دسترس است.</p>  
+    <p>یک وب‌سایت شخصی با طراحی واکنش‌گرا، افکت شیشه‌ای پیشرفته و احراز هویت Firebase. حساب کاربری از منوی سه‌نقطه بالا در دسترس است.</p>  
   </section>    
-  
+
   <section id="support" class="card glass support-card">  
-    <div style="font-size:32px">💬</div>  
+    <div style="font-size:34px">💬</div>  
     <h2>پشتیبانی و ارتباط با ما</h2>  
     <p>سؤال، پیشنهاد یا مشکلی داری؟ از گزینه‌های زیر استفاده کن.</p>  
     <div class="support-links">  
@@ -289,12 +300,12 @@ footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size
       <h2>حساب کاربری</h2>  
       <p>با گوگل وارد شو یا با ایمیل حساب بساز.</p>  
       <button id="googleButton" class="button secondary full" type="button">🌐 ورود با گوگل</button>  
-      <form id="emailForm" onsubmit="return false;">  
+      <form id="emailForm">  
         <label for="email">ایمیل</label>  
         <input id="email" type="email" autocomplete="email" placeholder="name@example.com" required>  
         <label for="password">رمز عبور</label>  
         <input id="password" type="password" minlength="6" autocomplete="current-password" placeholder="حداقل ۶ نویسه" required>  
-        <button id="signupButton" class="button full" type="button">ساخت حساب</button>  
+        <button id="signupButton" class="button full" type="submit">ساخت حساب</button>  
         <button id="loginButton" class="button secondary full" type="button">ورود به حساب</button>  
         <button id="resetButton" class="button secondary full" type="button">فراموشی رمز عبور</button>  
       </form>  
@@ -333,86 +344,51 @@ footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size
       </div>  
       <div id="dashStatus" class="status" role="status" aria-live="polite"></div>  
     </div>  
-
   </div>  
 </div>  
 
-<script type="module">  
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";  
-import {  
-  getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult,  
-  createUserWithEmailAndPassword, signInWithEmailAndPassword,  
-  sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged, signOut  
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";  
-  
-const firebaseConfig = {  
-  apiKey: "AIzaSyAXcp4kU3UXsQygFZcZ-CkFrKkBgak53zQ",  
-  authDomain: "myweb-dddb3.firebaseapp.com",  
-  projectId: "myweb-dddb3",  
-  storageBucket: "myweb-dddb3.firebasestorage.app",  
-  messagingSenderId: "655059266329",  
-  appId: "1:655059266329:web:9f3c81205c0f1de3c23388",  
-  measurementId: "G-EKREB5DRC1"  
-};  
-  
-const app = initializeApp(firebaseConfig);  
-const auth = getAuth(app);  
-const googleProvider = new GoogleAuthProvider();  
-const $ = id => document.getElementById(id);  
-const emailInput = $("email");  
-const passwordInput = $("password");  
-const status = $("accountStatus");  
-let busy = false;  
-  
-function message(t){ status.textContent = t; }  
-function dashMessage(t){ $("dashStatus").textContent = t; }  
-function errorMessage(error){  
-  const m = {  
-    "auth/email-already-in-use":"این ایمیل قبلاً ثبت شده است.",  
-    "auth/invalid-email":"فرمت ایمیل صحیح نیست.",  
-    "auth/weak-password":"رمز عبور باید حداقل ۶ نویسه باشد.",  
-    "auth/invalid-credential":"ایمیل یا رمز عبور اشتباه است.",  
-    "auth/user-not-found":"حسابی با این مشخصات پیدا نشد.",  
-    "auth/wrong-password":"رمز عبور اشتباه است.",  
-    "auth/unauthorized-domain":"دامنه سایت در Firebase مجاز نیست.",  
-    "auth/operation-not-allowed":"این روش ورود در Firebase فعال نیست.",  
-    "auth/network-request-failed":"اتصال اینترنت را بررسی کن.",  
-    "auth/too-many-requests":"تلاش‌های زیادی انجام شده؛ بعداً دوباره امتحان کن."  
-  };  
-  return m[error.code] || "خطا: " + (error.message || error.code);  
-}  
-function setBusy(v){  
-  busy = v;  
-  ["googleButton","signupButton","loginButton","resetButton"].forEach(id => {
-    const el = $(id);
-    if(el) el.disabled = v;
+<script>  
+/* ===== افکت حرکتی نور زیر ماوس روی کارت‌ها ===== */  
+document.addEventListener('mousemove', (e) => {  
+  const glassCards = document.querySelectorAll('.glass');  
+  glassCards.forEach(card => {  
+    const rect = card.getBoundingClientRect();  
+    const x = e.clientX - rect.left;  
+    const y = e.clientY - rect.top;  
+    card.style.setProperty('--mouse-x', `${x}px`);  
+    card.style.setProperty('--mouse-y', `${y}px`);  
   });  
-}  
-function formatDateTime(iso){  
-  if (!iso) return "—";  
-  return new Intl.DateTimeFormat("fa-IR",{year:"numeric",month:"long",day:"numeric",hour:"2-digit",minute:"2-digit",calendar:"persian"}).format(new Date(iso));  
-}  
-  
+});  
+
 /* ===== تم تاریک/روشن ===== */  
 const root = document.documentElement;  
 function applyTheme(t){  
   root.setAttribute("data-theme", t);  
-  $("themeToggle").textContent = t === "light" ? "☀️" : "🌙";  
-  try{ localStorage.setItem("myspace-theme", t); }catch{}  
+  const btn = document.getElementById("themeToggle");  
+  if(btn) btn.textContent = t === "light" ? "☀️" : "🌙";  
+  try{ localStorage.setItem("myspace-theme", t); }catch(e){}  
 }  
 let savedTheme = "dark";  
-try{ savedTheme = localStorage.getItem("myspace-theme") || "dark"; }catch{}  
+try{ savedTheme = localStorage.getItem("myspace-theme") || "dark"; }catch(e){}  
 applyTheme(savedTheme);  
-$("themeToggle").addEventListener("click", () => {  
-  applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");  
-});  
-  
-/* ===== Dynamic Island: فقط ساعت و تاریخ، با ضربه تغییر می‌کند ===== */  
+
+const themeToggleBtn = document.getElementById("themeToggle");  
+if(themeToggleBtn){  
+  themeToggleBtn.addEventListener("click", () => {  
+    applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");  
+  });  
+}  
+
+/* ===== Dynamic Island: ساعت و تاریخ زنده ===== */  
 const islandModes = ["time","date"];  
 let islandIndex = 0;  
 function renderIsland(){  
   const mode = islandModes[islandIndex];  
-  const icon = $("islandIcon"), main = $("islandMain"), sub = $("islandSub");  
+  const icon = document.getElementById("islandIcon");  
+  const main = document.getElementById("islandMain");  
+  const sub = document.getElementById("islandSub");  
+  if(!icon || !main || !sub) return;  
+  
   if (mode === "time"){  
     icon.textContent = "🕰️";  
     main.removeAttribute("dir");  
@@ -424,23 +400,45 @@ function renderIsland(){
     main.textContent = new Intl.DateTimeFormat("fa-IR",{weekday:"long",day:"numeric",month:"long",calendar:"persian"}).format(new Date());  
     sub.textContent = "تاریخ امروز";  
   }  
-  [0,1].forEach(i => $("dot"+i).classList.toggle("active", i === islandIndex));  
+  for(let i=0; i<2; i++){  
+    const dot = document.getElementById("dot"+i);  
+    if(dot) dot.classList.toggle("active", i === islandIndex);  
+  }  
 }  
 renderIsland();  
 setInterval(renderIsland, 1000);  
-function cycleIsland(){ islandIndex = (islandIndex + 1) % islandModes.length; renderIsland(); }  
-$("island").addEventListener("click", cycleIsland);  
-$("island").addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); cycleIsland(); } });  
-  
-/* ===== باز/بسته‌کردن داشبورد با دکمهٔ سه‌نقطه ===== */  
-function openDashboard(){ $("dashboardOverlay").hidden = false; }  
-function closeDashboard(){ $("dashboardOverlay").hidden = true; }  
-$("menuButton").addEventListener("click", openDashboard);  
-$("closeDashboard").addEventListener("click", closeDashboard);  
-$("overlayBackdrop").addEventListener("click", closeDashboard);  
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeDashboard(); });  
 
-/* ===== منطق Firebase و لاگین ===== */
-try {  
-  const result = await getRedirectResult(auth);  
-  if (re
+const islandEl = document.getElementById("island");  
+if(islandEl){  
+  const cycleIsland = () => { islandIndex = (islandIndex + 1) % islandModes.length; renderIsland(); };  
+  islandEl.addEventListener("click", cycleIsland);  
+  islandEl.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); cycleIsland(); } });  
+}  
+
+/* ===== باز/بسته‌کردن داشبورد (سه‌نقطه) ===== */  
+const dashboardOverlay = document.getElementById("dashboardOverlay");  
+const menuButton = document.getElementById("menuButton");  
+const closeDashboardBtn = document.getElementById("closeDashboard");  
+const overlayBackdrop = document.getElementById("overlayBackdrop");  
+
+function openDashboard(){ if(dashboardOverlay) dashboardOverlay.hidden = false; }  
+function closeDashboard(){ if(dashboardOverlay) dashboardOverlay.hidden = true; }  
+
+if(menuButton) menuButton.addEventListener("click", openDashboard);  
+if(closeDashboardBtn) closeDashboardBtn.addEventListener("click", closeDashboard);  
+if(overlayBackdrop) overlayBackdrop.addEventListener("click", closeDashboard);  
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeDashboard(); });  
+</script>  
+
+<script type="module">  
+/* ===== بخش احراز هویت فایربیس ===== */  
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";  
+import {  
+  getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult,  
+  createUserWithEmailAndPassword, signInWithEmailAndPassword,  
+  sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged, signOut  
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";  
+  
+const firebaseConfig = {  
+  apiKey: "AIzaSyAXcp4kU3UXsQygFZcZ-CkFrKkBgak53zQ",  
+  authDomain: "myweb-dddb
