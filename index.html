@@ -1,11 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080810">
-  <meta name="description" content="وب‌سایت شخصی من؛ دنیایی از ایده‌ها، طراحی و پروژه‌های خلاقانه.">
-  <title>دنیای من | وب‌سایت شخصی</title>
+  <meta name="description" content="وب‌سایت شخصی شیشه‌ای من">
+  <title>دنیای من | سایت شخصی</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,8 +15,8 @@
   <style>
     :root {
       --bg: #080810;
-      --glass: rgba(255, 255, 255, 0.055);
-      --border: rgba(255, 255, 255, 0.13);
+      --glass: rgba(255,255,255,.055);
+      --border: rgba(255,255,255,.13);
       --text: #f7f4ff;
       --muted: #aaa6bd;
       --purple: #b8a0ff;
@@ -30,7 +31,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 85px;
+      scroll-padding-top: 90px;
     }
 
     body {
@@ -47,24 +48,32 @@
       text-decoration: none;
     }
 
+    button, input {
+      font: inherit;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
     .background-glow {
       position: fixed;
       inset: 0;
-      z-index: -2;
+      z-index: -1;
       overflow: hidden;
       pointer-events: none;
       background:
-        radial-gradient(ellipse at 50% 0%, #211537 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 0%, #211537, transparent 55%),
         #080810;
     }
 
     .orb {
       position: absolute;
-      width: 260px;
-      height: 260px;
+      width: 270px;
+      height: 270px;
       border-radius: 50%;
       filter: blur(85px);
-      opacity: 0.38;
+      opacity: .36;
       animation: float 12s ease-in-out infinite alternate;
     }
 
@@ -89,16 +98,13 @@
     }
 
     @keyframes float {
-      from {
-        transform: translate3d(0, 0, 0);
-      }
       to {
-        transform: translate3d(35px, -45px, 0);
+        transform: translate(35px, -45px);
       }
     }
 
     .container {
-      width: min(1080px, 100% - 36px);
+      width: min(1050px, calc(100% - 28px));
       margin-inline: auto;
     }
 
@@ -107,26 +113,23 @@
       background: var(--glass);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 18px 50px rgba(0,0,0,.18);
     }
-
-    /* نوار بالای سایت */
 
     .navbar {
       position: sticky;
-      top: 10px;
+      top: 8px;
       z-index: 10;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 15px;
-      margin-top: 10px;
-      padding: 12px 18px;
+      gap: 14px;
+      margin-top: 8px;
+      padding: 12px 17px;
       border-radius: 18px;
     }
 
     .logo {
-      font-size: 17px;
       font-weight: 800;
       white-space: nowrap;
     }
@@ -138,41 +141,33 @@
     .nav-links {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
-      gap: 20px;
+      gap: 15px;
       color: var(--muted);
       font-size: 12px;
-    }
-
-    .nav-links a {
-      transition: color 0.25s;
     }
 
     .nav-links a:hover {
       color: white;
     }
 
-    /* صفحه اصلی */
-
     .hero {
-      min-height: 78vh;
+      min-height: 66vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      padding: 85px 0 70px;
+      align-items: center;
+      padding: 70px 0 45px;
       text-align: center;
     }
 
     .status {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      margin-bottom: 25px;
-      padding: 8px 15px;
+      gap: 8px;
+      margin-bottom: 23px;
+      padding: 7px 14px;
       border: 1px solid var(--border);
-      border-radius: 50px;
-      background: rgba(255, 255, 255, 0.04);
+      border-radius: 40px;
       color: #d8d1ef;
       font-size: 12px;
     }
@@ -186,11 +181,9 @@
     }
 
     .hero h1 {
-      max-width: 850px;
-      font-size: clamp(38px, 8vw, 76px);
+      font-size: clamp(38px, 8vw, 70px);
+      line-height: 1.4;
       font-weight: 800;
-      line-height: 1.35;
-      letter-spacing: -2px;
     }
 
     .gradient-text {
@@ -202,18 +195,10 @@
 
     .hero p {
       max-width: 570px;
-      margin-top: 22px;
+      margin-top: 17px;
       color: var(--muted);
-      font-size: 15px;
-      line-height: 2.1;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 30px;
+      font-size: 14px;
+      line-height: 2.2;
     }
 
     .button {
@@ -221,130 +206,156 @@
       justify-content: center;
       align-items: center;
       gap: 8px;
-      min-height: 45px;
-      padding: 11px 21px;
+      min-height: 44px;
+      padding: 10px 19px;
       border: 1px solid var(--border);
       border-radius: 13px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255,255,255,.05);
       color: white;
-      font-family: inherit;
+      cursor: pointer;
       font-size: 13px;
-      transition: transform 0.25s, background 0.25s;
+      transition: transform .25s, background .25s;
     }
 
-    .button-primary {
+    .button:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.12);
+    }
+
+    .primary {
       border-color: transparent;
       background: linear-gradient(110deg, #7750cf, #496cb7);
     }
 
-    .button:hover {
-      transform: translateY(-3px);
-      background-color: rgba(255, 255, 255, 0.12);
-    }
-
-    .button-primary:hover {
+    .primary:hover {
       background: linear-gradient(110deg, #8b65e4, #5d81d0);
     }
 
-    .hero-note {
-      margin-top: 38px;
-      color: #77738b;
-      font-size: 11px;
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 11px;
+      margin-top: 25px;
     }
 
-    /* بخش‌های عمومی */
-
     .section {
-      padding: 65px 0;
+      padding: 55px 0;
     }
 
     .section-heading {
-      margin-bottom: 30px;
+      margin-bottom: 27px;
       text-align: center;
     }
 
     .eyebrow {
       color: var(--purple);
       font-size: 11px;
-      font-weight: 600;
       letter-spacing: 3px;
     }
 
     .section-heading h2 {
       margin-top: 8px;
-      font-size: clamp(26px, 5vw, 36px);
+      font-size: clamp(25px, 5vw, 35px);
     }
 
     .section-heading p {
-      margin-top: 9px;
+      margin-top: 7px;
       color: var(--muted);
       font-size: 13px;
+    }
+
+    /* ساعت و تاریخ */
+
+    .clock-card {
+      max-width: 650px;
+      margin-inline: auto;
+      padding: 28px 18px;
+      border-radius: 24px;
+      text-align: center;
+    }
+
+    .clock-icon {
+      font-size: 28px;
+    }
+
+    .clock-time {
+      margin: 8px 0;
+      font-size: clamp(36px, 9vw, 55px);
+      font-weight: 700;
+      direction: ltr;
+      font-variant-numeric: tabular-nums;
+      background: linear-gradient(90deg, #c3a7ff, #91d1ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .clock-date {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .clock-zone {
+      margin-top: 8px;
+      color: #817b99;
+      font-size: 11px;
     }
 
     /* درباره من */
 
     .about-card {
-      max-width: 820px;
+      max-width: 780px;
       margin-inline: auto;
-      padding: 30px;
-      border-radius: 24px;
+      padding: 28px;
+      border-radius: 23px;
       text-align: center;
     }
 
-    .about-symbol {
-      display: grid;
-      place-items: center;
-      width: 65px;
-      height: 65px;
-      margin: 0 auto 18px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      background: rgba(184, 160, 255, 0.09);
-      font-size: 29px;
+    .about-icon {
+      margin-bottom: 10px;
+      font-size: 35px;
     }
 
     .about-card h3 {
-      margin-bottom: 12px;
-      font-size: 21px;
+      margin-bottom: 10px;
     }
 
     .about-card p {
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13px;
       line-height: 2.2;
     }
 
-    /* مهارت‌ها */
+    /* علاقه‌مندی‌ها */
 
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 13px;
     }
 
     .skill-card {
-      padding: 23px 12px;
-      border-radius: 19px;
+      padding: 20px 10px;
+      border-radius: 18px;
       text-align: center;
-      transition: transform 0.3s, border-color 0.3s;
+      transition: transform .3s;
     }
 
     .skill-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(184, 160, 255, 0.5);
+      transform: translateY(-5px);
     }
 
     .skill-icon {
-      margin-bottom: 9px;
-      font-size: 28px;
+      font-size: 27px;
     }
 
     .skill-card h3 {
-      font-size: 14px;
+      margin-top: 6px;
+      font-size: 13px;
     }
 
     .skill-card p {
-      margin-top: 4px;
       color: var(--muted);
       font-size: 11px;
     }
@@ -353,65 +364,33 @@
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 17px;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 15px;
     }
 
     .project-card {
       position: relative;
       overflow: hidden;
-      padding: 23px 19px;
+      padding: 21px 17px;
       border-radius: 22px;
-      transition:
-        transform 0.35s ease,
-        border-color 0.35s ease,
-        box-shadow 0.35s ease;
-      animation: appear 0.7s both;
-    }
-
-    .project-card:nth-child(2) {
-      animation-delay: 0.12s;
-    }
-
-    .project-card:nth-child(3) {
-      animation-delay: 0.24s;
-    }
-
-    .project-card::before {
-      content: "";
-      position: absolute;
-      top: -60px;
-      right: -60px;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background: rgba(143, 104, 255, 0.17);
-      filter: blur(35px);
-      pointer-events: none;
-      transition: background 0.35s;
+      transition: transform .3s, border-color .3s;
     }
 
     .project-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(190, 165, 255, 0.55);
-      box-shadow: 0 22px 48px rgba(103, 65, 190, 0.17);
-    }
-
-    .project-card:hover::before {
-      background: rgba(143, 104, 255, 0.32);
+      transform: translateY(-7px);
+      border-color: rgba(190,165,255,.55);
     }
 
     .project-icon {
-      position: relative;
       display: grid;
       place-items: center;
-      width: 51px;
-      height: 51px;
-      margin-bottom: 17px;
+      width: 49px;
+      height: 49px;
+      margin-bottom: 15px;
       border: 1px solid var(--border);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.06);
-      font-size: 25px;
+      border-radius: 15px;
+      background: rgba(255,255,255,.06);
+      font-size: 24px;
     }
 
     .project-number {
@@ -421,98 +400,216 @@
     }
 
     .project-card h3 {
-      margin: 11px 0 8px;
-      font-size: 18px;
+      margin: 9px 0;
+      font-size: 17px;
     }
 
     .project-card p {
-      min-height: 77px;
+      min-height: 75px;
       color: var(--muted);
       font-size: 12px;
       line-height: 2;
     }
 
-    .project-tags {
+    .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 7px;
-      margin: 16px 0;
+      gap: 6px;
+      margin: 14px 0;
     }
 
-    .project-tags span {
-      padding: 5px 9px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 30px;
-      background: rgba(255, 255, 255, 0.045);
+    .tags span {
+      padding: 4px 9px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
       color: #d9d2f4;
       font-size: 10px;
     }
 
     .project-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-top: 17px;
-      padding-top: 13px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: block;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
       color: #d2c2ff;
       font-size: 12px;
-      transition: color 0.25s;
     }
 
-    .project-link:hover {
-      color: white;
-    }
+    /* ساخت حساب */
 
-    .project-link span {
-      font-size: 18px;
-    }
-
-    /* تماس */
-
-    .contact-card {
-      max-width: 760px;
+    .auth-card {
+      max-width: 460px;
       margin-inline: auto;
-      padding: 32px 22px;
+      padding: 25px;
       border-radius: 24px;
+    }
+
+    .auth-card h3 {
       text-align: center;
+      font-size: 21px;
     }
 
-    .contact-card h3 {
-      margin-bottom: 10px;
-      font-size: 22px;
-    }
-
-    .contact-card p {
-      margin-bottom: 22px;
+    .auth-description {
+      margin: 7px 0 20px;
       color: var(--muted);
-      font-size: 13px;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .google-button {
+      width: 100%;
+      margin-bottom: 18px;
+    }
+
+    .divider-text {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 14px 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .divider-text::before,
+    .divider-text::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .field {
+      display: block;
+      margin: 12px 0;
+      color: #ded9ed;
+      font-size: 12px;
+    }
+
+    .field input {
+      display: block;
+      width: 100%;
+      min-height: 45px;
+      margin-top: 7px;
+      padding: 11px 13px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+      background: rgba(0,0,0,.2);
+      color: white;
+      direction: rtl;
+    }
+
+    .field input:focus {
+      border-color: var(--purple);
+    }
+
+    .field input::placeholder {
+      color: #77738b;
+    }
+
+    .auth-submit {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .small-note {
+      margin-top: 15px;
+      color: #89849d;
+      font-size: 10px;
+      text-align: center;
+      line-height: 2;
+    }
+
+    /* خرید */
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 280px));
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .product-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 20px;
+      border-radius: 23px;
+      text-align: center;
+      transition: transform .3s, border-color .3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(184,160,255,.5);
+    }
+
+    .product-badge {
+      padding: 4px 11px;
+      border: 1px solid rgba(184,160,255,.3);
+      border-radius: 30px;
+      background: rgba(184,160,255,.09);
+      color: var(--purple);
+      font-size: 10px;
+    }
+
+    .product-icon {
+      display: grid;
+      place-items: center;
+      width: 115px;
+      height: 115px;
+      margin: 20px 0;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: linear-gradient(145deg,
+        rgba(184,160,255,.16),
+        rgba(139,197,255,.04));
+      font-size: 48px;
+    }
+
+    .product-card h3 {
+      font-size: 19px;
+    }
+
+    .product-description {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .price {
+      margin: 20px 0;
+      color: #d4c5ff;
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .price small {
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    .purchase-button {
+      width: 100%;
+    }
+
+    .product-note {
+      margin-top: 13px;
+      color: #89849d;
+      font-size: 10px;
     }
 
     /* پابرگ */
 
     .footer {
       margin-top: 35px;
-      padding: 27px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 26px 0;
+      border-top: 1px solid rgba(255,255,255,.08);
       color: #89849d;
       text-align: center;
       font-size: 11px;
     }
-
-    @keyframes appear {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* نمایش روی گوشی */
 
     @media (max-width: 760px) {
       .navbar {
@@ -521,52 +618,38 @@
 
       .nav-links {
         justify-content: flex-end;
-        gap: 10px 13px;
-      }
-
-      .hero {
-        min-height: 70vh;
-        padding: 70px 0 50px;
-      }
-
-      .hero h1 {
-        letter-spacing: -1px;
+        gap: 7px 11px;
+        font-size: 10px;
       }
 
       .projects-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-      }
-
-      .project-card {
-        padding: 18px 14px;
-      }
-
-      .project-card p {
-        min-height: 105px;
+        grid-template-columns: repeat(2, minmax(0,1fr));
       }
 
       .skills-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .project-card {
+        padding: 17px 13px;
+      }
+
+      .project-card p {
+        min-height: 95px;
       }
     }
 
     @media (max-width: 420px) {
-      .container {
-        width: calc(100% - 24px);
-      }
-
       .navbar {
-        padding: 12px;
+        padding: 11px;
       }
 
       .logo {
-        font-size: 14px;
+        font-size: 13px;
       }
 
       .nav-links {
-        gap: 8px;
-        font-size: 10px;
+        gap: 5px 8px;
       }
 
       .projects-grid {
@@ -577,22 +660,20 @@
         min-height: auto;
       }
 
-      .section {
-        padding: 45px 0;
+      .auth-card {
+        padding: 20px 15px;
       }
 
-      .about-card {
-        padding: 23px 17px;
+      .section {
+        padding: 40px 0;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
+      *, *::before, *::after {
         animation: none !important;
         transition: none !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
@@ -608,95 +689,95 @@
   <header class="container">
     <nav class="navbar glass" aria-label="منوی اصلی">
       <a class="logo" href="#home">دنیای<span> من.</span></a>
-
       <div class="nav-links">
         <a href="#home">خانه</a>
         <a href="#about">درباره من</a>
-        <a href="#skills">مهارت‌ها</a>
+        <a href="#clock">ساعت</a>
         <a href="#projects">پروژه‌ها</a>
-        <a href="#contact">تماس</a>
+        <a href="#account">حساب کاربری</a>
+        <a href="#shop">خرید</a>
       </div>
     </nav>
   </header>
 
   <main>
-    <!-- صفحه اصلی -->
     <section class="hero container" id="home">
       <div class="status">
         <span class="status-dot"></span>
-        در حال یادگیری و ساختن
+        به دنیای شیشه‌ای من خوش اومدی
       </div>
 
       <h1>
-        به دنیای من
+        ایده‌های من،
         <br>
-        <span class="gradient-text">خوش اومدی.</span>
+        <span class="gradient-text">دنیای من.</span>
       </h1>
 
       <p>
-        اینجا فضای شخصی منه؛ جایی برای ایده‌های تازه،
-        طراحی‌های خلاقانه و پروژه‌هایی که قدم‌به‌قدم می‌سازم.
+        اینجا جایی برای ایده‌های تازه، طراحی‌های خلاقانه
+        و پروژه‌هایی است که قدم‌به‌قدم می‌سازم.
       </p>
 
       <div class="hero-actions">
-        <a class="button button-primary" href="#projects">
-          دیدن پروژه‌ها <span>↗</span>
-        </a>
-        <a class="button" href="#about">بیشتر درباره من</a>
-      </div>
-
-      <div class="hero-note">
-        طراحی با علاقه، یادگیری با کنجکاوی ✦
+        <a class="button primary" href="#projects">دیدن پروژه‌ها ↗</a>
+        <a class="button" href="#account">ساخت حساب</a>
       </div>
     </section>
 
-    <!-- درباره من -->
+    <section class="section container" id="clock">
+      <div class="section-heading">
+        <span class="eyebrow">LIVE CLOCK</span>
+        <h2>زمان در دنیای من</h2>
+        <p>ساعت و تاریخ دستگاهت به‌صورت زنده نمایش داده می‌شود.</p>
+      </div>
+
+      <div class="clock-card glass">
+        <div class="clock-icon">🕰️</div>
+        <div class="clock-time" id="clockTime">--:--:--</div>
+        <div class="clock-date" id="clockDate">در حال بارگذاری تاریخ...</div>
+        <div class="clock-zone">بر اساس زمان محلی دستگاهت</div>
+      </div>
+    </section>
+
     <section class="section container" id="about">
       <div class="section-heading">
         <span class="eyebrow">ABOUT ME</span>
         <h2>درباره من</h2>
-        <p>کمی درباره دنیای من</p>
       </div>
 
       <div class="about-card glass">
-        <div class="about-symbol">✧</div>
-        <h3>سلام، من سازنده این دنیام!</h3>
+        <div class="about-icon">✧</div>
+        <h3>سلام، به فضای شخصی من خوش اومدی!</h3>
         <p>
           به تکنولوژی، طراحی و ایده‌های خلاقانه علاقه دارم.
-          این وب‌سایت رو ساختم تا چیزهایی که یاد می‌گیرم
-          و پروژه‌هایی که می‌سازم، در یک جای زیبا جمع کنم.
-          اینجا هر ایده می‌تونه شروع یک ماجرای جدید باشه.
+          این سایت رو ساخته‌ام تا پروژه‌ها و چیزهایی رو که یاد می‌گیرم
+          در یک فضای زیبا کنار هم قرار بدم.
         </p>
       </div>
     </section>
 
-    <!-- مهارت‌ها و علاقه‌ها -->
     <section class="section container" id="skills">
       <div class="section-heading">
-        <span class="eyebrow">MY INTERESTS</span>
-        <h2>علاقه‌مندی‌های من</h2>
-        <p>چیزهایی که دوست دارم کشف کنم و یاد بگیرم</p>
+        <span class="eyebrow">INTERESTS</span>
+        <h2>علاقه‌مندی‌ها</h2>
       </div>
 
       <div class="skills-grid">
         <article class="skill-card glass">
           <div class="skill-icon">💻</div>
           <h3>برنامه‌نویسی</h3>
-          <p>ساختن ایده‌های دیجیتال</p>
+          <p>ساخت ایده‌های دیجیتال</p>
         </article>
-
         <article class="skill-card glass">
           <div class="skill-icon">🎨</div>
           <h3>طراحی</h3>
-          <p>زیبایی و خلاقیت</p>
+          <p>خلاقیت و زیبایی</p>
         </article>
-
         <article class="skill-card glass">
           <div class="skill-icon">🚀</div>
           <h3>تکنولوژی</h3>
-          <p>کشف دنیای جدید</p>
+          <p>کشف چیزهای تازه</p>
         </article>
-
         <article class="skill-card glass">
           <div class="skill-icon">💡</div>
           <h3>ایده‌پردازی</h3>
@@ -705,12 +786,11 @@
       </div>
     </section>
 
-    <!-- پروژه‌ها -->
     <section class="section container" id="projects">
       <div class="section-heading">
         <span class="eyebrow">MY WORK</span>
         <h2>پروژه‌های من <span class="gradient-text">✦</span></h2>
-        <p>ایده‌هام رو قدم‌به‌قدم به واقعیت تبدیل می‌کنم.</p>
+        <p>ایده‌ها به‌مرور به پروژه‌های واقعی تبدیل می‌شوند.</p>
       </div>
 
       <div class="projects-grid">
@@ -718,87 +798,108 @@
           <div class="project-icon">🌐</div>
           <span class="project-number">PROJECT 01</span>
           <h3>وب‌سایت شخصی</h3>
-          <p>
-            یک فضای دیجیتال با طراحی شیشه‌ای،
-            نورهای متحرک و ظاهری مدرن.
-          </p>
-          <div class="project-tags">
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>Glassmorphism</span>
-          </div>
-          <a class="project-link" href="#home">
-            صفحه اصلی <span>↗</span>
-          </a>
+          <p>سایت شخصی من با طراحی شیشه‌ای، نورهای متحرک و ظاهر مدرن.</p>
+          <div class="tags"><span>HTML</span><span>CSS</span></div>
+          <a class="project-link" href="#home">صفحه اصلی ↗</a>
         </article>
 
         <article class="project-card glass">
           <div class="project-icon">💡</div>
           <span class="project-number">PROJECT 02</span>
           <h3>ایده خلاقانه</h3>
-          <p>
-            یک پروژه برای تمرین طراحی،
-            خلاقیت و ساخت تجربه‌های جذاب.
-          </p>
-          <div class="project-tags">
-            <span>Design</span>
-            <span>Creative</span>
-          </div>
-          <a class="project-link" href="#projects">
-            به‌زودی <span>↗</span>
-          </a>
+          <p>فضایی برای یک پروژه تازه که بعداً می‌سازم.</p>
+          <div class="tags"><span>Design</span><span>Creative</span></div>
+          <a class="project-link" href="#projects">به‌زودی ↗</a>
         </article>
 
         <article class="project-card glass">
           <div class="project-icon">🚀</div>
           <span class="project-number">PROJECT 03</span>
           <h3>پروژه بعدی</h3>
-          <p>
-            این کارت منتظر ایده بعدی منه.
-            هر چیزی که بسازم، می‌تونه اینجا قرار بگیره.
-          </p>
-          <div class="project-tags">
-            <span>Coming Soon</span>
-            <span>New Idea</span>
-          </div>
-          <a class="project-link" href="#projects">
-            به‌زودی <span>↗</span>
-          </a>
+          <p>یک ایده تازه که می‌تواند به تجربه جدیدی تبدیل شود.</p>
+          <div class="tags"><span>Coming Soon</span></div>
+          <a class="project-link" href="#projects">به‌زودی ↗</a>
         </article>
       </div>
     </section>
 
-    <!-- تماس -->
-    <section class="section container" id="contact">
+    <section class="section container" id="account">
       <div class="section-heading">
-        <span class="eyebrow">GET IN TOUCH</span>
-        <h2>بخش پایانی</h2>
-        <p>این دنیای کوچک، هر روز می‌تونه بزرگ‌تر بشه.</p>
+        <span class="eyebrow">YOUR ACCOUNT</span>
+        <h2>ساخت حساب کاربری</h2>
+        <p>این فرم فعلاً نمایشی است و حساب واقعی نمی‌سازد.</p>
       </div>
 
-      <div class="contact-card glass">
-        <h3>ایده‌های جدید در راه‌اند ✨</h3>
-        <p>
-          این وب‌سایت به‌مرور با پروژه‌ها و تجربه‌های جدید کامل‌تر می‌شه.
+      <div class="auth-card glass">
+        <h3>به دنیای من بپیوند</h3>
+        <p class="auth-description">
+          برای نسخه واقعی، ورود امن باید راه‌اندازی شود.
         </p>
-        <a class="button button-primary" href="#home">
-          برگشت به بالا ↑
-        </a>
+
+        <button class="button google-button" id="googleButton" type="button">
+          <span>🌐</span> ادامه با گوگل
+        </button>
+
+        <div class="divider-text">یا با ایمیل</div>
+
+        <form id="signupForm">
+          <label class="field">
+            نام نمایشی
+            <input
+              type="text"
+              name="displayName"
+              placeholder="یک نام دلخواه"
+              autocomplete="nickname"
+              maxlength="40"
+              required
+            >
+          </label>
+
+          <label class="field">
+            آدرس ایمیل
+            <input
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            >
+          </label>
+
+          <label class="field">
+            رمز عبور دلخواه
+            <input
+              type="password"
+              name="password"
+              placeholder="حداقل ۸ نویسه"
+              minlength="8"
+              autocomplete="new-password"
+              required
+            >
+          </label>
+
+          <button class="button primary auth-submit" type="submit">
+            ساخت حساب آزمایشی
+          </button>
+        </form>
+
+        <p class="small-note">
+          این نسخه هیچ حسابی نمی‌سازد و اطلاعات فرم را ذخیره یا ارسال نمی‌کند.
+          رمز واقعی حساب‌های دیگرت را وارد نکن.
+        </p>
       </div>
     </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container">
-      ساخته‌شده با علاقه و کمی جادوی شیشه‌ای ✦
-      <br>
-      <span id="year"></span> © دنیای من
-    </div>
-  </footer>
+    <section class="section container" id="shop">
+      <div class="section-heading">
+        <span class="eyebrow">MINI SHOP</span>
+        <h2>فروشگاه شیشه‌ای</h2>
+        <p>نمونه اولیه کارت خرید</p>
+      </div>
 
-  <script>
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
-  </script>
-</body>
-</html>
+      <div class="shop-grid">
+        <article class="product-card glass">
+          <span class="product-badge">محصول نمونه</span>
+          <div class="product-icon">💎</div>
+          <h3>بسته ویژه</h3>
+      
