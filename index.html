@@ -10,6 +10,7 @@
 :root{
   --bg:#080a12;
   --panel:rgba(255,255,255,.055);
+  --panel2:rgba(255,255,255,.08);
   --line:rgba(255,255,255,.12);
   --text:#f4f2ff;
   --muted:#aaa8c0;
@@ -42,6 +43,9 @@ body::before{background:#7560ff;top:10%;left:-90px}
 body::after{background:#39b8ff;bottom:0;right:-100px;animation-delay:-5s}
 @keyframes float{to{transform:translate(45px,35px) scale(1.18)}}
 @keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(184,161,255,.25)}50%{box-shadow:0 0 0 8px rgba(184,161,255,0)}}
 
 .wrap{width:min(1050px,92%);margin:auto}
 header{
@@ -80,9 +84,10 @@ p{color:var(--muted)}
 label{display:block;font-size:13px;color:#d9d5eb;margin:12px 0 5px}
 input,textarea{
   width:100%;background:#080a12a8;border:1px solid var(--line);
-  border-radius:12px;padding:12px;color:white;font:inherit;outline:none
+  border-radius:12px;padding:12px;color:white;font:inherit;outline:none;
+  transition:border-color .2s ease,box-shadow .2s ease
 }
-input:focus,textarea:focus{border-color:var(--purple)}
+input:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(184,161,255,.15)}
 textarea{resize:vertical;min-height:110px}
 
 .button{
@@ -90,9 +95,11 @@ textarea{resize:vertical;min-height:110px}
   background:linear-gradient(110deg,#8d70ec,#5f91e7);
   color:white;padding:11px 15px;border-radius:13px;
   font:inherit;font-weight:700;cursor:pointer;
-  display:inline-flex;align-items:center;justify-content:center;gap:8px
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  transition:filter .2s ease,transform .15s ease
 }
-.button:hover{filter:brightness(1.1)}
+.button:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.button:active{transform:translateY(0) scale(.98)}
 .button:disabled{opacity:.6;cursor:wait}
 .button.secondary{background:#ffffff0a}
 .button.full{width:100%;margin-top:10px}
@@ -109,26 +116,6 @@ textarea{resize:vertical;min-height:110px}
 }
 .product-icon{font-size:40px}
 .price{font-size:32px;font-weight:800;margin:12px 0;color:var(--blue)}
-
-.profile-panel{
-  margin-top:18px;padding:20px;border:1px solid rgba(184,161,255,.3);
-  border-radius:20px;background:rgba(10,10,22,.75);
-  text-align:center;overflow-wrap:anywhere;animation:appear .25s ease
-}
-.profile-avatar{
-  width:78px;height:78px;margin:0 auto 12px;
-  display:grid;place-items:center;border-radius:50%;font-size:35px;
-  background:linear-gradient(135deg,#8d70ec,#5f91e7);
-  box-shadow:0 0 30px rgba(141,112,236,.25)
-}
-.profile-row{
-  display:flex;flex-direction:column;gap:4px;text-align:right;
-  padding:12px;margin:10px 0;border:1px solid rgba(255,255,255,.09);
-  border-radius:12px;background:rgba(255,255,255,.035)
-}
-.profile-row span{font-size:12px;color:var(--muted)}
-.profile-row strong{font-size:13px;color:var(--text);overflow-wrap:anywhere}
-.uid{direction:ltr;text-align:left}
 
 .support-card{margin-top:25px;text-align:center}
 .support-links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
@@ -152,15 +139,59 @@ footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size
 }
 .island:active{transform:scale(.96)}
 .island-icon{font-size:18px;line-height:1}
-.island-main{
-  font-size:15px;font-weight:700;white-space:nowrap;
-  direction:ltr;font-variant-numeric:tabular-nums;
-}
+.island-main{font-size:15px;font-weight:700;white-space:nowrap;direction:ltr;font-variant-numeric:tabular-nums}
 .island-main[dir="rtl"]{direction:rtl}
 .island-sub{font-size:11px;color:var(--muted);white-space:nowrap}
 .island-dots{display:flex;gap:4px;margin-inline-start:4px}
 .island-dots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25)}
 .island-dots span.active{background:var(--blue)}
+
+/* ===== Dashboard ===== */
+.dash-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+  gap:18px;margin-top:6px
+}
+.dash-card{
+  position:relative;overflow:hidden;padding:22px;border-radius:20px;
+  background:var(--panel2);border:1px solid var(--line);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  animation:fadeUp .5s ease both;
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+}
+.dash-card:nth-child(1){animation-delay:.03s}
+.dash-card:nth-child(2){animation-delay:.1s}
+.dash-card:nth-child(3){animation-delay:.17s}
+.dash-card:nth-child(4){animation-delay:.24s}
+.dash-card::before{
+  content:"";position:absolute;inset:-150% -60%;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.14) 50%,transparent 65%);
+  transform:rotate(20deg) translateX(-65%);transition:transform .8s ease;pointer-events:none
+}
+.dash-card:hover::before{transform:rotate(20deg) translateX(65%)}
+.dash-card:hover{transform:translateY(-5px);box-shadow:0 20px 48px #0006;border-color:rgba(184,161,255,.35)}
+.dash-label{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:10px}
+.dash-value{font-size:15px;font-weight:700;overflow-wrap:anywhere}
+.dash-badge{
+  display:inline-flex;align-items:center;gap:5px;font-size:12px;
+  padding:4px 10px;border-radius:999px;margin-top:6px
+}
+.dash-badge.ok{background:rgba(120,230,170,.15);color:#8df0b4}
+.dash-badge.warn{background:rgba(255,195,120,.15);color:#ffcf8c}
+
+.dash-profile{grid-column:span 2;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.dash-avatar-ring{
+  width:74px;height:74px;border-radius:50%;padding:3px;flex:none;
+  background:conic-gradient(from 0deg,var(--purple),var(--blue),var(--purple));
+  animation:spin 7s linear infinite
+}
+.dash-avatar-inner{
+  width:100%;height:100%;border-radius:50%;background:#0d0f1a;
+  display:grid;place-items:center;font-size:30px
+}
+.dash-id{direction:ltr;text-align:left;font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+.dash-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.dash-actions .button{flex:1;min-width:140px}
+.dash-intro{animation:fadeUp .5s ease both}
 
 @media(max-width:700px){
   .grid{grid-template-columns:1fr}
@@ -169,6 +200,7 @@ footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size
   header{justify-content:center}
   nav{justify-content:center}
   .support-links{grid-template-columns:1fr}
+  .dash-profile{grid-column:span 1}
 }
 </style>
 </head>
@@ -208,63 +240,72 @@ footer{text-align:center;padding:25px 0 35px;color:var(--footer-color);font-size
 
   <div class="grid">
     <section id="account" class="card glass">
-      <h2>حساب کاربری</h2>
-      <p>با گوگل وارد شو یا با ایمیل حساب بساز.</p>
 
-      <button id="googleButton" class="button secondary full" type="button">
-        🌐 ورود با گوگل
-      </button>
+      <div id="loginBox">
+        <h2>حساب کاربری</h2>
+        <p>با گوگل وارد شو یا با ایمیل حساب بساز.</p>
 
-      <form id="emailForm">
-        <label for="email">ایمیل</label>
-        <input id="email" type="email" autocomplete="email"
-          placeholder="name@example.com" required>
-
-        <label for="password">رمز عبور</label>
-        <input id="password" type="password" minlength="6"
-          autocomplete="current-password" placeholder="حداقل ۶ نویسه" required>
-
-        <button id="signupButton" class="button full" type="submit">ساخت حساب</button>
-        <button id="loginButton" class="button secondary full" type="button">ورود به حساب</button>
-        <button id="resetButton" class="button secondary full" type="button">فراموشی رمز عبور</button>
-      </form>
-
-      <div id="accountStatus" class="status" role="status" aria-live="polite"></div>
-
-      <button id="profileButton" class="button full" type="button" hidden>
-        👤 مشاهده نمایه
-      </button>
-
-      <section id="profilePanel" class="profile-panel" hidden>
-        <div class="profile-avatar">👤</div>
-        <h2>نمایه کاربری</h2>
-        <p>اطلاعات حساب شما</p>
-
-        <div class="profile-row">
-          <span>نام کاربر</span>
-          <strong id="profileName">—</strong>
-        </div>
-        <div class="profile-row">
-          <span>ایمیل</span>
-          <strong id="profileEmail">—</strong>
-        </div>
-        <div class="profile-row">
-          <span>تأیید ایمیل</span>
-          <strong id="profileVerified">—</strong>
-        </div>
-        <div class="profile-row">
-          <span>شناسه کاربری</span>
-          <strong id="profileUid" class="uid">—</strong>
-        </div>
-
-        <button id="closeProfile" class="button secondary full" type="button">
-          بستن نمایه
+        <button id="googleButton" class="button secondary full" type="button">
+          🌐 ورود با گوگل
         </button>
-      </section>
 
-      <button id="logoutButton" class="button secondary full" type="button" hidden>
-        خروج از حساب
-      </button>
+        <form id="emailForm">
+          <label for="email">ایمیل</label>
+          <input id="email" type="email" autocomplete="email"
+            placeholder="name@example.com" required>
+
+          <label for="password">رمز عبور</label>
+          <input id="password" type="password" minlength="6"
+            autocomplete="current-password" placeholder="حداقل ۶ نویسه" required>
+
+          <button id="signupButton" class="button full" type="submit">ساخت حساب</button>
+          <button id="loginButton" class="button secondary full" type="button">ورود به حساب</button>
+          <button id="resetButton" class="button secondary full" type="button">فراموشی رمز عبور</button>
+        </form>
+
+        <div id="accountStatus" class="status" role="status" aria-live="polite"></div>
+      </div>
+
+      <div id="dashboardBox" hidden>
+        <div class="dash-intro" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <h2 style="margin:0">داشبورد من</h2>
+          <span class="tag">فعال ✦</span>
+        </div>
+
+        <div class="dash-grid">
+          <div class="dash-card dash-profile">
+            <div class="dash-avatar-ring"><div class="dash-avatar-inner">👤</div></div>
+            <div style="min-width:0">
+              <div id="dashName" class="dash-value">—</div>
+              <div id="dashEmail" style="font-size:13px;color:var(--muted);overflow-wrap:anywhere">—</div>
+              <div id="dashUid" class="dash-id">—</div>
+            </div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-label">✅ وضعیت ایمیل</div>
+            <div id="dashVerifiedBadge" class="dash-badge">—</div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-label">🗓️ تاریخ عضویت</div>
+            <div id="dashCreated" class="dash-value">—</div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-label">⏱️ آخرین ورود</div>
+            <div id="dashLastLogin" class="dash-value">—</div>
+          </div>
+        </div>
+
+        <div class="dash-actions">
+          <a href="#shop" class="button secondary">✧ رفتن به فروشگاه</a>
+          <button id="logoutButton" class="button" type="button">خروج از حساب</button>
+        </div>
+
+        <div id="dashStatus" class="status" role="status" aria-live="polite"></div>
+      </div>
+
     </section>
 
     <section id="shop" class="card glass product">
@@ -344,9 +385,8 @@ const passwordInput = $("password");
 const status = $("accountStatus");
 let busy = false;
 
-function message(text) {
-  status.textContent = text;
-}
+function message(text) { status.textContent = text; }
+function dashMessage(text) { $("dashStatus").textContent = text; }
 
 function errorMessage(error) {
   const messages = {
@@ -370,11 +410,17 @@ function setBusy(value) {
     .forEach(id => $(id).disabled = value);
 }
 
+function formatDateTime(iso) {
+  if (!iso) return "—";
+  return new Intl.DateTimeFormat("fa-IR", {
+    year:"numeric", month:"long", day:"numeric",
+    hour:"2-digit", minute:"2-digit", calendar:"persian"
+  }).format(new Date(iso));
+}
+
 /* ===== Dynamic Island: weather / time / date, cycling on tap ===== */
 const islandModes = ["weather","time","date"];
 let islandIndex = 0;
-
-/* دادهٔ آب‌وهوا نمایشی است (دمو) چون این صفحه به API بیرونی وصل نمی‌شود */
 const demoWeather = { icon:"⛅", temp:"۲۲°", desc:"نیمه‌ابری" };
 
 function renderIsland() {
@@ -401,7 +447,6 @@ function renderIsland() {
     }).format(new Date());
     sub.textContent = "تاریخ امروز";
   }
-
   [0,1,2].forEach(i => $("dot"+i).classList.toggle("active", i === islandIndex));
 }
 renderIsland();
@@ -429,7 +474,6 @@ $("googleButton").addEventListener("click", async () => {
   if (busy) return;
   setBusy(true);
   message("در حال انتقال به گوگل…");
-
   try {
     await signInWithRedirect(auth, googleProvider);
   } catch (error) {
@@ -442,15 +486,12 @@ $("googleButton").addEventListener("click", async () => {
 $("emailForm").addEventListener("submit", async event => {
   event.preventDefault();
   if (busy) return;
-
   setBusy(true);
   message("در حال ساخت حساب…");
-
   try {
     const credential = await createUserWithEmailAndPassword(
       auth, emailInput.value.trim(), passwordInput.value
     );
-
     try {
       await sendEmailVerification(credential.user);
       message("حساب ساخته شد؛ ایمیلت را برای تأیید بررسی کن.");
@@ -467,20 +508,16 @@ $("emailForm").addEventListener("submit", async event => {
 /* ورود با ایمیل */
 $("loginButton").addEventListener("click", async () => {
   if (busy) return;
-
   if (!emailInput.value.trim() || !passwordInput.value) {
     message("ایمیل و رمز عبور را وارد کن.");
     return;
   }
-
   setBusy(true);
   message("در حال ورود…");
-
   try {
     const credential = await signInWithEmailAndPassword(
       auth, emailInput.value.trim(), passwordInput.value
     );
-
     message(credential.user.emailVerified
       ? "با موفقیت وارد شدی!"
       : "وارد شدی؛ ایمیلت هنوز تأیید نشده است.");
@@ -494,12 +531,7 @@ $("loginButton").addEventListener("click", async () => {
 /* بازیابی رمز */
 $("resetButton").addEventListener("click", async () => {
   const email = emailInput.value.trim();
-
-  if (!email) {
-    message("ابتدا ایمیلت را وارد کن.");
-    return;
-  }
-
+  if (!email) { message("ابتدا ایمیلت را وارد کن."); return; }
   try {
     await sendPasswordResetEmail(auth, email);
     message("اگر این ایمیل حساب داشته باشد، لینک بازیابی ارسال می‌شود.");
@@ -508,52 +540,39 @@ $("resetButton").addEventListener("click", async () => {
   }
 });
 
-/* اطلاعات نمایه و وضعیت ورود */
+/* وضعیت ورود → نمایش فرم یا داشبورد */
 onAuthStateChanged(auth, user => {
-  $("logoutButton").hidden = !user;
-  $("profileButton").hidden = !user;
+  $("loginBox").hidden = !!user;
+  $("dashboardBox").hidden = !user;
 
-  if (!user) {
-    $("profilePanel").hidden = true;
-    return;
+  if (!user) return;
+
+  $("dashName").textContent = user.displayName || "کاربر بدون نام";
+  $("dashEmail").textContent = user.email || "ایمیل ثبت نشده";
+  $("dashUid").textContent = user.uid;
+
+  const badge = $("dashVerifiedBadge");
+  if (user.emailVerified) {
+    badge.textContent = "تأیید شده ✓";
+    badge.className = "dash-badge ok";
+  } else {
+    badge.textContent = "تأیید نشده";
+    badge.className = "dash-badge warn";
   }
 
-  $("profileName").textContent =
-    user.displayName || "نامی برای حساب ثبت نشده است";
-  $("profileEmail").textContent =
-    user.email || "ایمیل ثبت نشده است";
-  $("profileVerified").textContent =
-    user.emailVerified ? "تأیید شده ✓" : "تأیید نشده";
-  $("profileUid").textContent = user.uid;
-
-  message("حساب فعال: " + (user.email || "کاربر"));
-});
-
-/* باز و بسته کردن نمایه */
-$("profileButton").addEventListener("click", () => {
-  $("profilePanel").hidden = false;
-});
-$("closeProfile").addEventListener("click", () => {
-  $("profilePanel").hidden = true;
+  $("dashCreated").textContent = formatDateTime(user.metadata?.creationTime);
+  $("dashLastLogin").textContent = formatDateTime(user.metadata?.lastSignInTime);
 });
 
 /* خروج */
 $("logoutButton").addEventListener("click", async () => {
   try {
     await signOut(auth);
-    $("profilePanel").hidden = true;
-    message("از حساب خارج شدی.");
+    dashMessage("از حساب خارج شدی.");
   } catch (error) {
-    message(errorMessage(error));
+    dashMessage(errorMessage(error));
   }
 });
 
 /* دکمه خرید نمایشی است */
-$("buyButton").addEventListener("click", () => {
-  $("buyStatus").textContent =
-    "پرداخت هنوز فعال نیست؛ هیچ مبلغی دریافت نمی‌شود.";
-});
-</script>
-
-</body>
-</html>
+$("buyBu
