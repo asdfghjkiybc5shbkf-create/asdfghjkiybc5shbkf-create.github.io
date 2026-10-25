@@ -8,9 +8,9 @@
 <style>  
 :root{  
   --bg:#05070d;  
-  --panel:rgba(255,255,255,.04);  
-  --panel2:rgba(255,255,255,.07);  
-  --line:rgba(255,255,255,.1);  
+  --panel:rgba(255,255,255,.05);  
+  --panel2:rgba(255,255,255,.08);  
+  --line:rgba(255,255,255,.12);  
   --text:#f4f2ff;  
   --muted:#9d9bb8;  
   --purple:#a78bfa;  
@@ -20,22 +20,22 @@
   color-scheme:dark;  
 }  
 html[data-theme="light"]{  
-  --bg:#f8fafc;  
-  --panel:rgba(255,255,255,.7);  
-  --panel2:rgba(255,255,255,.9);  
-  --line:rgba(15,23,42,.08);  
+  --bg:#f1f5f9;  
+  --panel:rgba(255,255,255,.65);  
+  --panel2:rgba(255,255,255,.85);  
+  --line:rgba(15,23,42,.1);  
   --text:#0f172a;  
   --muted:#64748b;  
   --purple:#7c3aed;  
   --blue:#0284c7;  
   --footer-color:#0d9488;  
-  --blob1:#c4b5fd; --blob2:#7dd3fc; --blob-op:.4;  
+  --blob1:#c4b5fd; --blob2:#7dd3fc; --blob-op:.35;  
   color-scheme:light;  
 }  
 *{box-sizing:border-box}  
 html{scroll-behavior:smooth}  
 body{  
-  margin:0; min-height:100vh; transition:background-color .4s ease, color .4s ease;  
+  margin:0; min-height:100vh;  
   background:  
     radial-gradient(circle at 10% 15%, color-mix(in srgb, var(--blob1) 60%, transparent) 0, transparent 45%),  
     radial-gradient(circle at 90% 85%, color-mix(in srgb, var(--blob2) 50%, transparent) 0, transparent 45%),  
@@ -44,11 +44,16 @@ body{
   font-family:Tahoma, Arial, sans-serif;  
   line-height:1.8;  
   overflow-x:hidden;  
+  display:flex;  
+  justify-content:center;  
+  align-items:center;  
+  perspective: 1400px; /* ایجاد فضای سه بعدی */  
 }  
+
 body::before, body::after{  
-  content:""; position:fixed; width:320px; height:320px;  
-  border-radius:50%; filter:blur(100px); opacity:var(--blob-op);  
-  pointer-events:none; z-index:-1;  
+  content:""; position:fixed; width:350px; height:350px;  
+  border-radius:50%; filter:blur(110px); opacity:var(--blob-op);  
+  pointer-events:none; z-index:-2;  
   animation:float 14s ease-in-out infinite alternate;  
 }  
 body::before{background:var(--blob1); top:5%; left:-50px}  
@@ -57,238 +62,282 @@ body::after{background:var(--blob2); bottom:5%; right:-50px; animation-delay:-7s
 @keyframes spin{to{transform:rotate(360deg)}}  
 @keyframes popIn{from{opacity:0; transform:scale(.92) translateY(10px)}to{opacity:1; transform:scale(1) translateY(0)}}  
 
-.wrap{width:min(1050px, 92%); margin:auto}  
+/* === قاب گوشی سه بعدی === */  
+.phone-scene{  
+  width: min(440px, 96vw);  
+  height: 92vh;  
+  max-height: 880px;  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  transform-style: preserve-3d;  
+  margin: auto;  
+}  
+
+.phone-frame{  
+  width: 100%;  
+  height: 100%;  
+  background: var(--bg);  
+  border: 4px solid rgba(255, 255, 255, 0.18);  
+  border-radius: 46px;  
+  box-shadow: 0 35px 80px rgba(0,0,0,0.45), inset 0 0 25px rgba(255,255,255,0.06);  
+  display: flex;  
+  flex-direction: column;  
+  position: relative;  
+  overflow: hidden;  
+  transform-style: preserve-3d;  
+  transition: transform 0.1s ease-out;  
+}  
+
+.phone-screen{  
+  flex: 1;  
+  overflow-y: auto;  
+  padding: 16px;  
+  scrollbar-width: thin;  
+  scrollbar-color: var(--line) transparent;  
+}  
+.phone-screen::-webkit-scrollbar{width: 4px}  
+.phone-screen::-webkit-scrollbar-thumb{background: var(--line); border-radius: 99px}  
+
+.wrap{width: 100%}  
 header{  
   display:flex; align-items:center; justify-content:space-between;  
-  gap:16px; padding:24px 0; flex-wrap:wrap;  
+  gap:12px; padding:10px 4px 18px; flex-wrap:wrap  
 }  
-.brand{font-weight:900; font-size:21px; letter-spacing:-0.5px}  
+.brand{font-weight:900; font-size:19px; letter-spacing:-0.5px}  
 .brand span{color:var(--purple)}  
-nav{display:flex; gap:14px; align-items:center; flex-wrap:wrap}  
+nav{display:flex; gap:10px; align-items:center}  
 a{color:var(--muted); text-decoration:none; transition:color .2s}  
 a:hover{color:var(--text)}  
 
 .icon-button{  
-  width:42px; height:42px; border-radius:50%; border:1px solid var(--line);  
-  background:var(--panel); color:var(--text); font-size:17px; cursor:pointer;  
+  width:38px; height:38px; border-radius:50%; border:1px solid var(--line);  
+  background:var(--panel); color:var(--text); font-size:15px; cursor:pointer;  
   display:grid; place-items:center; transition:all .2s ease;  
   backdrop-filter:blur(10px);  
 }  
-.icon-button:hover{transform:translateY(-3px); background:var(--panel2); border-color:var(--purple)}  
+.icon-button:hover{transform:translateY(-2px); background:var(--panel2); border-color:var(--purple)}  
 .icon-button:active{transform:scale(.95)}  
 
-/* افکت شیشه‌ای مدرن و پیشرفته با تعامل نور ماوس */  
+/* افکت شیشه‌ای پیشرفته */  
 .glass {  
   background: var(--panel);  
   border: 1px solid var(--line);  
-  box-shadow: 0 20px 50px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);  
-  backdrop-filter: blur(24px);  
-  -webkit-backdrop-filter: blur(24px);  
-  border-radius: 28px;  
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.08);  
+  backdrop-filter: blur(20px);  
+  -webkit-backdrop-filter: blur(20px);  
+  border-radius: 24px;  
   position: relative;  
   overflow: hidden;  
 }  
 
-/* نور تعاملی زیر دست (موس) روی کارت‌ها */  
+/* نور تعاملی زیر موس */  
 .glass::before {  
   content: "";  
   position: absolute;  
   top: var(--mouse-y, -200px);  
   left: var(--mouse-x, -200px);  
-  width: 350px;  
-  height: 350px;  
+  width: 300px;  
+  height: 300px;  
   background: radial-gradient(circle, color-mix(in srgb, var(--purple) 25%, transparent) 0%, transparent 70%);  
   transform: translate(-50%, -50%);  
   pointer-events: none;  
   opacity: 0;  
   transition: opacity 0.3s ease;  
 }  
-.glass:hover::before {  
-  opacity: 1;  
-}  
+.glass:hover::before { opacity: 1; }  
 
-.hero{padding:56px 24px; text-align:center; margin:14px 0 28px}  
-.eyebrow{color:var(--blue); font-size:12px; letter-spacing:2px; font-weight:700; text-transform:uppercase}  
-h1{font-size:clamp(32px, 6vw, 54px); line-height:1.3; margin:14px 0}  
+.hero{padding:36px 18px; text-align:center; margin:10px 0 18px}  
+.eyebrow{color:var(--blue); font-size:11px; letter-spacing:2px; font-weight:700; text-transform:uppercase}  
+h1{font-size:clamp(26px, 5vw, 40px); line-height:1.3; margin:12px 0}  
 .gradient{  
   background:linear-gradient(135deg, var(--purple), var(--blue));  
   color:transparent; background-clip:text; -webkit-background-clip:text  
 }  
-p{color:var(--muted)}  
-.card{padding:30px; min-width:0; margin-bottom:20px; transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease}  
-.card:hover{transform:translateY(-5px); border-color:color-mix(in srgb, var(--purple) 40%, var(--line)); box-shadow:0 25px 60px rgba(0,0,0,0.2)}  
-.card h2{font-size:22px; margin:0 0 10px}  
+p{color:var(--muted); font-size:14px}  
+.card{padding:22px; min-width:0; margin-bottom:16px; transition:transform .3s ease, border-color .3s ease}  
+.card:hover{transform:translateY(-3px); border-color:color-mix(in srgb, var(--purple) 40%, var(--line))}  
+.card h2{font-size:19px; margin:0 0 8px}  
 
-label{display:block; font-size:13px; color:var(--muted); margin:12px 0 6px}  
+label{display:block; font-size:12px; color:var(--muted); margin:10px 0 5px}  
 input, textarea{  
   width:100%; background:color-mix(in srgb, var(--bg) 60%, transparent);  
-  border:1px solid var(--line); border-radius:14px; padding:14px;  
+  border:1px solid var(--line); border-radius:12px; padding:12px;  
   color:var(--text); font:inherit; outline:none;  
   transition:all .2s ease;  
 }  
-input:focus, textarea:focus{border-color:var(--purple); box-shadow:0 0 0 4px color-mix(in srgb, var(--purple) 20%, transparent)}  
+input:focus, textarea:focus{border-color:var(--purple); box-shadow:0 0 0 3px color-mix(in srgb, var(--purple) 20%, transparent)}  
 
 .button{  
   border:1px solid var(--line);  
   background:linear-gradient(135deg, var(--purple), var(--blue));  
-  color:#fff; padding:13px 20px; border-radius:14px;  
+  color:#fff; padding:12px 18px; border-radius:12px;  
   font:inherit; font-weight:700; cursor:pointer;  
   display:inline-flex; align-items:center; justify-content:center; gap:8px;  
   transition:all .25s ease;  
-  box-shadow:0 10px 25px color-mix(in srgb, var(--purple) 30%, transparent);  
+  box-shadow:0 8px 20px color-mix(in srgb, var(--purple) 30%, transparent);  
 }  
-.button:hover{filter:brightness(1.1); transform:translateY(-2px); box-shadow:0 15px 35px color-mix(in srgb, var(--purple) 45%, transparent)}  
+.button:hover{filter:brightness(1.1); transform:translateY(-1px)}  
 .button:active{transform:scale(.97)}  
 .button:disabled{opacity:.6; cursor:wait}  
 .button.secondary{background:var(--panel2); color:var(--text); box-shadow:none}  
-.button.full{width:100%; margin-top:12px}  
-.status{font-size:13px; min-height:28px; overflow-wrap:anywhere; color:var(--blue); margin-top:8px}  
+.button.full{width:100%; margin-top:10px}  
+.status{font-size:12px; min-height:24px; overflow-wrap:anywhere; color:var(--blue); margin-top:6px}  
 [hidden]{display:none!important}  
 
 .tag{  
-  display:inline-block; padding:4px 12px; border:1px solid var(--line);  
-  border-radius:999px; color:var(--muted); font-size:12px; background:var(--panel)  
+  display:inline-block; padding:3px 10px; border:1px solid var(--line);  
+  border-radius:999px; color:var(--muted); font-size:11px; background:var(--panel)  
 }  
 .product{  
-  min-height:260px; display:flex; flex-direction:column;  
+  min-height:220px; display:flex; flex-direction:column;  
   justify-content:center; text-align:center; align-items:center;  
-  max-width:440px; margin:24px auto  
+  max-width:100%; margin:16px auto  
 }  
-.product-icon{font-size:42px}  
-.price{font-size:34px; font-weight:900; margin:12px 0; color:var(--blue)}  
+.product-icon{font-size:36px}  
+.price{font-size:28px; font-weight:900; margin:10px 0; color:var(--blue)}  
 
-.support-card{margin-top:28px; text-align:center}  
-.support-links{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px}  
+.support-card{margin-top:20px; text-align:center}  
+.support-links{display:grid; grid-template-columns:1fr; gap:10px; margin-top:14px}  
 
-footer{text-align:center; padding:30px 0 40px; color:var(--footer-color); font-size:13px}  
+footer{text-align:center; padding:20px 0 25px; color:var(--footer-color); font-size:12px}  
 .footer-name{color:var(--footer-color); font-weight:bold}  
 
-/* ===== Dynamic Island (ساعت و تاریخ متحرک) ===== */  
-.island-wrap{position:sticky; top:calc(env(safe-area-inset-top, 0px) + 12px); z-index:20; display:flex; justify-content:center; margin:10px 0 20px}  
-.island{  
-  background:#000; color:#fff; border:1px solid rgba(255,255,255,.18);  
-  border-radius:999px; padding:12px 28px; min-width:200px; max-width:92vw;  
-  display:flex; align-items:center; justify-content:center; gap:12px;  
-  cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;  
-  box-shadow:0 15px 35px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,.05);  
-  transition:transform .2s ease, box-shadow .2s ease;  
+/* ===== Dynamic Island (جزیره پویا بالای گوشی) ===== */  
+.island-wrap{  
+  position: sticky;  
+  top: 8px;  
+  z-index: 30;  
+  display: flex;  
+  justify-content: center;  
+  margin: 6px 0 14px;  
 }  
-.island:hover{transform:scale(1.02); box-shadow:0 20px 45px rgba(0,0,0,0.6)}  
-.island:active{transform:scale(.96)}  
-.island-icon{font-size:19px; line-height:1}  
-.island-main{font-size:15px; font-weight:700; white-space:nowrap; direction:ltr; font-variant-numeric:tabular-nums}  
+.island{  
+  background:#000; color:#fff; border:1px solid rgba(255,255,255,.16);  
+  border-radius:999px; padding:10px 22px; min-width:170px; max-width:90%;  
+  display:flex; align-items:center; justify-content:center; gap:10px;  
+  cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;  
+  box-shadow:0 10px 25px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,.05);  
+  transition:transform .2s ease;  
+}  
+.island:hover{transform:scale(1.03)}  
+.island:active{transform:scale(.95)}  
+.island-icon{font-size:16px; line-height:1}  
+.island-main{font-size:14px; font-weight:700; white-space:nowrap; direction:ltr; font-variant-numeric:tabular-nums}  
 .island-main[dir="rtl"]{direction:rtl}  
-.island-sub{font-size:11px; color:#a1a1aa; white-space:nowrap}  
-.island-dots{display:flex; gap:5px; margin-inline-start:6px}  
-.island-dots span{width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.3); transition:background .3px}  
+.island-sub{font-size:10px; color:#a1a1aa; white-space:nowrap}  
+.island-dots{display:flex; gap:4px; margin-inline-start:5px}  
+.island-dots span{width:4px; height:4px; border-radius:50%; background:rgba(255,255,255,.3)}  
 .island-dots span.active{background:var(--blue)}  
 
-/* ===== Dashboard overlay ===== */  
-.overlay{position:fixed; inset:0; z-index:50; display:flex; align-items:flex-start; justify-content:center; padding:calc(env(safe-area-inset-top, 0px) + 70px) 16px 20px}  
-.overlay-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.6); backdrop-filter:blur(6px); animation:fadeIn .3s ease}  
+/* ===== Dashboard overlay (موبایلی) ===== */  
+.overlay{position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center; padding:16px}  
+.overlay-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.65); backdrop-filter:blur(6px); animation:fadeIn .3s ease}  
 .overlay-panel{  
-  position:relative; z-index:1; width:min(500px, 100%); max-height:85vh; overflow-y:auto;  
-  padding:30px; animation:popIn .3s cubic-bezier(0.16, 1, 0.3, 1)  
+  position:relative; z-index:1; width:100%; max-height:90vh; overflow-y:auto;  
+  padding:22px; animation:popIn .3s cubic-bezier(0.16, 1, 0.3, 1)  
 }  
 .overlay-close{  
-  position:absolute; top:16px; left:16px; width:36px; height:36px; border-radius:50%;  
+  position:absolute; top:12px; left:12px; width:32px; height:32px; border-radius:50%;  
   border:1px solid var(--line); background:var(--panel2); color:var(--text);  
-  font-size:16px; cursor:pointer; display:grid; place-items:center; transition:transform .2s;  
+  font-size:14px; cursor:pointer; display:grid; place-items:center;  
 }  
-.overlay-close:hover{transform:scale(1.1)}  
 
 /* ===== Dashboard cards ===== */  
-.dash-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:16px; margin-top:10px}  
+.dash-grid{display:grid; grid-template-columns:1fr; gap:12px; margin-top:8px}  
 .dash-card{  
-  position:relative; overflow:hidden; padding:20px; border-radius:20px;  
+  position:relative; overflow:hidden; padding:16px; border-radius:16px;  
   background:var(--panel2); border:1px solid var(--line);  
-  transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;  
 }  
-.dash-card:hover{transform:translateY(-4px); box-shadow:0 18px 45px rgba(0,0,0,0.25); border-color:var(--purple)}  
-.dash-label{font-size:12px; color:var(--muted); display:flex; align-items:center; gap:6px; margin-bottom:8px}  
-.dash-value{font-size:14px; font-weight:700; overflow-wrap:anywhere}  
-.dash-badge{display:inline-flex; align-items:center; gap:5px; font-size:12px; padding:4px 10px; border-radius:999px; margin-top:4px}  
+.dash-label{font-size:11px; color:var(--muted); display:flex; align-items:center; gap:6px; margin-bottom:6px}  
+.dash-value{font-size:13px; font-weight:700; overflow-wrap:anywhere}  
+.dash-badge{display:inline-flex; align-items:center; gap:4px; font-size:11px; padding:3px 8px; border-radius:999px; margin-top:3px}  
 .dash-badge.ok{background:rgba(52,211,153,.18); color:#34d399}  
 .dash-badge.warn{background:rgba(251,191,36,.18); color:#fbbf24}  
 
-.dash-profile{grid-column:1/-1; display:flex; align-items:center; gap:16px; flex-wrap:wrap}  
-.dash-avatar-ring{width:70px; height:70px; border-radius:50%; padding:3px; flex:none; background:conic-gradient(from 0deg, var(--purple), var(--blue), var(--purple)); animation:spin 8s linear infinite}  
-.dash-avatar-inner{width:100%; height:100%; border-radius:50%; background:var(--bg); display:grid; place-items:center; font-size:28px}  
-.dash-id{direction:ltr; text-align:left; font-size:11px; color:var(--muted); overflow-wrap:anywhere}  
-.dash-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}  
-.dash-actions .button{flex:1; min-width:140px}  
-
-@media(max-width:700px){  
-  .hero{padding:40px 16px}  
-  .card{padding:22px}  
-  header{justify-content:center}  
-  .support-links{grid-template-columns:1fr}  
-  .overlay-panel{padding:24px}  
-}  
+.dash-profile{display:flex; align-items:center; gap:12px; flex-wrap:wrap}  
+.dash-avatar-ring{width:56px; height:56px; border-radius:50%; padding:2px; flex:none; background:conic-gradient(from 0deg, var(--purple), var(--blue), var(--purple)); animation:spin 8s linear infinite}  
+.dash-avatar-inner{width:100%; height:100%; border-radius:50%; background:var(--bg); display:grid; place-items:center; font-size:22px}  
+.dash-id{direction:ltr; text-align:left; font-size:10px; color:var(--muted); overflow-wrap:anywhere}  
+.dash-actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px}  
+.dash-actions .button{flex:1; min-width:120px}  
 </style>  
 </head>  
 <body>  
-<header class="wrap">  
-  <div class="brand">MY<span>SPACE</span> ✦</div>  
-  <nav>  
-    <a href="#shop">خرید</a>  
-    <a href="#support">پشتیبانی</a>  
-    <button id="themeToggle" class="icon-button" type="button" aria-label="تغییر تم" title="تغییر تم">🌙</button>  
-    <button id="menuButton" class="icon-button" type="button" aria-label="باز کردن داشبورد" title="داشبورد">⋮</button>  
-  </nav>  
-</header>  
 
-<div class="wrap">  
-  <div class="island-wrap">  
-    <div id="island" class="island" role="button" tabindex="0" aria-label="تغییر نمایش">  
-      <span id="islandIcon" class="island-icon">🕰️</span>  
-      <div>  
-        <div id="islandMain" class="island-main">—</div>  
-        <div id="islandSub" class="island-sub"></div>  
+<div class="phone-scene" id="phoneScene">  
+  <div class="phone-frame" id="phoneFrame">  
+    
+    <div class="phone-screen" id="phoneScreen">  
+      
+      <!-- هدر داخل گوشی -->  
+      <header class="wrap">  
+        <div class="brand">MY<span>SPACE</span> ✦</div>  
+        <nav>  
+          <a href="#shop">خرید</a>  
+          <a href="#support">پشتیبانی</a>  
+          <button id="themeToggle" class="icon-button" type="button" aria-label="تغییر تم" title="تغییر تم">🌙</button>  
+          <button id="menuButton" class="icon-button" type="button" aria-label="باز کردن داشبورد" title="داشبورد">⋮</button>  
+        </nav>  
+      </header>  
+
+      <!-- Dynamic Island بالای گوشی -->  
+      <div class="wrap">  
+        <div class="island-wrap">  
+          <div id="island" class="island" role="button" tabindex="0" aria-label="تغییر نمایش">  
+            <span id="islandIcon" class="island-icon">🕰️</span>  
+            <div>  
+              <div id="islandMain" class="island-main">—</div>  
+              <div id="islandSub" class="island-sub"></div>  
+            </div>  
+            <div class="island-dots"><span id="dot0"></span><span id="dot1"></span></div>  
+          </div>  
+        </div>  
       </div>  
-      <div class="island-dots"><span id="dot0"></span><span id="dot1"></span></div>  
+
+      <!-- محتوای اصلی -->  
+      <main class="wrap">  
+        <section class="hero glass">  
+          <div class="eyebrow">YOUR PERSONAL SPACE</div>  
+          <h1>به فضای <span class="gradient">شخصی من</span> خوش آمدی</h1>  
+          <p>محیط موبایلی، شیشه‌ای و سه‌بعدی.</p>  
+          <span class="tag">3D · Dynamic Island · Glass</span>  
+        </section>    
+
+        <section id="shop" class="card glass product">  
+          <div class="product-icon">✧</div>  
+          <span class="tag">محصول ویژه</span>  
+          <h2 style="margin-top:10px">خرید و دریافت</h2>  
+          <p>دسترسی به محصول دیجیتال</p>  
+          <div class="price">۹۹٬۰۰۰ تومان</div>  
+          <button id="buyButton" class="button" type="button">خرید محصول</button>  
+          <div id="buyStatus" class="status" role="status">پرداخت هنوز راه‌اندازی نشده است.</div>  
+        </section>    
+
+        <section class="card glass">  
+          <h2>دربارهٔ سایت</h2>  
+          <p>وب‌سایت شخصی داخل قاب موبایل با افکت‌های سه‌بعدی حرکتی و احراز هویت Firebase.</p>  
+        </section>    
+
+        <section id="support" class="card glass support-card">  
+          <div style="font-size:30px">💬</div>  
+          <h2>پشتیبانی و ارتباط با ما</h2>  
+          <p>سؤال یا پیشنهادی داری؟ در ارتباط باش.</p>  
+          <div class="support-links">  
+            <a class="button secondary" href="mailto:yeganehali019@gmail.com">✉️ ایمیل پشتیبانی</a>  
+            <a class="button secondary" href="mailto:yeganehali019@gmail.com?subject=Suggestion%20%2F%20Bug%20Report">💡 پیشنهاد / باگ</a>  
+          </div>  
+        </section>  
+      </main>  
+
+      <footer class="wrap">  
+        <div>ساخته شده با ✦ توسط <span class="footer-name">علی</span></div>  
+        <div>© 2026 · تمامی حقوق محفوظ است</div>  
+      </footer>  
+
     </div>  
   </div>  
 </div>  
-
-<main class="wrap">  
-  <section class="hero glass">  
-    <div class="eyebrow">YOUR PERSONAL SPACE</div>  
-    <h1>به فضای <span class="gradient">شخصی من</span> خوش آمدی</h1>  
-    <p>فضایی مدرن، تاریک/روشن و شیشه‌ای برای تو.</p>  
-    <span class="tag">Dark · Light · Glassmorphism</span>  
-  </section>    
-
-  <section id="shop" class="card glass product">  
-    <div class="product-icon">✧</div>  
-    <span class="tag">محصول ویژه</span>  
-    <h2 style="margin-top:12px">خرید و دریافت</h2>  
-    <p>دسترسی به محصول دیجیتال</p>  
-    <div class="price">۹۹٬۰۰۰ تومان</div>  
-    <button id="buyButton" class="button" type="button">خرید محصول</button>  
-    <div id="buyStatus" class="status" role="status">پرداخت هنوز راه‌اندازی نشده است.</div>  
-  </section>    
-
-  <section class="card glass">  
-    <h2>دربارهٔ سایت</h2>  
-    <p>یک وب‌سایت شخصی با طراحی واکنش‌گرا، افکت شیشه‌ای پیشرفته و احراز هویت Firebase. حساب کاربری از منوی سه‌نقطه بالا در دسترس است.</p>  
-  </section>    
-
-  <section id="support" class="card glass support-card">  
-    <div style="font-size:34px">💬</div>  
-    <h2>پشتیبانی و ارتباط با ما</h2>  
-    <p>سؤال، پیشنهاد یا مشکلی داری؟ از گزینه‌های زیر استفاده کن.</p>  
-    <div class="support-links">  
-      <a class="button secondary" href="mailto:yeganehali019@gmail.com">✉️ ایمیل پشتیبانی</a>  
-      <a class="button secondary" href="mailto:yeganehali019@gmail.com?subject=Suggestion%20%2F%20Bug%20Report">💡 پیشنهاد / گزارش باگ‌ها</a>  
-    </div>  
-  </section>  
-</main>  
-
-<footer class="wrap">  
-  <div>ساخته شده با ✦ توسط <span class="footer-name">علی</span></div>  
-  <div>© 2026 · تمامی حقوق محفوظ است</div>  
-</footer>  
 
 <!-- داشبورد / حساب کاربری -->  
 <div id="dashboardOverlay" class="overlay" hidden>  
@@ -313,7 +362,7 @@ footer{text-align:center; padding:30px 0 40px; color:var(--footer-color); font-s
     </div>  
 
     <div id="dashboardBox" hidden>  
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">  
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">  
         <h2 style="margin:0">داشبورد من</h2>  
         <span class="tag">فعال ✦</span>  
       </div>  
@@ -322,7 +371,7 @@ footer{text-align:center; padding:30px 0 40px; color:var(--footer-color); font-s
           <div class="dash-avatar-ring"><div class="dash-avatar-inner">👤</div></div>  
           <div style="min-width:0">  
             <div id="dashName" class="dash-value">—</div>  
-            <div id="dashEmail" style="font-size:13px;color:var(--muted);overflow-wrap:anywhere">—</div>  
+            <div id="dashEmail" style="font-size:12px;color:var(--muted);overflow-wrap:anywhere">—</div>  
             <div id="dashUid" class="dash-id">—</div>  
           </div>  
         </div>  
@@ -348,8 +397,15 @@ footer{text-align:center; padding:30px 0 40px; color:var(--footer-color); font-s
 </div>  
 
 <script>  
-/* ===== افکت حرکتی نور زیر ماوس روی کارت‌ها ===== */  
+/* ===== افکت سه‌بعدی چرخش قاب گوشی و نور زیر موس بر اساس حرکت دست ===== */  
+const phoneFrame = document.getElementById('phoneFrame');  
 document.addEventListener('mousemove', (e) => {  
+  const xAxis = (window.innerWidth / 2 - e.clientX) / 35;  
+  const yAxis = (window.innerHeight / 2 - e.clientY) / 35;  
+  if(phoneFrame){  
+    phoneFrame.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;  
+  }  
+
   const glassCards = document.querySelectorAll('.glass');  
   glassCards.forEach(card => {  
     const rect = card.getBoundingClientRect();  
@@ -358,6 +414,11 @@ document.addEventListener('mousemove', (e) => {
     card.style.setProperty('--mouse-x', `${x}px`);  
     card.style.setProperty('--mouse-y', `${y}px`);  
   });  
+});  
+
+// بازنشانی چرخش گوشی وقتی موس خارج می‌شود  
+document.addEventListener('mouseleave', () => {  
+  if(phoneFrame) phoneFrame.style.transform = `rotateY(0deg) rotateX(0deg)`;  
 });  
 
 /* ===== تم تاریک/روشن ===== */  
@@ -418,27 +479,4 @@ if(islandEl){
 /* ===== باز/بسته‌کردن داشبورد (سه‌نقطه) ===== */  
 const dashboardOverlay = document.getElementById("dashboardOverlay");  
 const menuButton = document.getElementById("menuButton");  
-const closeDashboardBtn = document.getElementById("closeDashboard");  
-const overlayBackdrop = document.getElementById("overlayBackdrop");  
-
-function openDashboard(){ if(dashboardOverlay) dashboardOverlay.hidden = false; }  
-function closeDashboard(){ if(dashboardOverlay) dashboardOverlay.hidden = true; }  
-
-if(menuButton) menuButton.addEventListener("click", openDashboard);  
-if(closeDashboardBtn) closeDashboardBtn.addEventListener("click", closeDashboard);  
-if(overlayBackdrop) overlayBackdrop.addEventListener("click", closeDashboard);  
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeDashboard(); });  
-</script>  
-
-<script type="module">  
-/* ===== بخش احراز هویت فایربیس ===== */  
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";  
-import {  
-  getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult,  
-  createUserWithEmailAndPassword, signInWithEmailAndPassword,  
-  sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged, signOut  
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";  
-  
-const firebaseConfig = {  
-  apiKey: "AIzaSyAXcp4kU3UXsQygFZcZ-CkFrKkBgak53zQ",  
-  authDomain: "myweb-dddb
+const closeDashboardBtn = document.getElementById("closeDas
