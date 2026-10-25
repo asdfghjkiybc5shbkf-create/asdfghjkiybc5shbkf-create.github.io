@@ -1,17 +1,336 @@
 
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080a12">
+<title>MYSPACE | فضای شخصی علی</title>
+
+<style>
+:root {
+  --bg:#080a12;
+  --panel:rgba(255,255,255,.06);
+  --panel2:rgba(255,255,255,.1);
+  --line:rgba(255,255,255,.13);
+  --text:#f4f2ff;
+  --muted:#aaa8c0;
+  --purple:#b8a1ff;
+  --blue:#8bd8ff;
+  --blob1:#7560ff;
+  --blob2:#39b8ff;
+  color-scheme:dark;
+}
+html[data-theme="light"] {
+  --bg:#eef0f7;
+  --panel:rgba(255,255,255,.6);
+  --panel2:rgba(255,255,255,.8);
+  --line:rgba(20,20,40,.13);
+  --text:#1c1c2b;
+  --muted:#5c5a78;
+  --purple:#6a4bf0;
+  --blue:#0f86c9;
+  --blob1:#a79bff;
+  --blob2:#8fd6ff;
+  color-scheme:light;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  min-height:100vh;
+  padding-top:env(safe-area-inset-top,0px);
+  background:
+    radial-gradient(ellipse at 10% 10%,color-mix(in srgb,var(--blob1) 35%,transparent),transparent 45%),
+    radial-gradient(ellipse at 90% 35%,color-mix(in srgb,var(--blob2) 30%,transparent),transparent 40%),
+    var(--bg);
+  color:var(--text);
+  font-family:Tahoma,Arial,sans-serif;
+  line-height:1.8;
+  transition:background .3s,color .3s;
+}
+.wrap { width:min(1000px,92%); margin:auto; }
+header {
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:14px; padding:20px 0;
+}
+.brand { font-size:21px; font-weight:bold; }
+.brand span { color:var(--purple); }
+nav { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+a { color:var(--muted); text-decoration:none; }
+a:hover { color:var(--text); }
+.icon-button {
+  width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--panel);
+  color:var(--text); font-size:18px; cursor:pointer;
+}
+.glass {
+  background:var(--panel); border:1px solid var(--line);
+  backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 15px 45px #0002; border-radius:24px;
+}
+.hero { text-align:center; padding:45px 20px; margin:12px 0 24px; }
+.eyebrow { color:var(--blue); font-size:13px; }
+h1 { font-size:clamp(29px,6vw,48px); line-height:1.5; margin:12px 0; }
+.gradient {
+  background:linear-gradient(90deg,var(--purple),var(--blue));
+  color:transparent; background-clip:text; -webkit-background-clip:text;
+}
+p { color:var(--muted); }
+.card { padding:24px; margin-bottom:20px; }
+.card h2 { margin-top:0; font-size:21px; }
+.tag {
+  display:inline-block; border:1px solid var(--line);
+  border-radius:99px; padding:3px 12px;
+  color:var(--muted); font-size:12px;
+}
+.button {
+  display:inline-flex; justify-content:center; align-items:center;
+  gap:8px; padding:11px 16px; border-radius:13px;
+  border:1px solid var(--line);
+  background:linear-gradient(110deg,#8d70ec,#5f91e7);
+  color:white; font:inherit; font-weight:bold; cursor:pointer;
+  transition:transform .2s,filter .2s;
+}
+.button:hover { transform:translateY(-2px); filter:brightness(1.1); }
+.button.secondary { background:var(--panel2); color:var(--text); }
+.button.full { width:100%; margin-top:10px; }
+button:disabled { opacity:.6; cursor:wait; }
+[hidden] { display:none !important; }
+
+.island-wrap {
+  position:sticky; top:10px; z-index:10;
+  display:flex; justify-content:center; margin:10px 0 20px;
+}
+.island {
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  min-width:195px; max-width:92vw; padding:10px 22px;
+  border-radius:999px; border:1px solid #ffffff25;
+  background:#000; color:white; cursor:pointer; user-select:none;
+  box-shadow:0 10px 30px #0007;
+}
+.island-icon { font-size:19px; }
+.island-main {
+  direction:ltr; font-size:15px; font-weight:bold;
+  white-space:nowrap; font-variant-numeric:tabular-nums;
+}
+.island-main[dir="rtl"] { direction:rtl; }
+.island-sub { font-size:11px; color:#b8b6c8; white-space:nowrap; }
+.island-dots { display:flex; gap:4px; }
+.island-dots span {
+  width:5px; height:5px; border-radius:50%; background:#ffffff40;
+}
+.island-dots span.active { background:var(--blue); }
+
+.product {
+  text-align:center; max-width:420px; margin:20px auto 24px;
+  display:flex; flex-direction:column; align-items:center;
+}
+.product-icon { font-size:42px; }
+.price { color:var(--blue); font-size:30px; font-weight:bold; margin:10px 0; }
+.status { color:var(--blue); font-size:13px; min-height:26px; overflow-wrap:anywhere; }
+.support-card { text-align:center; }
+.support-links { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px; }
+footer {
+  background:#003432; color:white; text-align:center;
+  padding:25px 0 35px; font-size:12px; margin-top:28px;
+}
+.footer-name { font-weight:bold; color:white; }
+
+/* پنجره داشبورد */
+.overlay {
+  position:fixed; inset:0; z-index:50;
+  display:flex; justify-content:center; align-items:flex-start;
+  padding:65px 16px 20px;
+}
+.overlay-backdrop {
+  position:fixed; inset:0; background:#0009;
+  backdrop-filter:blur(4px);
+}
+.overlay-panel {
+  position:relative; z-index:1; width:min(530px,100%);
+  max-height:85vh; overflow-y:auto; padding:25px;
+  animation:appear .2s ease;
+}
+.overlay-close {
+  position:absolute; left:12px; top:12px;
+  width:35px; height:35px; border-radius:50%;
+  border:1px solid var(--line); background:var(--panel2);
+  color:var(--text); cursor:pointer;
+}
+label { display:block; font-size:13px; color:var(--muted); margin:12px 0 5px; }
+input {
+  width:100%; padding:12px; border-radius:12px;
+  border:1px solid var(--line); background:var(--bg);
+  color:var(--text); font:inherit; outline:none;
+}
+input:focus { border-color:var(--purple); }
+.dash-grid {
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px; margin-top:15px;
+}
+.dash-card {
+  padding:16px; border:1px solid var(--line);
+  border-radius:17px; background:var(--panel2); min-width:0;
+}
+.dash-profile { grid-column:1/-1; display:flex; align-items:center; gap:12px; }
+.avatar {
+  width:58px; height:58px; border-radius:50%;
+  display:grid; place-items:center; font-size:27px;
+  background:linear-gradient(135deg,var(--purple),var(--blue)); flex:none;
+}
+.dash-label { color:var(--muted); font-size:12px; }
+.dash-value { font-size:14px; font-weight:bold; overflow-wrap:anywhere; }
+.dash-id { direction:ltr; text-align:left; font-size:10px; color:var(--muted); overflow-wrap:anywhere; }
+.dash-badge { font-size:12px; }
+.dash-actions { display:flex; margin-top:16px; }
+.dash-actions .button { width:100%; }
+@keyframes appear {
+  from { opacity:0; transform:translateY(8px) scale(.98); }
+  to { opacity:1; transform:translateY(0) scale(1); }
+}
+@media(max-width:650px) {
+  header { justify-content:center; }
+  .brand { width:100%; text-align:center; }
+  nav { justify-content:center; }
+  .hero { padding:32px 16px; }
+  .card { padding:19px; }
+  .support-links,.dash-grid { grid-template-columns:1fr; }
+  .dash-profile { grid-column:auto; }
+  .overlay-panel { padding:22px 17px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation:none !important; transition:none !important; }
+}
+</style>
+</head>
+
+<body>
+<header class="wrap">
+  <div class="brand">MY<span>SPACE</span> ✦</div>
+  <nav>
+    <a href="#shop">فروشگاه</a>
+    <a href="#support">پشتیبانی</a>
+    <button id="themeToggle" class="icon-button" type="button" title="تغییر تم" aria-label="تغییر تم">🌙</button>
+    <button id="menuButton" class="icon-button" type="button" title="داشبورد" aria-label="بازکردن داشبورد">⋮</button>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="island-wrap">
+    <div id="island" class="island" role="button" tabindex="0" aria-label="تغییر ساعت و تاریخ">
+      <span id="islandIcon" class="island-icon">🕰️</span>
+      <div>
+        <div id="islandMain" class="island-main">--:--:--</div>
+        <div id="islandSub" class="island-sub">ساعت محلی دستگاه</div>
+      </div>
+      <div class="island-dots" aria-hidden="true">
+        <span id="dot0" class="active"></span><span id="dot1"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="hero glass">
+    <div class="eyebrow">YOUR PERSONAL SPACE</div>
+    <h1>به فضای <span class="gradient">شخصی من</span> خوش آمدی</h1>
+    <p>داشبوردی مدرن، شیشه‌ای و قابل تنظیم برای تو.</p>
+    <span class="tag">Dark · Light · Glass</span>
+  </section>
+
+  <section id="shop" class="card glass product">
+    <div class="product-icon">✧</div>
+    <span class="tag">محصول ویژه</span>
+    <h2>خرید و دریافت</h2>
+    <p>دسترسی به محصول دیجیتال</p>
+    <div class="price">۹۹٬۰۰۰ تومان</div>
+    <button id="buyButton" class="button" type="button">خرید محصول</button>
+    <div id="buyStatus" class="status" role="status">پرداخت آنلاین هنوز راه‌اندازی نشده است.</div>
+  </section>
+
+  <section class="card glass">
+    <h2>دربارهٔ سایت</h2>
+    <p>فضای شخصی با طراحی واکنش‌گرا، افکت شیشه‌ای، ساعت زنده و داشبورد حساب کاربری.</p>
+    <p>برای ورود یا ساخت حساب، منوی سه‌نقطه را انتخاب کن.</p>
+  </section>
+
+  <section id="support" class="card glass support-card">
+    <div style="font-size:32px">💬</div>
+    <h2>پشتیبانی و ارتباط با ما</h2>
+    <p>برای ارسال پیام یا گزارش مشکل یکی از گزینه‌های زیر را انتخاب کن.</p>
+    <div class="support-links">
+      <a class="button secondary" href="mailto:yeganehali019@gmail.com">✉️ ایمیل پشتیبانی</a>
+      <a class="button secondary" href="mailto:yeganehali019@gmail.com?subject=Suggestion%20%2F%20Bug%20Report">💡 پیشنهاد / گزارش باگ‌ها</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div>ساخته شده با ✦ توسط <span class="footer-name">علی</span></div>
+  <div>© 2026 · تمامی حقوق محفوظ است</div>
+</footer>
+
+<div id="dashboardOverlay" class="overlay" hidden>
+  <div id="overlayBackdrop" class="overlay-backdrop"></div>
+  <section class="overlay-panel glass" role="dialog" aria-modal="true" aria-labelledby="panelTitle">
+    <button id="closeDashboard" class="overlay-close" type="button" aria-label="بستن">✕</button>
+
+    <div id="loginBox">
+      <h2 id="panelTitle">حساب کاربری</h2>
+      <p>با گوگل وارد شو یا با ایمیل حساب بساز.</p>
+      <button id="googleButton" class="button secondary full" type="button">🌐 ورود با گوگل</button>
+
+      <form id="emailForm">
+        <label for="email">ایمیل</label>
+        <input id="email" type="email" autocomplete="email" placeholder="name@example.com" required>
+        <label for="password">رمز عبور</label>
+        <input id="password" type="password" minlength="6" autocomplete="current-password" placeholder="حداقل ۶ نویسه" required>
+        <button id="signupButton" class="button full" type="submit">ساخت حساب</button>
+        <button id="loginButton" class="button secondary full" type="button">ورود به حساب</button>
+        <button id="resetButton" class="button secondary full" type="button">فراموشی رمز عبور</button>
+      </form>
+      <div id="accountStatus" class="status" role="status" aria-live="polite"></div>
+    </div>
+
+    <div id="dashboardBox" hidden>
+      <h2>داشبورد من</h2>
+      <div class="dash-grid">
+        <div class="dash-card dash-profile">
+          <div class="avatar">👤</div>
+          <div style="min-width:0">
+            <div id="dashName" class="dash-value">—</div>
+            <div id="dashEmail" class="dash-label">—</div>
+            <div id="dashUid" class="dash-id">—</div>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-label">✅ وضعیت ایمیل</div>
+          <div id="dashVerifiedBadge" class="dash-value">—</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-label">🗓️ تاریخ عضویت</div>
+          <div id="dashCreated" class="dash-value">—</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-label">⏱️ آخرین ورود</div>
+          <div id="dashLastLogin" class="dash-value">—</div>
+        </div>
+      </div>
+      <div class="dash-actions">
+        <button id="logoutButton" class="button" type="button">خروج از حساب</button>
+      </div>
+      <div id="dashStatus" class="status" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendEmailVerification,
-  sendPasswordResetEmail,
-  onAuthStateChanged,
-  signOut
+  getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult,
+  createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged, signOut
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 const firebaseConfig = {
@@ -24,352 +343,216 @@ const firebaseConfig = {
   measurementId: "G-EKREB5DRC1"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
 const $ = id => document.getElementById(id);
-
 const root = document.documentElement;
-const emailInput = $("email");
-const passwordInput = $("password");
-
+let auth = null;
 let busy = false;
-let currentUser = null;
 
-/* ===== پیام‌ها و مدیریت دکمه‌ها ===== */
-function message(text) {
-  $("accountStatus").textContent = text;
+function showMessage(id, text) {
+  $(id).textContent = text;
 }
-
-function dashMessage(text) {
-  $("dashStatus").textContent = text;
-}
-
 function setBusy(value) {
   busy = value;
-
-  ["googleButton", "signupButton", "loginButton", "resetButton"]
-    .forEach(id => {
-      const button = $(id);
-      if (button) button.disabled = value;
-    });
-}
-
-function errorMessage(error) {
-  const messages = {
-    "auth/email-already-in-use": "این ایمیل قبلاً ثبت شده است.",
-    "auth/invalid-email": "فرمت ایمیل صحیح نیست.",
-    "auth/weak-password": "رمز عبور باید حداقل ۶ نویسه باشد.",
-    "auth/invalid-credential": "ایمیل یا رمز عبور اشتباه است.",
-    "auth/user-not-found": "حسابی با این مشخصات پیدا نشد.",
-    "auth/wrong-password": "رمز عبور اشتباه است.",
-    "auth/unauthorized-domain": "دامنه سایت در Firebase مجاز نیست.",
-    "auth/operation-not-allowed": "این روش ورود در Firebase فعال نیست.",
-    "auth/network-request-failed": "اتصال اینترنت را بررسی کن.",
-    "auth/too-many-requests": "تلاش‌های زیادی انجام شده؛ بعداً دوباره امتحان کن.",
-    "auth/popup-closed-by-user": "فرایند ورود لغو شد.",
-    "auth/invalid-action-code": "درخواست معتبر نیست؛ دوباره امتحان کن."
-  };
-
-  return messages[error.code] || "خطا: " + (error.message || error.code);
-}
-
-function formatDateTime(dateValue) {
-  if (!dateValue) return "—";
-
-  const date = new Date(dateValue);
-  if (Number.isNaN(date.getTime())) return "—";
-
-  return new Intl.DateTimeFormat("fa-IR", {
-    calendar: "persian",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  }).format(date);
-}
-
-/* ===== تم روشن و تاریک ===== */
-function applyTheme(theme) {
-  const safeTheme = theme === "light" ? "light" : "dark";
-
-  root.setAttribute("data-theme", safeTheme);
-  $("themeToggle").textContent = safeTheme === "light" ? "☀️" : "🌙";
-  $("themeToggle").title =
-    safeTheme === "light" ? "فعال‌کردن حالت تاریک" : "فعال‌کردن حالت روشن";
-
-  try {
-    localStorage.setItem("myspace-theme", safeTheme);
-  } catch {}
-}
-
-let savedTheme = "dark";
-
-try {
-  savedTheme = localStorage.getItem("myspace-theme") || "dark";
-} catch {}
-
-applyTheme(savedTheme);
-
-$("themeToggle").addEventListener("click", () => {
-  const nextTheme =
-    root.getAttribute("data-theme") === "light" ? "dark" : "light";
-
-  applyTheme(nextTheme);
-});
-
-/* ===== ساعت و تاریخ شمسی ===== */
-const islandModes = ["time", "date"];
-let islandIndex = 0;
-
-function renderIsland() {
-  const now = new Date();
-  const mode = islandModes[islandIndex];
-
-  const icon = $("islandIcon");
-  const main = $("islandMain");
-  const sub = $("islandSub");
-
-  if (mode === "time") {
-    icon.textContent = "🕰️";
-    main.removeAttribute("dir");
-
-    main.textContent = new Intl.DateTimeFormat("fa-IR", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false
-    }).format(now);
-
-    sub.textContent = "ساعت محلی دستگاه";
-  } else {
-    icon.textContent = "📅";
-    main.setAttribute("dir", "rtl");
-
-    main.textContent = new Intl.DateTimeFormat("fa-IR", {
-      calendar: "persian",
-      weekday: "long",
-      day: "numeric",
-      month: "long"
-    }).format(now);
-
-    sub.textContent = "تاریخ امروز";
-  }
-
-  [0, 1].forEach(i => {
-    $("dot" + i).classList.toggle("active", i === islandIndex);
+  ["googleButton","signupButton","loginButton","resetButton","logoutButton"].forEach(id => {
+    if ($(id)) $(id).disabled = value;
   });
 }
-
-function cycleIsland() {
-  islandIndex = (islandIndex + 1) % islandModes.length;
-  renderIsland();
+function explainError(error) {
+  const errors = {
+    "auth/email-already-in-use":"این ایمیل قبلاً ثبت شده است.",
+    "auth/invalid-email":"فرمت ایمیل صحیح نیست.",
+    "auth/weak-password":"رمز عبور باید حداقل ۶ نویسه باشد.",
+    "auth/invalid-credential":"ایمیل یا رمز عبور اشتباه است.",
+    "auth/user-not-found":"حسابی با این مشخصات پیدا نشد.",
+    "auth/wrong-password":"رمز عبور اشتباه است.",
+    "auth/unauthorized-domain":"دامنه سایت در Firebase مجاز نیست.",
+    "auth/operation-not-allowed":"این روش ورود در Firebase فعال نیست.",
+    "auth/network-request-failed":"اتصال اینترنت را بررسی کن.",
+    "auth/too-many-requests":"تلاش‌های زیادی انجام شده؛ بعداً دوباره امتحان کن."
+  };
+  return errors[error.code] || "خطا: " + (error.message || error.code || "نامشخص");
 }
 
-renderIsland();
-setInterval(renderIsland, 1000);
+/* تم روشن و تاریک */
+function applyTheme(theme) {
+  theme = theme === "light" ? "light" : "dark";
+  root.setAttribute("data-theme", theme);
+  $("themeToggle").textContent = theme === "light" ? "☀️" : "🌙";
+  $("themeToggle").title = theme === "light" ? "فعال‌کردن حالت تاریک" : "فعال‌کردن حالت روشن";
+  try { localStorage.setItem("myspace-theme", theme); } catch {}
+}
+let theme = "dark";
+try { theme = localStorage.getItem("myspace-theme") || "dark"; } catch {}
+applyTheme(theme);
+$("themeToggle").addEventListener("click", () => {
+  applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");
+});
 
+/* ساعت و تاریخ شمسی */
+let islandMode = 0;
+function updateIsland() {
+  const now = new Date();
+  if (islandMode === 0) {
+    $("islandIcon").textContent = "🕰️";
+    $("islandMain").removeAttribute("dir");
+    $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {
+      hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false
+    }).format(now);
+    $("islandSub").textContent = "ساعت محلی دستگاه";
+  } else {
+    $("islandIcon").textContent = "📅";
+    $("islandMain").setAttribute("dir","rtl");
+    $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {
+      calendar:"persian", weekday:"long", day:"numeric", month:"long"
+    }).format(now);
+    $("islandSub").textContent = "تاریخ امروز";
+  }
+  $("dot0").classList.toggle("active", islandMode === 0);
+  $("dot1").classList.toggle("active", islandMode === 1);
+}
+function cycleIsland() {
+  islandMode = (islandMode + 1) % 2;
+  updateIsland();
+}
 $("island").addEventListener("click", cycleIsland);
-
 $("island").addEventListener("keydown", event => {
   if (event.key === "Enter" || event.key === " ") {
     event.preventDefault();
     cycleIsland();
   }
 });
+updateIsland();
+setInterval(updateIsland,1000);
 
-/* ===== باز و بسته‌کردن داشبورد ===== */
+/* باز و بسته کردن داشبورد */
 function openDashboard() {
   $("dashboardOverlay").hidden = false;
 }
-
 function closeDashboard() {
   $("dashboardOverlay").hidden = true;
 }
-
 $("menuButton").addEventListener("click", openDashboard);
 $("closeDashboard").addEventListener("click", closeDashboard);
 $("overlayBackdrop").addEventListener("click", closeDashboard);
-
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") closeDashboard();
 });
 
-/* ===== نمایش اطلاعات حساب ===== */
+/* نمایش اطلاعات حساب */
+function formatDate(value) {
+  if (!value) return "—";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "—";
+  return new Intl.DateTimeFormat("fa-IR", {
+    calendar:"persian", year:"numeric", month:"long", day:"numeric",
+    hour:"2-digit", minute:"2-digit"
+  }).format(date);
+}
 function renderUser(user) {
-  currentUser = user;
-
-  $("loginBox").hidden = !!user;
+  $("loginBox").hidden = Boolean(user);
   $("dashboardBox").hidden = !user;
-
   if (!user) return;
 
-  $("dashName").textContent =
-    user.displayName || (user.email ? user.email.split("@")[0] : "کاربر");
-
+  $("dashName").textContent = user.displayName || user.email?.split("@")[0] || "کاربر";
   $("dashEmail").textContent = user.email || "ایمیل ثبت نشده";
   $("dashUid").textContent = "UID: " + user.uid;
-
-  const verified = user.emailVerified || user.providerData.some(
-    provider => provider.providerId === "google.com"
-  );
-
-  $("dashVerifiedBadge").textContent =
-    verified ? "تأیید شده ✓" : "تأیید نشده";
-
-  $("dashVerifiedBadge").className =
-    "dash-badge " + (verified ? "ok" : "warn");
-
-  const createdAt = user.metadata.creationTime;
-  const lastLogin = user.metadata.lastSignInTime;
-
-  $("dashCreated").textContent = formatDateTime(createdAt);
-  $("dashLastLogin").textContent = formatDateTime(lastLogin);
+  const googleUser = user.providerData.some(p => p.providerId === "google.com");
+  const verified = user.emailVerified || googleUser;
+  $("dashVerifiedBadge").textContent = verified ? "تأیید شده ✓" : "تأیید نشده";
+  $("dashCreated").textContent = formatDate(user.metadata.creationTime);
+  $("dashLastLogin").textContent = formatDate(user.metadata.lastSignInTime);
 }
 
-/* ===== بررسی نتیجه ورود گوگل ===== */
-try {
-  const result = await getRedirectResult(auth);
-
-  if (result?.user) {
-    message("ورود با موفقیت انجام شد!");
-    openDashboard();
-  }
-} catch (error) {
-  message(errorMessage(error));
-}
-
-/* ===== ورود با گوگل ===== */
-$("googleButton").addEventListener("click", async () => {
-  if (busy) return;
-
-  setBusy(true);
-  message("در حال انتقال به گوگل…");
-
-  try {
-    await signInWithRedirect(auth, googleProvider);
-  } catch (error) {
-    message(errorMessage(error));
-    setBusy(false);
-  }
-});
-
-/* ===== ثبت‌نام با ایمیل ===== */
+/* ثبت‌نام */
 $("emailForm").addEventListener("submit", async event => {
   event.preventDefault();
-
   if (busy) return;
-
-  const email = emailInput.value.trim();
-  const password = passwordInput.value;
+  if (!auth) { showMessage("accountStatus","اتصال Firebase برقرار نیست."); return; }
 
   setBusy(true);
-  message("در حال ساخت حساب…");
-
+  showMessage("accountStatus","در حال ساخت حساب…");
   try {
-    const credential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
+    const result = await createUserWithEmailAndPassword(
+      auth, $("email").value.trim(), $("password").value
     );
-
     try {
-      await sendEmailVerification(credential.user);
-      message("حساب ساخته شد؛ ایمیلت را برای تأیید بررسی کن.");
+      await sendEmailVerification(result.user);
+      showMessage("accountStatus","حساب ساخته شد؛ ایمیلت را برای تأیید بررسی کن.");
     } catch {
-      message("حساب ساخته شد، اما ارسال ایمیل تأیید ناموفق بود.");
+      showMessage("accountStatus","حساب ساخته شد، اما ایمیل تأیید ارسال نشد.");
     }
   } catch (error) {
-    message(errorMessage(error));
+    showMessage("accountStatus",explainError(error));
   } finally {
     setBusy(false);
   }
 });
 
-/* ===== ورود با ایمیل ===== */
+/* ورود */
 $("loginButton").addEventListener("click", async () => {
   if (busy) return;
-
-  const email = emailInput.value.trim();
-  const password = passwordInput.value;
-
+  if (!auth) { showMessage("accountStatus","اتصال Firebase برقرار نیست."); return; }
+  const email = $("email").value.trim();
+  const password = $("password").value;
   if (!email || !password) {
-    message("ایمیل و رمز عبور را وارد کن.");
+    showMessage("accountStatus","ایمیل و رمز عبور را وارد کن.");
     return;
   }
-
   setBusy(true);
-  message("در حال ورود…");
-
+  showMessage("accountStatus","در حال ورود…");
   try {
-    await signInWithEmailAndPassword(auth, email, password);
-    message("با موفقیت وارد شدی!");
+    await signInWithEmailAndPassword(auth,email,password);
+    showMessage("accountStatus","با موفقیت وارد شدی!");
     openDashboard();
   } catch (error) {
-    message(errorMessage(error));
+    showMessage("accountStatus",explainError(error));
   } finally {
     setBusy(false);
   }
 });
 
-/* ===== بازیابی رمز عبور ===== */
+/* بازیابی رمز */
 $("resetButton").addEventListener("click", async () => {
   if (busy) return;
-
-  const email = emailInput.value.trim();
-
+  if (!auth) { showMessage("accountStatus","اتصال Firebase برقرار نیست."); return; }
+  const email = $("email").value.trim();
   if (!email) {
-    message("ابتدا ایمیلت را وارد کن.");
-    emailInput.focus();
+    showMessage("accountStatus","ابتدا ایمیلت را وارد کن.");
+    $("email").focus();
     return;
   }
-
   setBusy(true);
-  message("در حال ارسال ایمیل بازیابی…");
-
+  showMessage("accountStatus","در حال ارسال لینک بازیابی…");
   try {
-    await sendPasswordResetEmail(auth, email);
-    message("اگر حسابی با این ایمیل وجود داشته باشد، لینک بازیابی ارسال می‌شود.");
+    await sendPasswordResetEmail(auth,email);
+    showMessage("accountStatus","اگر حسابی با این ایمیل وجود داشته باشد، لینک بازیابی ارسال می‌شود.");
   } catch (error) {
-    message(errorMessage(error));
+    showMessage("accountStatus",explainError(error));
   } finally {
     setBusy(false);
   }
 });
 
-/* ===== خروج از حساب ===== */
-$("logoutButton").addEventListener("click", async () => {
+/* ورود با گوگل */
+$("googleButton").addEventListener("click", async () => {
   if (busy) return;
-
+  if (!auth) { showMessage("accountStatus","اتصال Firebase برقرار نیست."); return; }
   setBusy(true);
-  dashMessage("در حال خروج…");
+  showMessage("accountStatus","در حال انتقال به گوگل…");
+  try {
+    await signInWithRedirect(auth,new GoogleAuthProvider());
+  } catch (error) {
+    showMessage("accountStatus",explainError(error));
+    setBusy(false);
+  }
+});
 
+/* خروج */
+$("logoutButton").addEventListener("click", async () => {
+  if (busy || !auth) return;
+  setBusy(true);
+  showMessage("dashStatus","در حال خروج…");
   try {
     await signOut(auth);
-    message("از حساب خارج شدی.");
     closeDashboard();
-  } catch (error) {
-    dashMessage(errorMessage(error));
-  } finally {
-    setBusy(false);
-  }
-});
-
-/* ===== هماهنگ‌سازی رابط با وضعیت واقعی ورود ===== */
-onAuthStateChanged(auth, user => {
-  renderUser(user);
-
-  if (user) {
-    setBusy(false);
-  }
-});
-
-/* ===== دکمه خرید نمایشی ===== */
-$("buyButton").addEventListener("click", () => {
-  $("buyStatus").textContent =
-    "خرید آنلاین هنوز فعال نیست؛ این دکمه فعلاً نمایشی است.";
-});
-</script>
-</body>
-</html>
+    showMessage("accountStatus","از
