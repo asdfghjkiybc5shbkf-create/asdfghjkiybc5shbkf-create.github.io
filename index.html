@@ -1,642 +1,560 @@
+<!DOCTYPE html>  
+<html lang="fa" dir="rtl">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">  
+<meta name="theme-color" content="#080a12">  
+<title>فضای شخصی علی | MYSPACE</title>  
+<style>  
+:root {  
+  --bg:#05070d;  
+  --panel:rgba(255,255,255,.07);  
+  --panel2:rgba(255,255,255,.13);  
+  --line:rgba(255,255,255,.15);  
+  --text:#f4f2ff;  
+  --muted:#a3a1cb;  
+  --purple:#a78bfa;  
+  --blue:#38bdf8;  
+  --footer-color:#2dd4bf;  
+  --blob1:#6366f1;  
+  --blob2:#0ea5e9;  
+  color-scheme:dark;  
+}  
+html[data-theme="light"] {  
+  --bg:#f1f5f9;  
+  --panel:rgba(255,255,255,.72);  
+  --panel2:rgba(255,255,255,.92);  
+  --line:rgba(15,23,42,.14);  
+  --text:#0f172a;  
+  --muted:#64748b;  
+  --purple:#7c3aed;  
+  --blue:#0284c7;  
+  --footer-color:#0d9488;  
+  --blob1:#c4b5fd;  
+  --blob2:#7dd3fc;  
+  color-scheme:light;  
+}  
+* { box-sizing:border-box; }  
+html { scroll-behavior:smooth; }  
+body {  
+  margin:0;  
+  min-height:100vh;  
+  background:var(--bg);  
+  background-image:  
+    radial-gradient(circle at 10% 15%,color-mix(in srgb,var(--blob1) 40%,transparent),transparent 45%),  
+    radial-gradient(circle at 90% 85%,color-mix(in srgb,var(--blob2) 35%,transparent),transparent 45%);  
+  background-attachment:fixed;  
+  color:var(--text);  
+  font-family:Tahoma,Arial,sans-serif;  
+  line-height:1.8;  
+  overflow-x:hidden;  
+  transition:background-color .25s,color .25s;  
+}  
+button,input,textarea { font:inherit; }  
+button,a { -webkit-tap-highlight-color:transparent; }  
+button { touch-action:manipulation; }  
+a { color:var(--muted);text-decoration:none; }  
+a:hover { color:var(--text); }  
+.app-container {  
+  width:100%;  
+  max-width:520px;  
+  min-height:100vh;  
+  margin:auto;  
+  padding:16px;  
+  display:flex;  
+  flex-direction:column;  
+}  
+.wrap { width:100%; }  
+header {  
+  display:flex;  
+  align-items:center;  
+  justify-content:space-between;  
+  gap:10px;  
+  padding:8px 4px 16px;  
+  flex-wrap:wrap;  
+}  
+.brand { font-size:19px;font-weight:900; }  
+.brand span { color:var(--purple); }  
+nav { display:flex;gap:7px;align-items:center;flex-wrap:wrap; }  
+.icon-button {  
+  width:38px;height:38px;  
+  border-radius:50%;  
+  border:1px solid var(--line);  
+  background:var(--panel);  
+  color:var(--text);  
+  cursor:pointer;  
+  display:grid;  
+  place-items:center;  
+  font-size:16px;  
+  transition:transform .2s,background .2s;  
+}  
+.icon-button:hover { transform:translateY(-2px);background:var(--panel2); }  
+.icon-button:active { transform:scale(.94); }  
+.glass {  
+  background:var(--panel);  
+  border:1px solid var(--line);  
+  box-shadow:0 15px 35px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.08);  
+  backdrop-filter:blur(20px);  
+  -webkit-backdrop-filter:blur(20px);  
+  border-radius:24px;  
+}  
+.hero { padding:34px 18px;text-align:center;margin:10px 0 18px; }  
+.eyebrow { color:var(--blue);font-size:11px;letter-spacing:2px;font-weight:700; }  
+h1 { font-size:clamp(26px,6vw,38px);line-height:1.5;margin:12px 0; }  
+.gradient {  
+  color:var(--purple);  
+  background:linear-gradient(135deg,var(--purple),var(--blue));  
+  -webkit-background-clip:text;  
+  background-clip:text;  
+  -webkit-text-fill-color:transparent;  
+}  
+p { color:var(--muted);font-size:14px; }  
+.tag {  
+  display:inline-block;  
+  padding:3px 10px;  
+  border:1px solid var(--line);  
+  border-radius:999px;  
+  color:var(--muted);  
+  font-size:11px;  
+  background:var(--panel);  
+}  
+.card { padding:22px;margin-bottom:16px;min-width:0; }  
+.card h2 { font-size:19px;margin:0 0 8px; }  
+.product {  
+  display:flex;  
+  flex-direction:column;  
+  justify-content:center;  
+  align-items:center;  
+  text-align:center;  
+  min-height:220px;  
+  margin:16px auto;  
+}  
+.product-icon { font-size:36px; }  
+.price { font-size:27px;font-weight:900;margin:10px 0;color:var(--blue); }  
+.button {  
+  border:1px solid var(--line);  
+  background:linear-gradient(135deg,var(--purple),var(--blue));  
+  color:white;  
+  padding:11px 16px;  
+  border-radius:12px;  
+  font-weight:700;  
+  cursor:pointer;  
+  display:inline-flex;  
+  align-items:center;  
+  justify-content:center;  
+  gap:8px;  
+  transition:filter .2s,transform .2s;  
+  text-align:center;  
+}  
+.button:hover { filter:brightness(1.08); }  
+.button:active { transform:scale(.97); }  
+.button:disabled { opacity:.6;cursor:wait; }  
+.button.secondary { background:var(--panel2);color:var(--text); }  
+.button.full { width:100%;margin-top:10px; }  
+.status { font-size:12px;min-height:24px;overflow-wrap:anywhere;color:var(--blue);margin-top:7px; }  
+label { display:block;font-size:12px;color:var(--muted);margin:10px 0 5px; }  
+input {  
+  width:100%;  
+  background:var(--panel);  
+  border:1px solid var(--line);  
+  border-radius:12px;  
+  padding:12px;  
+  color:var(--text);  
+  outline:none;  
+}  
+input:focus { border-color:var(--purple); }  
+.support-card { text-align:center;margin-top:20px; }  
+.support-links { display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px; }  
+footer {  
+  text-align:center;  
+  padding:20px 0 25px;  
+  color:#2dd4bf;  
+  font-size:12px;  
+  margin-top:auto;  
+}  
+.footer-name { color:#2dd4bf;font-weight:bold; }  
+.island-wrap {  
+  position:sticky;  
+  top:8px;  
+  z-index:20;  
+  display:flex;  
+  justify-content:center;  
+  margin:6px 0 14px;  
+}  
+.island {  
+  background:#000;  
+  color:#fff;  
+  border:1px solid rgba(255,255,255,.2);  
+  border-radius:999px;  
+  padding:10px 22px;  
+  min-width:185px;  
+  max-width:100%;  
+  display:flex;  
+  align-items:center;  
+  justify-content:center;  
+  gap:10px;  
+  cursor:pointer;  
+  user-select:none;  
+  box-shadow:0 10px 25px rgba(0,0,0,.35);  
+}  
+.island:focus-visible { outline:2px solid var(--blue);outline-offset:3px; }  
+.island-icon { font-size:16px; }  
+.island-main {  
+  font-size:14px;  
+  font-weight:700;  
+  white-space:nowrap;  
+  direction:ltr;  
+  font-variant-numeric:tabular-nums;  
+}  
+.island-sub { font-size:10px;color:#a1a1aa;white-space:nowrap; }  
+.island-dots { display:flex;gap:4px;margin-inline-start:5px; }  
+.island-dots span { width:4px;height:4px;border-radius:50%;background:#555; }  
+.island-dots span.active { background:#38bdf8; }  
+[hidden] { display:none!important; }  
+.overlay {  
+  position:fixed;  
+  inset:0;  
+  z-index:100;  
+  display:flex;  
+  align-items:center;  
+  justify-content:center;  
+  padding:16px;  
+}  
+.overlay-backdrop {  
+  position:absolute;  
+  inset:0;  
+  background:rgba(0,0,0,.72);  
+  backdrop-filter:blur(7px);  
+  -webkit-backdrop-filter:blur(7px);  
+}  
+.overlay-panel {  
+  position:relative;  
+  z-index:1;  
+  width:min(440px,100%);  
+  max-height:90vh;  
+  overflow-y:auto;  
+  padding:24px 20px;  
+  animation:popIn .2s ease;  
+}  
+.overlay-close {  
+  position:absolute;  
+  top:12px;  
+  left:12px;  
+  width:34px;  
+  height:34px;  
+  border-radius:50%;  
+  border:1px solid var(--line);  
+  background:var(--panel2);  
+  color:var(--text);  
+  cursor:pointer;  
+}  
+.dash-grid { display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px; }  
+.dash-card { padding:15px;border-radius:16px;background:var(--panel2);border:1px solid var(--line); }  
+.dash-label { font-size:11px;color:var(--muted);margin-bottom:6px; }  
+.dash-value { font-size:13px;font-weight:700;overflow-wrap:anywhere; }  
+.dash-profile { display:flex;align-items:center;gap:12px; }  
+.dash-avatar {  
+  width:48px;height:48px;border-radius:50%;  
+  background:linear-gradient(135deg,var(--purple),var(--blue));  
+  display:grid;place-items:center;font-size:22px;flex:none;  
+}  
+.dash-id { direction:ltr;text-align:left;font-size:10px;color:var(--muted);overflow-wrap:anywhere; }  
+.dash-actions { display:flex;gap:8px;flex-wrap:wrap;margin-top:14px; }  
+.dash-actions .button { flex:1; }  
+@keyframes popIn {  
+  from { opacity:0;transform:translateY(8px) scale(.98); }  
+  to { opacity:1;transform:translateY(0) scale(1); }  
+}  
+@media (prefers-reduced-motion:reduce) {  
+  *,*::before,*::after { scroll-behavior:auto!important;animation:none!important;transition:none!important; }  
+}  
+</style>  
+</head>  
+<body>  
+<div class="app-container">  
+  <header class="wrap">  
+    <div class="brand">MY<span>SPACE</span> ✦</div>  
+    <nav aria-label="منوی سایت">  
+      <a href="#shop">خرید</a>  
+      <a href="#support">پشتیبانی</a>  
+      <button id="galleryBtn" class="icon-button" type="button" aria-label="انتخاب عکس پس‌زمینه" title="عکس گالری">🖼️</button>  
+      <button id="bgToggle" class="icon-button" type="button" aria-label="تغییر پالت رنگ" title="پالت رنگ">🎨</button>  
+      <button id="themeToggle" class="icon-button" type="button" aria-label="تغییر تم" title="تغییر تم">🌙</button>  
+      <button id="menuButton" class="icon-button" type="button" aria-label="باز کردن داشبورد" title="داشبورد">⋮</button>  
+    </nav>  
+  </header>    
 
-<!DOCTYPE html>
-<html lang="fa" dir="rtl" data-theme="dark">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#080a12">
-<meta name="description" content="فضای شخصی MYSPACE">
-<title>فضای شخصی علی | MYSPACE</title>
+  <input type="file" id="wallpaperInput" accept="image/*" hidden>    
 
-<style>
-:root {
-  --bg:#05070d;
-  --panel:rgba(255,255,255,.07);
-  --panel2:rgba(255,255,255,.13);
-  --line:rgba(255,255,255,.15);
-  --text:#f4f2ff;
-  --muted:#a3a1cb;
-  --purple:#a78bfa;
-  --blue:#38bdf8;
-  --blob1:#6366f1;
-  --blob2:#0ea5e9;
-  --footer-color:#2dd4bf;
-  color-scheme:dark;
-}
-html[data-theme="light"] {
-  --bg:#f1f5f9;
-  --panel:rgba(255,255,255,.72);
-  --panel2:rgba(255,255,255,.92);
-  --line:rgba(15,23,42,.14);
-  --text:#0f172a;
-  --muted:#64748b;
-  --purple:#7c3aed;
-  --blue:#0284c7;
-  --blob1:#c4b5fd;
-  --blob2:#7dd3fc;
-  color-scheme:light;
-}
-* { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
-  margin:0;
-  min-height:100vh;
-  background-color:var(--bg);
-  background-image:
-    radial-gradient(circle at 10% 15%,var(--blob1),transparent 45%),
-    radial-gradient(circle at 90% 85%,var(--blob2),transparent 45%);
-  background-attachment:fixed;
-  color:var(--text);
-  font-family:Tahoma,Arial,sans-serif;
-  line-height:1.8;
-  overflow-x:hidden;
-  transition:background-color .25s,color .25s;
-}
-button,input { font:inherit; }
-button,a { -webkit-tap-highlight-color:transparent; }
-button { touch-action:manipulation; }
-a { color:var(--muted);text-decoration:none; }
-a:hover { color:var(--text); }
-button:focus-visible,a:focus-visible,input:focus-visible {
-  outline:2px solid var(--blue);
-  outline-offset:3px;
-}
-.app-container {
-  width:100%;
-  max-width:520px;
-  min-height:100vh;
-  margin:auto;
-  padding:16px;
-  display:flex;
-  flex-direction:column;
-}
-.wrap { width:100%; }
-header {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding:8px 4px 16px;
-  flex-wrap:wrap;
-}
-.brand { font-size:19px;font-weight:900; }
-.brand span { color:var(--purple); }
-nav { display:flex;gap:7px;align-items:center;flex-wrap:wrap; }
-.icon-button {
-  width:38px;height:38px;
-  border-radius:50%;
-  border:1px solid var(--line);
-  background:var(--panel);
-  color:var(--text);
-  cursor:pointer;
-  display:grid;
-  place-items:center;
-  font-size:16px;
-  transition:transform .2s,background .2s;
-}
-.icon-button:hover { transform:translateY(-2px);background:var(--panel2); }
-.icon-button:active { transform:scale(.94); }
-.glass {
-  background:var(--panel);
-  border:1px solid var(--line);
-  box-shadow:0 15px 35px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.08);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border-radius:24px;
-}
-.hero { padding:34px 18px;text-align:center;margin:10px 0 18px; }
-.eyebrow { color:var(--blue);font-size:11px;letter-spacing:2px;font-weight:700; }
-h1 { font-size:clamp(26px,6vw,38px);line-height:1.5;margin:12px 0; }
-.gradient {
-  color:var(--purple);
-  background:linear-gradient(135deg,var(--purple),var(--blue));
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-p { color:var(--muted);font-size:14px; }
-.tag {
-  display:inline-block;
-  padding:3px 10px;
-  border:1px solid var(--line);
-  border-radius:999px;
-  color:var(--muted);
-  font-size:11px;
-  background:var(--panel);
-}
-.card { padding:22px;margin-bottom:16px;min-width:0; }
-.card h2 { font-size:19px;margin:0 0 8px; }
-.product {
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  min-height:220px;
-  margin:16px auto;
-}
-.product-icon { font-size:36px; }
-.price { font-size:27px;font-weight:900;margin:10px 0;color:var(--blue); }
-.button {
-  border:1px solid var(--line);
-  background:linear-gradient(135deg,var(--purple),var(--blue));
-  color:white;
-  padding:11px 16px;
-  border-radius:12px;
-  font-weight:700;
-  cursor:pointer;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  transition:filter .2s,transform .2s;
-  text-align:center;
-}
-.button:hover { filter:brightness(1.08); }
-.button:active { transform:scale(.97); }
-.button:disabled { opacity:.6;cursor:wait; }
-.button.secondary { background:var(--panel2);color:var(--text); }
-.button.full { width:100%;margin-top:10px; }
-.status {
-  font-size:12px;
-  min-height:24px;
-  overflow-wrap:anywhere;
-  color:var(--blue);
-  margin-top:7px;
-}
-label { display:block;font-size:12px;color:var(--muted);margin:10px 0 5px; }
-input {
-  width:100%;
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:12px;
-  color:var(--text);
-  outline:none;
-}
-input:focus { border-color:var(--purple); }
-.support-card { text-align:center;margin-top:20px; }
-.support-links { display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px; }
-footer {
-  text-align:center;
-  padding:20px 0 25px;
-  color:var(--footer-color);
-  font-size:12px;
-  margin-top:auto;
-}
-.footer-name { color:var(--footer-color);font-weight:bold; }
-.island-wrap {
-  position:sticky;
-  top:8px;
-  z-index:20;
-  display:flex;
-  justify-content:center;
-  margin:6px 0 14px;
-}
-.island {
-  background:#000;
-  color:#fff;
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:999px;
-  padding:10px 22px;
-  min-width:185px;
-  max-width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  cursor:pointer;
-  user-select:none;
-  box-shadow:0 10px 25px rgba(0,0,0,.35);
-}
-.island:focus-visible { outline:2px solid var(--blue);outline-offset:3px; }
-.island-icon { font-size:16px; }
-.island-main {
-  font-size:14px;
-  font-weight:700;
-  white-space:nowrap;
-  direction:ltr;
-  font-variant-numeric:tabular-nums;
-}
-.island-sub { font-size:10px;color:#a1a1aa;white-space:nowrap; }
-.island-dots { display:flex;gap:4px;margin-inline-start:5px; }
-.island-dots span { width:4px;height:4px;border-radius:50%;background:#555; }
-.island-dots span.active { background:#38bdf8; }
-[hidden] { display:none!important; }
-.overlay {
-  position:fixed;
-  inset:0;
-  z-index:100;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:16px;
-}
-.overlay-backdrop {
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.72);
-  backdrop-filter:blur(7px);
-  -webkit-backdrop-filter:blur(7px);
-}
-.overlay-panel {
-  position:relative;
-  z-index:1;
-  width:min(440px,100%);
-  max-height:90vh;
-  overflow-y:auto;
-  padding:24px 20px;
-}
-.overlay-close {
-  position:absolute;
-  top:12px;
-  left:12px;
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  border:1px solid var(--line);
-  background:var(--panel2);
-  color:var(--text);
-  cursor:pointer;
-}
-.dash-grid { display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px; }
-.dash-card { padding:15px;border-radius:16px;background:var(--panel2);border:1px solid var(--line); }
-.dash-label { font-size:11px;color:var(--muted);margin-bottom:6px; }
-.dash-value { font-size:13px;font-weight:700;overflow-wrap:anywhere; }
-.dash-profile { display:flex;align-items:center;gap:12px; }
-.dash-avatar {
-  width:48px;height:48px;border-radius:50%;
-  background:linear-gradient(135deg,var(--purple),var(--blue));
-  display:grid;place-items:center;font-size:22px;flex:none;
-}
-.dash-id { direction:ltr;text-align:left;font-size:10px;color:var(--muted);overflow-wrap:anywhere; }
-.dash-actions { display:flex;gap:8px;flex-wrap:wrap;margin-top:14px; }
-.dash-actions .button { flex:1; }
-@media (prefers-reduced-motion:reduce) {
-  *,*::before,*::after { scroll-behavior:auto!important;animation:none!important;transition:none!important; }
-}
-</style>
-</head>
-<body>
+  <div class="wrap">  
+    <div class="island-wrap">  
+      <div id="island" class="island" role="button" tabindex="0" aria-label="تغییر بین ساعت و تاریخ">  
+        <span id="islandIcon" class="island-icon">🕰️</span>  
+        <div>  
+          <div id="islandMain" class="island-main">--:--:--</div>  
+          <div id="islandSub" class="island-sub">ساعت محلی دستگاه</div>  
+        </div>  
+        <div class="island-dots"><span id="dot0" class="active"></span><span id="dot1"></span></div>  
+      </div>  
+    </div>  
+  </div>    
 
-<div class="app-container">
-  <header class="wrap">
-    <div class="brand">MY<span>SPACE</span> ✦</div>
-    <nav aria-label="منوی سایت">
-      <a href="#shop">خرید</a>
-      <a href="#support">پشتیبانی</a>
-      <button id="galleryBtn" class="icon-button" type="button" aria-label="انتخاب عکس پس‌زمینه" title="عکس گالری">🖼️</button>
-      <button id="bgToggle" class="icon-button" type="button" aria-label="تغییر پالت رنگ" title="پالت رنگ">🎨</button>
-      <button id="themeToggle" class="icon-button" type="button" aria-label="تغییر تم" title="تغییر تم">🌙</button>
-      <button id="menuButton" class="icon-button" type="button" aria-label="باز کردن داشبورد" title="داشبورد">⋮</button>
-    </nav>
-  </header>
+  <main class="wrap">  
+    <section class="hero glass">  
+      <div class="eyebrow">YOUR PERSONAL SPACE</div>  
+      <h1>به فضای <span class="gradient">شخصی من</span> خوش آمدی</h1>  
+      <p>محیط موبایلی شیشه‌ای با قابلیت انتخاب عکس گالری و تغییر رنگ.</p>  
+      <span class="tag">Mobile Dashboard · Dynamic Island · Glass</span>  
+    </section>  
 
-  <input type="file" id="wallpaperInput" accept="image/*" hidden>
+    <section id="shop" class="card glass product">  
+      <div class="product-icon">✧</div>  
+      <span class="tag">محصول ویژه</span>  
+      <h2 style="margin-top:10px">خرید و دریافت</h2>  
+      <p>دسترسی به محصول دیجیتال</p>  
+      <div class="price">۹۹٬۰۰۰ تومان</div>  
+      <button id="buyButton" class="button" type="button">خرید محصول</button>  
+      <div id="buyStatus" class="status" role="status">پرداخت هنوز راه‌اندازی نشده است.</div>  
+    </section>  
 
-  <div class="wrap">
-    <div class="island-wrap">
-      <div id="island" class="island" role="button" tabindex="0" aria-label="تغییر بین ساعت و تاریخ">
-        <span id="islandIcon" class="island-icon">🕰️</span>
-        <div>
-          <div id="islandMain" class="island-main">--:--:--</div>
-          <div id="islandSub" class="island-sub">ساعت محلی دستگاه</div>
-        </div>
-        <div class="island-dots"><span id="dot0" class="active"></span><span id="dot1"></span></div>
-      </div>
-    </div>
-  </div>
+    <section class="card glass">  
+      <h2>دربارهٔ سایت</h2>  
+      <p>وب‌سایت شخصی با افکت‌های شیشه‌ای، انتخاب عکس، تغییر پالت و تم روشن و تاریک.</p>  
+    </section>  
 
-  <main class="wrap">
-    <section class="hero glass">
-      <div class="eyebrow">YOUR PERSONAL SPACE</div>
-      <h1>به فضای <span class="gradient">شخصی من</span> خوش آمدی</h1>
-      <p>محیط موبایلی شیشه‌ای با قابلیت انتخاب عکس گالری و تغییر رنگ.</p>
-      <span class="tag">Mobile Dashboard · Dynamic Island · Glass</span>
+    <section id="support" class="card glass support-card">  
+      <div style="font-size:30px">💬</div>  
+      <h2>پشتیبانی و ارتباط با ما</h2>  
+      <p>سؤال یا پیشنهادی داری؟ در ارتباط باش.</p>  
+      <div class="support-links">  
+        <a class="button secondary" href="mailto:yeganehali019@gmail.com">✉️ ایمیل پشتیبانی</a>  
+        <a class="button secondary" href="mailto:yeganehali019@gmail.com?subject=Suggestion%20%2F%20Bug%20Report">💡 پیشنهاد / گزارش باگ</a>  
+      </div>  
     </section>
+  </main>    
 
-    <section id="shop" class="card glass product">
-      <div class="product-icon">✧</div>
-      <span class="tag">محصول ویژه</span>
-      <h2 style="margin-top:10px">خرید و دریافت</h2>
-      <p>دسترسی به محصول دیجیتال</p>
-      <div class="price">۹۹٬۰۰۰ تومان</div>
-      <button id="buyButton" class="button" type="button">خرید محصول</button>
-      <div id="buyStatus" class="status" role="status">پرداخت هنوز راه‌اندازی نشده است.</div>
-    </section>
+  <footer class="wrap">  
+    <div>ساخته شده با ✦ توسط <span class="footer-name">علی</span></div>  
+    <div>© 2026 · تمامی حقوق محفوظ است</div>  
+  </footer>  
+</div>  
 
-    <section class="card glass">
-      <h2>دربارهٔ سایت</h2>
-      <p>وب‌سایت شخصی با افکت‌های شیشه‌ای، انتخاب عکس، تغییر پالت و تم روشن و تاریک.</p>
-    </section>
+<div id="dashboardOverlay" class="overlay" hidden>  
+  <div id="overlayBackdrop" class="overlay-backdrop"></div>  
+  <section class="overlay-panel glass" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">  
+    <button id="closeDashboard" class="overlay-close" type="button" aria-label="بستن داشبورد">✕</button>  
+    
+    <div id="loginBox">  
+      <h2 id="dialogTitle">حساب کاربری</h2>  
+      <p>برای ورود یا ساخت حساب، اطلاعاتت را وارد کن.</p>  
+      <button id="googleButton" class="button secondary full" type="button">🌐 ورود با گوگل</button>  
+      <form id="emailForm">  
+        <label for="email">ایمیل</label>  
+        <input id="email" type="email" autocomplete="email" placeholder="name@example.com" required>  
+        <label for="password">رمز عبور</label>  
+        <input id="password" type="password" minlength="6" autocomplete="current-password" placeholder="حداقل ۶ نویسه" required>  
+        <button id="signupButton" class="button full" type="submit">ساخت حساب</button>  
+        <button id="loginButton" class="button secondary full" type="button">ورود به حساب</button>  
+        <button id="resetButton" class="button secondary full" type="button">فراموشی رمز عبور</button>  
+      </form>  
+      <div id="accountStatus" class="status" role="status" aria-live="polite"></div>  
+    </div>  
 
-    <section id="support" class="card glass support-card">
-      <div style="font-size:30px">💬</div>
-      <h2>پشتیبانی و ارتباط با ما</h2>
-      <p>سؤال یا پیشنهادی داری؟ در ارتباط باش.</p>
-      <div class="support-links">
-        <a class="button secondary" href="mailto:yeganehali019@gmail.com">✉️ ایمیل پشتیبانی</a>
-        <a class="button secondary" href="mailto:yeganehali019@gmail.com?subject=Suggestion%20%2F%20Bug%20Report">💡 پیشنهاد / گزارش باگ</a>
-      </div>
-    </section>
-  </main>
+    <div id="dashboardBox" hidden>  
+      <h2>داشبورد من</h2>  
+      <div class="dash-grid">  
+        <div class="dash-card dash-profile">  
+          <div class="dash-avatar">👤</div>  
+          <div style="min-width:0">  
+            <div id="dashName" class="dash-value">کاربر</div>  
+            <div id="dashEmail" style="font-size:12px;color:var(--muted);overflow-wrap:anywhere">—</div>  
+            <div id="dashUid" class="dash-id">—</div>  
+          </div>  
+        </div>  
+        <div class="dash-card">  
+          <div class="dash-label">وضعیت ایمیل</div>  
+          <div id="dashVerifiedBadge" class="dash-value">—</div>  
+        </div>  
+        <div class="dash-card">  
+          <div class="dash-label">تاریخ عضویت</div>  
+          <div id="dashCreated" class="dash-value">—</div>  
+        </div>  
+        <div class="dash-card">  
+          <div class="dash-label">آخرین ورود</div>  
+          <div id="dashLastLogin" class="dash-value">—</div>  
+        </div>  
+      </div>  
+      <div class="dash-actions">  
+        <button id="logoutButton" class="button" type="button">خروج از حساب</button>  
+      </div>  
+      <div id="dashStatus" class="status" role="status" aria-live="polite"></div>  
+    </div>  
+  </section>  
+</div>  
 
-  <footer class="wrap">
-    <div>ساخته شده با ✦ توسط <span class="footer-name">علی</span></div>
-    <div>© 2026 · تمامی حقوق محفوظ است</div>
-  </footer>
-</div>
-
-<div id="dashboardOverlay" class="overlay" hidden>
-  <div id="overlayBackdrop" class="overlay-backdrop"></div>
-  <section class="overlay-panel glass" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
-    <button id="closeDashboard" class="overlay-close" type="button" aria-label="بستن داشبورد">✕</button>
-
-    <div id="loginBox">
-      <h2 id="dialogTitle">حساب کاربری</h2>
-      <p>برای ورود یا ساخت حساب، اطلاعاتت را وارد کن.</p>
-      <button id="googleButton" class="button secondary full" type="button">🌐 ورود با گوگل</button>
-      <form id="emailForm">
-        <label for="email">ایمیل</label>
-        <input id="email" type="email" autocomplete="email" placeholder="name@example.com" required>
-        <label for="password">رمز عبور</label>
-        <input id="password" type="password" minlength="6" autocomplete="current-password" placeholder="حداقل ۶ نویسه" required>
-        <button id="signupButton" class="button full" type="submit">ساخت حساب</button>
-        <button id="loginButton" class="button secondary full" type="button">ورود به حساب</button>
-        <button id="resetButton" class="button secondary full" type="button">فراموشی رمز عبور</button>
-      </form>
-      <div id="accountStatus" class="status" role="status" aria-live="polite"></div>
-    </div>
-
-    <div id="dashboardBox" hidden>
-      <h2>داشبورد من</h2>
-      <div class="dash-grid">
-        <div class="dash-card dash-profile">
-          <div class="dash-avatar">👤</div>
-          <div style="min-width:0">
-            <div id="dashName" class="dash-value">کاربر</div>
-            <div id="dashEmail" style="font-size:12px;color:var(--muted);overflow-wrap:anywhere">—</div>
-            <div id="dashUid" class="dash-id">—</div>
-          </div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-label">وضعیت ایمیل</div>
-          <div id="dashVerifiedBadge" class="dash-value">—</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-label">تاریخ عضویت</div>
-          <div id="dashCreated" class="dash-value">—</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-label">آخرین ورود</div>
-          <div id="dashLastLogin" class="dash-value">—</div>
-        </div>
-      </div>
-      <div class="dash-actions">
-        <button id="logoutButton" class="button" type="button">خروج از حساب</button>
-      </div>
-      <div id="dashStatus" class="status" role="status" aria-live="polite"></div>
-    </div>
-  </section>
-</div>
-
-<script>
-(function () {
-"use strict";
-
-const $ = (id) => document.getElementById(id);
-const root = document.documentElement;
-
-function safeGet(key, fallback = null) {
-  try {
-    const value = localStorage.getItem(key);
-    return value === null ? fallback : value;
-  } catch (_) {
-    return fallback;
-  }
-}
-function safeSet(key, value) {
-  try { localStorage.setItem(key, value); } catch (_) {}
-}
-function safeRemove(key) {
-  try { localStorage.removeItem(key); } catch (_) {}
-}
-
-/* تم روشن و تاریک */
-function applyTheme(theme) {
-  const validTheme = theme === "light" ? "light" : "dark";
-  root.setAttribute("data-theme", validTheme);
-  $("themeToggle").textContent = validTheme === "light" ? "☀️" : "🌙";
-  $("themeToggle").setAttribute(
-    "aria-label",
-    validTheme === "light" ? "فعال کردن تم تاریک" : "فعال کردن تم روشن"
-  );
-  safeSet("myspace-theme", validTheme);
-}
-applyTheme(safeGet("myspace-theme", "dark"));
-
-$("themeToggle").addEventListener("click", function () {
-  applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");
-});
-
-/* پالت رنگ */
-const palettes = [
-  { bg:"#05070d", b1:"#6366f1", b2:"#0ea5e9" },
-  { bg:"#0f0514", b1:"#d946ef", b2:"#8b5cf6" },
-  { bg:"#02100d", b1:"#10b981", b2:"#06b6d4" },
-  { bg:"#140805", b1:"#f97316", b2:"#ec4899" }
-];
-
-let paletteIndex = Number(safeGet("myspace-bg-index", "0"));
-if (!Number.isInteger(paletteIndex) || paletteIndex < 0 || paletteIndex >= palettes.length) {
-  paletteIndex = 0;
-}
-
-function applyPalette(index) {
-  const palette = palettes[index];
-  root.style.setProperty("--bg", palette.bg);
-  root.style.setProperty("--blob1", palette.b1);
-  root.style.setProperty("--blob2", palette.b2);
-  safeSet("myspace-bg-index", String(index));
-}
-applyPalette(paletteIndex);
-
-$("bgToggle").addEventListener("click", function () {
-  paletteIndex = (paletteIndex + 1) % palettes.length;
-  root.style.removeProperty("background-image");
-  safeRemove("myspace-custom-wallpaper");
-  applyPalette(paletteIndex);
-});
-
-/* عکس پس‌زمینه */
-const wallpaperInput = $("wallpaperInput");
-
-$("galleryBtn").addEventListener("click", function () {
-  wallpaperInput.click();
-});
-
-wallpaperInput.addEventListener("change", function () {
-  const file = wallpaperInput.files && wallpaperInput.files[0];
-  if (!file) return;
-
-  if (!file.type.startsWith("image/")) {
-    alert("لطفاً یک فایل تصویری انتخاب کن.");
-    wallpaperInput.value = "";
-    return;
-  }
-  if (file.size > 5 * 1024 * 1024) {
-    alert("حجم عکس باید کمتر از ۵ مگابایت باشد.");
-    wallpaperInput.value = "";
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = function () {
-    if (typeof reader.result !== "string") return;
-    root.style.backgroundImage =
-      'linear-gradient(rgba(5,7,13,.35),rgba(5,7,13,.35)),url("' +
-      reader.result +
-      '")';
-    safeSet("myspace-custom-wallpaper", reader.result);
-  };
-  reader.onerror = function () {
-    alert("خواندن عکس ناموفق بود. لطفاً عکس دیگری امتحان کن.");
-  };
-  reader.readAsDataURL(file);
-});
-
-const savedWallpaper = safeGet("myspace-custom-wallpaper");
-if (savedWallpaper && savedWallpaper.startsWith("data:image/")) {
-  root.style.backgroundImage =
-    'linear-gradient(rgba(5,7,13,.35),rgba(5,7,13,.35)),url("' +
-    savedWallpaper +
-    '")';
-}
-
-/* ساعت و تاریخ */
-let islandMode = 0;
-
-function renderIsland() {
-  const now = new Date();
-
-  if (islandMode === 0) {
-    $("islandIcon").textContent = "🕰️";
-    $("islandMain").dir = "ltr";
-    $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {
-      hour:"2-digit",
-      minute:"2-digit",
-      second:"2-digit",
-      hour12:false
-    }).format(now);
-    $("islandSub").textContent = "ساعت محلی دستگاه";
-  } else {
-    $("islandIcon").textContent = "📅";
-    $("islandMain").dir = "rtl";
-    $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {
-      weekday:"long",
-      day:"numeric",
-      month:"long",
-      calendar:"persian"
-    }).format(now);
-    $("islandSub").textContent = "تاریخ امروز";
-  }
-
-  $("dot0").classList.toggle("active", islandMode === 0);
-  $("dot1").classList.toggle("active", islandMode === 1);
-}
-
-function cycleIsland() {
-  islandMode = (islandMode + 1) % 2;
-  renderIsland();
-}
-
-$("island").addEventListener("click", cycleIsland);
-$("island").addEventListener("keydown", function (event) {
-  if (event.key === "Enter" || event.key === " ") {
-    event.preventDefault();
-    cycleIsland();
-  }
-});
-
-renderIsland();
-setInterval(renderIsland, 1000);
-
-/* داشبورد باز و بسته‌شونده */
-const overlay = $("dashboardOverlay");
-
-function openDashboard() {
-  overlay.hidden = false;
-  document.body.style.overflow = "hidden";
-  $("closeDashboard").focus();
-}
-function closeDashboard() {
-  overlay.hidden = true;
-  document.body.style.overflow = "";
-  $("menuButton").focus();
-}
-
-$("menuButton").addEventListener("click", openDashboard);
-$("closeDashboard").addEventListener("click", closeDashboard);
-$("overlayBackdrop").addEventListener("click", closeDashboard);
-
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape" && !overlay.hidden) closeDashboard();
-});
-
-/* خرید؛ درگاه واقعی هنوز متصل نشده است */
-$("buyButton").addEventListener("click", function () {
-  $("buyStatus").textContent = "درگاه پرداخت هنوز به سایت متصل نشده است.";
-});
-
-/* وضعیت حساب کاربری */
-function showAccountStatus(message) {
-  $("accountStatus").textContent = message;
-}
-function showDashboardStatus(message) {
-  $("dashStatus").textContent = message;
-}
-function showLogin() {
-  $("loginBox").hidden = false;
-  $("dashboardBox").hidden = true;
-}
-function showUser(user) {
-  $("loginBox").hidden = true;
-  $("dashboardBox").hidden = false;
-
-  $("dashName").textContent = user.displayName || "کاربر MYSPACE";
-  $("dashEmail").textContent = user.email || "ایمیل ثبت نشده";
-  $("dashUid").textContent = user.uid || "";
-  $("dashVerifiedBadge").textContent = user.emailVerified ? "تأیید شده" : "تأیید نشده";
-  $("dashCreated").textContent =
-    user.metadata && user.metadata.creationTime ? user.metadata.creationTime : "نامشخص";
-  $("dashLastLogin").textContent =
-    user.metadata && user.metadata.lastSignInTime ? user.metadata.lastSignInTime : "نامشخص";
-}
-
-/*
-  برای فعال‌کردن ورود واقعی:
-  تنظیمات Firebase خودت را در بخش firebaseConfig وارد کن.
-  تا آن زمان، بقیهٔ امکانات سایت مستقل کار می‌کنند.
-*/
-const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  appId: "YOUR_FIREBASE_APP_ID"
-};
-
-let firebaseAuth = null;
-let firebaseModules = null;
-let firebaseLoadPromise = null;
-
-function isFirebaseConfigured() {
-  return firebaseConfig.apiKey &&
-    firebaseConfig.apiKey !== "YOUR_FIREBASE_API_KEY" &&
-    firebaseConfig.authDomain !== "YOUR_PROJECT.firebaseapp.com" &&
-    firebaseConfig.projectId !== "YOUR_PROJECT_ID" &&
-    firebaseConfig.appId !== "YOUR_FIREBASE_APP_ID";
-}
-
-async function getFirebase() {
-  if (!isFirebaseConfigured()) {
-    throw new Error("و
+<script type="module">  
+const $ = (id) => document.getElementById(id);  
+const root = document.documentElement;  
+  
+function safeGet(key, fallback = null) {  
+  try {  
+    const value = localStorage.getItem(key);  
+    return value === null ? fallback : value;  
+  } catch {  
+    return fallback;  
+  }  
+}  
+function safeSet(key, value) {  
+  try { localStorage.setItem(key, value); } catch (error) {  
+    console.warn("ذخیره‌سازی در این مرورگر در دسترس نیست.", error);  
+  }  
+}  
+function safeRemove(key) {  
+  try { localStorage.removeItem(key); } catch {}  
+}  
+  
+/* تم روشن و تاریک */  
+function applyTheme(theme) {  
+  const validTheme = theme === "light" ? "light" : "dark";  
+  root.setAttribute("data-theme", validTheme);  
+  const btn = $("themeToggle");  
+  if (btn) {  
+    btn.textContent = validTheme === "light" ? "☀️" : "🌙";  
+    btn.setAttribute("aria-label", validTheme === "light" ? "فعال کردن تم تاریک" : "فعال کردن تم روشن");  
+  }  
+  safeSet("myspace-theme", validTheme);  
+}  
+applyTheme(safeGet("myspace-theme", "dark"));  
+$("themeToggle").addEventListener("click", () => {  
+  applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");  
+});  
+  
+/* پالت‌های رنگ */  
+const palettes = [  
+  { bg:"#05070d", b1:"#6366f1", b2:"#0ea5e9" },  
+  { bg:"#0f0514", b1:"#d946ef", b2:"#8b5cf6" },  
+  { bg:"#02100d", b1:"#10b981", b2:"#06b6d4" },  
+  { bg:"#140805", b1:"#f97316", b2:"#ec4899" }  
+];  
+let paletteIndex = Number(safeGet("myspace-bg-index", "0"));  
+if (!Number.isInteger(paletteIndex) || paletteIndex < 0 || paletteIndex >= palettes.length) paletteIndex = 0;  
+  
+function applyPalette(index) {  
+  const palette = palettes[index];  
+  root.style.setProperty("--bg", palette.bg);  
+  root.style.setProperty("--blob1", palette.b1);  
+  root.style.setProperty("--blob2", palette.b2);  
+  safeSet("myspace-bg-index", String(index));  
+}  
+applyPalette(paletteIndex);  
+  
+$("bgToggle").addEventListener("click", () => {  
+  paletteIndex = (paletteIndex + 1) % palettes.length;  
+  root.style.removeProperty("--bg-image");  
+  safeRemove("myspace-custom-wallpaper");  
+  applyPalette(paletteIndex);  
+});  
+  
+/* انتخاب عکس پس‌زمینه */  
+const wallpaperInput = $("wallpaperInput");  
+$("galleryBtn").addEventListener("click", () => wallpaperInput.click());  
+  
+wallpaperInput.addEventListener("change", () => {  
+  const file = wallpaperInput.files && wallpaperInput.files[0];  
+  if (!file) return;  
+  if (!file.type.startsWith("image/")) {  
+    alert("لطفاً یک فایل تصویری انتخاب کن.");  
+    wallpaperInput.value = "";  
+    return;  
+  }  
+  if (file.size > 5 * 1024 * 1024) {  
+    alert("حجم عکس باید کمتر از ۵ مگابایت باشد.");  
+    wallpaperInput.value = "";  
+    return;  
+  }  
+  const reader = new FileReader();  
+  reader.onload = () => {  
+    if (typeof reader.result !== "string") return;  
+    root.style.setProperty("--bg-image", `url("${reader.result}")`);  
+    root.style.backgroundImage =  
+      `linear-gradient(rgba(5,7,13,.35),rgba(5,7,13,.35)),url("${reader.result}"),radial-gradient(circle at 10% 15%,var(--blob1),transparent 45%),radial-gradient(circle at 90% 85%,var(--blob2),transparent 45%)`;  
+    safeSet("myspace-custom-wallpaper", reader.result);  
+  };  
+  reader.onerror = () => alert("خواندن عکس ناموفق بود. لطفاً عکس دیگری امتحان کن.");  
+  reader.readAsDataURL(file);  
+});  
+const savedWallpaper = safeGet("myspace-custom-wallpaper");  
+if (savedWallpaper) {  
+  root.style.backgroundImage =  
+    `linear-gradient(rgba(5,7,13,.35),rgba(5,7,13,.35)),url("${savedWallpaper}"),radial-gradient(circle at 10% 15%,var(--blob1),transparent 45%),radial-gradient(circle at 90% 85%,var(--blob2),transparent 45%)`;  
+}  
+  
+/* ساعت و تاریخ */  
+let islandMode = 0;  
+function renderIsland() {  
+  const now = new Date();  
+  if (islandMode === 0) {  
+    $("islandIcon").textContent = "🕰️";  
+    $("islandMain").dir = "ltr";  
+    $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {  
+      hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false  
+    }).format(now);  
+    $("islandSub").textContent = "ساعت محلی دستگاه";  
+  } else {  
+    $("islandIcon").textContent = "📅";  
+    $("islandMain").dir = "rtl";  
+    $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {  
+      weekday:"long", day:"numeric", month:"long", calendar:"persian"  
+    }).format(now);  
+    $("islandSub").textContent = "تاریخ امروز";  
+  }  
+  $("dot0").classList.toggle("active", islandMode === 0);  
+  $("dot1").classList.toggle("active", islandMode === 1);  
+}  
+function cycleIsland() {  
+  islandMode = (islandMode + 1) % 2;  
+  renderIsland();  
+}  
+$("island").addEventListener("click", cycleIsland);  
+$("island").addEventListener("keydown", (event) => {  
+  if (event.key === "Enter" || event.key === " ") {  
+    event.preventDefault();  
+    cycleIsland();  
+  }  
+});  
+renderIsland();  
+setInterval(renderIsland, 1000);  
+  
+/* افکت کارت‌ها */  
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {  
+  document.addEventListener("mousemove", (event) => {  
+    document.querySelectorAll(".glass").forEach((card) => {  
+      const rect = card.getBoundingClientRect();  
+      card.style.setProperty("--mouse-x", `${event.clientX - rect.left}px`);  
+      card.style.setProperty("--mouse-y", `${event.clientY - rect.top}px`);  
+    });  
+  });  
+}  
+  
+/* داشبورد */  
+const overlay = $("dashboardOverlay");  
+function openDashboard() {  
+  overlay.hidden = false;  
+  document.body.style.overflow = "hidden";  
+  $("closeDashboard").focus();  
+}  
+function closeDashboard() {  
+  overlay.hidden = true;  
+  document.body.style.overflow = "";  
+  $("menuButton").focus();  
+}  
+$("menuButton").addEventListener("click", openDashboard);  
+$("closeDashboard").addEventListener("click", closeDashboard);  
+$("overlayBackdrop").addEventListener("click", closeDashboard);  
+document.addEventListener("keydown", (event) => {  
+  if (event.key === "Escape" && !overlay.hidden) closeDashboard();  
+});  
+  
+/* خرید */  
+$("buyButton").addEventListener("click", () => {  
+  $("buyStatus").textContent = "درگاه پرداخت هنوز به سایت متصل 
