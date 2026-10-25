@@ -515,3 +515,280 @@
   </div>
 </body>
   </html>
+<!-- بخش پروژه‌های من -->
+<section class="projects-section" id="projects" dir="rtl">
+  <div class="projects-heading">
+    <span class="projects-label">MY WORK</span>
+    <h2>پروژه‌های من <span>✦</span></h2>
+    <p>اینجا ایده‌هام رو به واقعیت تبدیل می‌کنم.</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <article class="project-card">
+      <div class="project-icon">🌐</div>
+      <span class="project-number">PROJECT 01</span>
+      <h3>وب‌سایت شخصی</h3>
+      <p>
+        یک فضای دیجیتال با طراحی شیشه‌ای،
+        نورهای متحرک و ظاهر مدرن.
+      </p>
+      <div class="project-tags">
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>Glassmorphism</span>
+      </div>
+      <a class="project-link" href="#projects">
+        پروژه اول <span>↗</span>
+      </a>
+    </article>
+
+    <article class="project-card">
+      <div class="project-icon">💡</div>
+      <span class="project-number">PROJECT 02</span>
+      <h3>ایده خلاقانه</h3>
+      <p>
+        یک پروژه جدید برای تمرین طراحی،
+        خلاقیت و ساخت تجربه‌های جذاب.
+      </p>
+      <div class="project-tags">
+        <span>Design</span>
+        <span>Creative</span>
+      </div>
+      <a class="project-link" href="#projects">
+        به‌زودی <span>↗</span>
+      </a>
+    </article>
+
+    <article class="project-card">
+      <div class="project-icon">🚀</div>
+      <span class="project-number">PROJECT 03</span>
+      <h3>پروژه بعدی</h3>
+      <p>
+        این کارت منتظر ایده بعدی توئه.
+        هر چیزی که بسازی، می‌تونه اینجا باشه.
+      </p>
+      <div class="project-tags">
+        <span>Coming Soon</span>
+        <span>New Idea</span>
+      </div>
+      <a class="project-link" href="#projects">
+        به‌زودی <span>↗</span>
+      </a>
+    </article>
+
+  </div>
+</section>
+
+<style>
+/* Projects: black glass design */
+.projects-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 75px 18px;
+  color: #fff;
+  font-family: Vazirmatn, sans-serif;
+}
+
+.projects-heading {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.projects-label {
+  color: #b6a0ff;
+  font-size: 11px;
+  letter-spacing: 4px;
+}
+
+.projects-heading h2 {
+  margin: 12px 0;
+  font-size: clamp(26px, 6vw, 38px);
+}
+
+.projects-heading h2 span {
+  color: #b6a0ff;
+}
+
+.projects-heading p {
+  color: #aaa7bb;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1050px;
+  margin: auto;
+}
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  padding: 25px 21px;
+  border: 1px solid rgba(255, 255, 255, .13);
+  border-radius: 23px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, .10),
+    rgba(255, 255, 255, .025)
+  );
+  box-shadow: 0 15px 40px rgba(0, 0, 0, .22);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: transform .35s ease,
+              border-color .35s ease,
+              box-shadow .35s ease;
+  animation: projectAppear .7s both;
+}
+
+.project-card:nth-child(2) {
+  animation-delay: .12s;
+}
+
+.project-card:nth-child(3) {
+  animation-delay: .24s;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: -65px;
+  right: -55px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(155, 115, 255, .18);
+  filter: blur(35px);
+  pointer-events: none;
+  transition: background .35s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-9px);
+  border-color: rgba(190, 165, 255, .55);
+  box-shadow: 0 22px 48px rgba(103, 65, 190, .18);
+}
+
+.project-card:hover::before {
+  background: rgba(155, 115, 255, .34);
+}
+
+.project-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .07);
+  font-size: 25px;
+}
+
+.project-number {
+  color: #b6a0ff;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.project-card h3 {
+  margin: 13px 0 10px;
+  font-size: 19px;
+}
+
+.project-card p {
+  min-height: 75px;
+  color: #c1bdcf;
+  font-size: 13px;
+  line-height: 2;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 18px 0;
+}
+
+.project-tags span {
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, .10);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, .05);
+  color: #d9d2f4;
+  font-size: 10px;
+}
+
+.project-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, .10);
+  color: #d2c2ff;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color .25s ease;
+}
+
+.project-link:hover {
+  color: #fff;
+}
+
+.project-link span {
+  font-size: 19px;
+}
+
+@keyframes projectAppear {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* گوشی و تبلت */
+@media (max-width: 760px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .project-card {
+    padding: 19px 15px;
+    border-radius: 19px;
+  }
+
+  .project-card p {
+    min-height: 100px;
+  }
+}
+
+@media (max-width: 420px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card p {
+    min-height: auto;
+  }
+}
+
+/* احترام به تنظیم کاهش حرکت دستگاه */
+@media (prefers-reduced-motion: reduce) {
+  .project-card {
+    animation: none;
+    transition: none;
+  }
+}
+</style>
