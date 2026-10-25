@@ -1,11 +1,13 @@
 
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080a12">
+<meta name="description" content="فضای شخصی MYSPACE">
 <title>فضای شخصی علی | MYSPACE</title>
+
 <style>
 :root {
   --bg:#05070d;
@@ -16,9 +18,9 @@
   --muted:#a3a1cb;
   --purple:#a78bfa;
   --blue:#38bdf8;
-  --footer-color:#2dd4bf;
   --blob1:#6366f1;
   --blob2:#0ea5e9;
+  --footer-color:#2dd4bf;
   color-scheme:dark;
 }
 html[data-theme="light"] {
@@ -30,7 +32,6 @@ html[data-theme="light"] {
   --muted:#64748b;
   --purple:#7c3aed;
   --blue:#0284c7;
-  --footer-color:#0d9488;
   --blob1:#c4b5fd;
   --blob2:#7dd3fc;
   color-scheme:light;
@@ -40,10 +41,10 @@ html { scroll-behavior:smooth; }
 body {
   margin:0;
   min-height:100vh;
-  background:var(--bg);
+  background-color:var(--bg);
   background-image:
-    radial-gradient(circle at 10% 15%,color-mix(in srgb,var(--blob1) 40%,transparent),transparent 45%),
-    radial-gradient(circle at 90% 85%,color-mix(in srgb,var(--blob2) 35%,transparent),transparent 45%);
+    radial-gradient(circle at 10% 15%,var(--blob1),transparent 45%),
+    radial-gradient(circle at 90% 85%,var(--blob2),transparent 45%);
   background-attachment:fixed;
   color:var(--text);
   font-family:Tahoma,Arial,sans-serif;
@@ -51,11 +52,15 @@ body {
   overflow-x:hidden;
   transition:background-color .25s,color .25s;
 }
-button,input,textarea { font:inherit; }
+button,input { font:inherit; }
 button,a { -webkit-tap-highlight-color:transparent; }
 button { touch-action:manipulation; }
 a { color:var(--muted);text-decoration:none; }
 a:hover { color:var(--text); }
+button:focus-visible,a:focus-visible,input:focus-visible {
+  outline:2px solid var(--blue);
+  outline-offset:3px;
+}
 .app-container {
   width:100%;
   max-width:520px;
@@ -152,7 +157,13 @@ p { color:var(--muted);font-size:14px; }
 .button:disabled { opacity:.6;cursor:wait; }
 .button.secondary { background:var(--panel2);color:var(--text); }
 .button.full { width:100%;margin-top:10px; }
-.status { font-size:12px;min-height:24px;overflow-wrap:anywhere;color:var(--blue);margin-top:7px; }
+.status {
+  font-size:12px;
+  min-height:24px;
+  overflow-wrap:anywhere;
+  color:var(--blue);
+  margin-top:7px;
+}
 label { display:block;font-size:12px;color:var(--muted);margin:10px 0 5px; }
 input {
   width:100%;
@@ -169,11 +180,11 @@ input:focus { border-color:var(--purple); }
 footer {
   text-align:center;
   padding:20px 0 25px;
-  color:#2dd4bf;
+  color:var(--footer-color);
   font-size:12px;
   margin-top:auto;
 }
-.footer-name { color:#2dd4bf;font-weight:bold; }
+.footer-name { color:var(--footer-color);font-weight:bold; }
 .island-wrap {
   position:sticky;
   top:8px;
@@ -235,7 +246,6 @@ footer {
   max-height:90vh;
   overflow-y:auto;
   padding:24px 20px;
-  animation:popIn .2s ease;
 }
 .overlay-close {
   position:absolute;
@@ -262,16 +272,13 @@ footer {
 .dash-id { direction:ltr;text-align:left;font-size:10px;color:var(--muted);overflow-wrap:anywhere; }
 .dash-actions { display:flex;gap:8px;flex-wrap:wrap;margin-top:14px; }
 .dash-actions .button { flex:1; }
-@keyframes popIn {
-  from { opacity:0;transform:translateY(8px) scale(.98); }
-  to { opacity:1;transform:translateY(0) scale(1); }
-}
 @media (prefers-reduced-motion:reduce) {
   *,*::before,*::after { scroll-behavior:auto!important;animation:none!important;transition:none!important; }
 }
 </style>
 </head>
 <body>
+
 <div class="app-container">
   <header class="wrap">
     <div class="brand">MY<span>SPACE</span> ✦</div>
@@ -393,7 +400,10 @@ footer {
   </section>
 </div>
 
-<script type="module">
+<script>
+(function () {
+"use strict";
+
 const $ = (id) => document.getElementById(id);
 const root = document.documentElement;
 
@@ -401,44 +411,46 @@ function safeGet(key, fallback = null) {
   try {
     const value = localStorage.getItem(key);
     return value === null ? fallback : value;
-  } catch {
+  } catch (_) {
     return fallback;
   }
 }
 function safeSet(key, value) {
-  try { localStorage.setItem(key, value); } catch (error) {
-    console.warn("ذخیره‌سازی در این مرورگر در دسترس نیست.", error);
-  }
+  try { localStorage.setItem(key, value); } catch (_) {}
 }
 function safeRemove(key) {
-  try { localStorage.removeItem(key); } catch {}
+  try { localStorage.removeItem(key); } catch (_) {}
 }
 
 /* تم روشن و تاریک */
 function applyTheme(theme) {
   const validTheme = theme === "light" ? "light" : "dark";
   root.setAttribute("data-theme", validTheme);
-  const btn = $("themeToggle");
-  if (btn) {
-    btn.textContent = validTheme === "light" ? "☀️" : "🌙";
-    btn.setAttribute("aria-label", validTheme === "light" ? "فعال کردن تم تاریک" : "فعال کردن تم روشن");
-  }
+  $("themeToggle").textContent = validTheme === "light" ? "☀️" : "🌙";
+  $("themeToggle").setAttribute(
+    "aria-label",
+    validTheme === "light" ? "فعال کردن تم تاریک" : "فعال کردن تم روشن"
+  );
   safeSet("myspace-theme", validTheme);
 }
 applyTheme(safeGet("myspace-theme", "dark"));
-$("themeToggle").addEventListener("click", () => {
+
+$("themeToggle").addEventListener("click", function () {
   applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");
 });
 
-/* پالت‌های رنگ */
+/* پالت رنگ */
 const palettes = [
   { bg:"#05070d", b1:"#6366f1", b2:"#0ea5e9" },
   { bg:"#0f0514", b1:"#d946ef", b2:"#8b5cf6" },
   { bg:"#02100d", b1:"#10b981", b2:"#06b6d4" },
   { bg:"#140805", b1:"#f97316", b2:"#ec4899" }
 ];
+
 let paletteIndex = Number(safeGet("myspace-bg-index", "0"));
-if (!Number.isInteger(paletteIndex) || paletteIndex < 0 || paletteIndex >= palettes.length) paletteIndex = 0;
+if (!Number.isInteger(paletteIndex) || paletteIndex < 0 || paletteIndex >= palettes.length) {
+  paletteIndex = 0;
+}
 
 function applyPalette(index) {
   const palette = palettes[index];
@@ -449,20 +461,24 @@ function applyPalette(index) {
 }
 applyPalette(paletteIndex);
 
-$("bgToggle").addEventListener("click", () => {
+$("bgToggle").addEventListener("click", function () {
   paletteIndex = (paletteIndex + 1) % palettes.length;
-  root.style.removeProperty("--bg-image");
+  root.style.removeProperty("background-image");
   safeRemove("myspace-custom-wallpaper");
   applyPalette(paletteIndex);
 });
 
-/* انتخاب عکس پس‌زمینه */
+/* عکس پس‌زمینه */
 const wallpaperInput = $("wallpaperInput");
-$("galleryBtn").addEventListener("click", () => wallpaperInput.click());
 
-wallpaperInput.addEventListener("change", () => {
+$("galleryBtn").addEventListener("click", function () {
+  wallpaperInput.click();
+});
+
+wallpaperInput.addEventListener("change", function () {
   const file = wallpaperInput.files && wallpaperInput.files[0];
   if (!file) return;
+
   if (!file.type.startsWith("image/")) {
     alert("لطفاً یک فایل تصویری انتخاب کن.");
     wallpaperInput.value = "";
@@ -473,72 +489,81 @@ wallpaperInput.addEventListener("change", () => {
     wallpaperInput.value = "";
     return;
   }
+
   const reader = new FileReader();
-  reader.onload = () => {
+  reader.onload = function () {
     if (typeof reader.result !== "string") return;
-    root.style.setProperty("--bg-image", `url("${reader.result}")`);
     root.style.backgroundImage =
-      `linear-gradient(rgba(5,7,13,.35),rgba(5,7,13,.35)),url("${reader.result}"),radial-gradient(circle at 10% 15%,var(--blob1),transparent 45%),radial-gradient(circle at 90% 85%,var(--blob2),transparent 45%)`;
+      'linear-gradient(rgba(5,7,13,.35),rgba(5,7,13,.35)),url("' +
+      reader.result +
+      '")';
     safeSet("myspace-custom-wallpaper", reader.result);
   };
-  reader.onerror = () => alert("خواندن عکس ناموفق بود. لطفاً عکس دیگری امتحان کن.");
+  reader.onerror = function () {
+    alert("خواندن عکس ناموفق بود. لطفاً عکس دیگری امتحان کن.");
+  };
   reader.readAsDataURL(file);
 });
+
 const savedWallpaper = safeGet("myspace-custom-wallpaper");
-if (savedWallpaper) {
+if (savedWallpaper && savedWallpaper.startsWith("data:image/")) {
   root.style.backgroundImage =
-    `linear-gradient(rgba(5,7,13,.35),rgba(5,7,13,.35)),url("${savedWallpaper}"),radial-gradient(circle at 10% 15%,var(--blob1),transparent 45%),radial-gradient(circle at 90% 85%,var(--blob2),transparent 45%)`;
+    'linear-gradient(rgba(5,7,13,.35),rgba(5,7,13,.35)),url("' +
+    savedWallpaper +
+    '")';
 }
 
 /* ساعت و تاریخ */
 let islandMode = 0;
+
 function renderIsland() {
   const now = new Date();
+
   if (islandMode === 0) {
     $("islandIcon").textContent = "🕰️";
     $("islandMain").dir = "ltr";
     $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {
-      hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false
+      hour:"2-digit",
+      minute:"2-digit",
+      second:"2-digit",
+      hour12:false
     }).format(now);
     $("islandSub").textContent = "ساعت محلی دستگاه";
   } else {
     $("islandIcon").textContent = "📅";
     $("islandMain").dir = "rtl";
     $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {
-      weekday:"long", day:"numeric", month:"long", calendar:"persian"
+      weekday:"long",
+      day:"numeric",
+      month:"long",
+      calendar:"persian"
     }).format(now);
     $("islandSub").textContent = "تاریخ امروز";
   }
+
   $("dot0").classList.toggle("active", islandMode === 0);
   $("dot1").classList.toggle("active", islandMode === 1);
 }
+
 function cycleIsland() {
   islandMode = (islandMode + 1) % 2;
   renderIsland();
 }
+
 $("island").addEventListener("click", cycleIsland);
-$("island").addEventListener("keydown", (event) => {
+$("island").addEventListener("keydown", function (event) {
   if (event.key === "Enter" || event.key === " ") {
     event.preventDefault();
     cycleIsland();
   }
 });
+
 renderIsland();
 setInterval(renderIsland, 1000);
 
-/* افکت کارت‌ها؛ فقط در دستگاه‌های دارای ماوس */
-if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-  document.addEventListener("mousemove", (event) => {
-    document.querySelectorAll(".glass").forEach((card) => {
-      const rect = card.getBoundingClientRect();
-      card.style.setProperty("--mouse-x", `${event.clientX - rect.left}px`);
-      card.style.setProperty("--mouse-y", `${event.clientY - rect.top}px`);
-    });
-  });
-}
-
-/* داشبورد: باز و بسته شدن مستقل از Firebase */
+/* داشبورد باز و بسته‌شونده */
 const overlay = $("dashboardOverlay");
+
 function openDashboard() {
   overlay.hidden = false;
   document.body.style.overflow = "hidden";
@@ -549,26 +574,21 @@ function closeDashboard() {
   document.body.style.overflow = "";
   $("menuButton").focus();
 }
+
 $("menuButton").addEventListener("click", openDashboard);
 $("closeDashboard").addEventListener("click", closeDashboard);
 $("overlayBackdrop").addEventListener("click", closeDashboard);
-document.addEventListener("keydown", (event) => {
+
+document.addEventListener("keydown", function (event) {
   if (event.key === "Escape" && !overlay.hidden) closeDashboard();
 });
 
-/* خرید: تا زمان اتصال درگاه، پیام واضح نشان می‌دهد */
-$("buyButton").addEventListener("click", () => {
+/* خرید؛ درگاه واقعی هنوز متصل نشده است */
+$("buyButton").addEventListener("click", function () {
   $("buyStatus").textContent = "درگاه پرداخت هنوز به سایت متصل نشده است.";
 });
 
-/* Firebase اختیاری؛ اگر تنظیم نشده باشد سایر دکمه‌ها همچنان کار می‌کنند */
-const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  appId: "YOUR_FIREBASE_APP_ID"
-};
-
+/* وضعیت حساب کاربری */
 function showAccountStatus(message) {
   $("accountStatus").textContent = message;
 }
@@ -582,9 +602,41 @@ function showLogin() {
 function showUser(user) {
   $("loginBox").hidden = true;
   $("dashboardBox").hidden = false;
+
   $("dashName").textContent = user.displayName || "کاربر MYSPACE";
   $("dashEmail").textContent = user.email || "ایمیل ثبت نشده";
   $("dashUid").textContent = user.uid || "";
   $("dashVerifiedBadge").textContent = user.emailVerified ? "تأیید شده" : "تأیید نشده";
-  $("dashCreated").textContent = user.metadata?.creationTime || "نامشخص";
-  $("dashLastLogin").textContent = user.m
+  $("dashCreated").textContent =
+    user.metadata && user.metadata.creationTime ? user.metadata.creationTime : "نامشخص";
+  $("dashLastLogin").textContent =
+    user.metadata && user.metadata.lastSignInTime ? user.metadata.lastSignInTime : "نامشخص";
+}
+
+/*
+  برای فعال‌کردن ورود واقعی:
+  تنظیمات Firebase خودت را در بخش firebaseConfig وارد کن.
+  تا آن زمان، بقیهٔ امکانات سایت مستقل کار می‌کنند.
+*/
+const firebaseConfig = {
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  appId: "YOUR_FIREBASE_APP_ID"
+};
+
+let firebaseAuth = null;
+let firebaseModules = null;
+let firebaseLoadPromise = null;
+
+function isFirebaseConfigured() {
+  return firebaseConfig.apiKey &&
+    firebaseConfig.apiKey !== "YOUR_FIREBASE_API_KEY" &&
+    firebaseConfig.authDomain !== "YOUR_PROJECT.firebaseapp.com" &&
+    firebaseConfig.projectId !== "YOUR_PROJECT_ID" &&
+    firebaseConfig.appId !== "YOUR_FIREBASE_APP_ID";
+}
+
+async function getFirebase() {
+  if (!isFirebaseConfigured()) {
+    throw new Error("و
