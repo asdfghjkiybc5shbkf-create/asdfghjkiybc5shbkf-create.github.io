@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">  
 <meta name="theme-color" content="#080a12">  
 <title>فضای شخصی علی | MYSPACE</title>  
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
 <style>  
 :root {  
   --bg:#05070d;  
@@ -268,6 +269,65 @@ footer {
 @media (prefers-reduced-motion:reduce) {  
   *,*::before,*::after { scroll-behavior:auto!important;animation:none!important;transition:none!important; }  
 }  
+/* ===== Modern 3D glass upgrade ===== */
+body{font-family:"Vazirmatn",Tahoma,Arial,sans-serif;perspective:1200px}
+.fx-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.fx-blob{position:absolute;width:60vmax;height:60vmax;border-radius:50%;filter:blur(80px);opacity:.55;mix-blend-mode:screen;animation:blobMove 18s ease-in-out infinite alternate}
+.fx-blob.b1{background:var(--blob1);top:-20vmax;left:-15vmax}
+.fx-blob.b2{background:var(--blob2);bottom:-25vmax;right:-15vmax;animation-delay:-6s}
+.fx-blob.b3{background:var(--purple);top:30%;left:40%;width:35vmax;height:35vmax;opacity:.35;animation-duration:24s;animation-delay:-12s}
+html[data-theme="light"] .fx-blob{mix-blend-mode:multiply;opacity:.4}
+@keyframes blobMove{0%{transform:translate(0,0) scale(1) rotate(0)}50%{transform:translate(10vw,8vh) scale(1.15) rotate(60deg)}100%{transform:translate(-6vw,14vh) scale(.9) rotate(120deg)}}
+.fx-grid{position:absolute;inset:-50% -50% 0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;transform:perspective(500px) rotateX(62deg);transform-origin:bottom;mask-image:linear-gradient(to top,#000 0%,transparent 55%);opacity:.35;animation:gridRun 6s linear infinite;top:auto;height:70%}
+@keyframes gridRun{to{background-position:0 44px}}
+#fxCanvas{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.glass{position:relative;transform-style:preserve-3d;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s;backdrop-filter:blur(22px) saturate(160%);
+ background:linear-gradient(145deg,color-mix(in srgb,var(--panel2) 90%,transparent),var(--panel));
+ box-shadow:0 25px 50px -15px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(255,255,255,.04)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:conic-gradient(from var(--ang,0deg),transparent 0 60%,var(--purple),var(--blue),transparent 85%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spinBorder 6s linear infinite;pointer-events:none;opacity:.9}
+.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.22),transparent 45%);opacity:var(--glare,0);transition:opacity .3s}
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes spinBorder{to{--ang:360deg}}
+.glass > *{transform:translateZ(30px)}
+.overlay-panel.glass > *{transform:none}
+.reveal{opacity:0;transform:translateY(40px) rotateX(18deg) scale(.96)}
+.reveal.in{opacity:1;transform:none;transition:opacity .8s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.brand{animation:brandGlow 3s ease-in-out infinite;letter-spacing:1px}
+@keyframes brandGlow{50%{text-shadow:0 0 18px var(--purple)}}
+.gradient{background:linear-gradient(90deg,var(--purple),var(--blue),#f472b6,var(--purple));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;animation:gradMove 5s linear infinite}
+@keyframes gradMove{to{background-position:300% 0}}
+.product-icon{display:inline-block;font-size:52px;animation:float3d 5s ease-in-out infinite;filter:drop-shadow(0 10px 20px var(--purple));background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+@keyframes float3d{0%,100%{transform:translateZ(50px) translateY(0) rotateY(0)}50%{transform:translateZ(60px) translateY(-10px) rotateY(180deg)}}
+.price{text-shadow:0 0 24px color-mix(in srgb,var(--blue) 60%,transparent)}
+.button{position:relative;overflow:hidden;box-shadow:0 10px 25px -8px color-mix(in srgb,var(--purple) 70%,transparent);transition:transform .2s,box-shadow .3s,filter .2s}
+.button::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(110deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 3.2s ease-in-out infinite}
+.button.secondary::after{animation-duration:4.5s}
+@keyframes shine{0%,60%{left:-120%}100%{left:160%}}
+.button:hover{transform:translateY(-3px);box-shadow:0 18px 35px -10px color-mix(in srgb,var(--blue) 80%,transparent)}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:rip .6s ease-out;pointer-events:none}
+@keyframes rip{to{transform:scale(4);opacity:0}}
+.icon-button{backdrop-filter:blur(12px);transition:transform .3s cubic-bezier(.3,1.6,.5,1),background .2s,box-shadow .3s}
+.icon-button:hover{transform:translateY(-3px) rotate(-8deg) scale(1.08);box-shadow:0 0 20px color-mix(in srgb,var(--purple) 60%,transparent)}
+nav a{position:relative;padding:2px 4px}
+nav a::after{content:"";position:absolute;bottom:0;right:0;width:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--blue));transition:width .3s}
+nav a:hover::after{width:100%}
+.island{background:rgba(0,0,0,.85);backdrop-filter:blur(16px);transition:transform .4s cubic-bezier(.3,1.6,.5,1),box-shadow .3s;animation:islandIn .9s cubic-bezier(.3,1.6,.5,1)}
+.island:hover{transform:scale(1.05);box-shadow:0 15px 40px rgba(0,0,0,.5),0 0 25px color-mix(in srgb,var(--blue) 40%,transparent)}
+.island-dots span.active{box-shadow:0 0 8px #38bdf8;animation:pulse 1.6s infinite}
+@keyframes islandIn{from{transform:scaleX(.3);opacity:0}}
+@keyframes pulse{50%{transform:scale(1.6)}}
+.tag{backdrop-filter:blur(8px)}
+.hero h1{animation:heroIn 1s cubic-bezier(.2,.8,.2,1) both}
+.hero .eyebrow{animation:heroIn .8s .1s both}
+.hero p{animation:heroIn 1s .25s both}
+@keyframes heroIn{from{opacity:0;transform:translateY(20px) translateZ(0);filter:blur(8px)}}
+input{transition:border-color .2s,box-shadow .3s}
+input:focus{box-shadow:0 0 0 4px color-mix(in srgb,var(--purple) 25%,transparent)}
+.dash-card{transition:transform .3s}
+.dash-card:hover{transform:translateY(-3px) scale(1.01)}
+footer{animation:heroIn 1s both}
+html{overflow-x:hidden}.cursor-glow{position:fixed;left:-400px;top:-400px;width:340px;height:340px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,color-mix(in srgb,var(--purple) 30%,transparent),transparent 65%);transform:translate(-50%,-50%);transition:left .15s ease-out,top .15s ease-out}
+
 </style>  
 </head>  
 <body>  
@@ -380,181 +440,4 @@ footer {
           <div id="dashCreated" class="dash-value">—</div>  
         </div>  
         <div class="dash-card">  
-          <div class="dash-label">آخرین ورود</div>  
-          <div id="dashLastLogin" class="dash-value">—</div>  
-        </div>  
-      </div>  
-      <div class="dash-actions">  
-        <button id="logoutButton" class="button" type="button">خروج از حساب</button>  
-      </div>  
-      <div id="dashStatus" class="status" role="status" aria-live="polite"></div>  
-    </div>  
-  </section>  
-</div>  
-
-<script type="module">  
-const $ = (id) => document.getElementById(id);  
-const root = document.documentElement;  
-  
-function safeGet(key, fallback = null) {  
-  try {  
-    const value = localStorage.getItem(key);  
-    return value === null ? fallback : value;  
-  } catch {  
-    return fallback;  
-  }  
-}  
-function safeSet(key, value) {  
-  try { localStorage.setItem(key, value); } catch (error) {  
-    console.warn("ذخیره‌سازی در این مرورگر در دسترس نیست.", error);  
-  }  
-}  
-function safeRemove(key) {  
-  try { localStorage.removeItem(key); } catch {}  
-}  
-  
-/* تم روشن و تاریک */  
-function applyTheme(theme) {  
-  const validTheme = theme === "light" ? "light" : "dark";  
-  root.setAttribute("data-theme", validTheme);  
-  const btn = $("themeToggle");  
-  if (btn) {  
-    btn.textContent = validTheme === "light" ? "☀️" : "🌙";  
-    btn.setAttribute("aria-label", validTheme === "light" ? "فعال کردن تم تاریک" : "فعال کردن تم روشن");  
-  }  
-  safeSet("myspace-theme", validTheme);  
-}  
-applyTheme(safeGet("myspace-theme", "dark"));  
-$("themeToggle").addEventListener("click", () => {  
-  applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");  
-});  
-  
-/* پالت‌های رنگ */  
-const palettes = [  
-  { bg:"#05070d", b1:"#6366f1", b2:"#0ea5e9" },  
-  { bg:"#0f0514", b1:"#d946ef", b2:"#8b5cf6" },  
-  { bg:"#02100d", b1:"#10b981", b2:"#06b6d4" },  
-  { bg:"#140805", b1:"#f97316", b2:"#ec4899" }  
-];  
-let paletteIndex = Number(safeGet("myspace-bg-index", "0"));  
-if (!Number.isInteger(paletteIndex) || paletteIndex < 0 || paletteIndex >= palettes.length) paletteIndex = 0;  
-  
-function applyPalette(index) {  
-  const palette = palettes[index];  
-  root.style.setProperty("--bg", palette.bg);  
-  root.style.setProperty("--blob1", palette.b1);  
-  root.style.setProperty("--blob2", palette.b2);  
-  safeSet("myspace-bg-index", String(index));  
-}  
-applyPalette(paletteIndex);  
-  
-$("bgToggle").addEventListener("click", () => {  
-  paletteIndex = (paletteIndex + 1) % palettes.length;  
-  root.style.removeProperty("--bg-image");  
-  safeRemove("myspace-custom-wallpaper");  
-  applyPalette(paletteIndex);  
-});  
-  
-/* انتخاب عکس پس‌زمینه */  
-const wallpaperInput = $("wallpaperInput");  
-$("galleryBtn").addEventListener("click", () => wallpaperInput.click());  
-  
-wallpaperInput.addEventListener("change", () => {  
-  const file = wallpaperInput.files && wallpaperInput.files[0];  
-  if (!file) return;  
-  if (!file.type.startsWith("image/")) {  
-    alert("لطفاً یک فایل تصویری انتخاب کن.");  
-    wallpaperInput.value = "";  
-    return;  
-  }  
-  if (file.size > 5 * 1024 * 1024) {  
-    alert("حجم عکس باید کمتر از ۵ مگابایت باشد.");  
-    wallpaperInput.value = "";  
-    return;  
-  }  
-  const reader = new FileReader();  
-  reader.onload = () => {  
-    if (typeof reader.result !== "string") return;  
-    root.style.setProperty("--bg-image", `url("${reader.result}")`);  
-    root.style.backgroundImage =  
-      `linear-gradient(rgba(5,7,13,.35),rgba(5,7,13,.35)),url("${reader.result}"),radial-gradient(circle at 10% 15%,var(--blob1),transparent 45%),radial-gradient(circle at 90% 85%,var(--blob2),transparent 45%)`;  
-    safeSet("myspace-custom-wallpaper", reader.result);  
-  };  
-  reader.onerror = () => alert("خواندن عکس ناموفق بود. لطفاً عکس دیگری امتحان کن.");  
-  reader.readAsDataURL(file);  
-});  
-const savedWallpaper = safeGet("myspace-custom-wallpaper");  
-if (savedWallpaper) {  
-  root.style.backgroundImage =  
-    `linear-gradient(rgba(5,7,13,.35),rgba(5,7,13,.35)),url("${savedWallpaper}"),radial-gradient(circle at 10% 15%,var(--blob1),transparent 45%),radial-gradient(circle at 90% 85%,var(--blob2),transparent 45%)`;  
-}  
-  
-/* ساعت و تاریخ */  
-let islandMode = 0;  
-function renderIsland() {  
-  const now = new Date();  
-  if (islandMode === 0) {  
-    $("islandIcon").textContent = "🕰️";  
-    $("islandMain").dir = "ltr";  
-    $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {  
-      hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false  
-    }).format(now);  
-    $("islandSub").textContent = "ساعت محلی دستگاه";  
-  } else {  
-    $("islandIcon").textContent = "📅";  
-    $("islandMain").dir = "rtl";  
-    $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {  
-      weekday:"long", day:"numeric", month:"long", calendar:"persian"  
-    }).format(now);  
-    $("islandSub").textContent = "تاریخ امروز";  
-  }  
-  $("dot0").classList.toggle("active", islandMode === 0);  
-  $("dot1").classList.toggle("active", islandMode === 1);  
-}  
-function cycleIsland() {  
-  islandMode = (islandMode + 1) % 2;  
-  renderIsland();  
-}  
-$("island").addEventListener("click", cycleIsland);  
-$("island").addEventListener("keydown", (event) => {  
-  if (event.key === "Enter" || event.key === " ") {  
-    event.preventDefault();  
-    cycleIsland();  
-  }  
-});  
-renderIsland();  
-setInterval(renderIsland, 1000);  
-  
-/* افکت کارت‌ها */  
-if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {  
-  document.addEventListener("mousemove", (event) => {  
-    document.querySelectorAll(".glass").forEach((card) => {  
-      const rect = card.getBoundingClientRect();  
-      card.style.setProperty("--mouse-x", `${event.clientX - rect.left}px`);  
-      card.style.setProperty("--mouse-y", `${event.clientY - rect.top}px`);  
-    });  
-  });  
-}  
-  
-/* داشبورد */  
-const overlay = $("dashboardOverlay");  
-function openDashboard() {  
-  overlay.hidden = false;  
-  document.body.style.overflow = "hidden";  
-  $("closeDashboard").focus();  
-}  
-function closeDashboard() {  
-  overlay.hidden = true;  
-  document.body.style.overflow = "";  
-  $("menuButton").focus();  
-}  
-$("menuButton").addEventListener("click", openDashboard);  
-$("closeDashboard").addEventListener("click", closeDashboard);  
-$("overlayBackdrop").addEventListener("click", closeDashboard);  
-document.addEventListener("keydown", (event) => {  
-  if (event.key === "Escape" && !overlay.hidden) closeDashboard();  
-});  
-  
-/* خرید */  
-$("buyButton").addEventListener("click", () => {  
-  $("buyStatus").textContent = "درگاه پرداخت هنوز به سایت متصل 
+          <div class="dash-label">آ
