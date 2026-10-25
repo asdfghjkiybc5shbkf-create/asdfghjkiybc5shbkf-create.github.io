@@ -47,7 +47,6 @@ body{
   display:flex;  
   justify-content:center;  
   align-items:center;  
-  perspective: 1400px; /* ایجاد فضای سه بعدی */  
 }  
 
 body::before, body::after{  
@@ -62,7 +61,7 @@ body::after{background:var(--blob2); bottom:5%; right:-50px; animation-delay:-7s
 @keyframes spin{to{transform:rotate(360deg)}}  
 @keyframes popIn{from{opacity:0; transform:scale(.92) translateY(10px)}to{opacity:1; transform:scale(1) translateY(0)}}  
 
-/* === قاب گوشی سه بعدی === */  
+/* === قاب گوشی ثابت و متمرکز === */  
 .phone-scene{  
   width: min(440px, 96vw);  
   height: 92vh;  
@@ -70,7 +69,6 @@ body::after{background:var(--blob2); bottom:5%; right:-50px; animation-delay:-7s
   display: flex;  
   justify-content: center;  
   align-items: center;  
-  transform-style: preserve-3d;  
   margin: auto;  
 }  
 
@@ -85,8 +83,6 @@ body::after{background:var(--blob2); bottom:5%; right:-50px; animation-delay:-7s
   flex-direction: column;  
   position: relative;  
   overflow: hidden;  
-  transform-style: preserve-3d;  
-  transition: transform 0.1s ease-out;  
 }  
 
 .phone-screen{  
@@ -102,17 +98,17 @@ body::after{background:var(--blob2); bottom:5%; right:-50px; animation-delay:-7s
 .wrap{width: 100%}  
 header{  
   display:flex; align-items:center; justify-content:space-between;  
-  gap:12px; padding:10px 4px 18px; flex-wrap:wrap  
+  gap:8px; padding:10px 4px 18px; flex-wrap:wrap  
 }  
-.brand{font-weight:900; font-size:19px; letter-spacing:-0.5px}  
+.brand{font-weight:900; font-size:18px; letter-spacing:-0.5px}  
 .brand span{color:var(--purple)}  
-nav{display:flex; gap:10px; align-items:center}  
+nav{display:flex; gap:8px; align-items:center}  
 a{color:var(--muted); text-decoration:none; transition:color .2s}  
 a:hover{color:var(--text)}  
 
 .icon-button{  
-  width:38px; height:38px; border-radius:50%; border:1px solid var(--line);  
-  background:var(--panel); color:var(--text); font-size:15px; cursor:pointer;  
+  width:36px; height:36px; border-radius:50%; border:1px solid var(--line);  
+  background:var(--panel); color:var(--text); font-size:14px; cursor:pointer;  
   display:grid; place-items:center; transition:all .2s ease;  
   backdrop-filter:blur(10px);  
 }  
@@ -131,7 +127,7 @@ a:hover{color:var(--text)}
   overflow: hidden;  
 }  
 
-/* نور تعاملی زیر موس */  
+/* نور تعاملی زیر موس روی کارت‌ها */  
 .glass::before {  
   content: "";  
   position: absolute;  
@@ -230,7 +226,7 @@ footer{text-align:center; padding:20px 0 25px; color:var(--footer-color); font-s
 .island-dots span{width:4px; height:4px; border-radius:50%; background:rgba(255,255,255,.3)}  
 .island-dots span.active{background:var(--blue)}  
 
-/* ===== Dashboard overlay (موبایلی) ===== */  
+/* ===== Dashboard overlay ===== */  
 .overlay{position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center; padding:16px}  
 .overlay-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.65); backdrop-filter:blur(6px); animation:fadeIn .3s ease}  
 .overlay-panel{  
@@ -276,6 +272,7 @@ footer{text-align:center; padding:20px 0 25px; color:var(--footer-color); font-s
         <nav>  
           <a href="#shop">خرید</a>  
           <a href="#support">پشتیبانی</a>  
+          <button id="bgToggle" class="icon-button" type="button" aria-label="تغییر پس‌زمینه" title="تغییر پس‌زمینه">🎨</button>  
           <button id="themeToggle" class="icon-button" type="button" aria-label="تغییر تم" title="تغییر تم">🌙</button>  
           <button id="menuButton" class="icon-button" type="button" aria-label="باز کردن داشبورد" title="داشبورد">⋮</button>  
         </nav>  
@@ -300,8 +297,8 @@ footer{text-align:center; padding:20px 0 25px; color:var(--footer-color); font-s
         <section class="hero glass">  
           <div class="eyebrow">YOUR PERSONAL SPACE</div>  
           <h1>به فضای <span class="gradient">شخصی من</span> خوش آمدی</h1>  
-          <p>محیط موبایلی، شیشه‌ای و سه‌بعدی.</p>  
-          <span class="tag">3D · Dynamic Island · Glass</span>  
+          <p>محیط موبایلی ثابت، شیشه‌ای و دارای قابلیت تغییر پس‌زمینه.</p>  
+          <span class="tag">Fixed Phone · Dynamic Island · Glass</span>  
         </section>    
 
         <section id="shop" class="card glass product">  
@@ -316,7 +313,7 @@ footer{text-align:center; padding:20px 0 25px; color:var(--footer-color); font-s
 
         <section class="card glass">  
           <h2>دربارهٔ سایت</h2>  
-          <p>وب‌سایت شخصی داخل قاب موبایل با افکت‌های سه‌بعدی حرکتی و احراز هویت Firebase.</p>  
+          <p>وب‌سایت شخصی داخل قاب موبایل ثابت با امکان تغییر پس‌زمینه و احراز هویت کامل Firebase.</p>  
         </section>    
 
         <section id="support" class="card glass support-card">  
@@ -397,15 +394,8 @@ footer{text-align:center; padding:20px 0 25px; color:var(--footer-color); font-s
 </div>  
 
 <script>  
-/* ===== افکت سه‌بعدی چرخش قاب گوشی و نور زیر موس بر اساس حرکت دست ===== */  
-const phoneFrame = document.getElementById('phoneFrame');  
+/* ===== افکت نوری ملایم زیر موس روی کارت‌ها (بدون تکان خوردن قاب گوشی) ===== */  
 document.addEventListener('mousemove', (e) => {  
-  const xAxis = (window.innerWidth / 2 - e.clientX) / 35;  
-  const yAxis = (window.innerHeight / 2 - e.clientY) / 35;  
-  if(phoneFrame){  
-    phoneFrame.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;  
-  }  
-
   const glassCards = document.querySelectorAll('.glass');  
   glassCards.forEach(card => {  
     const rect = card.getBoundingClientRect();  
@@ -416,10 +406,35 @@ document.addEventListener('mousemove', (e) => {
   });  
 });  
 
-// بازنشانی چرخش گوشی وقتی موس خارج می‌شود  
-document.addEventListener('mouseleave', () => {  
-  if(phoneFrame) phoneFrame.style.transform = `rotateY(0deg) rotateX(0deg)`;  
-});  
+/* ===== پالت‌های پس‌زمینه و قابلیت تغییر آن با دکمه 🎨 ===== */  
+const bgPalettes = [  
+  { name: 'deep', bg: '#05070d', b1: '#6366f1', b2: '#0ea5e9' },  
+  { name: 'cyber', bg: '#0f0514', b1: '#d946ef', b2: '#8b5cf6' },  
+  { name: 'emerald', bg: '#02100d', b1: '#10b981', b2: '#06b6d4' },  
+  { name: 'sunset', bg: '#140805', b1: '#f97316', b2: '#ec4899' }  
+];  
+let currentBgIndex = 0;  
+try {  
+  const savedBg = localStorage.getItem("myspace-bg-index");  
+  if(savedBg !== null) currentBgIndex = parseInt(savedBg);  
+} catch(e){}  
+
+function applyBackground(index){  
+  const p = bgPalettes[index];  
+  document.documentElement.style.setProperty('--bg', p.bg);  
+  document.documentElement.style.setProperty('--blob1', p.b1);  
+  document.documentElement.style.setProperty('--blob2', p.b2);  
+  try { localStorage.setItem("myspace-bg-index", index); } catch(e){}  
+}  
+applyBackground(currentBgIndex);  
+
+const bgToggleBtn = document.getElementById("bgToggle");  
+if(bgToggleBtn){  
+  bgToggleBtn.addEventListener("click", () => {  
+    currentBgIndex = (currentBgIndex + 1) % bgPalettes.length;  
+    applyBackground(currentBgIndex);  
+  });  
+}  
 
 /* ===== تم تاریک/روشن ===== */  
 const root = document.documentElement;  
@@ -463,20 +478,4 @@ function renderIsland(){
   }  
   for(let i=0; i<2; i++){  
     const dot = document.getElementById("dot"+i);  
-    if(dot) dot.classList.toggle("active", i === islandIndex);  
-  }  
-}  
-renderIsland();  
-setInterval(renderIsland, 1000);  
-
-const islandEl = document.getElementById("island");  
-if(islandEl){  
-  const cycleIsland = () => { islandIndex = (islandIndex + 1) % islandModes.length; renderIsland(); };  
-  islandEl.addEventListener("click", cycleIsland);  
-  islandEl.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); cycleIsland(); } });  
-}  
-
-/* ===== باز/بسته‌کردن داشبورد (سه‌نقطه) ===== */  
-const dashboardOverlay = document.getElementById("dashboardOverlay");  
-const menuButton = document.getElementById("menuButton");  
-const closeDashboardBtn = document.getElementById("closeDas
+    if(dot) dot.classL
