@@ -1,44 +1,517 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>سایت شخصی من</title>
+  <meta name="theme-color" content="#080910">
+  <meta name="description" content="صفحه شخصی من؛ دنیایی از علایق، ایده‌ها و خلاقیت.">
+  <title>دنیای شخصی من</title>
+
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --bg: #080910;
+      --text: #f5f3ff;
+      --muted: #aaa9bd;
+      --purple: #a78bfa;
+      --blue: #67d5ff;
+      --glass: rgba(255, 255, 255, 0.055);
+      --border: rgba(255, 255, 255, 0.13);
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: sans-serif;
-      background: #101827;
-      color: white;
-      text-align: center;
-      padding: 70px 20px;
+      padding: 0;
     }
-    .card {
-      max-width: 500px;
-      margin: auto;
-      padding: 35px 20px;
-      border-radius: 24px;
-      background: #1e293b;
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
     }
-    h1 { color: #a78bfa; }
-    p { line-height: 2; }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 15% 15%, #29204a 0%, transparent 38%),
+        radial-gradient(ellipse at 90% 45%, #102b3b 0%, transparent 34%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Vazirmatn", Tahoma, sans-serif;
+      line-height: 1.9;
+    }
+
     a {
-      display: inline-block;
-      background: #8b5cf6;
-      color: white;
-      padding: 12px 22px;
-      border-radius: 12px;
+      color: inherit;
       text-decoration: none;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .ambient {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .orb {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      filter: blur(85px);
+      opacity: 0.27;
+      animation: float 13s ease-in-out infinite alternate;
+    }
+
+    .orb.one {
+      background: #8b5cf6;
+      top: 8%;
+      right: -100px;
+    }
+
+    .orb.two {
+      background: #0891b2;
+      top: 48%;
+      left: -120px;
+      animation-delay: -5s;
+    }
+
+    .orb.three {
+      background: #db2777;
+      bottom: -100px;
+      right: 35%;
+      animation-delay: -8s;
+    }
+
+    @keyframes float {
+      from { transform: translate(0, 0) scale(1); }
+      to { transform: translate(35px, -45px) scale(1.2); }
+    }
+
+    .container {
+      width: min(100% - 32px, 1000px);
+      margin-inline: auto;
+    }
+
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      box-shadow:
+        0 18px 60px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      border-radius: 24px;
+    }
+
+    header {
+      position: sticky;
+      top: 10px;
+      z-index: 10;
+      margin-top: 14px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      border-radius: 18px;
+    }
+
+    .brand {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+    }
+
+    .brand span {
+      color: var(--purple);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .hero {
+      padding: 85px 0 55px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      background: rgba(255,255,255,0.04);
+      color: #d9d0ff;
+      font-size: 0.82rem;
+      margin-bottom: 24px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #7ef0bd;
+      box-shadow: 0 0 12px #7ef0bd;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 7vw, 4.6rem);
+      line-height: 1.35;
+      letter-spacing: -1.5px;
+      margin-bottom: 18px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(100deg, #ffffff 10%, #c4b5fd 50%, #67d5ff 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 590px;
+      margin: 0 auto;
+      font-size: 1rem;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      padding: 10px 22px;
+      border-radius: 14px;
+      font: inherit;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border: 1px solid var(--border);
+      transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      color: #100d1c;
+      border-color: transparent;
+      background: linear-gradient(110deg, #c4b5fd, #83dcff);
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.2);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.045);
+      color: white;
+    }
+
+    section {
+      padding: 25px 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-bottom: 24px;
+    }
+
+    .about {
+      padding: 26px;
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 100px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 28px;
+      font-size: 2.8rem;
+      background: linear-gradient(135deg, #8b5cf6aa, #38bdf855);
+      border: 1px solid #ffffff30;
+      box-shadow: 0 0 35px #8b5cf620;
+    }
+
+    .about h3 {
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+
+    .about p {
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .interest {
+      padding: 22px;
+      min-height: 170px;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .interest:hover {
+      transform: translateY(-5px);
+      border-color: #c4b5fd70;
+    }
+
+    .interest-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .interest h3 {
+      font-size: 1.02rem;
+      margin-bottom: 5px;
+    }
+
+    .interest p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .quote {
+      padding: 30px;
+      text-align: center;
+      background:
+        linear-gradient(120deg, rgba(139,92,246,0.12), rgba(56,189,248,0.07)),
+        var(--glass);
+    }
+
+    .quote-mark {
+      color: var(--purple);
+      font-size: 2.5rem;
+      line-height: 1;
+    }
+
+    .quote p {
+      font-size: 1.15rem;
+      margin: 10px auto;
+    }
+
+    .quote small {
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.83rem;
+      padding: 38px 0 28px;
+    }
+
+    footer .heart {
+      color: #f0a6cf;
+    }
+
+    @media (max-width: 650px) {
+      .container {
+        width: min(100% - 22px, 1000px);
+      }
+
+      nav {
+        padding: 10px 12px;
+      }
+
+      .nav-links {
+        gap: 10px;
+        font-size: 0.76rem;
+      }
+
+      .brand {
+        font-size: 0.88rem;
+      }
+
+      .hero {
+        padding: 65px 0 38px;
+      }
+
+      .hero p {
+        font-size: 0.92rem;
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 22px;
+      }
+
+      .avatar {
+        width: 82px;
+        margin-inline: auto;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .interest {
+        min-height: auto;
+        padding: 18px;
+      }
+
+      .interest-icon {
+        margin-bottom: 3px;
+      }
+
+      .quote {
+        padding: 24px 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="card">
-    <h1>سلام به سایت من! 👋</h1>
-    <p>این اولین سایت منه که خودم ساختم.</p>
-    <p>به گوشه‌ای از دنیای من خوش اومدی.</p>
-    <a href="https://github.com/">گیت‌هاب من</a>
+  <div class="ambient" aria-hidden="true">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+  </div>
+
+  <div class="container">
+    <header>
+      <nav class="glass" aria-label="منوی اصلی">
+        <a class="brand" href="#home">MY<span>WORLD.</span></a>
+        <div class="nav-links">
+          <a href="#about">درباره من</a>
+          <a href="#interests">علایق</a>
+          <a href="#contact">پایین صفحه</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="eyebrow">
+          <span class="status-dot"></span>
+          به گوشهٔ کوچیک دنیای من خوش اومدی
+        </div>
+
+        <h1>
+          سلام، من <span class="gradient-text">اسم تو</span> هستم!
+        </h1>
+
+        <p>
+          اینجا دنیای شخصی منه؛ جایی برای ایده‌ها،
+          چیزهایی که دوست دارم و مسیر یادگیری من.
+          خوشحالم که اینجایی ✨
+        </p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="#about">بیشتر دربارهٔ من ←</a>
+          <a class="btn btn-secondary" href="#interests">علایق من ✦</a>
+        </div>
+      </section>
+
+      <section id="about">
+        <h2 class="section-title">کمی دربارهٔ من</h2>
+        <p class="section-subtitle">چند خط دربارهٔ دنیای من</p>
+
+        <div class="about glass">
+          <div class="avatar" aria-hidden="true">🌙</div>
+          <div>
+            <h3>یک آدم کنجکاو با کلی ایده</h3>
+            <p>
+              من دوست دارم چیزهای تازه یاد بگیرم، خلاق باشم
+              و قدم‌به‌قدم به ایده‌هام شکل بدم.
+              این سایت اولین قدم من در دنیای ساخت وب‌سایته.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="interests">
+        <h2 class="section-title">چیزهایی که دوست دارم</h2>
+        <p class="section-subtitle">این کارت‌ها رو می‌تونی با علایق خودت عوض کنی.</p>
+
+        <div class="grid">
+          <article class="interest glass">
+            <div class="interest-icon" aria-hidden="true">🎨</div>
+            <h3>خلاقیت و طراحی</h3>
+            <p>ساختن چیزهای تازه با ایده‌های متفاوت.</p>
+          </article>
+
+          <article class="interest glass">
+            <div class="interest-icon" aria-hidden="true">💻</div>
+            <h3>یادگیری تکنولوژی</h3>
+            <p>کشف دنیای برنامه‌نویسی و اینترنت.</p>
+          </article>
+
+          <article class="interest glass">
+            <div class="interest-icon" aria-hidden="true">🌌</div>
+            <h3>دنیای ایده‌ها</h3>
+            <p>فکر کردن، تجربه کردن و یاد گرفتن.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="quote glass">
+          <div class="quote-mark">“</div>
+          <p>هر چیز بزرگی، یک روز از یک قدم کوچیک شروع شده.</p>
+          <small>یادآوری برای خودم ✦</small>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <p>ساخته‌شده با <span class="heart">♥</span> و کمی خلاقیت</p>
+      <p>© 2026 دنیای شخصی من</p>
+    </footer>
   </div>
 </body>
-</html>
+  </html>
