@@ -21,3 +21,650 @@
   --violet: #9b86ff;
   --violet-soft: #c3b4ff;
   --cyan: #7fd8ff;
+  --gold: #ffcf8a;
+  --radius-lg: 26px;
+  --radius-md: 16px;
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+* { box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Vazirmatn", Tahoma, Arial, sans-serif;
+  line-height: 1.85;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ---------- Animated aurora backdrop ---------- */
+.aurora {
+  position: fixed;
+  inset: -10%;
+  z-index: -2;
+  pointer-events: none;
+  filter: blur(70px) saturate(130%);
+}
+.aurora span {
+  position: absolute;
+  border-radius: 50%;
+  opacity: .32;
+  mix-blend-mode: screen;
+}
+.aurora span:nth-child(1) {
+  width: 46vw; height: 46vw; top: -8%; left: -8%;
+  background: radial-gradient(circle, #6b4fe0, transparent 70%);
+  animation: drift1 22s var(--ease) infinite alternate;
+}
+.aurora span:nth-child(2) {
+  width: 40vw; height: 40vw; top: 10%; right: -10%;
+  background: radial-gradient(circle, #2aa9e0, transparent 70%);
+  animation: drift2 26s var(--ease) infinite alternate;
+}
+.aurora span:nth-child(3) {
+  width: 34vw; height: 34vw; bottom: -12%; left: 20%;
+  background: radial-gradient(circle, #e08a4f, transparent 70%);
+  opacity: .18;
+  animation: drift3 30s var(--ease) infinite alternate;
+}
+@keyframes drift1 { to { transform: translate(6%, 10%) scale(1.15); } }
+@keyframes drift2 { to { transform: translate(-8%, 6%) scale(1.1); } }
+@keyframes drift3 { to { transform: translate(4%, -8%) scale(1.2); } }
+
+.noise {
+  position: fixed; inset: 0; z-index: -1; opacity: .035; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap { width: min(1040px, 92%); margin: auto; }
+
+/* ---------- Header ---------- */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 26px 0;
+  flex-wrap: wrap;
+}
+.brand {
+  font-weight: 800;
+  font-size: 21px;
+  letter-spacing: .3px;
+}
+.brand span {
+  background: linear-gradient(90deg, var(--violet-soft), var(--cyan));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+nav { display: flex; gap: 22px; flex-wrap: wrap; }
+a { color: var(--muted); text-decoration: none; position: relative; transition: color .25s var(--ease); }
+a::after {
+  content: ""; position: absolute; right: 0; bottom: -4px; width: 0; height: 1px;
+  background: var(--violet-soft); transition: width .3s var(--ease);
+}
+a:hover { color: var(--text); }
+a:hover::after { width: 100%; }
+
+/* ---------- Glass panels ---------- */
+.glass {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  border-radius: var(--radius-lg);
+  transition: border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+
+/* single orchestrated entrance, staggered by data-delay */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: riseIn .7s var(--ease) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes riseIn { to { opacity: 1; transform: translateY(0); } }
+
+.hero {
+  padding: 56px 28px 50px;
+  text-align: center;
+  margin: 18px 0 26px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute; inset: -40% -10% auto -10%; height: 220%;
+  background: conic-gradient(from 0deg, transparent 0 60%, rgba(155,134,255,.18), transparent 75%);
+  animation: sweep 9s linear infinite;
+  pointer-events: none;
+}
+@keyframes sweep { to { transform: rotate(360deg); } }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--cyan); font-size: 13px;
+  padding: 6px 14px; border: 1px solid rgba(127,216,255,.3); border-radius: 999px;
+  background: rgba(127,216,255,.07);
+}
+.eyebrow::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--cyan); box-shadow: 0 0 10px var(--cyan);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+
+h1 { font-size: clamp(28px, 5.4vw, 48px); line-height: 1.5; margin: 18px 0 10px; font-weight: 800; }
+.gradient {
+  background: linear-gradient(90deg, var(--violet-soft), var(--cyan));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+p { color: var(--muted); margin: 0 auto; max-width: 54ch; }
+.hero p { font-size: 16px; }
+
+.tag {
+  display: inline-block; margin-top: 18px;
+  padding: 7px 16px; border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted); font-size: 13px; background: rgba(255,255,255,.03);
+}
+
+/* ---------- Grid & cards ---------- */
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 22px; margin: 22px 0; }
+.card { padding: 28px; min-width: 0; }
+.card:hover { border-color: rgba(155,134,255,.4); transform: translateY(-3px); }
+.card h2 { font-size: 21px; margin: 0 0 6px; font-weight: 700; }
+.card > p:first-of-type { font-size: 14px; margin-bottom: 18px; }
+
+/* ---------- Clock ---------- */
+.clock-card { text-align: center; margin-bottom: 22px; padding: 30px; }
+.clock-icon { font-size: 28px; }
+.clock-time {
+  font-size: clamp(36px, 8vw, 56px);
+  font-weight: 800;
+  direction: ltr;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(90deg, var(--violet-soft), var(--cyan));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin-top: 6px;
+}
+.clock-date { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.clock-zone { font-size: 11px; color: #827e9c; margin-top: 8px; }
+
+/* ---------- Form ---------- */
+label { display: block; font-size: 13px; color: #ddd9ef; margin: 14px 0 6px; }
+
+input {
+  width: 100%;
+  background: rgba(7,8,19,.7);
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  padding: 13px 14px;
+  color: white;
+  font: inherit;
+  outline: none;
+  transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
+}
+input:focus { border-color: var(--violet-soft); box-shadow: 0 0 0 3px rgba(155,134,255,.15); }
+input::placeholder { color: #68638a; }
+
+.button {
+  border: 1px solid rgba(255,255,255,.14);
+  background: linear-gradient(115deg, #8d6fef, #4f8ef0);
+  color: white;
+  padding: 13px 16px;
+  border-radius: 14px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: filter .2s var(--ease), transform .15s var(--ease), box-shadow .25s var(--ease);
+}
+.button:hover:not(:disabled) { filter: brightness(1.12); box-shadow: 0 8px 24px rgba(141,111,239,.3); }
+.button:active:not(:disabled) { transform: scale(.98); }
+.button:disabled { opacity: .55; cursor: wait; }
+.button.secondary { background: rgba(255,255,255,.055); color: var(--text); }
+.button.secondary:hover:not(:disabled) { background: rgba(255,255,255,.09); box-shadow: none; }
+.button.full { width: 100%; margin-top: 11px; }
+
+.status {
+  font-size: 13px;
+  min-height: 30px;
+  overflow-wrap: anywhere;
+  color: var(--cyan);
+  transition: opacity .3s var(--ease);
+}
+[hidden] { display: none !important; }
+
+/* ---------- Product card ---------- */
+.product {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  position: relative;
+}
+.product-icon {
+  font-size: 40px;
+  animation: spark 3.2s ease-in-out infinite;
+}
+@keyframes spark { 0%,100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.08) rotate(6deg); } }
+.price {
+  font-size: 32px; font-weight: 800; margin: 14px 0;
+  background: linear-gradient(90deg, var(--gold), var(--violet-soft));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* ---------- Profile panel ---------- */
+.profile-panel {
+  margin-top: 20px;
+  padding: 22px;
+  border: 1px solid rgba(155,134,255,.3);
+  border-radius: var(--radius-md);
+  background: rgba(10,10,22,.8);
+  text-align: center;
+  overflow-wrap: anywhere;
+  animation: appear .3s var(--ease);
+}
+@keyframes appear { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.profile-avatar {
+  width: 80px; height: 80px; margin: 0 auto 14px;
+  display: grid; place-items: center;
+  border-radius: 50%; font-size: 34px;
+  background: linear-gradient(135deg, #8d6fef, #4f8ef0);
+  box-shadow: 0 0 34px rgba(141,111,239,.3);
+}
+.profile-row {
+  display: flex; flex-direction: column; gap: 5px; text-align: right;
+  padding: 13px 14px; margin: 11px 0;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,.035);
+}
+.profile-row span { font-size: 12px; color: var(--muted); }
+.profile-row strong { font-size: 13.5px; color: var(--text); overflow-wrap: anywhere; }
+.profile-row .uid { direction: ltr; text-align: left; }
+
+footer { text-align: center; padding: 34px 0 48px; color: #7a76948; font-size: 12px; color: #78748f; }
+
+@media (max-width: 700px) {
+  .grid { grid-template-columns: 1fr; }
+  .hero { padding: 40px 20px; }
+  .card { padding: 22px; }
+  header { justify-content: center; text-align: center; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="aurora"><span></span><span></span><span></span></div>
+<div class="noise"></div>
+
+<header class="wrap reveal" style="--d:0s">
+  <div class="brand">MY<span>SPACE</span> ✦</div>
+  <nav>
+    <a href="#clock">ساعت</a>
+    <a href="#account">حساب کاربری</a>
+    <a href="#shop">خرید</a>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <section class="hero glass reveal" style="--d:.05s">
+    <div class="eyebrow">فضای شخصی تو</div>
+    <h1>به فضای <span class="gradient">شخصی من</span> خوش آمدی</h1>
+    <p>فضایی مدرن، تاریک و شیشه‌ای — ساخته‌شده برای تو.</p>
+    <span class="tag">Dark · Glass · Minimal</span>
+  </section>
+
+  <section id="clock" class="card glass clock-card reveal" style="--d:.1s">
+    <div class="clock-icon">🕰️</div>
+    <h2>ساعت و تاریخ</h2>
+    <div id="clockTime" class="clock-time">--:--:--</div>
+    <div id="clockDate" class="clock-date">در حال بارگذاری…</div>
+    <div id="clockZone" class="clock-zone">زمان محلی دستگاه</div>
+  </section>
+
+  <div class="grid">
+
+    <section id="account" class="card glass reveal" style="--d:.15s">
+      <h2>حساب کاربری</h2>
+      <p>وارد حساب شو یا یک حساب جدید بساز.</p>
+
+      <button id="googleButton" class="button secondary full" type="button">
+        🌐 ورود با گوگل
+      </button>
+
+      <form id="emailForm">
+        <label for="email">ایمیل</label>
+        <input id="email" type="email" autocomplete="email"
+          placeholder="name@example.com" required>
+
+        <label for="password">رمز عبور</label>
+        <input id="password" type="password" minlength="6"
+          autocomplete="current-password" placeholder="حداقل ۶ نویسه" required>
+
+        <button id="signupButton" class="button full" type="submit">
+          ساخت حساب
+        </button>
+
+        <button id="loginButton" class="button secondary full" type="button">
+          ورود به حساب
+        </button>
+
+        <button id="resetButton" class="button secondary full" type="button">
+          فراموشی رمز عبور
+        </button>
+      </form>
+
+      <div id="accountStatus" class="status" role="status" aria-live="polite"></div>
+
+      <button id="profileButton" class="button full" type="button" hidden>
+        👤 مشاهده نمایه
+      </button>
+
+      <section id="profilePanel" class="profile-panel" hidden>
+        <div class="profile-avatar">👤</div>
+        <h2>نمایه کاربری</h2>
+        <p>اطلاعات حساب شما</p>
+
+        <div class="profile-row">
+          <span>نام کاربر</span>
+          <strong id="profileName">—</strong>
+        </div>
+
+        <div class="profile-row">
+          <span>ایمیل</span>
+          <strong id="profileEmail">—</strong>
+        </div>
+
+        <div class="profile-row">
+          <span>وضعیت تأیید ایمیل</span>
+          <strong id="profileVerified">—</strong>
+        </div>
+
+        <div class="profile-row">
+          <span>شناسه کاربری</span>
+          <strong id="profileUid" class="uid">—</strong>
+        </div>
+
+        <button id="closeProfile" class="button secondary full" type="button">
+          بستن نمایه
+        </button>
+      </section>
+
+      <button id="logoutButton" class="button secondary full" type="button" hidden>
+        خروج از حساب
+      </button>
+    </section>
+
+    <section id="shop" class="card glass product reveal" style="--d:.2s">
+      <div class="product-icon">✧</div>
+      <span class="tag">محصول ویژه</span>
+      <h2 style="margin-top:14px">خرید و دریافت</h2>
+      <p>دسترسی به محصول دیجیتال</p>
+      <div class="price">۹۹٬۰۰۰ تومان</div>
+      <button id="buyButton" class="button" type="button">خرید محصول</button>
+      <div id="buyStatus" class="status" role="status">
+        پرداخت هنوز راه‌اندازی نشده است.
+      </div>
+    </section>
+
+  </div>
+
+  <section class="card glass reveal" style="--d:.25s">
+    <h2>دربارهٔ سایت</h2>
+    <p>یک وب‌سایت شخصی با طراحی واکنش‌گرا، افکت شیشه‌ای و احراز هویت Firebase.</p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  ساخته‌شده با ✦ · فضای شخصی من
+</footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAXcp4kU3UXsQygFZcZ-CkFrKkBgak53zQ",
+  authDomain: "myweb-dddb3.firebaseapp.com",
+  projectId: "myweb-dddb3",
+  storageBucket: "myweb-dddb3.firebasestorage.app",
+  messagingSenderId: "655059266329",
+  appId: "1:655059266329:web:9f3c81205c0f1de3c23388",
+  measurementId: "G-EKREB5DRC1"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+
+const $ = id => document.getElementById(id);
+
+const emailInput = $("email");
+const passwordInput = $("password");
+const status = $("accountStatus");
+
+let busy = false;
+
+function message(text) {
+  status.textContent = text;
+}
+
+function errorMessage(error) {
+  const messages = {
+    "auth/email-already-in-use": "این ایمیل قبلاً ثبت شده است.",
+    "auth/invalid-email": "فرمت ایمیل صحیح نیست.",
+    "auth/weak-password": "رمز عبور باید حداقل ۶ نویسه باشد.",
+    "auth/invalid-credential": "ایمیل یا رمز عبور اشتباه است.",
+    "auth/user-not-found": "حسابی با این مشخصات پیدا نشد.",
+    "auth/wrong-password": "رمز عبور اشتباه است.",
+    "auth/unauthorized-domain": "دامنه سایت در Firebase مجاز نیست.",
+    "auth/operation-not-allowed": "این روش ورود در Firebase فعال نیست.",
+    "auth/network-request-failed": "اتصال اینترنت را بررسی کن.",
+    "auth/too-many-requests": "تلاش‌های زیادی انجام شده؛ بعداً دوباره امتحان کن."
+  };
+
+  return messages[error.code] || "خطا: " + (error.message || error.code);
+}
+
+function setBusy(value) {
+  busy = value;
+  ["googleButton", "signupButton", "loginButton", "resetButton"]
+    .forEach(id => $(id).disabled = value);
+}
+
+/* ساعت و تاریخ */
+function updateClock() {
+  const now = new Date();
+
+  $("clockTime").textContent = new Intl.DateTimeFormat("fa-IR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).format(now);
+
+  $("clockDate").textContent = new Intl.DateTimeFormat("fa-IR", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    calendar: "persian"
+  }).format(now);
+
+  $("clockZone").textContent =
+    "زمان محلی دستگاه · " +
+    (Intl.DateTimeFormat().resolvedOptions().timeZone || "Local");
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
+/* نتیجه ورود گوگل */
+try {
+  const result = await getRedirectResult(auth);
+  if (result?.user) {
+    message("با موفقیت وارد شدی!");
+  }
+} catch (error) {
+  message(errorMessage(error));
+}
+
+/* ورود با گوگل */
+$("googleButton").addEventListener("click", async () => {
+  if (busy) return;
+
+  setBusy(true);
+  message("در حال انتقال به گوگل…");
+
+  try {
+    await signInWithRedirect(auth, googleProvider);
+  } catch (error) {
+    message(errorMessage(error));
+    setBusy(false);
+  }
+});
+
+/* ساخت حساب با ایمیل */
+$("emailForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (busy) return;
+
+  setBusy(true);
+  message("در حال ساخت حساب…");
+
+  try {
+    const credential = await createUserWithEmailAndPassword(
+      auth,
+      emailInput.value.trim(),
+      passwordInput.value
+    );
+
+    try {
+      await sendEmailVerification(credential.user);
+      message("حساب ساخته شد؛ ایمیلت را برای تأیید بررسی کن.");
+    } catch {
+      message("حساب ساخته شد؛ ارسال ایمیل تأیید ناموفق بود.");
+    }
+  } catch (error) {
+    message(errorMessage(error));
+  } finally {
+    setBusy(false);
+  }
+});
+
+/* ورود با ایمیل */
+$("loginButton").addEventListener("click", async () => {
+  if (busy) return;
+
+  if (!emailInput.value.trim() || !passwordInput.value) {
+    message("ایمیل و رمز عبور را وارد کن.");
+    return;
+  }
+
+  setBusy(true);
+  message("در حال ورود…");
+
+  try {
+    const credential = await signInWithEmailAndPassword(
+      auth,
+      emailInput.value.trim(),
+      passwordInput.value
+    );
+
+    message(
+      credential.user.emailVerified
+        ? "با موفقیت وارد شدی!"
+        : "وارد شدی؛ ایمیلت هنوز تأیید نشده است."
+    );
+  } catch (error) {
+    message(errorMessage(error));
+  } finally {
+    setBusy(false);
+  }
+});
+
+/* بازیابی رمز عبور */
+$("resetButton").addEventListener("click", async () => {
+  const email = emailInput.value.trim();
+
+  if (!email) {
+    message("ابتدا ایمیلت را وارد کن.");
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    message("اگر این ایمیل حساب داشته باشد، لینک بازیابی ارسال می‌شود.");
+  } catch (error) {
+    message(errorMessage(error));
+  }
+});
+
+/* نمایش نمایه هنگام ورود */
+onAuthStateChanged(auth, user => {
+  $("logoutButton").hidden = !user;
+  $("profileButton").hidden = !user;
+
+  if (!user) {
+    $("profilePanel").hidden = true;
+    return;
+  }
+
+  $("profileName").textContent =
+    user.displayName || "نامی برای حساب ثبت نشده است";
+
+  $("profileEmail").textContent =
+    user.email || "ایمیل ثبت نشده است";
+
+  $("profileVerified").textContent =
+    user.emailVerified ? "تأیید شده ✓" : "تأیید نشده";
+
+  $("profileUid").textContent = user.uid;
+
+  message("حساب فعال: " + (user.email || "کاربر"));
+});
+
+/* باز و بسته کردن نمایه */
+$("profileButton").addEventListener("click", () => {
+  $("profilePanel").hidden = false;
+});
+
+$("closeProfile").addEventListener("click", () => {
+  $("profilePanel").hidden = true;
+});
+
+/* خروج از حساب */
+$("logoutButton").addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    $("profilePanel
