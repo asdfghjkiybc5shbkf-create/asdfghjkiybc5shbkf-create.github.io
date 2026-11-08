@@ -475,14 +475,13 @@ html[data-theme="light"] .fx-blob{mix-blend-mode:multiply;opacity:.4}
 (function () {
   'use strict';
 
-  // ---------- Helpers ----------
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
   function formatTime(d) {
-    return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    return `\( {pad(d.getHours())}: \){pad(d.getMinutes())}:${pad(d.getSeconds())}`;
   }
 
   function formatDate(d) {
@@ -500,7 +499,7 @@ html[data-theme="light"] .fx-blob{mix-blend-mode:multiply;opacity:.4}
     el._t = setTimeout(() => { el.textContent = el.dataset.default || ''; }, ms);
   }
 
-  // ---------- Theme ----------
+  // Theme
   const themeToggle = $('#themeToggle');
   const root = document.documentElement;
 
@@ -512,4 +511,6 @@ html[data-theme="light"] .fx-blob{mix-blend-mode:multiply;opacity:.4}
     } else {
       root.removeAttribute('data-theme');
       themeToggle.textContent = '🌙';
-      document.querySelector('meta[name="theme-color"]').content
+      document.querySelector('meta[name="theme-color"]').content = '#080a12';
+    }
+    localStorage.setItem('myspace
