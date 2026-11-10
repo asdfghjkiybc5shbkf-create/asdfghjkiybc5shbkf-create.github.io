@@ -461,7 +461,7 @@ html[data-theme="light"] .glass::before{display:none}
     <button id="aiHistBtn" class="icon-button" type="button" aria-label="تاریخچه چت‌ها" title="تاریخچه">🕘</button>
     <button id="aiNew" class="icon-button" type="button" aria-label="چت جدید" title="چت جدید">＋</button>
   </div>
-  <select id="aiModel" class="model-select" aria-label="انتخاب مدل چاتی پاتی"><option value="openai/gpt-6-astra">GPT-6 Astra</option><option value="openai/gpt-6-sol">GPT-6 Sol</option><option value="openai/gpt-6-luna">GPT-6 Luna</option></select>
+  <select id="aiModel" class="model-select" aria-label="انتخاب مدل چاتی پاتی"><option value="gemini-3.8-flash">Gemini 3.8 Flash</option><option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite</option></select>
   <div id="aiHist" class="ai-hist" hidden><div class="ai-hist-title">تاریخچهٔ چت‌ها</div><div id="aiThreads" class="ai-threads"></div></div>
   <div id="aiLog" class="ai-log" aria-live="polite"></div>
   <div id="aiFiles" class="ai-files"></div>
@@ -738,7 +738,7 @@ $("aiFileInput").addEventListener("change",async e=>{for(const f of e.target.fil
  else pending.push({kind:"text",name:f.name,data:await readAs(f,"readAsText")});
 }e.target.value="";render()});
 const inp=$("aiInput");
-$("aiModel").value=safeGet("myspace-ai-model","openai/gpt-6-astra");if(!$("aiModel").value)$("aiModel").value="openai/gpt-6-astra";$("aiModel").onchange=()=>safeSet("myspace-ai-model",$("aiModel").value);
+$("aiModel").value=safeGet("myspace-ai-model","gemini-3.8-flash");if(!$("aiModel").value||!["gemini-3.8-flash","gemini-3.5-flash-lite"].includes($("aiModel").value))$("aiModel").value="gemini-3.8-flash";$("aiModel").onchange=()=>safeSet("myspace-ai-model",$("aiModel").value);
 inp.addEventListener("input",()=>{inp.style.height="auto";inp.style.height=Math.min(inp.scrollHeight,140)+"px"});
 inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey&&!matchMedia("(pointer:coarse)").matches){e.preventDefault();$("aiForm").requestSubmit()}});
 $("aiForm").addEventListener("submit",async e=>{e.preventDefault();if(busy)return;
@@ -747,7 +747,7 @@ $("aiForm").addEventListener("submit",async e=>{e.preventDefault();if(busy)retur
  if(t.title==="چت جدید")t.title=(text||pending[0]?.name||"چت").slice(0,30);
  pending=[];inp.value="";inp.style.height="auto";busy=true;$("aiSend").disabled=true;save();render();
  const reply={role:"assistant",text:""};
- try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:t.messages,model:$("aiModel").value})});
+ try{const res=await fetch("https://myspace-ai.asdfghjkiybc5shbkf-c643.workers.dev/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:t.messages,model:$("aiModel").value})});
   if(!res.ok)throw new Error(await res.text()||"خطا");
   t.messages.push(reply);const rd=res.body.getReader(),dc=new TextDecoder();
   while(true){const{done,value}=await rd.read();if(done)break;reply.text+=dc.decode(value,{stream:true});render()}
@@ -919,4 +919,3 @@ document.addEventListener('click',e=>{const b=e.target.closest('.button,.icon-bu
 </script>
 </body>
 </html>
-<!-- MYSPACE GitHub write-access test -->
