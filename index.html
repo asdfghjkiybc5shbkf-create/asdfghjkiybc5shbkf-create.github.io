@@ -747,7 +747,7 @@ $("aiForm").addEventListener("submit",async e=>{e.preventDefault();if(busy)retur
  if(t.title==="چت جدید")t.title=(text||pending[0]?.name||"چت").slice(0,30);
  pending=[];inp.value="";inp.style.height="auto";busy=true;$("aiSend").disabled=true;save();render();
  const reply={role:"assistant",text:""};
- try{const res=await fetch("https://myspace-ai.asdfghjkiybc5shbkf-c643.workers.dev/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:t.messages,model:$("aiModel").value})});
+ try{const res=await fetch("https://myspace-ai.asdfghjkiybc5shb-kf-c643.workers.dev/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:t.messages,model:$("aiModel").value})});
   if(!res.ok)throw new Error(await res.text()||"خطا");
   t.messages.push(reply);const rd=res.body.getReader(),dc=new TextDecoder();
   while(true){const{done,value}=await rd.read();if(done)break;reply.text+=dc.decode(value,{stream:true});render()}
