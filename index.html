@@ -1,3 +1,67 @@
+<!DOCTYPE html>  
+<html lang="fa" dir="rtl">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">  
+<meta name="theme-color" content="#080a12">  
+<title>فضای شخصی علی | MYSPACE</title>  
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/vendor/katex/katex.min.css"><script src="/vendor/katex/katex.min.js"></script>
+<style>  
+:root {  
+  --bg:#05070d;  
+  --panel:rgba(255,255,255,.07);  
+  --panel2:rgba(255,255,255,.13);  
+  --line:rgba(255,255,255,.15);  
+  --text:#f4f2ff;  
+  --muted:#a3a1cb;  
+  --purple:#a78bfa;  
+  --blue:#38bdf8;  
+  --footer-color:#2dd4bf;  
+  --blob1:#6366f1;  
+  --blob2:#0ea5e9;  
+  color-scheme:dark;  
+}  
+html[data-theme="light"] {  
+  --bg:#f1f5f9;  
+  --panel:rgba(255,255,255,.72);  
+  --panel2:rgba(255,255,255,.92);  
+  --line:rgba(15,23,42,.14);  
+  --text:#0f172a;  
+  --muted:#64748b;  
+  --purple:#7c3aed;  
+  --blue:#0284c7;  
+  --footer-color:#0d9488;  
+  --blob1:#c4b5fd;  
+  --blob2:#7dd3fc;  
+  color-scheme:light;  
+}  
+* { box-sizing:border-box; }  
+html { scroll-behavior:smooth; }  
+body {  
+  margin:0;  
+  min-height:100vh;  
+  background:var(--bg);  
+  background-image:  
+    radial-gradient(circle at 10% 15%,color-mix(in srgb,var(--blob1) 40%,transparent),transparent 45%),  
+    radial-gradient(circle at 90% 85%,color-mix(in srgb,var(--blob2) 35%,transparent),transparent 45%);  
+  background-attachment:fixed;  
+  color:var(--text);  
+  font-family:Tahoma,Arial,sans-serif;  
+  line-height:1.8;  
+  overflow-x:hidden;  
+  transition:background-color .25s,color .25s;  
+}  
+button,input,textarea { font:inherit; }  
+button,a { -webkit-tap-highlight-color:transparent; }  
+button { touch-action:manipulation; }  
+a { color:var(--muted);text-decoration:none; }  
+a:hover { color:var(--text); }  
+.app-container {  
+  width:100%;  
+  max-width:520px;  
+  min-height:100vh;  
+  margin:auto;  
   padding:16px;  
   display:flex;  
   flex-direction:column;  
@@ -321,18 +385,4 @@ body.in-app{overflow:hidden}
  @keyframes appOpen{from{opacity:0}}
 }
 html.no-fx .fx-bg,html.no-fx #fxCanvas,html.no-fx .cursor-glow{display:none!important}
-html.no-fx *,html.no-fx *::before,html.no-fx *::after{animation:none!important;transition:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;text-shadow:none!important}
-html.no-fx .glass,html.no-fx main .glass{transform:none!important;opacity:1!important}
-
-:root{--glass-button:color-mix(in srgb,var(--panel2) 80%,transparent);--glass-shadow:0 5px 18px color-mix(in srgb,var(--text) 12%,transparent);--frame:var(--line)}
-.button,.app-icon,.icon-button{background:var(--glass-button);color:var(--text);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:var(--glass-shadow);border:1px solid var(--line)}
-body{background-image:none}.app-container{background-image:var(--bg-image,none);background-size:cover;background-position:center}
-html[data-theme="light"]{--bg:oklch(1 0 0);--panel:oklch(1 0 0 / .8);--panel2:oklch(1 0 0 / .95);--text:oklch(.23 0 0);--muted:oklch(.48 0 0);--line:oklch(.75 0 0 / .45)}
-html[data-theme="light"] .fx-bg,html[data-theme="light"] #fxCanvas,html[data-theme="light"] .cursor-glow{display:none}
-html[data-theme="light"] .app-window,html[data-theme="light"] .ai-msg.user,html[data-theme="light"] .ai-thread,html[data-theme="light"] .ai-form textarea,html[data-theme="light"] .ai-chip,html[data-theme="light"] .island{background:var(--bg);color:var(--text);border:1px solid var(--line)}
-html[data-theme="light"] .island-sub{color:var(--muted)}
-html[data-theme="light"] .gradient{background:none;-webkit-text-fill-color:var(--text)}
-html[data-theme="light"] .glass::before{display:none}
-.app-window{animation:none;backdrop-filter:none}.ai-form textarea{min-width:0}.ai-form .button{width:44px;height:44px;padding:0;flex:none}.ai-msg{animation:none}.ai-msg .katex-display{overflow-x:auto;overflow-y:hidden;direction:ltr;padding:6px 0}.ai-msg .katex{direction:ltr;unicode-bidi:isolate}
-.model-select{width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--text);font:inherit;font-size:13px}
-.gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;overflow:auto}.gallery-item{display:flex;flex-direction:column;gap:6px}.gallery-item img{width:100%;aspect-ratio:3/4;object-fit:cover;
+html.no-fx *,html.no-fx *::before,html.no-fx *::after{animation:none!important;transition:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!impo
