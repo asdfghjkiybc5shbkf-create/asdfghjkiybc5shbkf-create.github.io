@@ -1,0 +1,854 @@
+<!DOCTYPE html>  
+<html lang="fa" dir="rtl">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">  
+<meta name="theme-color" content="#080a12">  
+<title>فضای شخصی علی | MYSPACE</title>  
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/vendor/katex/katex.min.css"><script src="/vendor/katex/katex.min.js"></script>
+<style>  
+:root {  
+  --bg:#05070d;  
+  --panel:rgba(255,255,255,.07);  
+  --panel2:rgba(255,255,255,.13);  
+  --line:rgba(255,255,255,.15);  
+  --text:#f4f2ff;  
+  --muted:#a3a1cb;  
+  --purple:#a78bfa;  
+  --blue:#38bdf8;  
+  --footer-color:#2dd4bf;  
+  --blob1:#6366f1;  
+  --blob2:#0ea5e9;  
+  color-scheme:dark;  
+}  
+html[data-theme="light"] {  
+  --bg:#f1f5f9;  
+  --panel:rgba(255,255,255,.72);  
+  --panel2:rgba(255,255,255,.92);  
+  --line:rgba(15,23,42,.14);  
+  --text:#0f172a;  
+  --muted:#64748b;  
+  --purple:#7c3aed;  
+  --blue:#0284c7;  
+  --footer-color:#0d9488;  
+  --blob1:#c4b5fd;  
+  --blob2:#7dd3fc;  
+  color-scheme:light;  
+}  
+* { box-sizing:border-box; }  
+html { scroll-behavior:smooth; }  
+body {  
+  margin:0;  
+  min-height:100vh;  
+  background:var(--bg);  
+  background-image:  
+    radial-gradient(circle at 10% 15%,color-mix(in srgb,var(--blob1) 40%,transparent),transparent 45%),  
+    radial-gradient(circle at 90% 85%,color-mix(in srgb,var(--blob2) 35%,transparent),transparent 45%);  
+  background-attachment:fixed;  
+  color:var(--text);  
+  font-family:Tahoma,Arial,sans-serif;  
+  line-height:1.8;  
+  overflow-x:hidden;  
+  transition:background-color .25s,color .25s;  
+}  
+button,input,textarea { font:inherit; }  
+button,a { -webkit-tap-highlight-color:transparent; }  
+button { touch-action:manipulation; }  
+a { color:var(--muted);text-decoration:none; }  
+a:hover { color:var(--text); }  
+.app-container {  
+  width:100%;  
+  max-width:520px;  
+  min-height:100vh;  
+  margin:auto;  
+  padding:16px;  
+  display:flex;  
+  flex-direction:column;  
+}  
+.wrap { width:100%; }  
+header {  
+  display:flex;  
+  align-items:center;  
+  justify-content:space-between;  
+  gap:10px;  
+  padding:8px 4px 16px;  
+  flex-wrap:wrap;  
+}  
+.brand { font-size:19px;font-weight:900; }  
+.brand span { color:var(--purple); }  
+nav { display:flex;gap:7px;align-items:center;flex-wrap:wrap; }  
+.icon-button {  
+  width:38px;height:38px;  
+  border-radius:50%;  
+  border:1px solid var(--line);  
+  background:var(--panel);  
+  color:var(--text);  
+  cursor:pointer;  
+  display:grid;  
+  place-items:center;  
+  font-size:16px;  
+  transition:transform .2s,background .2s;  
+}  
+.icon-button:hover { transform:translateY(-2px);background:var(--panel2); }  
+.icon-button:active { transform:scale(.94); }  
+.glass {  
+  background:var(--panel);  
+  border:1px solid var(--line);  
+  box-shadow:0 15px 35px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.08);  
+  backdrop-filter:blur(20px);  
+  -webkit-backdrop-filter:blur(20px);  
+  border-radius:24px;  
+}  
+.hero { padding:34px 18px;text-align:center;margin:10px 0 18px; }  
+.eyebrow { color:var(--blue);font-size:11px;letter-spacing:2px;font-weight:700; }  
+h1 { font-size:clamp(26px,6vw,38px);line-height:1.5;margin:12px 0; }  
+.gradient {  
+  color:var(--purple);  
+  background:linear-gradient(135deg,var(--purple),var(--blue));  
+  -webkit-background-clip:text;  
+  background-clip:text;  
+  -webkit-text-fill-color:transparent;  
+}  
+p { color:var(--muted);font-size:14px; }  
+.tag {  
+  display:inline-block;  
+  padding:3px 10px;  
+  border:1px solid var(--line);  
+  border-radius:999px;  
+  color:var(--muted);  
+  font-size:11px;  
+  background:var(--panel);  
+}  
+.card { padding:22px;margin-bottom:16px;min-width:0; }  
+.card h2 { font-size:19px;margin:0 0 8px; }  
+.product {  
+  display:flex;  
+  flex-direction:column;  
+  justify-content:center;  
+  align-items:center;  
+  text-align:center;  
+  min-height:220px;  
+  margin:16px auto;  
+}  
+.product-icon { font-size:36px; }  
+.price { font-size:27px;font-weight:900;margin:10px 0;color:var(--blue); }  
+.button {  
+  border:1px solid var(--line);  
+  background:linear-gradient(135deg,var(--purple),var(--blue));  
+  color:white;  
+  padding:11px 16px;  
+  border-radius:12px;  
+  font-weight:700;  
+  cursor:pointer;  
+  display:inline-flex;  
+  align-items:center;  
+  justify-content:center;  
+  gap:8px;  
+  transition:filter .2s,transform .2s;  
+  text-align:center;  
+}  
+.button:hover { filter:brightness(1.08); }  
+.button:active { transform:scale(.97); }  
+.button:disabled { opacity:.6;cursor:wait; }  
+.button.secondary { background:var(--panel2);color:var(--text); }  
+.button.full { width:100%;margin-top:10px; }  
+.status { font-size:12px;min-height:24px;overflow-wrap:anywhere;color:var(--blue);margin-top:7px; }  
+label { display:block;font-size:12px;color:var(--muted);margin:10px 0 5px; }  
+input {  
+  width:100%;  
+  background:var(--panel);  
+  border:1px solid var(--line);  
+  border-radius:12px;  
+  padding:12px;  
+  color:var(--text);  
+  outline:none;  
+}  
+input:focus { border-color:var(--purple); }  
+.support-card { text-align:center;margin-top:20px; }  
+.support-links { display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px; }  
+footer {  
+  text-align:center;  
+  padding:20px 0 25px;  
+  color:#2dd4bf;  
+  font-size:12px;  
+  margin-top:auto;  
+}  
+.footer-name { color:#2dd4bf;font-weight:bold; }  
+.island-wrap {  
+  position:sticky;  
+  top:8px;  
+  z-index:20;  
+  display:flex;  
+  justify-content:center;  
+  margin:6px 0 14px;  
+}  
+.island {  
+  background:#000;  
+  color:#fff;  
+  border:1px solid rgba(255,255,255,.2);  
+  border-radius:999px;  
+  padding:10px 22px;  
+  min-width:185px;  
+  max-width:100%;  
+  display:flex;  
+  align-items:center;  
+  justify-content:center;  
+  gap:10px;  
+  cursor:pointer;  
+  user-select:none;  
+  box-shadow:0 10px 25px rgba(0,0,0,.35);  
+}  
+.island:focus-visible { outline:2px solid var(--blue);outline-offset:3px; }  
+.island-icon { font-size:16px; }  
+.island-main {  
+  font-size:14px;  
+  font-weight:700;  
+  white-space:nowrap;  
+  direction:ltr;  
+  font-variant-numeric:tabular-nums;  
+}  
+.island-sub { font-size:10px;color:#a1a1aa;white-space:nowrap; }  
+.island-dots { display:flex;gap:4px;margin-inline-start:5px; }  
+.island-dots span { width:4px;height:4px;border-radius:50%;background:#555; }  
+.island-dots span.active { background:#38bdf8; }  
+[hidden] { display:none!important; }  
+.overlay {  
+  position:fixed;  
+  inset:0;  
+  z-index:100;  
+  display:flex;  
+  align-items:center;  
+  justify-content:center;  
+  padding:16px;  
+}  
+.overlay-backdrop {  
+  position:absolute;  
+  inset:0;  
+  background:rgba(0,0,0,.72);  
+  backdrop-filter:blur(7px);  
+  -webkit-backdrop-filter:blur(7px);  
+}  
+.overlay-panel {  
+  position:relative;  
+  z-index:1;  
+  width:min(440px,100%);  
+  max-height:90vh;  
+  overflow-y:auto;  
+  padding:24px 20px;  
+  animation:popIn .2s ease;  
+}  
+.overlay-close {  
+  position:absolute;  
+  top:12px;  
+  left:12px;  
+  width:34px;  
+  height:34px;  
+  border-radius:50%;  
+  border:1px solid var(--line);  
+  background:var(--panel2);  
+  color:var(--text);  
+  cursor:pointer;  
+}  
+.dash-grid { display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px; }  
+.dash-card { padding:15px;border-radius:16px;background:var(--panel2);border:1px solid var(--line); }  
+.dash-label { font-size:11px;color:var(--muted);margin-bottom:6px; }  
+.dash-value { font-size:13px;font-weight:700;overflow-wrap:anywhere; }  
+.dash-profile { display:flex;align-items:center;gap:12px; }  
+.dash-avatar {  
+  width:48px;height:48px;border-radius:50%;  
+  background:linear-gradient(135deg,var(--purple),var(--blue));  
+  display:grid;place-items:center;font-size:22px;flex:none;  
+}  
+.dash-id { direction:ltr;text-align:left;font-size:10px;color:var(--muted);overflow-wrap:anywhere; }  
+.dash-actions { display:flex;gap:8px;flex-wrap:wrap;margin-top:14px; }  
+.dash-actions .button { flex:1; }  
+@keyframes popIn {  
+  from { opacity:0;transform:translateY(8px) scale(.98); }  
+  to { opacity:1;transform:translateY(0) scale(1); }  
+}  
+@media (prefers-reduced-motion:reduce) {  
+  *,*::before,*::after { scroll-behavior:auto!important;animation:none!important;transition:none!important; }  
+}  
+/* ===== Modern 3D glass upgrade ===== */
+body{font-family:"Vazirmatn",Tahoma,Arial,sans-serif;perspective:1200px}
+.fx-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.fx-blob{position:absolute;width:60vmax;height:60vmax;border-radius:50%;filter:blur(80px);opacity:.55;mix-blend-mode:screen;animation:blobMove 18s ease-in-out infinite alternate}
+.fx-blob.b1{background:var(--blob1);top:-20vmax;left:-15vmax}
+.fx-blob.b2{background:var(--blob2);bottom:-25vmax;right:-15vmax;animation-delay:-6s}
+.fx-blob.b3{background:var(--purple);top:30%;left:40%;width:35vmax;height:35vmax;opacity:.35;animation-duration:24s;animation-delay:-12s}
+html[data-theme="light"] .fx-blob{mix-blend-mode:multiply;opacity:.4}
+@keyframes blobMove{0%{transform:translate(0,0) scale(1) rotate(0)}50%{transform:translate(10vw,8vh) scale(1.15) rotate(60deg)}100%{transform:translate(-6vw,14vh) scale(.9) rotate(120deg)}}
+.fx-grid{position:absolute;inset:-50% -50% 0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;transform:perspective(500px) rotateX(62deg);transform-origin:bottom;mask-image:linear-gradient(to top,#000 0%,transparent 55%);opacity:.35;animation:gridRun 6s linear infinite;top:auto;height:70%}
+@keyframes gridRun{to{background-position:0 44px}}
+#fxCanvas{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.glass{position:relative;transform-style:preserve-3d;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s;backdrop-filter:blur(22px) saturate(160%);
+ background:linear-gradient(145deg,color-mix(in srgb,var(--panel2) 90%,transparent),var(--panel));
+ box-shadow:0 25px 50px -15px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(255,255,255,.04)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:conic-gradient(from var(--ang,0deg),transparent 0 60%,var(--purple),var(--blue),transparent 85%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spinBorder 6s linear infinite;pointer-events:none;opacity:.9}
+.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.22),transparent 45%);opacity:var(--glare,0);transition:opacity .3s}
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes spinBorder{to{--ang:360deg}}
+.glass > *{transform:translateZ(30px)}
+.overlay-panel.glass > *{transform:none}
+.reveal{opacity:0;transform:translateY(40px) rotateX(18deg) scale(.96)}
+.reveal.in{opacity:1;transform:none;transition:opacity .8s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.brand{animation:brandGlow 3s ease-in-out infinite;letter-spacing:1px}
+@keyframes brandGlow{50%{text-shadow:0 0 18px var(--purple)}}
+.gradient{background:linear-gradient(90deg,var(--purple),var(--blue),#f472b6,var(--purple));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;animation:gradMove 5s linear infinite}
+@keyframes gradMove{to{background-position:300% 0}}
+.product-icon{display:inline-block;font-size:52px;animation:float3d 5s ease-in-out infinite;filter:drop-shadow(0 10px 20px var(--purple));background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+@keyframes float3d{0%,100%{transform:translateZ(50px) translateY(0) rotateY(0)}50%{transform:translateZ(60px) translateY(-10px) rotateY(180deg)}}
+.price{text-shadow:0 0 24px color-mix(in srgb,var(--blue) 60%,transparent)}
+.button{position:relative;overflow:hidden;box-shadow:0 10px 25px -8px color-mix(in srgb,var(--purple) 70%,transparent);transition:transform .2s,box-shadow .3s,filter .2s}
+.button::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(110deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 3.2s ease-in-out infinite}
+.button.secondary::after{animation-duration:4.5s}
+@keyframes shine{0%,60%{left:-120%}100%{left:160%}}
+.button:hover{transform:translateY(-3px);box-shadow:0 18px 35px -10px color-mix(in srgb,var(--blue) 80%,transparent)}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:rip .6s ease-out;pointer-events:none}
+@keyframes rip{to{transform:scale(4);opacity:0}}
+.icon-button{backdrop-filter:blur(12px);transition:transform .3s cubic-bezier(.3,1.6,.5,1),background .2s,box-shadow .3s}
+.icon-button:hover{transform:translateY(-3px) rotate(-8deg) scale(1.08);box-shadow:0 0 20px color-mix(in srgb,var(--purple) 60%,transparent)}
+nav a{position:relative;padding:2px 4px}
+nav a::after{content:"";position:absolute;bottom:0;right:0;width:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--blue));transition:width .3s}
+nav a:hover::after{width:100%}
+.island{background:rgba(0,0,0,.85);backdrop-filter:blur(16px);transition:transform .4s cubic-bezier(.3,1.6,.5,1),box-shadow .3s;animation:islandIn .9s cubic-bezier(.3,1.6,.5,1)}
+.island:hover{transform:scale(1.05);box-shadow:0 15px 40px rgba(0,0,0,.5),0 0 25px color-mix(in srgb,var(--blue) 40%,transparent)}
+.island-dots span.active{box-shadow:0 0 8px #38bdf8;animation:pulse 1.6s infinite}
+@keyframes islandIn{from{transform:scaleX(.3);opacity:0}}
+@keyframes pulse{50%{transform:scale(1.6)}}
+.tag{backdrop-filter:blur(8px)}
+.hero h1{animation:heroIn 1s cubic-bezier(.2,.8,.2,1) both}
+.hero .eyebrow{animation:heroIn .8s .1s both}
+.hero p{animation:heroIn 1s .25s both}
+@keyframes heroIn{from{opacity:0;transform:translateY(20px) translateZ(0);filter:blur(8px)}}
+input{transition:border-color .2s,box-shadow .3s}
+input:focus{box-shadow:0 0 0 4px color-mix(in srgb,var(--purple) 25%,transparent)}
+.dash-card{transition:transform .3s}
+.dash-card:hover{transform:translateY(-3px) scale(1.01)}
+footer{animation:heroIn 1s both}
+html{overflow-x:hidden}.cursor-glow{position:fixed;left:-400px;top:-400px;width:340px;height:340px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,color-mix(in srgb,var(--purple) 30%,transparent),transparent 65%);transform:translate(-50%,-50%);transition:left .15s ease-out,top .15s ease-out}
+
+
+.ai-card{display:flex;flex-direction:column;gap:12px}
+.ai-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.ai-threads{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.ai-thread{display:flex;align-items:center;flex-shrink:0;border:1px solid color-mix(in srgb,var(--blue) 30%,transparent);border-radius:999px;background:color-mix(in srgb,var(--blue) 8%,transparent)}
+.ai-thread.on{background:color-mix(in srgb,var(--blue) 28%,transparent)}
+.ai-thread button{background:none;border:0;color:inherit;font:inherit;font-size:12px;padding:6px 10px;cursor:pointer;max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ai-thread .x{padding:6px 8px 6px 4px;opacity:.6}
+.ai-log{max-height:55vh;min-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:4px}
+.ai-msg{max-width:88%;line-height:1.8;font-size:14px;overflow-wrap:anywhere;animation:aiIn .35s ease}
+.ai-msg.user{align-self:flex-start;background:var(--blue);color:#fff;padding:10px 14px;border-radius:18px 18px 18px 4px}
+.ai-msg.assistant{align-self:flex-end;max-width:100%}
+.ai-msg img{max-width:180px;border-radius:12px;display:block;margin-bottom:6px}
+.ai-msg pre{background:color-mix(in srgb,var(--blue) 10%,transparent);padding:8px;border-radius:8px;overflow-x:auto;direction:ltr}
+.ai-msg li{margin-inline-start:16px;list-style:disc}
+.ai-empty{opacity:.75;text-align:center;margin:auto;font-size:14px}
+.ai-chip{display:inline-flex;gap:6px;align-items:center;font-size:12px;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--blue) 15%,transparent);margin:2px}
+.ai-chip button{background:none;border:0;color:inherit;cursor:pointer}
+.ai-form{display:flex;gap:8px;align-items:flex-end}
+.ai-form textarea{flex:1;resize:none;font:inherit;font-size:14px;padding:10px 14px;border-radius:16px;border:1px solid color-mix(in srgb,var(--blue) 35%,transparent);background:color-mix(in srgb,var(--blue) 6%,transparent);color:inherit;outline:none}
+.ai-form .button{width:auto;margin:0}
+.ai-typing{display:inline-flex;gap:4px}.ai-typing i{width:7px;height:7px;border-radius:50%;background:var(--blue);animation:aiDot 1s infinite}
+.ai-typing i:nth-child(2){animation-delay:.15s}.ai-typing i:nth-child(3){animation-delay:.3s}
+@keyframes aiDot{50%{transform:translateY(-5px);opacity:.4}}
+@keyframes aiIn{from{opacity:0;transform:translateY(8px)}}
+
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:6px 4px}
+.sb-icons{font-size:13px;opacity:.8}
+.home{display:flex;flex-direction:column;gap:22px}
+.home-hello{padding:20px;border-radius:26px}.home-hello h1{margin:6px 0;font-size:28px}.home-hello p{margin:0;color:var(--muted)}
+.app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 10px;padding:4px}
+.app-tile{display:flex;flex-direction:column;align-items:center;gap:7px;font-size:11.5px;text-align:center}
+.app-icon{width:62px;height:62px;border-radius:18px;font-size:28px;display:grid;place-items:center;text-decoration:none;cursor:pointer;color:inherit;
+ border:1px solid var(--line);background:linear-gradient(145deg,color-mix(in srgb,var(--blue) 35%,var(--panel2)),color-mix(in srgb,var(--purple) 30%,var(--panel)));
+ backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 8px 22px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .2s}
+.app-icon:active{transform:scale(.88)}
+.app-window{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;gap:8px;padding:max(10px,env(safe-area-inset-top)) 12px max(10px,env(safe-area-inset-bottom));
+ background:color-mix(in srgb,var(--bg) 96%,transparent);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);animation:appOpen .35s cubic-bezier(.2,.9,.3,1.2)}
+.app-window[hidden]{display:none}
+@keyframes appOpen{from{opacity:0;transform:scale(.6)}}
+.aw-bar{display:flex;align-items:center;gap:8px}.aw-title{flex:1;font-weight:900}
+.app-window .ai-log{flex:1;max-height:none;min-height:0}
+.ai-hist{border:1px solid var(--line);border-radius:18px;padding:10px;background:var(--panel);max-height:45vh;overflow:auto}
+.ai-hist-title{font-weight:700;margin-bottom:8px;font-size:13px}
+.app-window .ai-threads{flex-direction:column;overflow:visible}
+.app-window .ai-thread{border-radius:14px;justify-content:space-between}
+.app-window .ai-thread button[data-open]{max-width:none;flex:1;text-align:right;display:flex;flex-direction:column;gap:2px}
+.ai-thread small{opacity:.6;font-size:10.5px}
+body.in-app{overflow:hidden}
+@media (min-width:600px){
+ body{padding:24px 0}
+ .app-container{max-width:400px!important;min-height:820px;margin:0 auto;border-radius:46px;border:10px solid #111;box-shadow:0 30px 80px rgba(0,0,0,.5);padding:14px!important;overflow:hidden}
+ .app-window{inset:auto;top:24px;left:50%;transform:translateX(-50%);width:400px;height:820px;border-radius:46px;border:10px solid #111}
+ @keyframes appOpen{from{opacity:0}}
+}
+html.no-fx .fx-bg,html.no-fx #fxCanvas,html.no-fx .cursor-glow{display:none!important}
+html.no-fx *,html.no-fx *::before,html.no-fx *::after{animation:none!important;transition:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;text-shadow:none!important}
+html.no-fx .glass,html.no-fx main .glass{transform:none!important;opacity:1!important}
+
+:root{--glass-button:color-mix(in srgb,var(--panel2) 80%,transparent);--glass-shadow:0 5px 18px color-mix(in srgb,var(--text) 12%,transparent);--frame:var(--line)}
+.button,.app-icon,.icon-button{background:var(--glass-button);color:var(--text);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:var(--glass-shadow);border:1px solid var(--line)}
+body{background-image:none}.app-container{background-image:var(--bg-image,none);background-size:cover;background-position:center}
+html[data-theme="light"]{--bg:oklch(1 0 0);--panel:oklch(1 0 0 / .8);--panel2:oklch(1 0 0 / .95);--text:oklch(.23 0 0);--muted:oklch(.48 0 0);--line:oklch(.75 0 0 / .45)}
+html[data-theme="light"] .fx-bg,html[data-theme="light"] #fxCanvas,html[data-theme="light"] .cursor-glow{display:none}
+html[data-theme="light"] .app-window,html[data-theme="light"] .ai-msg.user,html[data-theme="light"] .ai-thread,html[data-theme="light"] .ai-form textarea,html[data-theme="light"] .ai-chip,html[data-theme="light"] .island{background:var(--bg);color:var(--text);border:1px solid var(--line)}
+html[data-theme="light"] .island-sub{color:var(--muted)}
+html[data-theme="light"] .gradient{background:none;-webkit-text-fill-color:var(--text)}
+html[data-theme="light"] .glass::before{display:none}
+.app-window{animation:none;backdrop-filter:none}.ai-form textarea{min-width:0}.ai-form .button{width:44px;height:44px;padding:0;flex:none}.ai-msg{animation:none}.ai-msg .katex-display{overflow-x:auto;overflow-y:hidden;direction:ltr;padding:6px 0}.ai-msg .katex{direction:ltr;unicode-bidi:isolate}
+.model-select{width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--text);font:inherit;font-size:13px}
+.gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;overflow:auto}.gallery-item{display:flex;flex-direction:column;gap:6px}.gallery-item img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px}.gallery-item.selected img{outline:2px solid var(--blue)}.gallery-item .button{padding:6px;font-size:12px}.gallery-actions{display:flex;gap:8px}.gallery-status{color:var(--muted);font-size:12px}.gallery-empty{color:var(--muted);text-align:center;padding:30px}
+@media(min-width:600px){.app-container,.app-window{border-color:var(--frame)}.app-window{height:min(820px,calc(100dvh - 48px))}}
+
+.sb-left{display:flex;align-items:center;gap:6px}
+.statusbar .brand{flex:1;text-align:center}
+.statusbar .sb-icons{opacity:.8}
+.auth-gate{text-align:center;padding:24px 12px;color:var(--muted);font-size:14px}
+.auth-gate .button{margin-top:12px}
+
+
+.admin-badge{display:inline-block;padding:2px 8px;border-radius:999px;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-size:11px;font-weight:700;margin-inline-start:6px}
+.admin-panel{margin-top:14px;padding:14px;border-radius:16px;border:1px solid color-mix(in srgb,#f59e0b 50%,var(--line));background:color-mix(in srgb,#f59e0b 8%,var(--panel))}
+.admin-panel h3{margin:0 0 8px;font-size:15px;color:#f59e0b}
+.admin-panel p{margin:0 0 8px;font-size:12px;color:var(--muted)}
+.admin-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.admin-stat{padding:10px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);text-align:center}
+.admin-stat b{display:block;font-size:18px}
+.admin-stat span{font-size:11px;color:var(--muted)}
+
+</style>  
+</head>  
+<body>  
+<div class="app-container">  
+  <header class="wrap statusbar">
+    <div class="sb-left">
+      <button id="menuButton" class="icon-button" type="button" aria-label="داشبورد" title="داشبورد">▦</button>
+      <button id="themeToggle" class="icon-button" type="button" aria-label="تغییر تم روشن و تاریک" title="تم">🌙</button>
+    </div>
+    <div class="brand">MY<span>SPACE</span> ✦</div>
+    <div class="sb-icons">📶 🔋</div>
+  </header>    
+
+  <input type="file" id="wallpaperInput" accept="image/*" hidden>    
+
+  <div class="wrap">  
+    <div class="island-wrap">  
+      <div id="island" class="island" role="button" tabindex="0" aria-label="تغییر بین ساعت و تاریخ">  
+        <span id="islandIcon" class="island-icon">🕰️</span>  
+        <div>  
+          <div id="islandMain" class="island-main">--:--:--</div>  
+          <div id="islandSub" class="island-sub">ساعت محلی دستگاه</div>  
+        </div>  
+        <div class="island-dots"><span id="dot0" class="active"></span><span id="dot1"></span></div>  
+      </div>  
+    </div>  
+  </div>    
+
+  <main class="wrap home"><div class="home-hello glass"><div class="eyebrow">YOUR PERSONAL SPACE</div><h1>سلام <span class="gradient">علی</span> 👋</h1></div><div class="app-grid"><div class="app-tile"><button id="aiOpen" class="app-icon" type="button" aria-label="چاتی پاتی">💬</button><span>چاتی پاتی</span></div><div class="app-tile"><button id="galleryBtn" class="app-icon" type="button" aria-label="گالری">🖼️</button><span>گالری</span></div><div class="app-tile"><button id="bgToggle" class="app-icon" type="button" aria-label="پالت رنگ">🎨</button><span>پالت رنگ</span></div><div class="app-tile"><button id="fxToggle" class="app-icon" type="button" aria-label="افکت‌ها">✨</button><span>افکت‌ها</span></div></div></main>    
+
+  <footer class="wrap">  
+    <div>ساخته شده با ✦ توسط <span class="footer-name">علی</span></div>  
+    <div>© 2026 · تمامی حقوق محفوظ است</div>  
+  </footer>  
+</div>  
+
+<div id="aiApp" class="app-window" hidden>
+  <div class="aw-bar">
+    <button id="aiBack" class="icon-button" type="button" aria-label="بازگشت">→</button>
+    <div class="aw-title">💬 چاتی پاتی</div>
+    <button id="aiHistBtn" class="icon-button" type="button" aria-label="تاریخچه چت‌ها" title="تاریخچه">🕘</button>
+    <button id="aiNew" class="icon-button" type="button" aria-label="چت جدید" title="چت جدید">＋</button>
+  </div>
+  <select id="aiModel" class="model-select" aria-label="انتخاب مدل چاتی پاتی"><option value="openai/gpt-6-astra">GPT-6 Astra</option><option value="openai/gpt-6-sol">GPT-6 Sol</option><option value="openai/gpt-6-luna">GPT-6 Luna</option></select>
+  <div id="aiHist" class="ai-hist" hidden><div class="ai-hist-title">تاریخچهٔ چت‌ها</div><div id="aiThreads" class="ai-threads"></div></div>
+  <div id="aiLog" class="ai-log" aria-live="polite"></div>
+  <div id="aiFiles" class="ai-files"></div>
+  <form id="aiForm" class="ai-form">
+    <button id="aiAttach" class="icon-button" type="button" title="آپلود عکس یا فایل" aria-label="آپلود عکس یا فایل">📎</button>
+    <textarea id="aiInput" rows="1" placeholder="به چاتی پاتی پیام بده…"></textarea>
+    <button id="aiSend" class="button" type="submit" aria-label="ارسال">↑</button>
+  </form>
+  <input id="aiFileInput" type="file" multiple hidden accept="image/*,application/pdf,.txt,.md,.csv,.json,.html,.js,.py">
+</div>
+<div id="galleryApp" class="app-window" hidden><div class="aw-bar"><button id="galleryBack" class="icon-button" aria-label="بازگشت از گالری">→</button><div class="aw-title">گالری</div><button id="galleryAdd" class="icon-button" aria-label="افزودن عکس">＋</button></div><div class="gallery-actions"><button id="wallpaperReset" class="button">حذف پس‌زمینه</button></div><div id="galleryStatus" class="gallery-status" role="status"></div><div id="galleryGrid" class="gallery-grid"></div></div>
+<div id="dashboardOverlay" class="overlay" hidden>  
+  <div id="overlayBackdrop" class="overlay-backdrop"></div>  
+  <section class="overlay-panel glass" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">  
+    <button id="closeDashboard" class="overlay-close" type="button" aria-label="بستن داشبورد">✕</button>  
+    
+    <div id="loginBox">  
+      <h2 id="dialogTitle">داشبورد</h2>  
+      <p>برای ورود یا ساخت حساب، اطلاعاتت را وارد کن.</p>  
+        
+      <form id="emailForm">  
+        <label for="email">ایمیل</label>  
+        <input id="email" type="email" autocomplete="email" placeholder="name@example.com" required>  
+        <label for="password">رمز عبور</label>  
+        <input id="password" type="password" minlength="6" autocomplete="current-password" placeholder="حداقل ۶ نویسه" required>  
+        <button id="signupButton" class="button full" type="submit">ساخت حساب</button>  
+        <button id="loginButton" class="button secondary full" type="button">ورود به حساب</button>  
+        <button id="resetButton" class="button secondary full" type="button">فراموشی رمز عبور</button>  
+      </form>  
+      <div id="accountStatus" class="status" role="status" aria-live="polite"></div>  
+    </div>  
+
+    <div id="dashboardBox" hidden>  
+      <h2>داشبورد من</h2>  
+      <div class="dash-grid">  
+        <div class="dash-card dash-profile">  
+          <div class="dash-avatar">👤</div>  
+          <div style="min-width:0">  
+            <div id="dashName" class="dash-value">کاربر</div>  
+            <div id="dashEmail" style="font-size:12px;color:var(--muted);overflow-wrap:anywhere">—</div>  
+            <div id="dashUid" class="dash-id">—</div>  
+          </div>  
+        </div>  
+        <div class="dash-card">  
+          <div class="dash-label">وضعیت ایمیل</div>  
+          <div id="dashVerifiedBadge" class="dash-value">—</div>  
+        </div>  
+        <div class="dash-card">  
+          <div class="dash-label">تاریخ عضویت</div>  
+          <div id="dashCreated" class="dash-value">—</div>  
+        </div>  
+        <div class="dash-card">  
+          <div class="dash-label">آخرین ورود</div>  
+          <div id="dashLastLogin" class="dash-value">—</div>  
+        </div>  
+      </div>  
+      <div class="dash-actions">  
+        <button id="logoutButton" class="button" type="button">خروج از حساب</button>  
+      </div>
+      <div id="adminPanel" class="admin-panel" hidden>
+        <h3>🛡 پنل ادمین</h3>
+        <p>شما با نقش <b>ادمین</b> وارد شده‌اید.</p>
+        <div class="admin-stats">
+          <div class="admin-stat"><b id="adminThreadCount">—</b><span>چت‌های ذخیره‌شده</span></div>
+          <div class="admin-stat"><b id="adminMsgCount">—</b><span>کل پیام‌ها</span></div>
+        </div>
+        <button id="adminClearChats" class="button secondary full" type="button" style="margin-top:10px">پاک‌کردن تاریخچه چت‌های این دستگاه</button>
+        <div id="adminStatus" class="status" role="status"></div>
+      </div>
+      <div id="dashStatus" class="status" role="status" aria-live="polite"></div>  
+    </div>  
+  </section>  
+</div>  
+
+<script type="module">  
+const $ = (id) => document.getElementById(id);  
+const root = document.documentElement;  
+  
+function safeGet(key, fallback = null) {  
+  try {  
+    const value = localStorage.getItem(key);  
+    return value === null ? fallback : value;  
+  } catch {  
+    return fallback;  
+  }  
+}  
+function safeSet(key, value) {  
+  try { localStorage.setItem(key, value); } catch (error) {  
+    console.warn("ذخیره‌سازی در این مرورگر در دسترس نیست.", error);  
+  }  
+}  
+function safeRemove(key) {  
+  try { localStorage.removeItem(key); } catch {}  
+}  
+  
+/* تم روشن و تاریک */  
+function applyTheme(theme) {  
+  const validTheme = theme === "light" ? "light" : "dark";  
+  root.setAttribute("data-theme", validTheme);  
+  const btn = $("themeToggle");  
+  if (btn) {  
+    btn.textContent = validTheme === "light" ? "☀️" : "🌙";  
+    btn.setAttribute("aria-label", validTheme === "light" ? "فعال کردن تم تاریک" : "فعال کردن تم روشن");  
+  }  
+  if(validTheme === "light") ["--bg","--blob1","--blob2"].forEach(k=>root.style.removeProperty(k));
+  else if(root.dataset.paletteReady) applyPalette(paletteIndex);
+  safeSet("myspace-theme", validTheme);  
+}  
+applyTheme(safeGet("myspace-theme", "dark"));  
+$("themeToggle").addEventListener("click", () => {  
+  applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");  
+});  
+  
+/* پالت‌های رنگ */  
+const palettes = [  
+  { bg:"#05070d", b1:"#6366f1", b2:"#0ea5e9" },  
+  { bg:"#0f0514", b1:"#d946ef", b2:"#8b5cf6" },  
+  { bg:"#02100d", b1:"#10b981", b2:"#06b6d4" },  
+  { bg:"#140805", b1:"#f97316", b2:"#ec4899" }  
+];  
+let paletteIndex = Number(safeGet("myspace-bg-index", "0"));  
+if (!Number.isInteger(paletteIndex) || paletteIndex < 0 || paletteIndex >= palettes.length) paletteIndex = 0;  
+  
+function applyPalette(index) {  
+  const palette = palettes[index];  
+  if(root.getAttribute("data-theme") === "light") { ["--bg","--blob1","--blob2"].forEach(k=>root.style.removeProperty(k)); return; }
+  root.style.setProperty("--bg", palette.bg);  
+  root.style.setProperty("--blob1", palette.b1);  
+  root.style.setProperty("--blob2", palette.b2);  
+  safeSet("myspace-bg-index", String(index));  
+}  
+applyPalette(paletteIndex); root.dataset.paletteReady="1";  
+  
+$("bgToggle").addEventListener("click", () => {  
+  paletteIndex = (paletteIndex + 1) % palettes.length;  
+  root.style.removeProperty("--bg-image");  
+  safeRemove("myspace-custom-wallpaper"); renderGallery();  
+  applyPalette(paletteIndex);  
+});  
+  
+/* گالری و تصویر پس‌زمینه */
+const wallpaperInput = $("wallpaperInput");
+let gallery=[];try{gallery=JSON.parse(safeGet("myspace-gallery","[]"))}catch{}
+function applyWallpaper(data){if(data)root.style.setProperty("--bg-image",`url("${data}")`);else root.style.removeProperty("--bg-image");safeSet("myspace-custom-wallpaper",data||"");}
+function renderGallery(){const selected=safeGet("myspace-custom-wallpaper");$("galleryGrid").replaceChildren();if(!gallery.length){const empty=document.createElement("div");empty.className="gallery-empty";empty.textContent="هنوز عکسی نیست";$("galleryGrid").append(empty)}
+ gallery.forEach((item,i)=>{const cell=document.createElement("div");cell.className="gallery-item"+(selected===item.data?" selected":"");const img=document.createElement("img");img.src=item.data;img.alt=item.name;const use=document.createElement("button");use.className="button";use.textContent=selected===item.data?"✓ پس‌زمینه فعلی":"انتخاب پس‌زمینه";use.onclick=()=>{applyWallpaper(item.data);renderGallery();$("galleryStatus").textContent="تصویر پس‌زمینه اعمال شد"};const del=document.createElement("button");del.className="button secondary";del.textContent="حذف عکس";del.onclick=()=>{if(selected===item.data)applyWallpaper(null);gallery.splice(i,1);safeSet("myspace-gallery",JSON.stringify(gallery));renderGallery()};cell.append(img,use,del);$("galleryGrid").append(cell)});
+}
+$("galleryBtn").onclick=()=>{$("galleryApp").hidden=false;document.body.classList.add("in-app");renderGallery()};
+$("galleryBack").onclick=()=>{$("galleryApp").hidden=true;document.body.classList.remove("in-app")};
+$("galleryAdd").onclick=()=>wallpaperInput.click();
+$("wallpaperReset").onclick=()=>{applyWallpaper(null);renderGallery();$("galleryStatus").textContent="پس‌زمینه حذف شد"};
+wallpaperInput.onchange=async()=>{const file=wallpaperInput.files?.[0];if(!file)return;if(!file.type.startsWith("image/")){alert("یک عکس انتخاب کن");return}const url=URL.createObjectURL(file);try{const img=new Image();img.src=url;await img.decode();const scale=Math.min(1,1400/Math.max(img.width,img.height));const c=document.createElement("canvas");c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext("2d").drawImage(img,0,0,c.width,c.height);const data=c.toDataURL("image/jpeg",.8);const next=[{name:file.name,data},...gallery];try{localStorage.setItem("myspace-gallery",JSON.stringify(next));gallery=next;applyWallpaper(data);renderGallery();$("galleryStatus").textContent="عکس اضافه شد و پس‌زمینه اعمال شد"}catch{$("galleryStatus").textContent="حافظه پر است؛ چند عکس را حذف کن"}}catch{$("galleryStatus").textContent="این عکس خوانده نشد"}finally{URL.revokeObjectURL(url);wallpaperInput.value=""}};
+const savedWallpaper=safeGet("myspace-custom-wallpaper");if(savedWallpaper){applyWallpaper(savedWallpaper);if(!gallery.some(x=>x.data===savedWallpaper)){gallery.unshift({name:"پس‌زمینه قبلی",data:savedWallpaper});safeSet("myspace-gallery",JSON.stringify(gallery))}}
+
+/* ساعت و تاریخ */  
+let islandMode = 0;  
+function renderIsland() {  
+  const now = new Date();  
+  if (islandMode === 0) {  
+    $("islandIcon").textContent = "🕰️";  
+    $("islandMain").dir = "ltr";  
+    $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {  
+      hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false  
+    }).format(now);  
+    $("islandSub").textContent = "ساعت محلی دستگاه";  
+  } else {  
+    $("islandIcon").textContent = "📅";  
+    $("islandMain").dir = "rtl";  
+    $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {  
+      weekday:"long", day:"numeric", month:"long", calendar:"persian"  
+    }).format(now);  
+    $("islandSub").textContent = "تاریخ امروز";  
+  }  
+  $("dot0").classList.toggle("active", islandMode === 0);  
+  $("dot1").classList.toggle("active", islandMode === 1);  
+}  
+function cycleIsland() {  
+  islandMode = (islandMode + 1) % 2;  
+  renderIsland();  
+}  
+$("island").addEventListener("click", cycleIsland);  
+$("island").addEventListener("keydown", (event) => {  
+  if (event.key === "Enter" || event.key === " ") {  
+    event.preventDefault();  
+    cycleIsland();  
+  }  
+});  
+renderIsland();  
+setInterval(renderIsland, 1000);  
+  
+/* افکت کارت‌ها */  
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {  
+  document.addEventListener("mousemove", (event) => {  
+    document.querySelectorAll(".glass").forEach((card) => {  
+      const rect = card.getBoundingClientRect();  
+      card.style.setProperty("--mouse-x", `${event.clientX - rect.left}px`);  
+      card.style.setProperty("--mouse-y", `${event.clientY - rect.top}px`);  
+    });  
+  });  
+}  
+  
+/* داشبورد */  
+const overlay = $("dashboardOverlay");  
+function openDashboard() {  
+  overlay.hidden = false;  
+  document.body.style.overflow = "hidden";  
+  $("closeDashboard").focus();  
+}  
+function closeDashboard() {  
+  overlay.hidden = true;  
+  document.body.style.overflow = "";  
+  $("menuButton").focus();  
+}  
+$("menuButton").addEventListener("click", openDashboard);  
+$("closeDashboard").addEventListener("click", closeDashboard);  
+$("overlayBackdrop").addEventListener("click", closeDashboard);  
+document.addEventListener("keydown", (event) => {  
+  if (event.key === "Escape" && !overlay.hidden) closeDashboard();  
+});  
+  
+/* چاتی پاتی */
+(()=>{
+const KEY="myspace_ai_threads";
+let threads=[];try{threads=JSON.parse(localStorage.getItem(KEY)||"[]")}catch{}
+let active=localStorage.getItem(KEY+"_active");
+let pending=[],busy=false;
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(threads));localStorage.setItem(KEY+"_active",active)}catch{
+  // اگر حافظه پر شد، عکس‌های قدیمی را حذف کن
+  threads.forEach(t=>t.messages.slice(0,-2).forEach(m=>m.attachments=(m.attachments||[]).map(a=>a.kind==="text"?a:{...a,data:"",dropped:true})));
+  try{localStorage.setItem(KEY,JSON.stringify(threads))}catch{}}};
+const newThread=()=>{const t={id:Date.now().toString(36),title:"چت جدید",messages:[]};threads.unshift(t);active=t.id;save();render()};
+if(!threads.length){threads=[{id:Date.now().toString(36),title:"چت جدید",messages:[]}];active=threads[0].id;}
+if(!threads.find(t=>t.id===active))active=threads[0].id;
+const cur=()=>threads.find(t=>t.id===active);
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const md=s=>{const math=[];s=s.replace(/\\\[([\s\S]*?)\\\]|\\\(([\s\S]*?)\\\)|\$\$([\s\S]*?)\$\$|\$([^$\n]+)\$/g,(full,display,inline,dd,ii)=>{if(!window.katex)return full;const i=math.length;math.push(katex.renderToString(display||inline||dd||ii,{displayMode:!!(display||dd),throwOnError:false,trust:false}));return `MATHPLACEHOLDER${i}END`});let h=esc(s);
+ h=h.replace(/```([\s\S]*?)```/g,(_,c)=>`<pre>${c}</pre>`).replace(/`([^`]+)`/g,"<code>$1</code>")
+ .replace(/^### (.*)$/gm,"<h4>$1</h4>").replace(/^## (.*)$/gm,"<h3>$1</h3>").replace(/^# (.*)$/gm,"<h3>$1</h3>")
+ .replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/^\s*[-*] (.*)$/gm,"<li>$1</li>").replace(/^\s*\d+[.)] (.*)$/gm,"<li>$1</li>")
+ .replace(/\n/g,"<br>");return h.replace(/MATHPLACEHOLDER(\d+)END/g,(_,i)=>math[+i])};
+const log=$("aiLog");
+function render(){
+ $("aiThreads").innerHTML=threads.map(t=>`<div class="ai-thread ${t.id===active?"on":""}"><button type="button" data-open="${t.id}">💬 ${esc(t.title)}<small>${new Date(t.updated||+parseInt(t.id,36)||Date.now()).toLocaleString("fa-IR",{dateStyle:"short",timeStyle:"short"})} · ${t.messages.length} پیام</small></button><button type="button" class="x" data-del="${t.id}" aria-label="حذف">✕</button></div>`).join("");
+ const t=cur();
+ log.innerHTML=t.messages.length?t.messages.map(m=>`<div class="ai-msg ${m.role}">${(m.attachments||[]).map(a=>a.kind==="image"&&a.data?`<img src="${a.data}" alt="">`:`<span class="ai-chip">📄 ${esc(a.name)}</span>`).join("")}<div>${m.role==="assistant"?md(m.text):esc(m.text).replace(/\n/g,"<br>")}</div></div>`).join(""):
+  `<div class="ai-empty">سلام 👋 من چاتی پاتی هستم. سؤال بپرس یا فایل بفرست.</div>`;
+ if(busy&&t.messages.at(-1)?.role==="user")log.insertAdjacentHTML("beforeend",`<div class="ai-msg assistant"><span class="ai-typing"><i></i><i></i><i></i></span></div>`);
+ log.scrollTop=log.scrollHeight;
+ $("aiFiles").innerHTML=pending.map((a,i)=>`<span class="ai-chip">${a.kind==="image"?"🖼️":"📄"} ${esc(a.name)} <button type="button" data-rm="${i}">✕</button></span>`).join("");
+}
+$("aiThreads").addEventListener("click",e=>{const o=e.target.closest("[data-open]")?.dataset.open,d=e.target.closest("[data-del]")?.dataset.del;
+ if(o&&!busy){active=o;$("aiHist").hidden=true;save();render()}
+ if(d&&!busy){threads=threads.filter(t=>t.id!==d);if(!threads.length)newThread();else{if(active===d)active=threads[0].id;save();render()}}});
+$("aiHistBtn").addEventListener("click",()=>{$("aiHist").hidden=!$("aiHist").hidden});
+$("aiOpen").addEventListener("click",async()=>{
+  // فقط بعد از لاگین
+  let user=null;
+  try{ if(sb){ const {data}=await sb.auth.getSession(); user=data.session?.user||null; } }catch{}
+  if(!user){
+    openDashboard();
+    st("برای استفاده از چاتی پاتی اول وارد حسابت شو.");
+    return;
+  }
+  $("aiApp").hidden=false;document.body.classList.add("in-app");render();inp.focus();
+});
+$("aiBack").addEventListener("click",()=>{$("aiApp").hidden=true;document.body.classList.remove("in-app")});
+$("aiNew").addEventListener("click",()=>{if(!busy){newThread();$("aiHist").hidden=true;$("aiInput").focus()}});
+$("aiAttach").addEventListener("click",()=>$("aiFileInput").click());
+$("aiFiles").addEventListener("click",e=>{const i=e.target.dataset.rm;if(i!=null){pending.splice(+i,1);render()}});
+const readAs=(f,m)=>new Promise((r,j)=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.onerror=j;fr[m](f)});
+const shrink=src=>new Promise(r=>{const im=new Image();im.onload=()=>{const s=Math.min(1,1280/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);r(c.toDataURL("image/jpeg",.82))};im.onerror=()=>r(src);im.src=src});
+$("aiFileInput").addEventListener("change",async e=>{for(const f of e.target.files){
+ if(f.size>15e6){alert(`«${f.name}» بیشتر از ۱۵ مگابایت است.`);continue}
+ if(f.type.startsWith("image/"))pending.push({kind:"image",name:f.name,data:await shrink(await readAs(f,"readAsDataURL"))});
+ else if(f.type==="application/pdf")pending.push({kind:"pdf",name:f.name,data:await readAs(f,"readAsDataURL")});
+ else pending.push({kind:"text",name:f.name,data:await readAs(f,"readAsText")});
+}e.target.value="";render()});
+const inp=$("aiInput");
+$("aiModel").value=safeGet("myspace-ai-model","openai/gpt-6-astra");if(!$("aiModel").value)$("aiModel").value="openai/gpt-6-astra";$("aiModel").onchange=()=>safeSet("myspace-ai-model",$("aiModel").value);
+inp.addEventListener("input",()=>{inp.style.height="auto";inp.style.height=Math.min(inp.scrollHeight,140)+"px"});
+inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey&&!matchMedia("(pointer:coarse)").matches){e.preventDefault();$("aiForm").requestSubmit()}});
+$("aiForm").addEventListener("submit",async e=>{e.preventDefault();if(busy)return;
+ const text=inp.value.trim();if(!text&&!pending.length)return;
+ const t=cur();t.messages.push({role:"user",text,attachments:pending});t.updated=Date.now();threads=[t,...threads.filter(x=>x!==t)];
+ if(t.title==="چت جدید")t.title=(text||pending[0]?.name||"چت").slice(0,30);
+ pending=[];inp.value="";inp.style.height="auto";busy=true;$("aiSend").disabled=true;save();render();
+ const reply={role:"assistant",text:""};
+ try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:t.messages,model:$("aiModel").value})});
+  if(!res.ok)throw new Error(await res.text()||"خطا");
+  t.messages.push(reply);const rd=res.body.getReader(),dc=new TextDecoder();
+  while(true){const{done,value}=await rd.read();if(done)break;reply.text+=dc.decode(value,{stream:true});render()}
+  if(!reply.text)reply.text="پاسخی دریافت نشد.";
+ }catch(err){if(!t.messages.includes(reply))t.messages.push(reply);reply.text="⚠️ "+(err.message||"خطا در ارتباط")}
+ busy=false;$("aiSend").disabled=false;save();render();inp.focus()});
+render();
+})();
+
+/* حساب کاربری */
+const fxOn=()=>!document.documentElement.classList.contains("no-fx");
+let sb=null;
+try{const {createClient}=await import("https://esm.sh/@supabase/supabase-js@2.45.4");
+ sb=createClient("https://lydamzotunipfpselmzh.supabase.co","sb_publishable_N13RROazvwYZJzd7TOH6kA_QS8OzsJK");}catch(e){console.error(e)}
+const st=(m)=>{$("accountStatus").textContent=m};
+const fa=(d)=>d?new Date(d).toLocaleString("fa-IR",{dateStyle:"medium",timeStyle:"short"}):"—";
+const ADMIN_EMAIL="yeganehali019@gmail.com";
+function isAdmin(u){return !!(u&&u.email&&u.email.toLowerCase()===ADMIN_EMAIL);}
+function showUser(u){
+ $("loginBox").hidden=!!u;$("dashboardBox").hidden=!u;if(!u){const ap=$("adminPanel");if(ap)ap.hidden=true;return;}
+ const name=u.email.split("@")[0];
+ $("dashName").textContent=isAdmin(u)?name+" (ادمین)":name;
+ $("dashEmail").textContent=u.email;$("dashUid").textContent=u.id;
+ $("dashVerifiedBadge").textContent=u.email_confirmed_at?"✅ تأیید شده":"⏳ تأیید نشده";
+ $("dashCreated").textContent=fa(u.created_at);$("dashLastLogin").textContent=fa(u.last_sign_in_at);
+ // badge
+ let badge=$("adminBadge");
+ if(isAdmin(u)){
+   if(!badge){badge=document.createElement("span");badge.id="adminBadge";badge.className="admin-badge";badge.textContent="ادمین";$("dashName").appendChild(badge);}
+   badge.hidden=false;
+   const ap=$("adminPanel");if(ap){ap.hidden=false;
+     try{const th=JSON.parse(localStorage.getItem("myspace_ai_threads")||"[]");$("adminThreadCount").textContent=String(th.length);$("adminMsgCount").textContent=String(th.reduce((n,x)=>n+(x.messages||[]).length,0));}catch{$("adminThreadCount").textContent="0";$("adminMsgCount").textContent="0";}
+   }
+ }else{
+   if(badge)badge.hidden=true;
+   const ap=$("adminPanel");if(ap)ap.hidden=true;
+ }
+}
+if(sb){
+ sb.auth.getSession().then(({data})=>showUser(data.session?.user||null));
+ sb.auth.onAuthStateChange((_e,session)=>showUser(session?.user||null));
+}
+const creds=()=>({email:$("email").value.trim(),password:$("password").value});
+const tr=(m)=>/Invalid login/i.test(m)?"ایمیل یا رمز اشتباه است.":/not confirmed/i.test(m)?"اول ایمیلت را از طریق لینکی که فرستادیم تأیید کن.":/already registered/i.test(m)?"این ایمیل قبلاً ثبت شده؛ وارد شو.":/not allowed|invalid.*email/i.test(m)?"این ایمیل معتبر نیست؛ یک ایمیل واقعی وارد کن.":/at least|weak|pwned/i.test(m)?"رمز ضعیف است؛ رمز قوی‌تری انتخاب کن.":m;
+$("emailForm").addEventListener("submit",async(e)=>{e.preventDefault();if(!sb)return st("اتصال به سرور برقرار نشد.");
+ st("در حال ساخت حساب…");const{data,error}=await sb.auth.signUp({...creds(),options:{emailRedirectTo:location.origin+location.pathname}});
+ if(error)return st(tr(error.message));
+ st(data.session?"حساب ساخته شد ✅":"حساب ساخته شد ✅ لینک تأیید به ایمیلت فرستاده شد؛ بعد از تأیید وارد شو.");});
+$("loginButton").addEventListener("click",async()=>{if(!sb)return;const c=creds();if(!c.email||!c.password)return st("ایمیل و رمز را وارد کن.");
+ st("در حال ورود…");const{error}=await sb.auth.signInWithPassword(c);st(error?tr(error.message):"");});
+$("resetButton").addEventListener("click",async()=>{if(!sb)return;const em=$("email").value.trim();if(!em)return st("اول ایمیلت را وارد کن.");
+ const{error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});st(error?tr(error.message):"لینک بازیابی رمز به ایمیلت فرستاده شد.");});
+$("logoutButton").addEventListener("click",async()=>{await sb?.auth.signOut();showUser(null)});
+/* بازیابی رمز از لینک ایمیل */
+if(sb&&location.hash.includes("type=recovery")){sb.auth.onAuthStateChange(async(ev)=>{if(ev==="PASSWORD_RECOVERY"){const p=prompt("رمز جدید را وارد کن (حداقل ۶ نویسه):");if(p){const{error}=await sb.auth.updateUser({password:p});alert(error?tr(error.message):"رمز عوض شد ✅")}}})}
+
+
+$("adminClearChats")?.addEventListener("click",()=>{
+  if(!confirm("همه چت‌های ذخیره‌شده روی این دستگاه پاک شود؟"))return;
+  try{localStorage.removeItem("myspace_ai_threads");localStorage.removeItem("myspace_ai_threads_active");}catch{}
+  $("adminThreadCount").textContent="0";$("adminMsgCount").textContent="0";
+  $("adminStatus").textContent="تاریخچه این دستگاه پاک شد.";
+});
+
+/* روشن/خاموش کردن افکت‌ها */
+function applyFx(on){document.documentElement.classList.toggle("no-fx",!on);$("fxToggle").textContent=on?"✨":"⚡";$("fxToggle").nextElementSibling.textContent=on?"افکت‌ها: روشن":"افکت‌ها: خاموش";safeSet("myspace_fx",on?"1":"0")}
+applyFx(safeGet("myspace_fx","1")!=="0");
+$("fxToggle").addEventListener("click",()=>applyFx(!fxOn()));
+</script>
+<script>
+(()=>{
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const bg=document.createElement('div');bg.className='fx-bg';bg.innerHTML='<div class="fx-blob b1"></div><div class="fx-blob b2"></div><div class="fx-blob b3"></div><div class="fx-grid"></div>';document.body.prepend(bg);
+const glow=document.createElement('div');glow.className='cursor-glow';document.body.prepend(glow);
+addEventListener('pointermove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+// particles
+const c=document.createElement('canvas');c.id='fxCanvas';document.body.prepend(c);const x=c.getContext('2d');let W,H,P=[];
+const rs=()=>{W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px'};rs();addEventListener('resize',rs);
+for(let i=0;i<45;i++)P.push({x:Math.random(),y:Math.random(),z:Math.random()*.8+.2,v:Math.random()*.0006+.0002});
+const col=()=>getComputedStyle(document.documentElement).getPropertyValue('--blue').trim()||'#38bdf8';
+(function loop(){if(document.documentElement.classList.contains('no-fx')){x.clearRect(0,0,W,H);return void setTimeout(loop,400)}x.clearRect(0,0,W,H);const k=col();x.fillStyle=k;x.shadowColor=k;x.shadowBlur=12;
+for(const p of P){p.y-=p.v*p.z*3;if(p.y<0){p.y=1;p.x=Math.random()}x.globalAlpha=p.z*.7;x.beginPath();x.arc(p.x*W,p.y*H,p.z*2.4*devicePixelRatio,0,7);x.fill()}
+if(!reduce)requestAnimationFrame(loop)})();
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('main .glass').forEach((el,i)=>{el.classList.add('reveal');el.style.transitionDelay=(i*.08)+'s';io.observe(el)});
+// 3D tilt
+document.querySelectorAll('main .glass:not(.ai-card)').forEach(el=>{
+ el.addEventListener('pointermove',e=>{if(document.documentElement.classList.contains('no-fx'))return;const r=el.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
+  el.style.transitionDelay='0s';el.style.transform=`rotateY(${(px-.5)*16}deg) rotateX(${(.5-py)*16}deg) scale(1.02)`;el.style.setProperty('--mx',px*100+'%');el.style.setProperty('--my',py*100+'%');el.style.setProperty('--glare',1)});
+ el.addEventListener('pointerleave',()=>{el.style.transform='';el.style.setProperty('--glare',0)});
+});
+// gyro tilt on mobile
+addEventListener('deviceorientation',e=>{if(e.gamma==null||document.documentElement.classList.contains('no-fx'))return;const g=Math.max(-20,Math.min(20,e.gamma)),b=Math.max(-20,Math.min(20,(e.beta||45)-45));
+ document.querySelectorAll('main .glass.in:not(.ai-card)').forEach(el=>{if(!el.matches(':hover'))el.style.transform=`rotateY(${g*.4}deg) rotateX(${-b*.4}deg)`})});
+// ripple
+document.addEventListener('click',e=>{const b=e.target.closest('.button,.icon-button');if(!b)return;const r=b.getBoundingClientRect(),s=Math.max(r.width,r.height),d=document.createElement('span');
+ d.className='ripple';d.style.cssText=`width:${s}px;height:${s}px;left:${e.clientX-r.left-s/2}px;top:${e.clientY-r.top-s/2}px`;if(getComputedStyle(b).position==='static')b.style.position='relative';b.style.overflow='hidden';b.appendChild(d);setTimeout(()=>d.remove(),600)});
+})();
+</script>
+</body>
+</html>
