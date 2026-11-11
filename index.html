@@ -471,7 +471,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 .widget-top{display:flex;align-items:center;justify-content:space-between}.widget-top b{font-size:16px}
 .widget-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .widget-box{min-width:0;text-align:right;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--panel2);color:var(--text);display:flex;flex-direction:column;gap:3px;font:inherit}
-.widget-box span,.widget-box small{font-size:11px;color:var(--muted)}.widget-box strong{font-size:19px;overflow-wrap:anywhere}.widget-action{cursor:pointer}.widget-action:active{transform:scale(.98)}
+.widget-box span,.widget-box small{font-size:11px;color:var(--muted)}
+.widget-box[draggable="true"]{cursor:grab;touch-action:pan-y}.widget-box.dragging{opacity:.4;outline:2px dashed var(--purple)}.widget-box.drag-over{outline:2px solid var(--purple);transform:scale(1.02)}.widget-grid{position:relative}.widget-box strong{font-size:19px;overflow-wrap:anywhere}.widget-action{cursor:pointer}.widget-action:active{transform:scale(.98)}
 .widget-search{position:relative}.widget-search input{padding-inline-end:38px}.widget-search span{position:absolute;right:13px;top:3px;font-size:24px;color:var(--muted)}
 .widget-profile{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
 .profile-avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));font-size:22px;flex:none;overflow:hidden}.profile-avatar img{width:100%;height:100%;object-fit:cover}.rgb-controls{display:grid;gap:9px;margin-top:10px}.rgb-controls>label{display:flex;align-items:center;justify-content:space-between;gap:12px}.rgb-controls input[type=color]{width:54px;height:36px;padding:2px;border:1px solid var(--line);border-radius:9px;background:var(--panel2)}.rgb-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.rgb-values label{font-size:12px;color:var(--muted)}.rgb-values input{width:100%;min-width:0;margin-top:4px}.profile-meta{display:flex;flex:1;min-width:0;flex-direction:column}.profile-meta small{font-size:10px;color:var(--muted)}.widget-profile .button{padding:7px 10px;font-size:11px}
@@ -509,11 +510,11 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 
   <main class="wrap home"><div class="home-hello glass"><div class="eyebrow">YOUR PERSONAL SPACE</div><h1>سلام <span class="gradient">علی</span> 👋</h1></div><section class="home-widgets glass" aria-label="ویجت‌های صفحه اصلی">
   <div class="widget-top"><div><div class="eyebrow">MY DASHBOARD</div><b>نمای کلی روز</b></div><div class="widget-top-actions"><button class="icon-button" id="widgetRefresh" type="button" title="به‌روزرسانی">↻</button><button class="widget-toggle" id="widgetToggle" type="button" aria-expanded="false" aria-controls="widgetContent" title="باز و بسته کردن ویجت‌ها">⌄</button></div></div><div id="widgetContent">
-  <div class="widget-grid">
-    <div class="widget-box"><span>🕒 ساعت</span><strong id="widgetClock">--:--</strong><small id="widgetDate">در حال بارگذاری…</small></div>
-    <button class="widget-box widget-action" id="widgetWeather" type="button"><span>🌤️ آب‌وهوا</span><strong>پیش‌بینی امروز</strong><small>برای مشاهده لمس کن</small></button>
-    <div class="widget-box"><span>📝 یادداشت‌ها</span><strong id="widgetNotes">۰</strong><small>یادداشت ذخیره‌شده</small></div>
-    <div class="widget-box"><span>📅 رویدادها</span><strong id="widgetEvents">۰</strong><small>رویداد آینده</small></div>
+  <div class="widget-grid" id="widgetGrid">
+    <div class="widget-box" draggable="true" data-widget="clock"><span>🕒 ساعت</span><strong id="widgetClock">--:--</strong><small id="widgetDate">در حال بارگذاری…</small></div>
+    <button class="widget-box widget-action" id="widgetWeather" type="button" draggable="true" data-widget="weather"><span>🌤️ آب‌وهوا</span><strong>پیش‌بینی امروز</strong><small>برای مشاهده لمس کن</small></button>
+    <div class="widget-box" draggable="true" data-widget="notes"><span>📝 یادداشت‌ها</span><strong id="widgetNotes">۰</strong><small>یادداشت ذخیره‌شده</small></div>
+    <div class="widget-box" draggable="true" data-widget="events"><span>📅 رویدادها</span><strong id="widgetEvents">۰</strong><small>رویداد آینده</small></div>
   </div>
   <div class="widget-search"><input id="appSearch" type="search" placeholder="جست‌وجوی برنامه‌ها…" aria-label="جست‌وجوی برنامه‌ها"><span>⌕</span></div>
   <div class="widget-profile"><div class="profile-avatar" id="profileAvatar">👤</div><div class="profile-meta"><b id="profileName">علی</b><small>فضای شخصی تو</small></div><button class="button secondary" id="profileEdit" type="button">ویرایش پروفایل</button></div>
@@ -1111,6 +1112,15 @@ document.addEventListener("click", function(event) {
  let rgbTimer=null;let rgbHue=0;
  const stopRgbCycle=()=>{if(rgbTimer){clearInterval(rgbTimer);rgbTimer=null}const b=$("rgbCycleToggle");if(b)b.textContent="روشن کردن تغییر خودکار رنگ RGB";saved.rgbCycle=false;persist()};
  const startRgbCycle=()=>{if(rgbTimer)return;rgbHue=0;const paint=()=>{rgbHue=(rgbHue+2)%360;const color="hsl("+rgbHue+", 90%, 68%)";root.style.setProperty("--purple",color);root.style.setProperty("--blue",color)};paint();rgbTimer=setInterval(paint,90);$("rgbCycleToggle").textContent="خاموش کردن تغییر خودکار رنگ RGB";saved.rgbCycle=true;persist()};
+ const widgetGrid=$("widgetGrid");
+ const widgetOrderKey="myspace_widget_order_v1";
+ const restoreWidgetOrder=()=>{try{const order=JSON.parse(localStorage.getItem(widgetOrderKey)||"[]");order.forEach(id=>{const el=widgetGrid.querySelector('[data-widget="'+id+'"]');if(el)widgetGrid.appendChild(el)})}catch{}};
+ restoreWidgetOrder();
+ let draggedWidget=null;
+ widgetGrid.addEventListener("dragstart",e=>{const el=e.target.closest("[data-widget]");if(!el)return;draggedWidget=el;el.classList.add("dragging");e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",el.dataset.widget)});
+ widgetGrid.addEventListener("dragover",e=>{if(!draggedWidget)return;e.preventDefault();const target=e.target.closest("[data-widget]");widgetGrid.querySelectorAll(".drag-over").forEach(x=>x.classList.remove("drag-over"));if(target&&target!==draggedWidget)target.classList.add("drag-over")});
+ widgetGrid.addEventListener("drop",e=>{if(!draggedWidget)return;e.preventDefault();const target=e.target.closest("[data-widget]");if(target&&target!==draggedWidget){const r=target.getBoundingClientRect();const after=e.clientY>r.top+r.height/2;widgetGrid.insertBefore(draggedWidget,after?target.nextSibling:target)}widgetGrid.querySelectorAll(".drag-over").forEach(x=>x.classList.remove("drag-over"));try{localStorage.setItem(widgetOrderKey,JSON.stringify([...widgetGrid.querySelectorAll("[data-widget]")].map(x=>x.dataset.widget)))}catch{}});
+ widgetGrid.addEventListener("dragend",()=>{if(draggedWidget)draggedWidget.classList.remove("dragging");draggedWidget=null;widgetGrid.querySelectorAll(".drag-over").forEach(x=>x.classList.remove("drag-over"))});
  const setColumns=n=>{root.style.setProperty("--app-columns",n);saved.columns=n;persist();$("settingsColumns").value=n};
  const setMotion=on=>{const fx=$("fxToggle");if(fx){const current=!root.classList.contains("no-fx");if(current!==on)fx.click()}saved.motion=on;persist()};
  if(saved.accent)setAccent(saved.accent);setColumns(["3","4","5"].includes(String(saved.columns))?String(saved.columns):"4");
