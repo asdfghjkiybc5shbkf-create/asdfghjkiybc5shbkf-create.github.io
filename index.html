@@ -465,6 +465,19 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 .accent-choice[aria-pressed="true"]{outline:3px solid var(--blue);outline-offset:3px}
 #settingsOverlay .overlay-panel{max-height:min(88dvh,720px)}
 @media(prefers-reduced-motion:reduce){.app-window,.glass,.button,.app-icon{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Home dashboard widgets */
+.home-widgets{padding:16px;border-radius:24px;display:flex;flex-direction:column;gap:12px}
+.widget-top{display:flex;align-items:center;justify-content:space-between}.widget-top b{font-size:16px}
+.widget-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.widget-box{min-width:0;text-align:right;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--panel2);color:var(--text);display:flex;flex-direction:column;gap:3px;font:inherit}
+.widget-box span,.widget-box small{font-size:11px;color:var(--muted)}.widget-box strong{font-size:19px;overflow-wrap:anywhere}.widget-action{cursor:pointer}.widget-action:active{transform:scale(.98)}
+.widget-search{position:relative}.widget-search input{padding-inline-end:38px}.widget-search span{position:absolute;right:13px;top:3px;font-size:24px;color:var(--muted)}
+.widget-profile{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+.profile-avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));font-size:22px;flex:none}.profile-meta{display:flex;flex:1;min-width:0;flex-direction:column}.profile-meta small{font-size:10px;color:var(--muted)}.widget-profile .button{padding:7px 10px;font-size:11px}
+.widget-tools{display:flex;gap:8px;flex-wrap:wrap}.widget-tools .button{flex:1;font-size:12px;padding:9px 8px}
+.app-tile.is-filtered{display:none}
+@media(max-width:360px){.widget-profile{flex-wrap:wrap}.profile-meta{min-width:90px}.widget-profile .button{margin-inline-start:auto}}
 </style>  
 </head>  
 <body>  
@@ -494,7 +507,20 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     </div>  
   </div>    
 
-  <main class="wrap home"><div class="home-hello glass"><div class="eyebrow">YOUR PERSONAL SPACE</div><h1>سلام <span class="gradient">علی</span> 👋</h1></div><div class="app-grid"><div class="app-tile"><button id="aiOpen" class="app-icon" type="button" aria-label="چاتی پاتی">💬</button><span>چاتی پاتی</span></div><div class="app-tile"><button id="galleryBtn" class="app-icon" type="button" aria-label="گالری">🖼️</button><span>گالری</span></div><div class="app-tile"><button id="bgToggle" class="app-icon" type="button" aria-label="پالت رنگ">🎨</button><span>پالت رنگ</span></div><div class="app-tile"><button class="app-icon" data-open-app="notesApp">📝</button><span>یادداشت‌ها</span></div><div class="app-tile"><button class="app-icon" data-open-app="weatherApp">🌤️</button><span>آب‌وهوا</span></div><div class="app-tile"><button class="app-icon" data-open-app="calendarApp">📅</button><span>تقویم</span></div><div class="app-tile"><button class="app-icon" data-open-app="musicApp">🎵</button><span>موسیقی</span></div><div class="app-tile"><button class="app-icon" data-open-app="storeApp">🧩</button><span>فروشگاه</span></div><div class="app-tile"><button id="fxToggle" class="app-icon" type="button" aria-label="افکت‌ها">✨</button><span>افکت‌ها</span></div><div class="app-tile" id="settingsTile"><button id="settingsTileButton" class="app-icon" type="button" aria-label="تنظیمات">⚙️</button><span>تنظیمات</span></div></div></main>    
+  <main class="wrap home"><div class="home-hello glass"><div class="eyebrow">YOUR PERSONAL SPACE</div><h1>سلام <span class="gradient">علی</span> 👋</h1></div><section class="home-widgets glass" aria-label="ویجت‌های صفحه اصلی">
+  <div class="widget-top"><div><div class="eyebrow">MY DASHBOARD</div><b>نمای کلی روز</b></div><button class="icon-button" id="widgetRefresh" type="button" title="به‌روزرسانی">↻</button></div>
+  <div class="widget-grid">
+    <div class="widget-box"><span>🕒 ساعت</span><strong id="widgetClock">--:--</strong><small id="widgetDate">در حال بارگذاری…</small></div>
+    <button class="widget-box widget-action" id="widgetWeather" type="button"><span>🌤️ آب‌وهوا</span><strong>پیش‌بینی امروز</strong><small>برای مشاهده لمس کن</small></button>
+    <div class="widget-box"><span>📝 یادداشت‌ها</span><strong id="widgetNotes">۰</strong><small>یادداشت ذخیره‌شده</small></div>
+    <div class="widget-box"><span>📅 رویدادها</span><strong id="widgetEvents">۰</strong><small>رویداد آینده</small></div>
+  </div>
+  <div class="widget-search"><input id="appSearch" type="search" placeholder="جست‌وجوی برنامه‌ها…" aria-label="جست‌وجوی برنامه‌ها"><span>⌕</span></div>
+  <div class="widget-profile"><div class="profile-avatar" id="profileAvatar">👤</div><div class="profile-meta"><b id="profileName">علی</b><small>فضای شخصی تو</small></div><button class="button secondary" id="profileEdit" type="button">ویرایش پروفایل</button></div>
+  <div class="widget-tools"><button class="button secondary" id="backupExport" type="button">⬇️ پشتیبان‌گیری</button><button class="button secondary" id="backupImport" type="button">⬆️ بازیابی اطلاعات</button><input id="backupFile" type="file" accept="application/json,.json" hidden></div>
+  <div class="status" id="widgetStatus" role="status"></div>
+</section>
+<div class="app-grid"><div class="app-tile"><button id="aiOpen" class="app-icon" type="button" aria-label="چاتی پاتی">💬</button><span>چاتی پاتی</span></div><div class="app-tile"><button id="galleryBtn" class="app-icon" type="button" aria-label="گالری">🖼️</button><span>گالری</span></div><div class="app-tile"><button id="bgToggle" class="app-icon" type="button" aria-label="پالت رنگ">🎨</button><span>پالت رنگ</span></div><div class="app-tile"><button class="app-icon" data-open-app="notesApp">📝</button><span>یادداشت‌ها</span></div><div class="app-tile"><button class="app-icon" data-open-app="weatherApp">🌤️</button><span>آب‌وهوا</span></div><div class="app-tile"><button class="app-icon" data-open-app="calendarApp">📅</button><span>تقویم</span></div><div class="app-tile"><button class="app-icon" data-open-app="musicApp">🎵</button><span>موسیقی</span></div><div class="app-tile"><button class="app-icon" data-open-app="storeApp">🧩</button><span>فروشگاه</span></div><div class="app-tile"><button id="fxToggle" class="app-icon" type="button" aria-label="افکت‌ها">✨</button><span>افکت‌ها</span></div><div class="app-tile" id="settingsTile"><button id="settingsTileButton" class="app-icon" type="button" aria-label="تنظیمات">⚙️</button><span>تنظیمات</span></div></div></main>    
 
   <footer class="wrap">  
     <div>ساخته شده با ✦ توسط <span class="footer-name">علی</span></div>  
@@ -1092,6 +1118,25 @@ document.addEventListener("click", function(event) {
  $("settingsMotion").onclick=()=>setMotion(root.classList.contains("no-fx"));
  $("settingsReset").onclick=()=>{try{localStorage.removeItem(key)}catch{}saved={};root.style.removeProperty("--app-columns");root.style.removeProperty("--purple");root.style.removeProperty("--blue");setColumns("4");setAccent("#a78bfa");root.style.setProperty("--blue","#38bdf8");saved.accent=null;persist();setMotion(true);$("settingsStatus").textContent="تنظیمات شخصی‌سازی بازنشانی شد."};
  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!overlay.hidden)overlay.hidden=true});
+})();
+</script>
+
+<script>
+/* MYSPACE dashboard widgets, profile and local backup */
+(()=>{
+ const $=id=>document.getElementById(id), safe=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d))}catch{return d}};
+ const faDate=()=>new Date().toLocaleDateString('fa-IR',{weekday:'long',day:'numeric',month:'long'});
+ function refresh(){const n=new Date();$('widgetClock').textContent=n.toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});$('widgetDate').textContent=faDate();const notes=safe('myspace_notes_v1',[]),events=safe('myspace_events_v1',[]);$('widgetNotes').textContent=String(notes.length).replace(/\\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);$('widgetEvents').textContent=String(events.filter(e=>e.date&&new Date(e.date)>=new Date(new Date().toDateString())).length).replace(/\\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);}
+ refresh();setInterval(refresh,30000);$('widgetRefresh').onclick=refresh;
+ $('widgetWeather').onclick=()=>{const b=document.querySelector('[data-open-app="weatherApp"]');if(b)b.click()};
+ $('appSearch').addEventListener('input',e=>{const q=e.target.value.trim().toLocaleLowerCase();document.querySelectorAll('.app-grid .app-tile').forEach(tile=>{tile.classList.toggle('is-filtered',q&&!tile.textContent.toLocaleLowerCase().includes(q))})});
+ const profile=safe('myspace_profile_v1',{name:'علی',avatar:'👤'});
+ function showProfile(){$('profileName').textContent=profile.name||'کاربر';$('profileAvatar').textContent=profile.avatar||'👤';const hello=document.querySelector('.home-hello h1');if(hello)hello.innerHTML='سلام <span class="gradient"></span> 👋';const name=hello&&hello.querySelector('.gradient');if(name)name.textContent=profile.name||'کاربر';}
+ showProfile();$('profileEdit').onclick=()=>{const name=prompt('چه نامی روی صفحه نمایش داده شود؟',profile.name||'');if(name===null)return;const avatar=prompt('یک ایموجی برای تصویر پروفایل انتخاب کن:',profile.avatar||'👤');if(avatar===null)return;profile.name=name.trim().slice(0,24)||'کاربر';profile.avatar=avatar.trim().slice(0,8)||'👤';try{localStorage.setItem('myspace_profile_v1',JSON.stringify(profile));showProfile();$('widgetStatus').textContent='پروفایل ذخیره شد.'}catch{$('widgetStatus').textContent='ذخیره پروفایل ممکن نشد.'}};
+ const backupKeys=['myspace_notes_v1','myspace_events_v1','myspace-settings-v1','myspace-theme','myspace_fx','myspace-bg-index','myspace-custom-wallpaper','myspace_profile_v1','myspace_ai_threads','myspace_ai_threads_active','myspace_ai_memory_v1'];
+ $('backupExport').onclick=()=>{const data={format:'MYSPACE_BACKUP',version:1,createdAt:new Date().toISOString(),items:{}};backupKeys.forEach(k=>{const v=localStorage.getItem(k);if(v!==null)data.items[k]=v});const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='myspace-backup.json';a.click();URL.revokeObjectURL(url);$('widgetStatus').textContent='فایل پشتیبان آماده شد.'};
+ $('backupImport').onclick=()=> $('backupFile').click();
+ $('backupFile').onchange=async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(data.format!=='MYSPACE_BACKUP'||!data.items||typeof data.items!=='object')throw Error('invalid');if(!confirm('اطلاعات موجود با نسخه داخل فایل جایگزین شود؟ بهتر است ابتدا پشتیبان فعلی را بگیری.'))return;Object.entries(data.items).forEach(([k,v])=>{if(backupKeys.includes(k)&&typeof v==='string')localStorage.setItem(k,v)});$('widgetStatus').textContent='بازیابی انجام شد؛ صفحه را تازه‌سازی کن.'}catch{$('widgetStatus').textContent='فایل پشتیبان معتبر نیست.'}finally{e.target.value=''}};
 })();
 </script>
 </body>
