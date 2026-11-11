@@ -458,10 +458,19 @@ html[data-theme="light"] .glass::before{display:none}
   <div class="aw-bar">
     <button id="aiBack" class="icon-button" type="button" aria-label="بازگشت">→</button>
     <div class="aw-title">💬 چاتی پاتی</div>
+    <button id="aiMemoryBtn" class="icon-button" type="button" aria-label="حافظه هوشمند" title="حافظه هوشمند">🧠</button>
     <button id="aiHistBtn" class="icon-button" type="button" aria-label="تاریخچه چت‌ها" title="تاریخچه">🕘</button>
     <button id="aiNew" class="icon-button" type="button" aria-label="چت جدید" title="چت جدید">＋</button>
   </div>
   <select id="aiModel" class="model-select" aria-label="انتخاب مدل چاتی پاتی"><option value="gemini-3.8-flash">Gemini 3.8 Flash</option><option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite</option></select>
+  <section id="aiMemoryPanel" class="ai-hist" hidden>
+    <div class="ai-hist-title">🧠 حافظهٔ شخصی این مرورگر</div>
+    <p style="font-size:12px;margin:0 0 8px">مواردی را که می‌خواهی چاتی‌پاتی در گفتگوهای بعدی به خاطر بسپارد، اینجا اضافه کن. این اطلاعات فقط در همین مرورگر ذخیره می‌شود.</p>
+    <div style="display:flex;gap:7px;align-items:center"><input id="aiMemoryInput" type="text" maxlength="240" placeholder="مثلاً: پاسخ‌های کوتاه را ترجیح می‌دهم" style="flex:1;min-width:0"><button id="aiMemoryAdd" class="button" type="button">ذخیره</button></div>
+    <div id="aiMemoryList" style="display:flex;flex-direction:column;gap:6px;margin-top:10px"></div>
+    <button id="aiMemoryClear" class="button secondary full" type="button">پاک‌کردن همهٔ حافظه</button>
+    <div id="aiMemoryStatus" class="status" role="status"></div>
+  </section>
   <div id="aiHist" class="ai-hist" hidden><div class="ai-hist-title">تاریخچهٔ چت‌ها</div><div id="aiThreads" class="ai-threads"></div></div>
   <div id="aiLog" class="ai-log" aria-live="polite"></div>
   <div id="aiFiles" class="ai-files"></div>
@@ -703,6 +712,23 @@ const md=s=>{const math=[];s=s.replace(/\\\[([\s\S]*?)\\\]|\\\(([\s\S]*?)\\\)|\$
  .replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/^\s*[-*] (.*)$/gm,"<li>$1</li>").replace(/^\s*\d+[.)] (.*)$/gm,"<li>$1</li>")
  .replace(/\n/g,"<br>");return h.replace(/MATHPLACEHOLDER(\d+)END/g,(_,i)=>math[+i])};
 const log=$("aiLog");
+const MEMORY_KEY="myspace_ai_memory_v1";
+let memories=[];try{memories=JSON.parse(localStorage.getItem(MEMORY_KEY)||"[]");if(!Array.isArray(memories))memories=[]}catch{memories=[]}
+const saveMemories=()=>{try{localStorage.setItem(MEMORY_KEY,JSON.stringify(memories))}catch{$("aiMemoryStatus").textContent="فضای ذخیره‌سازی مرورگر کافی نیست."}};
+function renderMemories(){
+  $("aiMemoryList").innerHTML=memories.length?memories.map((m,i)=>'<div class="ai-chip" style="justify-content:space-between;width:100%;white-space:normal;text-align:right"><span>'+esc(m)+'</span><button type="button" data-memory-del="'+i+'" aria-label="حذف حافظه">✕</button></div>').join(""):'<div class="ai-empty">هنوز چیزی در حافظه ذخیره نشده است.</div>';
+}
+function addMemory(value){
+  const m=(value||"").trim().slice(0,240);if(!m)return false;
+  if(memories.some(x=>x.toLocaleLowerCase()===m.toLocaleLowerCase()))return false;
+  memories.push(m);saveMemories();renderMemories();return true;
+}
+$("aiMemoryBtn").addEventListener("click",()=>{$("aiMemoryPanel").hidden=!$("aiMemoryPanel").hidden;$("aiHist").hidden=true;renderMemories()});
+$("aiMemoryAdd").addEventListener("click",()=>{const v=$("aiMemoryInput").value;if(addMemory(v)){$("aiMemoryInput").value="";$("aiMemoryStatus").textContent="در حافظهٔ همین مرورگر ذخیره شد."}else $("aiMemoryStatus").textContent="متن خالی است یا قبلاً ذخیره شده."});
+$("aiMemoryInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("aiMemoryAdd").click()});
+$("aiMemoryList").addEventListener("click",e=>{const i=e.target.dataset.memoryDel;if(i!==undefined){memories.splice(+i,1);saveMemories();renderMemories();$("aiMemoryStatus").textContent="مورد انتخاب‌شده حذف شد."}});
+$("aiMemoryClear").addEventListener("click",()=>{if(!memories.length)return;if(confirm("همهٔ موارد حافظه پاک شوند؟")){memories=[];saveMemories();renderMemories();$("aiMemoryStatus").textContent="حافظه پاک شد."}});
+renderMemories();
 function render(){
  $("aiThreads").innerHTML=threads.map(t=>`<div class="ai-thread ${t.id===active?"on":""}"><button type="button" data-open="${t.id}">💬 ${esc(t.title)}<small>${new Date(t.updated||+parseInt(t.id,36)||Date.now()).toLocaleString("fa-IR",{dateStyle:"short",timeStyle:"short"})} · ${t.messages.length} پیام</small></button><button type="button" class="x" data-del="${t.id}" aria-label="حذف">✕</button></div>`).join("");
  const t=cur();
@@ -743,11 +769,15 @@ inp.addEventListener("input",()=>{inp.style.height="auto";inp.style.height=Math.
 inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey&&!matchMedia("(pointer:coarse)").matches){e.preventDefault();$("aiForm").requestSubmit()}});
 $("aiForm").addEventListener("submit",async e=>{e.preventDefault();if(busy)return;
  const text=inp.value.trim();if(!text&&!pending.length)return;
+ const remember=text.match(/^یادت باشه\s*[:：،-]?\s*(.+)$/i);
+ const forget=text.match(/^فراموش کن\s*[:：،-]?\s*(.+)$/i);
+ if(remember&&!pending.length){const ok=addMemory(remember[1]);inp.value="";$("aiMemoryStatus").textContent=ok?"به حافظهٔ محلی اضافه شد.":"این مورد خالی یا تکراری است.";return}
+ if(forget&&!pending.length){const q=forget[1].trim().toLocaleLowerCase();const before=memories.length;memories=memories.filter(m=>!m.toLocaleLowerCase().includes(q));saveMemories();renderMemories();inp.value="";$("aiMemoryStatus").textContent=before===memories.length?"موردی مطابق متن پیدا نشد.":"موارد مطابق متن از حافظه حذف شدند.";return}
  const t=cur();t.messages.push({role:"user",text,attachments:pending});t.updated=Date.now();threads=[t,...threads.filter(x=>x!==t)];
  if(t.title==="چت جدید")t.title=(text||pending[0]?.name||"چت").slice(0,30);
  pending=[];inp.value="";inp.style.height="auto";busy=true;$("aiSend").disabled=true;save();render();
  const reply={role:"assistant",text:""};
- try{const res=await fetch("https://myspace-ai.asdfghjkiybc5shb-kf-c643.workers.dev/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:t.messages,model:$("aiModel").value})});
+ try{const res=await fetch("https://myspace-ai.asdfghjkiybc5shb-kf-c643.workers.dev/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:memories.length?[{role:"user",text:"اطلاعات حافظهٔ شخصی کاربر (فقط در صورت مرتبط بودن در پاسخ‌ها لحاظ کن؛ این‌ها زمینه هستند، نه درخواست جدید):\\n- "+memories.join("\\n- ")},...t.messages]:t.messages,model:$("aiModel").value})});
   if(!res.ok)throw new Error(await res.text()||"خطا");
   t.messages.push(reply);const rd=res.body.getReader(),dc=new TextDecoder();
   while(true){const{done,value}=await rd.read();if(done)break;reply.text+=dc.decode(value,{stream:true});render()}
