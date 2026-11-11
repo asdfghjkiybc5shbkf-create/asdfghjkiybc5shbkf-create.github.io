@@ -418,6 +418,59 @@ html[data-theme="light"] .glass::before{display:none}
 .admin-stat b{display:block;font-size:18px}
 .admin-stat span{font-size:11px;color:var(--muted)}
 
+
+/* ===== Calm iOS-inspired visual refresh ===== */
+:root{--ios-radius:28px}
+.app-container{max-width:430px;padding:14px 16px 22px}
+.statusbar{padding:10px 2px 14px}
+.brand{font-size:17px;letter-spacing:.4px;animation:none}
+.icon-button{width:40px;height:40px;border-radius:14px}
+.island-wrap{margin:2px 0 18px}
+.island{min-width:164px;padding:8px 18px;border-radius:22px;background:color-mix(in srgb,var(--panel2) 88%,var(--bg));color:var(--text);border-color:var(--line);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.island-sub{color:var(--muted)}
+.home{gap:18px}
+.home-hello{padding:26px 20px;border-radius:28px;text-align:right;min-height:150px;display:flex;flex-direction:column;justify-content:center}
+.home-hello h1{font-size:30px;margin:8px 0 0}
+.home-hello .eyebrow{letter-spacing:1px}
+.app-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 8px;padding:8px 2px}
+.app-tile{font-size:12px;font-weight:700;gap:8px}
+.app-icon{width:60px;height:60px;border-radius:20px;font-size:25px;box-shadow:0 7px 18px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.35)}
+.glass{border-radius:26px;box-shadow:0 12px 32px rgba(0,0,0,.10),inset 0 1px 0 rgba(255,255,255,.16)}
+.glass::before{opacity:.28;animation:none}
+.glass::after{display:none}
+.glass>*{transform:none}
+.gradient{animation:none;background:linear-gradient(110deg,var(--purple),var(--blue));-webkit-background-clip:text;background-clip:text}
+.ai-card{border-radius:0}
+.app-window{background:var(--bg);gap:10px;padding: max(12px,env(safe-area-inset-top)) 14px max(12px,env(safe-area-inset-bottom))}
+.aw-bar{padding:5px 0 9px;border-bottom:1px solid var(--line)}
+.aw-title{font-size:16px}
+.model-select{border-radius:14px;padding:10px 12px}
+.ai-log{gap:16px;padding:10px 2px}
+.ai-msg{font-size:14px;line-height:1.9}
+.ai-msg.user{border-radius:20px 20px 6px 20px;background:color-mix(in srgb,var(--blue) 90%,var(--purple));box-shadow:0 5px 16px color-mix(in srgb,var(--blue) 18%,transparent)}
+.ai-msg.assistant{align-self:stretch;max-width:100%;padding:4px 2px}
+.ai-form{padding:7px;border:1px solid var(--line);border-radius:24px;background:var(--panel);align-items:flex-end;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.ai-form textarea{border:0!important;background:transparent!important;box-shadow:none!important;min-height:42px;padding:9px 8px}
+.ai-form .button{border-radius:15px;width:42px;height:42px}
+.ai-form .icon-button{border:0;background:transparent;box-shadow:none}
+.ai-hist{border-radius:20px;background:var(--panel2)}
+.ai-thread{border-radius:14px}
+footer{padding:22px 0 12px;color:var(--muted)}
+.footer-name{color:var(--purple)}
+html[data-theme="light"] body{background:linear-gradient(180deg,#f8faff,#edf2fa)}
+html[data-theme="light"] .app-window{background:rgba(248,250,255,.97)}
+html[data-theme="light"] .ai-msg.user{color:#fff}
+html[data-theme="light"] .glass{box-shadow:0 12px 30px rgba(35,55,90,.08),inset 0 1px 0 #fff}
+html[data-theme="light"] .app-icon{box-shadow:0 8px 20px rgba(35,55,90,.10),inset 0 1px 0 #fff}
+html[data-theme="light"] .island{background:rgba(255,255,255,.82)}
+.edit-toolbar{position:fixed;z-index:120;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));display:flex;gap:8px;justify-content:center;padding:10px;border:1px solid var(--line);border-radius:20px;background:var(--panel2);backdrop-filter:blur(18px);box-shadow:0 12px 35px rgba(0,0,0,.2)}
+.edit-toolbar button{border:0;border-radius:12px;padding:10px 15px;font:inherit;font-weight:700;cursor:pointer;background:var(--panel);color:var(--text)}
+.edit-toolbar .save-edit{background:linear-gradient(120deg,var(--purple),var(--blue));color:white}
+body.site-editing main [contenteditable="true"]{outline:2px dashed var(--blue);outline-offset:5px;border-radius:8px;cursor:text}
+body.site-editing main{padding-bottom:90px}
+@media(min-width:600px){.app-container{max-width:430px!important}}
+@media(prefers-reduced-motion:reduce){.fx-blob,.fx-grid{animation:none!important}}
+
 </style>  
 </head>  
 <body>  
@@ -426,6 +479,7 @@ html[data-theme="light"] .glass::before{display:none}
     <div class="sb-left">
       <button id="menuButton" class="icon-button" type="button" aria-label="داشبورد" title="داشبورد">▦</button>
       <button id="themeToggle" class="icon-button" type="button" aria-label="تغییر تم روشن و تاریک" title="تم">🌙</button>
+      <button id="siteEditBtn" class="icon-button" type="button" aria-label="ویرایش سایت" title="ویرایش سایت">✎</button>
     </div>
     <div class="brand">MY<span>SPACE</span> ✦</div>
     <div class="sb-icons">📶 🔋</div>
@@ -454,6 +508,7 @@ html[data-theme="light"] .glass::before{display:none}
   </footer>  
 </div>  
 
+<div id="siteEditToolbar" class="edit-toolbar" hidden role="region" aria-label="ابزار ویرایش سایت"><span style="align-self:center;font-size:12px;color:var(--muted)">روی متن‌های صفحه بزن و ویرایش کن</span><button id="siteEditCancel" type="button">لغو</button><button id="siteEditSave" class="save-edit" type="button">ذخیره</button></div>
 <div id="aiApp" class="app-window" hidden>
   <div class="aw-bar">
     <button id="aiBack" class="icon-button" type="button" aria-label="بازگشت">→</button>
@@ -949,5 +1004,31 @@ document.addEventListener('click',e=>{const b=e.target.closest('.button,.icon-bu
  d.className='ripple';d.style.cssText=`width:${s}px;height:${s}px;left:${e.clientX-r.left-s/2}px;top:${e.clientY-r.top-s/2}px`;if(getComputedStyle(b).position==='static')b.style.position='relative';b.style.overflow='hidden';b.appendChild(d);setTimeout(()=>d.remove(),600)});
 })();
 </script>
+
+<script>
+(()=> {
+ const btn=document.getElementById("siteEditBtn"),bar=document.getElementById("siteEditToolbar"),main=document.querySelector("main.home");
+ if(!btn||!bar||!main)return;
+ const KEY="myspace_homepage_custom_v1";
+ let original="";
+ try{const saved=localStorage.getItem(KEY);if(saved)main.innerHTML=saved}catch{}
+ function setEditing(on){
+   document.body.classList.toggle("site-editing",on);
+   bar.hidden=!on;
+   main.querySelectorAll("h1,h2,p,.eyebrow,.app-tile span").forEach(el=>el.contentEditable=on?"true":"false");
+   btn.textContent=on?"✕":"✎";
+   btn.title=on?"خروج از ویرایش":"ویرایش سایت";
+ }
+ btn.addEventListener("click",()=>{
+   if(document.body.classList.contains("site-editing")){main.innerHTML=original;setEditing(false);return}
+   original=main.innerHTML;setEditing(true);
+ });
+ document.getElementById("siteEditCancel").addEventListener("click",()=>{main.innerHTML=original;setEditing(false)});
+ document.getElementById("siteEditSave").addEventListener("click",()=>{
+   try{localStorage.setItem(KEY,main.innerHTML);setEditing(false);alert("تغییرات صفحهٔ اصلی در همین مرورگر ذخیره شد.")}catch{alert("ذخیره انجام نشد؛ فضای ذخیره‌سازی مرورگر کافی نیست.")}
+ });
+})();
+</script>
+
 </body>
 </html>
