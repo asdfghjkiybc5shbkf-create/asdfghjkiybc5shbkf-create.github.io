@@ -1005,5 +1005,19 @@ const apps=[["📝 یادداشت‌ها","notesApp"],["🌤️ آب‌وهوا"
 apps.forEach(([name,id])=>{const b=document.createElement("button");b.className="extra-app";b.textContent=name;b.onclick=()=>{open(id);if(id==="notesApp")renderNotes();if(id==="calendarApp")renderEvents();if(id==="galleryApp")$("galleryBtn").click();if(id==="aiApp")$("aiOpen").click()};$("storeGrid").append(b)});
 })();
 </script>
+
+<script>
+/* Fallback مستقل برای بازکردن برنامه‌های تازه */
+document.addEventListener("click", function(event) {
+  const tile = event.target.closest("[data-open-app]");
+  if (!tile) return;
+  const app = document.getElementById(tile.getAttribute("data-open-app"));
+  if (!app) return;
+  event.preventDefault();
+  app.hidden = false;
+  app.removeAttribute("hidden");
+  document.body.classList.add("in-app");
+}, true);
+</script>
 </body>
 </html>
