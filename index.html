@@ -555,8 +555,10 @@ html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.0
   <div class="aw-bar">
     <button id="aiBack" class="icon-button" type="button" aria-label="بازگشت">→</button>
     <div class="aw-title">💬 چاتی پاتی</div>
-    <button id="aiMemoryBtn" class="icon-button" type="button" aria-label="حافظه هوشمند" title="حافظه هوشمند">🧠</button>
-    <button id="aiHistBtn" class="icon-button" type="button" aria-label="تاریخچه چت‌ها" title="تاریخچه">🕘</button>
+    <div class="ai-top-actions" role="group" aria-label="ابزارهای گفتگو">
+      <button id="aiMemoryBtn" class="ai-tool-btn" type="button" aria-label="باز کردن حافظه" aria-controls="aiMemoryPanel" aria-expanded="false"><span aria-hidden="true">🧠</span><span>حافظه</span></button>
+      <button id="aiHistBtn" class="ai-tool-btn" type="button" aria-label="باز کردن تاریخچه" aria-controls="aiHist" aria-expanded="false"><span aria-hidden="true">🕘</span><span>تاریخچه</span></button>
+    </div>
     <button id="aiNew" class="icon-button" type="button" aria-label="چت جدید" title="چت جدید">＋</button>
   </div>
   <select id="aiModel" class="model-select" aria-label="انتخاب مدل چاتی پاتی"><option value="gemini-3.8-flash">Gemini 3.8 Flash</option><option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite</option></select>
@@ -879,7 +881,7 @@ function addMemory(value){
   if(memories.some(x=>x.toLocaleLowerCase()===m.toLocaleLowerCase()))return false;
   memories.push(m);saveMemories();renderMemories();return true;
 }
-$("aiMemoryBtn").addEventListener("click",()=>{$("aiMemoryPanel").hidden=!$("aiMemoryPanel").hidden;$("aiHist").hidden=true;renderMemories()});
+$("aiMemoryBtn").addEventListener("click",()=>{const p=$("aiMemoryPanel"),h=$("aiHist"),show=p.hidden;p.hidden=!show;h.hidden=true;$("aiMemoryBtn").setAttribute("aria-expanded",String(show));$("aiHistBtn").setAttribute("aria-expanded","false");if(show)renderMemories()});
 $("aiMemoryAdd").addEventListener("click",()=>{const v=$("aiMemoryInput").value;if(addMemory(v)){$("aiMemoryInput").value="";$("aiMemoryStatus").textContent="در حافظهٔ همین مرورگر ذخیره شد."}else $("aiMemoryStatus").textContent="متن خالی است یا قبلاً ذخیره شده."});
 $("aiMemoryInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("aiMemoryAdd").click()});
 $("aiMemoryList").addEventListener("click",e=>{const i=e.target.dataset.memoryDel;if(i!==undefined){memories.splice(+i,1);saveMemories();renderMemories();$("aiMemoryStatus").textContent="مورد انتخاب‌شده حذف شد."}});
@@ -897,7 +899,7 @@ function render(){
 $("aiThreads").addEventListener("click",e=>{const o=e.target.closest("[data-open]")?.dataset.open,d=e.target.closest("[data-del]")?.dataset.del;
  if(o&&!busy){active=o;$("aiHist").hidden=true;save();render()}
  if(d&&!busy){threads=threads.filter(t=>t.id!==d);if(!threads.length)newThread();else{if(active===d)active=threads[0].id;save();render()}}});
-$("aiHistBtn").addEventListener("click",()=>{$("aiHist").hidden=!$("aiHist").hidden});
+$("aiHistBtn").addEventListener("click",()=>{const h=$("aiHist"),p=$("aiMemoryPanel"),show=h.hidden;h.hidden=!show;p.hidden=true;$("aiHistBtn").setAttribute("aria-expanded",String(show));$("aiMemoryBtn").setAttribute("aria-expanded","false");if(show)render()});
 $("aiOpen").addEventListener("click",()=>{
   const user=getSession();
   if(!user){
@@ -1414,5 +1416,22 @@ document.addEventListener("click", function(event) {
 @media(prefers-reduced-motion:reduce){.app-window .extra-row,.app-window .extra-app,.app-window .music-pick{transition:none}}
 </style>
 
+<style id="ai-toolbar-visibility">
+#aiApp .aw-bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+#aiApp .aw-title{flex:1;min-width:95px}
+#aiApp .ai-top-actions{display:flex;gap:7px;align-items:center}
+#aiApp .ai-tool-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:39px;padding:0 12px;border:1px solid var(--line);border-radius:13px;background:var(--panel2);color:var(--text);font:inherit;font-size:12px;font-weight:700;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
+#aiApp .ai-tool-btn:hover,#aiApp .ai-tool-btn[aria-expanded="true"]{background:color-mix(in srgb,var(--purple) 16%,var(--panel));border-color:var(--purple)}
+#aiApp .ai-tool-btn:active{transform:scale(.97)}
+#aiApp .ai-hist{width:100%;padding:14px;border:1px solid var(--line);border-radius:18px;background:var(--panel);box-shadow:0 10px 28px rgba(0,0,0,.12);animation:aiPanelIn .2s ease-out}
+#aiApp .ai-hist-title{font-weight:800;margin-bottom:10px}
+#aiApp .ai-thread{display:flex;align-items:center;gap:8px;margin:7px 0;padding:7px;border:1px solid var(--line);border-radius:13px;background:var(--panel2)}
+#aiApp .ai-thread>button:first-child{flex:1;min-width:0;text-align:right;background:transparent;color:var(--text);border:0;padding:7px;cursor:pointer}
+#aiApp .ai-thread small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+#aiApp .ai-thread .x{border:0;border-radius:10px;padding:8px;background:transparent;color:var(--muted);cursor:pointer}
+@keyframes aiPanelIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:390px){#aiApp .aw-bar{gap:6px}#aiApp .ai-tool-btn{padding:0 9px;font-size:11px}}
+@media(prefers-reduced-motion:reduce){#aiApp .ai-hist{animation:none}}
+</style>
 </body>
 </html>
