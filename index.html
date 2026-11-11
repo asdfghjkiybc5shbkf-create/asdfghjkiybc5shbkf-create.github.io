@@ -471,6 +471,57 @@ body.site-editing main{padding-bottom:90px}
 @media(min-width:600px){.app-container{max-width:430px!important}}
 @media(prefers-reduced-motion:reduce){.fx-blob,.fx-grid{animation:none!important}}
 
+
+/* ===== iPhone home + Gemini-inspired app experience ===== */
+@media (min-width:600px){
+ body{padding:0!important}
+ .app-container{max-width:430px!important;min-height:100dvh!important;margin:0 auto;border:8px solid #17191f;border-radius:42px;box-shadow:0 24px 80px rgba(0,0,0,.45);padding:14px!important;overflow:hidden}
+ .app-window{inset:0!important;top:0!important;left:0!important;transform:none!important;width:100%!important;height:100dvh!important;border:0!important;border-radius:0!important}
+}
+.app-window{gap:0!important;padding: max(12px,env(safe-area-inset-top)) 16px max(12px,env(safe-area-inset-bottom))!important;background:var(--bg)!important;backdrop-filter:none!important;animation:geminiLaunch .32s cubic-bezier(.2,.8,.2,1)!important}
+@keyframes geminiLaunch{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+.aw-bar{min-height:52px;gap:10px;padding:2px 0 12px;border-bottom:1px solid var(--line)}
+.aw-title{font-size:16px;font-weight:700;letter-spacing:0}
+.aw-bar .icon-button{width:40px;height:40px;border:0;background:var(--panel);box-shadow:none;font-size:17px}
+.aw-bar #aiBack{font-size:0}
+.aw-bar #aiBack:before{content:"‹";font:32px/1 Arial,sans-serif}
+.model-select{max-width:180px;margin:10px 0 6px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:12px inherit}
+.app-window>label{width:max-content;max-width:100%;padding:4px 10px;border-radius:999px;background:var(--panel);font-size:11px!important}
+.app-window>label input{width:15px!important;height:15px}
+.ai-hist{border-radius:20px;background:var(--panel);border-color:var(--line)}
+.app-window .ai-log{padding:18px 2px 14px;gap:22px;scrollbar-width:thin}
+.ai-empty{width:min(100%,330px);align-self:center;text-align:right;margin:auto;font-size:clamp(23px,6vw,30px);font-weight:700;line-height:1.55;opacity:1;color:var(--text)}
+.ai-empty:before{content:"✳";display:block;font-size:38px;line-height:1.2;margin-bottom:20px;background:linear-gradient(120deg,#4285f4,#9b72cb,#d96570);background-clip:text;-webkit-background-clip:text;color:transparent}
+.ai-msg{font-size:15px;line-height:1.95;max-width:92%}
+.ai-msg.user{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:22px 22px 6px 22px;padding:11px 16px}
+.ai-msg.assistant{align-self:stretch;max-width:100%;padding:0 2px}
+.ai-msg.assistant>div{overflow-wrap:anywhere}
+.ai-msg pre{border-radius:14px;padding:14px}
+.ai-form{position:relative;align-items:flex-end;gap:8px;padding:10px;border:1px solid var(--line);border-radius:28px;background:var(--panel2);box-shadow:0 8px 28px rgba(0,0,0,.12);margin-top:8px}
+.ai-form textarea{min-height:44px;max-height:140px;padding:10px 8px;border:0!important;background:transparent!important;box-shadow:none!important;font-size:15px}
+.ai-form .button{width:42px;height:42px;min-width:42px;padding:0;border:0;border-radius:50%;background:linear-gradient(135deg,#4285f4,#8b75d7);box-shadow:none;font-size:0}
+.ai-form .button:after{display:none}
+.ai-form #aiSend:before{content:"↑";font:24px/1 Arial,sans-serif;color:white}
+#aiAttach{width:40px;height:40px;min-width:40px;border:0;border-radius:50%;background:transparent;box-shadow:none;color:var(--muted);font-size:20px}
+#aiFiles{padding:4px 2px}
+.ai-chip{border-radius:14px}
+.app-window .ai-threads{gap:8px}
+.app-window .ai-thread{background:var(--panel);border:1px solid var(--line)}
+.app-window .ai-thread.on{background:color-mix(in srgb,var(--blue) 15%,var(--panel))}
+.app-window .ai-thread button{padding:10px 12px}
+.app-window .ai-thread .x{padding:8px 12px}
+.app-window .ai-log:has(.ai-empty){justify-content:center}
+.island-wrap{z-index:70}
+.island{min-width:126px;width:126px;height:36px;padding:5px 12px;gap:8px;border:1px solid #292929;background:#050505;box-shadow:0 3px 12px #0008;transition:width .35s,height .35s,border-radius .35s}
+.island-icon{font-size:11px}
+.island-main{font-size:12px}
+.island-sub,.island-dots{display:none}
+.island:focus-visible{outline-offset:4px}
+.app-icon{border-radius:19px;width:64px;height:64px;font-size:27px;box-shadow:0 7px 18px rgba(0,0,0,.22),inset 0 1px 0 #ffffff30}
+.app-tile{font-weight:600}
+.statusbar .sb-icons{letter-spacing:3px}
+@media(max-width:599px){.app-container{padding-left:18px;padding-right:18px}.app-window{border-radius:0}}
+@media(prefers-reduced-motion:reduce){.app-window{animation:none!important}}
 </style>  
 </head>  
 <body>  
