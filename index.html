@@ -595,9 +595,25 @@ footer{color:#ffffff9c!important}
 #loginBox:after{content:"MYSPACE";display:block;position:absolute;top:calc(max(12vh,90px) + 26px);left:0;right:0;text-align:center;color:#fff;font-weight:800;letter-spacing:4px;font-size:12px;pointer-events:none}
 @media(min-width:600px){.overlay-panel{max-width:430px!important;margin:auto;height:min(900px,100dvh)!important;border-radius:42px!important;border:1px solid #ffffff33!important}}
 
+
+/* iOS-like startup sequence */
+#iosBoot{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 42%,#182b58 0%,#0b1530 42%,#050914 100%);color:#f7f9ff;opacity:1;visibility:visible;transition:opacity .75s cubic-bezier(.2,.7,.2,1),visibility .75s; padding:env(safe-area-inset-top) 20px env(safe-area-inset-bottom)}
+#iosBoot.boot-hidden{opacity:0;visibility:hidden;pointer-events:none}
+.boot-center{display:flex;align-items:center;flex-direction:column;transform:translateY(-2vh);animation:bootAppear 1.1s cubic-bezier(.2,.8,.2,1) both}
+.boot-mark{width:76px;height:76px;color:#f7f9ff;filter:drop-shadow(0 0 22px #7eb5ff66);animation:bootPulse 2.2s ease-in-out infinite}
+.boot-mark svg{width:100%;height:100%}
+.boot-name{font:600 12px/1.2 -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:5px;margin-top:23px;color:#e8efff}
+.boot-loader{height:3px;width:82px;border-radius:9px;background:#ffffff25;overflow:hidden;margin-top:34px}
+.boot-loader i{display:block;width:38%;height:100%;border-radius:9px;background:#eaf2ff;animation:bootLoad 1.25s ease-in-out infinite}
+@keyframes bootAppear{from{opacity:0;transform:translateY(8px) scale(.94)}to{opacity:1;transform:translateY(-2vh) scale(1)}}
+@keyframes bootPulse{0%,100%{opacity:.78;transform:scale(.97)}50%{opacity:1;transform:scale(1.03)}}
+@keyframes bootLoad{0%{transform:translateX(-110%)}100%{transform:translateX(300%)}}
+@media(prefers-reduced-motion:reduce){.boot-center,.boot-mark,.boot-loader i{animation:none!important}}
+
 </style>  
 </head>  
-<body>  
+<body>
+<div id="iosBoot" aria-label="در حال راه‌اندازی" role="status"><div class="boot-center"><div class="boot-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 7 53 19v26L32 57 11 45V19L32 7Z" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m21 40 11-19 11 19M25 33h14" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="boot-name">MYSPACE</div><div class="boot-loader"><i></i></div></div></div>  
 <div class="app-container">  
   <header class="wrap statusbar">
     <div class="sb-left">
@@ -1155,5 +1171,8 @@ document.addEventListener('click',e=>{const b=e.target.closest('.button,.icon-bu
 })();
 </script>
 
+<script>
+(()=>{const boot=document.getElementById("iosBoot");if(!boot)return;const hide=()=>setTimeout(()=>boot.classList.add("boot-hidden"),950);if(document.readyState==="complete")hide();else window.addEventListener("load",hide,{once:true});setTimeout(()=>boot.classList.add("boot-hidden"),6500);})();
+</script>
 </body>
 </html>
