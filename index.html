@@ -4,7 +4,7 @@
 <meta charset="UTF-8">  
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">  
 <meta name="theme-color" content="#080a12">  
-<title>فضای شخصی علی | MYSPACE</title>  
+<title>MYSPACE</title>  
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/vendor/katex/katex.min.css"><script src="/vendor/katex/katex.min.js"></script>
 <style>  
@@ -562,6 +562,39 @@ footer{opacity:.65;font-size:10px}
 .ai-msg.assistant{padding:4px 2px}
 @media(min-width:600px){.app-container{min-height:860px!important}}
 
+
+/* iPhone-inspired default wallpaper and first-boot login screen */
+body{background:#080d20!important;background-image:
+radial-gradient(ellipse 75% 55% at 18% 12%,rgba(86,150,255,.95),transparent 68%),
+radial-gradient(ellipse 65% 55% at 90% 30%,rgba(145,90,255,.85),transparent 66%),
+radial-gradient(ellipse 85% 65% at 55% 100%,rgba(0,190,210,.72),transparent 68%),
+linear-gradient(155deg,#101b49 0%,#10112d 48%,#061a32 100%)!important;
+background-attachment:fixed!important}
+.fx-bg,.fx-grid,#fxCanvas,.cursor-glow{display:none!important}
+.app-container{background:transparent!important}
+.home{padding-top:18px}
+.home-hello{display:none!important}
+.brand{display:none!important}
+.statusbar{justify-content:flex-end!important}
+.island-wrap{margin-top:8px;margin-bottom:32px}
+.app-grid{margin-top:15px}
+.app-tile span{color:#fff;text-shadow:0 1px 5px #0009}
+footer{color:#ffffff9c!important}
+.overlay{padding:0!important;align-items:stretch!important}
+.overlay-backdrop{background:rgba(3,8,25,.2)!important;backdrop-filter:blur(24px) saturate(135%)!important}
+.overlay-panel{width:100%!important;max-width:none!important;max-height:100dvh!important;height:100dvh!important;border:0!important;border-radius:0!important;padding:max(12vh,90px) 28px max(30px,env(safe-area-inset-bottom))!important;background:linear-gradient(160deg,rgba(20,35,82,.56),rgba(8,15,39,.76))!important;box-shadow:none!important;backdrop-filter:blur(28px) saturate(150%)!important;display:flex;flex-direction:column;justify-content:center}
+.overlay-panel h2{font-size:30px;text-align:center;color:#fff;margin:0 0 8px}
+.overlay-panel p{text-align:center;color:#e1e9ff}
+.overlay-panel label{color:#e4eaff}
+.overlay-panel input{background:rgba(255,255,255,.14)!important;border:1px solid rgba(255,255,255,.24)!important;color:#fff!important;border-radius:15px}
+.overlay-panel input::placeholder{color:#d3dcf5}
+.overlay-panel .button{border-radius:16px;min-height:48px}
+.overlay-panel .button.secondary{background:rgba(255,255,255,.13)!important;color:#fff!important}
+.overlay-close{top:max(22px,env(safe-area-inset-top))!important;left:20px!important;background:rgba(255,255,255,.15)!important;color:white!important;border:1px solid #ffffff35!important}
+#loginBox:before{content:"";display:block;width:74px;height:74px;border-radius:23px;margin:0 auto 20px;background:linear-gradient(145deg,#62a5ff,#2459d6);box-shadow:0 12px 35px #071b59aa}
+#loginBox:after{content:"MYSPACE";display:block;position:absolute;top:calc(max(12vh,90px) + 26px);left:0;right:0;text-align:center;color:#fff;font-weight:800;letter-spacing:4px;font-size:12px;pointer-events:none}
+@media(min-width:600px){.overlay-panel{max-width:430px!important;margin:auto;height:min(900px,100dvh)!important;border-radius:42px!important;border:1px solid #ffffff33!important}}
+
 </style>  
 </head>  
 <body>  
@@ -591,7 +624,7 @@ footer{opacity:.65;font-size:10px}
     </div>  
   </div>    
 
-  <main class="wrap home"><div class="home-hello glass"><div class="eyebrow">YOUR PERSONAL SPACE</div><h1>سلام <span class="gradient">علی</span> 👋</h1></div><div class="app-grid"><div class="app-tile"><button id="aiOpen" class="app-icon" type="button" aria-label="چاتی پاتی"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8 11h8M8 14h5"/></svg></button><span>چاتی پاتی</span></div><div class="app-tile"><button id="galleryBtn" class="app-icon" type="button" aria-label="گالری"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button><span>گالری</span></div><div class="app-tile"><button id="bgToggle" class="app-icon" type="button" aria-label="پالت رنگ"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 1.8 1.8 0 0 1 1.3-3.1H18a3 3 0 0 0 3-3c0-4.7-4-8.5-9-8.5Z"/><path d="M7.5 10h.01M10 6.8h.01M15 7.5h.01"/></svg></button><span>پالت رنگ</span></div><div class="app-tile"><button id="fxToggle" class="app-icon" type="button" aria-label="افکت‌ها"><svg viewBox="0 0 24 24"><path d="m12 2 1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2Z"/><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></svg></button><span>افکت‌ها</span></div></div></main>    
+  <main class="wrap home"><div class="app-grid"><div class="app-tile"><button id="aiOpen" class="app-icon" type="button" aria-label="چاتی پاتی"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8 11h8M8 14h5"/></svg></button><span>چاتی پاتی</span></div><div class="app-tile"><button id="galleryBtn" class="app-icon" type="button" aria-label="گالری"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button><span>گالری</span></div><div class="app-tile"><button id="bgToggle" class="app-icon" type="button" aria-label="پالت رنگ"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 1.8 1.8 0 0 1 1.3-3.1H18a3 3 0 0 0 3-3c0-4.7-4-8.5-9-8.5Z"/><path d="M7.5 10h.01M10 6.8h.01M15 7.5h.01"/></svg></button><span>پالت رنگ</span></div><div class="app-tile"><button id="fxToggle" class="app-icon" type="button" aria-label="افکت‌ها"><svg viewBox="0 0 24 24"><path d="m12 2 1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2Z"/><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></svg></button><span>افکت‌ها</span></div></div></main>    
 
   <footer class="wrap">  
     <div>ساخته شده با ✦ توسط <span class="footer-name">علی</span></div>  
@@ -992,6 +1025,7 @@ function showUser(u){
 
 // restore session on load
 showUser(getSession());
+if(!getSession()){openDashboard();}
 
 function creds(){
   return {email:($("email").value||"").trim().toLowerCase(), password:$("password").value||""};
