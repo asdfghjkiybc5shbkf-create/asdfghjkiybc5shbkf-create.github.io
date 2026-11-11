@@ -439,6 +439,7 @@ html[data-theme="light"] .glass::before{display:none}
 @media(prefers-reduced-motion:reduce){.weather-big-icon{animation:none}}
 
 /* MYSPACE responsive polish + personal settings */
+.app-grid{grid-template-columns:repeat(var(--app-columns,4),minmax(0,1fr))}
 @media(max-width:420px){
  .app-container{padding:12px}
  .app-grid{grid-template-columns:repeat(var(--app-columns,4),minmax(0,1fr));gap:16px 7px}
@@ -1088,7 +1089,7 @@ document.addEventListener("click", function(event) {
  $("settingsColumns").onchange=e=>setColumns(e.target.value);
  $("accentChoices").addEventListener("click",e=>{const b=e.target.closest("[data-accent]");if(b)setAccent(b.dataset.accent)});
  $("settingsMotion").onclick=()=>setMotion(root.classList.contains("no-fx"));
- $("settingsReset").onclick=()=>{try{localStorage.removeItem(key)}catch{}saved={};root.style.removeProperty("--app-columns");root.style.removeProperty("--purple");root.style.removeProperty("--blue");setColumns("4");setAccent("#a78bfa");setMotion(true);$("settingsStatus").textContent="تنظیمات شخصی‌سازی بازنشانی شد."};
+ $("settingsReset").onclick=()=>{try{localStorage.removeItem(key)}catch{}saved={};root.style.removeProperty("--app-columns");root.style.removeProperty("--purple");root.style.removeProperty("--blue");setColumns("4");setAccent("#a78bfa");root.style.setProperty("--blue","#38bdf8");saved.accent=null;persist();setMotion(true);$("settingsStatus").textContent="تنظیمات شخصی‌سازی بازنشانی شد."};
  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!overlay.hidden)overlay.hidden=true});
 })();
 </script>
