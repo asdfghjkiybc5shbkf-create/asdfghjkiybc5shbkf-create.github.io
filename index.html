@@ -437,6 +437,33 @@ html[data-theme="light"] .glass::before{display:none}
 .weather-section{padding:14px;border:1px solid var(--line);border-radius:19px;background:var(--panel)}.weather-section-title{font-weight:800;font-size:13px;margin-bottom:12px}.weather-hourly{display:flex;gap:10px;overflow-x:auto;padding-bottom:5px}.weather-hour{min-width:65px;text-align:center;padding:10px 7px;border-radius:14px;background:var(--panel2);font-size:11px}.weather-hour b,.weather-hour span{display:block}.weather-hour i{font-style:normal;font-size:21px;display:block;margin:4px}.weather-daily{display:flex;flex-direction:column;gap:8px}.weather-day{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:9px;border-radius:12px;background:var(--panel2);font-size:12px}.weather-day b{direction:ltr}.weather-note{font-size:11px;color:var(--muted);text-align:center;min-height:20px}
 .music-art{margin:12px auto 5px;width:min(70vw,240px);aspect-ratio:1;border-radius:28px;background:linear-gradient(145deg,#312e81,#0e7490,#7c3aed);display:grid;place-items:center;box-shadow:0 25px 50px rgba(14,116,144,.25);position:relative;overflow:hidden}.music-art:before,.music-art:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.18);border-radius:50%;width:85%;height:85%}.music-art:after{width:65%;height:65%}.music-disc{width:48%;aspect-ratio:1;border-radius:50%;background:repeating-radial-gradient(circle,#111827 0 3px,#334155 4px 5px);display:grid;place-items:center;color:#a5b4fc;font-size:45px;z-index:1;box-shadow:0 0 0 8px rgba(255,255,255,.08)}.music-art>span{position:absolute;bottom:13px;font-size:9px;letter-spacing:3px;color:#fff;z-index:2}.music-now{text-align:center}.music-now b,.music-now small{display:block}.music-now small{color:var(--muted);margin-top:3px}.music-pick{display:block;text-align:center;padding:12px;border-radius:14px;background:var(--panel2);border:1px dashed var(--blue);color:var(--text);font-weight:700;cursor:pointer}.music-screen #musicFiles{display:none}.music-screen audio{margin:8px 0}
 @media(prefers-reduced-motion:reduce){.weather-big-icon{animation:none}}
+
+/* MYSPACE responsive polish + personal settings */
+@media(max-width:420px){
+ .app-container{padding:12px}
+ .app-grid{grid-template-columns:repeat(var(--app-columns,4),minmax(0,1fr));gap:16px 7px}
+ .app-icon{width:clamp(52px,15vw,62px);height:clamp(52px,15vw,62px);border-radius:17px;font-size:25px}
+ .app-tile{font-size:11px}
+ .home-hello{padding:17px}
+ .home-hello h1{font-size:25px}
+ .app-window{padding-left:10px;padding-right:10px}
+ .aw-bar{min-height:44px}
+ .icon-button{min-width:42px;min-height:42px}
+ .button{min-height:42px}
+ .extra-row .button{min-height:38px}
+}
+@media(min-width:600px){.app-window{width:min(430px,calc(100vw - 28px));height:min(850px,calc(100dvh - 48px));}}
+.app-tile:focus-within .app-icon,.app-icon:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.settings-panel{display:flex;flex-direction:column;gap:14px}
+.settings-group{padding:13px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+.settings-group b{display:block;margin-bottom:8px;font-size:13px}
+.settings-actions{display:flex;gap:8px;flex-wrap:wrap}
+.settings-actions .button{flex:1}
+.accent-choice{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);cursor:pointer}
+.accent-choice[aria-pressed="true"]{outline:3px solid var(--blue);outline-offset:3px}
+#settingsOverlay .overlay-panel{max-height:min(88dvh,720px)}
+@media(prefers-reduced-motion:reduce){.app-window,.glass,.button,.app-icon{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>  
 </head>  
 <body>  
@@ -445,6 +472,7 @@ html[data-theme="light"] .glass::before{display:none}
     <div class="sb-left">
       <button id="menuButton" class="icon-button" type="button" aria-label="داشبورد" title="داشبورد">▦</button>
       <button id="themeToggle" class="icon-button" type="button" aria-label="تغییر تم روشن و تاریک" title="تم">🌙</button>
+      <button id="settingsOpen" class="icon-button" type="button" aria-label="تنظیمات شخصی‌سازی" title="تنظیمات">⚙️</button>
     </div>
     <div class="brand">MY<span>SPACE</span> ✦</div>
     <div class="sb-icons">📶 🔋</div>
@@ -516,6 +544,27 @@ html[data-theme="light"] .glass::before{display:none}
 <div id="calendarApp" class="app-window calendar-screen" hidden><div class="aw-bar"><button class="icon-button" data-close="calendarApp">→</button><div class="aw-title">تقویم و برنامه‌ریز</div><button id="eventNotify" class="icon-button" title="اعلان‌ها">🔔</button></div><div class="calendar-banner"><div class="weather-kicker">برنامه‌ریزی شخصی</div><div id="calendarToday" class="calendar-today">امروز را هدفمند بساز</div><p>کارها و قرارهای مهمت را یک‌جا مدیریت کن.</p></div><div class="calendar-compose"><b>＋ رویداد جدید</b><input id="eventTitle" placeholder="مثلاً مطالعه، کلاس یا قرار"><label for="eventDate">تاریخ و ساعت</label><input id="eventDate" type="datetime-local"><button id="eventAdd" class="button full">افزودن رویداد</button></div><div class="notes-list-head"><b>برنامه‌های پیش رو</b><span class="tag">یادآورها</span></div><div id="eventList" class="extra-list"></div><div class="extra-muted">رویدادها روی همین دستگاه ذخیره می‌شوند؛ برای اعلان، سایت باید باز باشد.</div></div>
 <div id="musicApp" class="app-window music-screen" hidden><div class="aw-bar"><button class="icon-button" data-close="musicApp">→</button><div class="aw-title">موزیک پلیر</div><span class="tag">آفلاین</span></div><div class="music-art"><div class="music-disc">♫</div><span>MYSPACE AUDIO</span></div><div class="music-now"><b>در حال پخش</b><small id="musicNowName">هنوز آهنگی انتخاب نشده</small></div><audio id="musicPlayer" class="extra-audio" controls></audio><label class="music-pick" for="musicFiles">＋ انتخاب آهنگ از دستگاه</label><input id="musicFiles" type="file" accept="audio/*" multiple><div class="notes-list-head"><b>صف پخش</b><span class="tag">کتابخانه محلی</span></div><div id="musicList" class="extra-list"></div><p class="extra-muted">فایل‌ها از دستگاه خودت پخش می‌شوند و جایی آپلود نمی‌شوند.</p></div>
 <div id="storeApp" class="app-window" hidden><div class="aw-bar"><button class="icon-button" data-close="storeApp">→</button><div class="aw-title">🧩 فروشگاه MYSPACE</div></div><p>ابزارهای داخلی را از اینجا باز کن.</p><div class="extra-app-grid" id="storeGrid"></div></div>
+
+<div id="settingsOverlay" class="overlay" hidden>
+ <div class="overlay-backdrop" data-settings-close></div>
+ <section class="overlay-panel glass settings-panel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <button class="overlay-close" type="button" data-settings-close aria-label="بستن تنظیمات">✕</button>
+  <h2 id="settingsTitle">تنظیمات MYSPACE</h2>
+  <p>ظاهر و چیدمان فضای شخصی‌ات را تنظیم کن. تغییرات روی همین مرورگر ذخیره می‌شوند.</p>
+  <div class="settings-group"><b>حالت نمایش</b><div class="settings-actions"><button id="settingsTheme" class="button secondary" type="button">تغییر تم روشن / تاریک</button><button id="settingsWallpaper" class="button secondary" type="button">انتخاب تصویر پس‌زمینه</button></div></div>
+  <div class="settings-group"><b>رنگ اصلی</b><div class="settings-actions" id="accentChoices">
+   <button class="accent-choice" type="button" data-accent="#a78bfa" style="background:#a78bfa" aria-label="بنفش"></button>
+   <button class="accent-choice" type="button" data-accent="#38bdf8" style="background:#38bdf8" aria-label="آبی"></button>
+   <button class="accent-choice" type="button" data-accent="#34d399" style="background:#34d399" aria-label="سبز"></button>
+   <button class="accent-choice" type="button" data-accent="#fb7185" style="background:#fb7185" aria-label="صورتی"></button>
+   <button class="accent-choice" type="button" data-accent="#fbbf24" style="background:#fbbf24" aria-label="طلایی"></button>
+  </div></div>
+  <div class="settings-group"><b>تعداد ستون آیکون‌ها</b><select id="settingsColumns" class="model-select"><option value="3">۳ ستون</option><option value="4">۴ ستون</option><option value="5">۵ ستون</option></select></div>
+  <div class="settings-group"><b>حرکت و جلوه‌ها</b><button id="settingsMotion" class="button secondary" type="button">روشن / خاموش کردن افکت‌ها</button><p class="extra-muted">برای کاهش مصرف باتری و حرکت کمتر، افکت‌ها را خاموش کن.</p></div>
+  <div class="settings-actions"><button id="settingsReset" class="button secondary" type="button">بازنشانی شخصی‌سازی</button><button class="button" type="button" data-settings-close>بستن</button></div>
+  <div id="settingsStatus" class="status" role="status" aria-live="polite"></div>
+ </section>
+</div>
 <div id="dashboardOverlay" class="overlay" hidden>  
   <div id="overlayBackdrop" class="overlay-backdrop"></div>  
   <section class="overlay-panel glass" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">  
@@ -1018,6 +1067,30 @@ document.addEventListener("click", function(event) {
   app.removeAttribute("hidden");
   document.body.classList.add("in-app");
 }, true);
+</script>
+
+<script>/* MYSPACE personal settings controller */
+(()=> {
+ const $=id=>document.getElementById(id), root=document.documentElement, overlay=$("settingsOverlay");
+ if(!overlay)return;
+ const key="myspace-settings-v1";
+ let saved={};try{saved=JSON.parse(localStorage.getItem(key)||"{}")}catch{}
+ const persist=()=>{try{localStorage.setItem(key,JSON.stringify(saved))}catch{$("settingsStatus").textContent="ذخیره‌سازی در این مرورگر در دسترس نیست."}};
+ const setAccent=color=>{root.style.setProperty("--purple",color);root.style.setProperty("--blue",color);saved.accent=color;persist();document.querySelectorAll("[data-accent]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.accent===color)))};
+ const setColumns=n=>{root.style.setProperty("--app-columns",n);saved.columns=n;persist();$("settingsColumns").value=n};
+ const setMotion=on=>{const fx=$("fxToggle");if(fx){const current=!root.classList.contains("no-fx");if(current!==on)fx.click()}saved.motion=on;persist()};
+ if(saved.accent)setAccent(saved.accent);setColumns(["3","4","5"].includes(String(saved.columns))?String(saved.columns):"4");
+ if(saved.motion===false)setMotion(false);
+ $("settingsOpen").addEventListener("click",()=>{overlay.hidden=false;$("settingsColumns").value=saved.columns||"4"});
+ overlay.addEventListener("click",e=>{if(e.target.closest("[data-settings-close]"))overlay.hidden=true});
+ $("settingsTheme").onclick=()=>$("themeToggle").click();
+ $("settingsWallpaper").onclick=()=>$("galleryAdd").click();
+ $("settingsColumns").onchange=e=>setColumns(e.target.value);
+ $("accentChoices").addEventListener("click",e=>{const b=e.target.closest("[data-accent]");if(b)setAccent(b.dataset.accent)});
+ $("settingsMotion").onclick=()=>setMotion(root.classList.contains("no-fx"));
+ $("settingsReset").onclick=()=>{try{localStorage.removeItem(key)}catch{}saved={};root.style.removeProperty("--app-columns");root.style.removeProperty("--purple");root.style.removeProperty("--blue");setColumns("4");setAccent("#a78bfa");setMotion(true);$("settingsStatus").textContent="تنظیمات شخصی‌سازی بازنشانی شد."};
+ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!overlay.hidden)overlay.hidden=true});
+})();
 </script>
 </body>
 </html>
