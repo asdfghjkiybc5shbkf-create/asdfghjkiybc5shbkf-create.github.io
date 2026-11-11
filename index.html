@@ -474,7 +474,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 .widget-box span,.widget-box small{font-size:11px;color:var(--muted)}.widget-box strong{font-size:19px;overflow-wrap:anywhere}.widget-action{cursor:pointer}.widget-action:active{transform:scale(.98)}
 .widget-search{position:relative}.widget-search input{padding-inline-end:38px}.widget-search span{position:absolute;right:13px;top:3px;font-size:24px;color:var(--muted)}
 .widget-profile{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
-.profile-avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));font-size:22px;flex:none}.profile-meta{display:flex;flex:1;min-width:0;flex-direction:column}.profile-meta small{font-size:10px;color:var(--muted)}.widget-profile .button{padding:7px 10px;font-size:11px}
+.profile-avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));font-size:22px;flex:none;overflow:hidden}.profile-avatar img{width:100%;height:100%;object-fit:cover}.rgb-controls{display:grid;gap:9px;margin-top:10px}.rgb-controls>label{display:flex;align-items:center;justify-content:space-between;gap:12px}.rgb-controls input[type=color]{width:54px;height:36px;padding:2px;border:1px solid var(--line);border-radius:9px;background:var(--panel2)}.rgb-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.rgb-values label{font-size:12px;color:var(--muted)}.rgb-values input{width:100%;min-width:0;margin-top:4px}.profile-meta{display:flex;flex:1;min-width:0;flex-direction:column}.profile-meta small{font-size:10px;color:var(--muted)}.widget-profile .button{padding:7px 10px;font-size:11px}
 .widget-tools{display:flex;gap:8px;flex-wrap:wrap}.widget-tools .button{flex:1;font-size:12px;padding:9px 8px}
 .app-tile.is-filtered{display:none}
 @media(max-width:360px){.widget-profile{flex-wrap:wrap}.profile-meta{min-width:90px}.widget-profile .button{margin-inline-start:auto}}
@@ -586,7 +586,9 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
    <button class="accent-choice" type="button" data-accent="#34d399" style="background:#34d399" aria-label="سبز"></button>
    <button class="accent-choice" type="button" data-accent="#fb7185" style="background:#fb7185" aria-label="صورتی"></button>
    <button class="accent-choice" type="button" data-accent="#fbbf24" style="background:#fbbf24" aria-label="طلایی"></button>
-  </div></div>
+  </div>
+   <div class="rgb-controls"><label>انتخاب رنگ <input id="rgbColor" type="color" value="#a78bfa"></label><div class="rgb-values"><label>R <input id="rgbR" type="number" min="0" max="255" value="167"></label><label>G <input id="rgbG" type="number" min="0" max="255" value="139"></label><label>B <input id="rgbB" type="number" min="0" max="255" value="250"></label></div><small class="extra-muted">رنگ دلخواه RGB را انتخاب کن؛ تغییرات خودکار ذخیره می‌شوند.</small></div>
+  </div>
   <div class="settings-group"><b>تعداد ستون آیکون‌ها</b><select id="settingsColumns" class="model-select"><option value="3">۳ ستون</option><option value="4">۴ ستون</option><option value="5">۵ ستون</option></select></div>
   <div class="settings-group"><b>حرکت و جلوه‌ها</b><button id="settingsMotion" class="button secondary" type="button">روشن / خاموش کردن افکت‌ها</button><p class="extra-muted">برای کاهش مصرف باتری و حرکت کمتر، افکت‌ها را خاموش کن.</p></div>
   <div class="settings-actions"><button id="settingsReset" class="button secondary" type="button">بازنشانی شخصی‌سازی</button><button class="button" type="button" data-settings-close>بستن</button></div>
@@ -1104,7 +1106,8 @@ document.addEventListener("click", function(event) {
  const key="myspace-settings-v1";
  let saved={};try{saved=JSON.parse(localStorage.getItem(key)||"{}")}catch{}
  const persist=()=>{try{localStorage.setItem(key,JSON.stringify(saved))}catch{$("settingsStatus").textContent="ذخیره‌سازی در این مرورگر در دسترس نیست."}};
- const setAccent=color=>{root.style.setProperty("--purple",color);root.style.setProperty("--blue",color);saved.accent=color;persist();document.querySelectorAll("[data-accent]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.accent===color)))};
+ const hexRgb=color=>{const n=parseInt(color.slice(1),16);return [(n>>16)&255,(n>>8)&255,n&255]};
+ const setAccent=color=>{if(!/^#[0-9a-f]{6}$/i.test(color))return;root.style.setProperty("--purple",color);root.style.setProperty("--blue",color);saved.accent=color;persist();document.querySelectorAll("[data-accent]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.accent===color)));const picker=$("rgbColor");if(picker)picker.value=color;const [rr,gg,bb]=hexRgb(color);$("rgbR").value=rr;$("rgbG").value=gg;$("rgbB").value=bb};
  const setColumns=n=>{root.style.setProperty("--app-columns",n);saved.columns=n;persist();$("settingsColumns").value=n};
  const setMotion=on=>{const fx=$("fxToggle");if(fx){const current=!root.classList.contains("no-fx");if(current!==on)fx.click()}saved.motion=on;persist()};
  if(saved.accent)setAccent(saved.accent);setColumns(["3","4","5"].includes(String(saved.columns))?String(saved.columns):"4");
@@ -1116,6 +1119,9 @@ document.addEventListener("click", function(event) {
  $("settingsWallpaper").onclick=()=>$("galleryAdd").click();
  $("settingsColumns").onchange=e=>setColumns(e.target.value);
  $("accentChoices").addEventListener("click",e=>{const b=e.target.closest("[data-accent]");if(b)setAccent(b.dataset.accent)});
+ const rgbApply=()=>{const vals=["rgbR","rgbG","rgbB"].map(id=>Math.max(0,Math.min(255,Number($(id).value)||0)));setAccent("#"+vals.map(v=>v.toString(16).padStart(2,"0")).join(""))};
+ $("rgbColor").addEventListener("input",e=>setAccent(e.target.value));
+ ["rgbR","rgbG","rgbB"].forEach(id=>$(id).addEventListener("input",rgbApply));
  $("settingsMotion").onclick=()=>setMotion(root.classList.contains("no-fx"));
  $("settingsReset").onclick=()=>{try{localStorage.removeItem(key)}catch{}saved={};root.style.removeProperty("--app-columns");root.style.removeProperty("--purple");root.style.removeProperty("--blue");setColumns("4");setAccent("#a78bfa");root.style.setProperty("--blue","#38bdf8");saved.accent=null;persist();setMotion(true);$("settingsStatus").textContent="تنظیمات شخصی‌سازی بازنشانی شد."};
  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!overlay.hidden)overlay.hidden=true});
@@ -1134,9 +1140,12 @@ document.addEventListener("click", function(event) {
  toggle.addEventListener('click',()=>{const collapsed=widget.classList.toggle('is-collapsed');toggle.textContent=collapsed?'⌄':'⌃';toggle.setAttribute('aria-expanded',String(!collapsed));toggle.title=collapsed?'باز کردن ویجت‌ها':'بستن ویجت‌ها'});
  $('widgetWeather').onclick=()=>{const b=document.querySelector('[data-open-app="weatherApp"]');if(b)b.click()};
  $('appSearch').addEventListener('input',e=>{const q=e.target.value.trim().toLocaleLowerCase();document.querySelectorAll('.app-grid .app-tile').forEach(tile=>{tile.classList.toggle('is-filtered',q&&!tile.textContent.toLocaleLowerCase().includes(q))})});
- const profile=safe('myspace_profile_v1',{name:'علی',avatar:'👤'});
- function showProfile(){$('profileName').textContent=profile.name||'کاربر';$('profileAvatar').textContent=profile.avatar||'👤';const hello=document.querySelector('.home-hello h1');if(hello)hello.innerHTML='سلام <span class="gradient"></span> 👋';const name=hello&&hello.querySelector('.gradient');if(name)name.textContent=profile.name||'کاربر';}
- showProfile();$('profileEdit').onclick=()=>{const name=prompt('چه نامی روی صفحه نمایش داده شود؟',profile.name||'');if(name===null)return;const avatar=prompt('یک ایموجی برای تصویر پروفایل انتخاب کن:',profile.avatar||'👤');if(avatar===null)return;profile.name=name.trim().slice(0,24)||'کاربر';profile.avatar=avatar.trim().slice(0,8)||'👤';try{localStorage.setItem('myspace_profile_v1',JSON.stringify(profile));showProfile();$('widgetStatus').textContent='پروفایل ذخیره شد.'}catch{$('widgetStatus').textContent='ذخیره پروفایل ممکن نشد.'}};
+ const profile=safe('myspace_profile_v1',{name:'کاربر',avatar:'👤',photo:''});
+ const photoInput=document.createElement('input');photoInput.type='file';photoInput.accept='image/*';photoInput.hidden=true;document.body.append(photoInput);
+ function showProfile(){$('profileName').textContent=profile.name||'کاربر';const avatar=$('profileAvatar');avatar.replaceChildren();if(profile.photo){const img=document.createElement('img');img.src=profile.photo;img.alt='تصویر پروفایل';avatar.append(img)}else avatar.textContent=profile.avatar||'👤';const hello=document.querySelector('.home-hello h1');if(hello)hello.innerHTML='سلام <span class="gradient"></span> 👋';const name=hello&&hello.querySelector('.gradient');if(name)name.textContent=profile.name||'کاربر';}
+ const saveProfile=()=>{try{localStorage.setItem('myspace_profile_v1',JSON.stringify(profile));showProfile();$('widgetStatus').textContent='پروفایل ذخیره شد.'}catch{$('widgetStatus').textContent='ذخیره نشد؛ احتمالاً تصویر انتخابی خیلی بزرگ است.'}};
+ showProfile();$('profileEdit').onclick=()=>{const name=prompt('نام نمایشی پروفایل:',profile.name||'کاربر');if(name===null)return;profile.name=name.trim().slice(0,24)||'کاربر';const choice=confirm('می‌خواهی تصویر پروفایل از دستگاه انتخاب کنی؟ برای حفظ ایموجی فعلی «لغو» را بزن.');saveProfile();if(choice)photoInput.click()};
+ photoInput.onchange=()=>{const file=photoInput.files&&photoInput.files[0];if(!file)return;if(!file.type.startsWith('image/')){$('widgetStatus').textContent='لطفاً یک فایل تصویری انتخاب کن.';return}if(file.size>3*1024*1024){$('widgetStatus').textContent='تصویر باید کمتر از ۳ مگابایت باشد.';photoInput.value='';return}const reader=new FileReader();reader.onload=()=>{profile.photo=reader.result;saveProfile()};reader.readAsDataURL(file)};
  const backupKeys=['myspace_notes_v1','myspace_events_v1','myspace-settings-v1','myspace-theme','myspace_fx','myspace-bg-index','myspace-custom-wallpaper','myspace_profile_v1','myspace_ai_threads','myspace_ai_threads_active','myspace_ai_memory_v1'];
  $('backupExport').onclick=()=>{const data={format:'MYSPACE_BACKUP',version:1,createdAt:new Date().toISOString(),items:{}};backupKeys.forEach(k=>{const v=localStorage.getItem(k);if(v!==null)data.items[k]=v});const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='myspace-backup.json';a.click();URL.revokeObjectURL(url);$('widgetStatus').textContent='فایل پشتیبان آماده شد.'};
  $('backupImport').onclick=()=> $('backupFile').click();
