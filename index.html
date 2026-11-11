@@ -471,6 +471,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 .widget-top{display:flex;align-items:center;justify-content:space-between}.widget-top b{font-size:16px}
 .widget-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .widget-box{min-width:0;text-align:right;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--panel2);color:var(--text);display:flex;flex-direction:column;gap:3px;font:inherit}
+.widget-box{resize:both;overflow:auto;min-width:120px;min-height:88px;max-width:100%;max-height:320px;touch-action:pan-y}.widget-box.touch-dragging{opacity:.45;outline:2px dashed var(--purple);z-index:5}.widget-box.touch-target{outline:2px solid var(--blue)}
+@media(max-width:520px){.widget-box{resize:vertical;max-height:260px}}
 .widget-box span,.widget-box small{font-size:11px;color:var(--muted)}
 .widget-box[draggable="true"]{cursor:grab;touch-action:pan-y}.widget-box.dragging{opacity:.4;outline:2px dashed var(--purple)}.widget-box.drag-over{outline:2px solid var(--purple);transform:scale(1.02)}.widget-grid{position:relative}.widget-box strong{font-size:19px;overflow-wrap:anywhere}.widget-action{cursor:pointer}.widget-action:active{transform:scale(.98)}
 .widget-search{position:relative}.widget-search input{padding-inline-end:38px}.widget-search span{position:absolute;right:13px;top:3px;font-size:24px;color:var(--muted)}
@@ -1121,6 +1123,44 @@ document.addEventListener("click", function(event) {
  widgetGrid.addEventListener("dragover",e=>{if(!draggedWidget)return;e.preventDefault();const target=e.target.closest("[data-widget]");widgetGrid.querySelectorAll(".drag-over").forEach(x=>x.classList.remove("drag-over"));if(target&&target!==draggedWidget)target.classList.add("drag-over")});
  widgetGrid.addEventListener("drop",e=>{if(!draggedWidget)return;e.preventDefault();const target=e.target.closest("[data-widget]");if(target&&target!==draggedWidget){const r=target.getBoundingClientRect();const after=e.clientY>r.top+r.height/2;widgetGrid.insertBefore(draggedWidget,after?target.nextSibling:target)}widgetGrid.querySelectorAll(".drag-over").forEach(x=>x.classList.remove("drag-over"));try{localStorage.setItem(widgetOrderKey,JSON.stringify([...widgetGrid.querySelectorAll("[data-widget]")].map(x=>x.dataset.widget)))}catch{}});
  widgetGrid.addEventListener("dragend",()=>{if(draggedWidget)draggedWidget.classList.remove("dragging");draggedWidget=null;widgetGrid.querySelectorAll(".drag-over").forEach(x=>x.classList.remove("drag-over"))});
+ // Touch-friendly widget reordering: hold briefly, then drag to another tile.
+ let touchWidget=null,touchHold=null,touchActive=false;
+ const saveWidgetOrder=()=>{try{localStorage.setItem(widgetOrderKey,JSON.stringify([...widgetGrid.querySelectorAll("[data-widget]")].map(x=>x.dataset.widget)))}catch{}};
+ widgetGrid.addEventListener("pointerdown",e=>{
+  if(e.pointerType!=="touch")return;
+  const el=e.target.closest("[data-widget]");if(!el)return;
+  touchWidget=el;touchActive=false;
+  const x=e.clientX,y=e.clientY;
+  touchHold=setTimeout(()=>{touchActive=true;el.classList.add("touch-dragging");},380);
+  el.dataset.touchStartX=x;el.dataset.touchStartY=y;
+ });
+ widgetGrid.addEventListener("pointermove",e=>{
+  if(!touchWidget)return;
+  if(!touchActive&&Math.hypot(e.clientX-Number(touchWidget.dataset.touchStartX),e.clientY-Number(touchWidget.dataset.touchStartY))>12){clearTimeout(touchHold);touchHold=null;touchWidget=null;return}
+  if(!touchActive)return;
+  e.preventDefault();
+  widgetGrid.querySelectorAll(".touch-target").forEach(x=>x.classList.remove("touch-target"));
+  const target=document.elementFromPoint(e.clientX,e.clientY)?.closest("[data-widget]");
+  if(target&&target!==touchWidget)target.classList.add("touch-target");
+ },{passive:false});
+ const finishTouchDrag=e=>{
+  clearTimeout(touchHold);touchHold=null;
+  if(touchWidget&&touchActive){
+   const target=document.elementFromPoint(e.clientX,e.clientY)?.closest("[data-widget]");
+   if(target&&target!==touchWidget){const r=target.getBoundingClientRect();widgetGrid.insertBefore(touchWidget,e.clientY>r.top+r.height/2?target.nextSibling:target);saveWidgetOrder()}
+  }
+  if(touchWidget)touchWidget.classList.remove("touch-dragging");
+  widgetGrid.querySelectorAll(".touch-target").forEach(x=>x.classList.remove("touch-target"));
+  touchWidget=null;touchActive=false;
+ };
+ widgetGrid.addEventListener("pointerup",finishTouchDrag);
+ widgetGrid.addEventListener("pointercancel",finishTouchDrag);
+ // Persist manually resized widget dimensions across visits.
+ const sizeKey="myspace_widget_sizes_v1";
+ try{const sizes=JSON.parse(localStorage.getItem(sizeKey)||"{}");widgetGrid.querySelectorAll("[data-widget]").forEach(el=>{const s=sizes[el.dataset.widget];if(s){if(s.w)el.style.width=s.w+"px";if(s.h)el.style.height=s.h+"px"}})}catch{}
+ let sizeSaveTimer;
+ if("ResizeObserver"in window){const observer=new ResizeObserver(entries=>{clearTimeout(sizeSaveTimer);sizeSaveTimer=setTimeout(()=>{const sizes={};widgetGrid.querySelectorAll("[data-widget]").forEach(el=>{const r=el.getBoundingClientRect();if(r.width>0&&r.height>0)sizes[el.dataset.widget]={w:Math.round(r.width),h:Math.round(r.height)}});try{localStorage.setItem(sizeKey,JSON.stringify(sizes))}catch{}},250)});widgetGrid.querySelectorAll("[data-widget]").forEach(el=>observer.observe(el))}
+
  const setColumns=n=>{root.style.setProperty("--app-columns",n);saved.columns=n;persist();$("settingsColumns").value=n};
  const setMotion=on=>{const fx=$("fxToggle");if(fx){const current=!root.classList.contains("no-fx");if(current!==on)fx.click()}saved.motion=on;persist()};
  if(saved.accent)setAccent(saved.accent);setColumns(["3","4","5"].includes(String(saved.columns))?String(saved.columns):"4");
