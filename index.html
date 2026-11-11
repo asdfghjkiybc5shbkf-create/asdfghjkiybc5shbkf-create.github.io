@@ -587,7 +587,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
    <button class="accent-choice" type="button" data-accent="#fb7185" style="background:#fb7185" aria-label="صورتی"></button>
    <button class="accent-choice" type="button" data-accent="#fbbf24" style="background:#fbbf24" aria-label="طلایی"></button>
   </div>
-   <div class="rgb-controls"><label>انتخاب رنگ <input id="rgbColor" type="color" value="#a78bfa"></label><div class="rgb-values"><label>R <input id="rgbR" type="number" min="0" max="255" value="167"></label><label>G <input id="rgbG" type="number" min="0" max="255" value="139"></label><label>B <input id="rgbB" type="number" min="0" max="255" value="250"></label></div><small class="extra-muted">رنگ دلخواه RGB را انتخاب کن؛ تغییرات خودکار ذخیره می‌شوند.</small></div>
+   <div class="rgb-controls"><label>انتخاب رنگ <input id="rgbColor" type="color" value="#a78bfa"></label><div class="rgb-values"><label>R <input id="rgbR" type="number" min="0" max="255" value="167"></label><label>G <input id="rgbG" type="number" min="0" max="255" value="139"></label><label>B <input id="rgbB" type="number" min="0" max="255" value="250"></label></div><small class="extra-muted">رنگ دلخواه را انتخاب کن یا تغییر خودکار رنگ‌ها را روشن کن.</small><button id="rgbCycleToggle" class="button secondary" type="button">روشن کردن تغییر خودکار رنگ RGB</button></div>
   </div>
   <div class="settings-group"><b>تعداد ستون آیکون‌ها</b><select id="settingsColumns" class="model-select"><option value="3">۳ ستون</option><option value="4">۴ ستون</option><option value="5">۵ ستون</option></select></div>
   <div class="settings-group"><b>حرکت و جلوه‌ها</b><button id="settingsMotion" class="button secondary" type="button">روشن / خاموش کردن افکت‌ها</button><p class="extra-muted">برای کاهش مصرف باتری و حرکت کمتر، افکت‌ها را خاموش کن.</p></div>
@@ -1108,6 +1108,9 @@ document.addEventListener("click", function(event) {
  const persist=()=>{try{localStorage.setItem(key,JSON.stringify(saved))}catch{$("settingsStatus").textContent="ذخیره‌سازی در این مرورگر در دسترس نیست."}};
  const hexRgb=color=>{const n=parseInt(color.slice(1),16);return [(n>>16)&255,(n>>8)&255,n&255]};
  const setAccent=color=>{if(!/^#[0-9a-f]{6}$/i.test(color))return;root.style.setProperty("--purple",color);root.style.setProperty("--blue",color);saved.accent=color;persist();document.querySelectorAll("[data-accent]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.accent===color)));const picker=$("rgbColor");if(picker)picker.value=color;const [rr,gg,bb]=hexRgb(color);$("rgbR").value=rr;$("rgbG").value=gg;$("rgbB").value=bb};
+ let rgbTimer=null;let rgbHue=0;
+ const stopRgbCycle=()=>{if(rgbTimer){clearInterval(rgbTimer);rgbTimer=null}const b=$("rgbCycleToggle");if(b)b.textContent="روشن کردن تغییر خودکار رنگ RGB";saved.rgbCycle=false;persist()};
+ const startRgbCycle=()=>{if(rgbTimer)return;rgbHue=0;const paint=()=>{rgbHue=(rgbHue+2)%360;const color="hsl("+rgbHue+", 90%, 68%)";root.style.setProperty("--purple",color);root.style.setProperty("--blue",color)};paint();rgbTimer=setInterval(paint,90);$("rgbCycleToggle").textContent="خاموش کردن تغییر خودکار رنگ RGB";saved.rgbCycle=true;persist()};
  const setColumns=n=>{root.style.setProperty("--app-columns",n);saved.columns=n;persist();$("settingsColumns").value=n};
  const setMotion=on=>{const fx=$("fxToggle");if(fx){const current=!root.classList.contains("no-fx");if(current!==on)fx.click()}saved.motion=on;persist()};
  if(saved.accent)setAccent(saved.accent);setColumns(["3","4","5"].includes(String(saved.columns))?String(saved.columns):"4");
@@ -1119,9 +1122,12 @@ document.addEventListener("click", function(event) {
  $("settingsWallpaper").onclick=()=>$("galleryAdd").click();
  $("settingsColumns").onchange=e=>setColumns(e.target.value);
  $("accentChoices").addEventListener("click",e=>{const b=e.target.closest("[data-accent]");if(b)setAccent(b.dataset.accent)});
+ const manualAccent= setAccent;
  const rgbApply=()=>{const vals=["rgbR","rgbG","rgbB"].map(id=>Math.max(0,Math.min(255,Number($(id).value)||0)));setAccent("#"+vals.map(v=>v.toString(16).padStart(2,"0")).join(""))};
- $("rgbColor").addEventListener("input",e=>setAccent(e.target.value));
- ["rgbR","rgbG","rgbB"].forEach(id=>$(id).addEventListener("input",rgbApply));
+ $("rgbColor").addEventListener("input",e=>{if(rgbTimer)stopRgbCycle();setAccent(e.target.value)});
+ ["rgbR","rgbG","rgbB"].forEach(id=>$(id).addEventListener("input",()=>{if(rgbTimer)stopRgbCycle();rgbApply()}));
+ $("rgbCycleToggle").onclick=()=>{if(rgbTimer){stopRgbCycle();setAccent(saved.accent||"#a78bfa")}else startRgbCycle()};
+ if(saved.rgbCycle)startRgbCycle();
  $("settingsMotion").onclick=()=>setMotion(root.classList.contains("no-fx"));
  $("settingsReset").onclick=()=>{try{localStorage.removeItem(key)}catch{}saved={};root.style.removeProperty("--app-columns");root.style.removeProperty("--purple");root.style.removeProperty("--blue");setColumns("4");setAccent("#a78bfa");root.style.setProperty("--blue","#38bdf8");saved.accent=null;persist();setMotion(true);$("settingsStatus").textContent="تنظیمات شخصی‌سازی بازنشانی شد."};
  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!overlay.hidden)overlay.hidden=true});
