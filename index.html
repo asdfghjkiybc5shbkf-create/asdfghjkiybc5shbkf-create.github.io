@@ -491,6 +491,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       <button id="themeToggle" class="icon-button" type="button" aria-label="تغییر تم روشن و تاریک" title="تم">🌙</button>
       <button id="settingsOpen" class="icon-button" type="button" aria-label="تنظیمات شخصی‌سازی" title="تنظیمات">⚙️</button>
     </div>
+    <button id="languageToggle" class="icon-button" type="button" aria-label="Switch language" title="Switch language" style="width:auto;padding:0 11px;border-radius:12px;font-size:12px;font-weight:800">EN</button>
     <div class="brand">MY<span>SPACE</span> ✦</div>
     <div class="sb-icons">📶 🔋</div>
   </header>    
@@ -1208,5 +1209,82 @@ document.addEventListener("click", function(event) {
  $('backupFile').onchange=async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(data.format!=='MYSPACE_BACKUP'||!data.items||typeof data.items!=='object')throw Error('invalid');if(!confirm('اطلاعات موجود با نسخه داخل فایل جایگزین شود؟ بهتر است ابتدا پشتیبان فعلی را بگیری.'))return;Object.entries(data.items).forEach(([k,v])=>{if(backupKeys.includes(k)&&typeof v==='string')localStorage.setItem(k,v)});$('widgetStatus').textContent='بازیابی انجام شد؛ صفحه را تازه‌سازی کن.'}catch{$('widgetStatus').textContent='فایل پشتیبان معتبر نیست.'}finally{e.target.value=''}};
 })();
 </script>
+
+<script>
+/* MYSPACE bilingual interface */
+(()=> {
+ const btn=document.getElementById("languageToggle");
+ if(!btn)return;
+ const dict={
+ "سلام":"Hello","ویرایش پروفایل":"Edit profile","پشتیبان‌گیری":"Backup","بازیابی اطلاعات":"Restore data",
+ "پیش‌بینی امروز":"Today's forecast","برای مشاهده لمس کن":"Tap to view","آب‌وهوا":"Weather",
+ "یادداشت‌ها":"Notes","تقویم":"Calendar","موسیقی":"Music","گالری":"Gallery","تنظیمات":"Settings",
+ "داشبورد":"Dashboard","داشبورد من":"My dashboard","تنظیمات MYSPACE":"MYSPACE Settings",
+ "تغییر تم روشن / تاریک":"Toggle light / dark theme","تغییر تم روشن و تاریک":"Toggle light and dark theme",
+ "انتخاب تصویر پس‌زمینه":"Choose background image","انتخاب رنگ":"Choose color",
+ "روشن کردن تغییر خودکار رنگ RGB":"Enable automatic RGB color cycle","خاموش کردن تغییر خودکار رنگ RGB":"Disable automatic RGB color cycle",
+ "روشن / خاموش کردن افکت‌ها":"Toggle effects","بازنشانی شخصی‌سازی":"Reset customization","بستن":"Close",
+ "افزودن رویداد":"Add event","تاریخ و ساعت":"Date & time","ذخیره":"Save","حذف":"Delete",
+ "حذف پس‌زمینه":"Remove background","＋ ذخیره یادداشت":"＋ Save note","＋ انتخاب آهنگ از دستگاه":"＋ Choose music from device",
+ "جست‌وجوی وب (استفاده از Google Search)":"Web search (Google Search)",
+ "ساخت حساب":"Create account","ورود به حساب":"Sign in","خروج از حساب":"Sign out",
+ "ایمیل":"Email","رمز عبور":"Password","فراموشی رمز عبور":"Forgot password",
+ "پاک‌کردن تاریخچه چت‌های این دستگاه":"Clear chat history on this device",
+ "هنوز رویدادی ثبت نشده.":"No events have been added yet.",
+ "دریافت اطلاعات هوا ناموفق بود؛ اتصال اینترنت را بررسی و دوباره تلاش کن.":"Could not load weather. Check your connection and try again.",
+ "آخرین به‌روزرسانی:":"Last updated:","آب‌وهوای موقعیت فعلی":"Weather at current location",
+ "نام نمایشی پروفایل:":"Profile display name:","کاربر":"User","اعلان‌ها فعال شدند.":"Notifications enabled.",
+ "اجازه اعلان داده نشد.":"Notification permission was not granted."
+ };
+ const attrs=["placeholder","title","aria-label"];
+ const originals=new WeakMap();
+ function walk(root,english){
+  const nodes=[];
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+  while(w.nextNode())nodes.push(w.currentNode);
+  nodes.forEach(n=>{
+   if(!originals.has(n))originals.set(n,n.nodeValue);
+   const original=originals.get(n);
+   let value=original;
+   if(english) Object.entries(dict).forEach(([fa,en])=>{value=value.split(fa).join(en)});
+   n.nodeValue=value;
+  });
+  root.querySelectorAll("*").forEach(el=>attrs.forEach(a=>{
+   if(!el.hasAttribute(a))return;
+   const key="data-fa-"+a;
+   if(!el.hasAttribute(key))el.setAttribute(key,el.getAttribute(a));
+   let value=el.getAttribute(key);
+   if(english)Object.entries(dict).forEach(([fa,en])=>{value=value.split(fa).join(en)});
+   el.setAttribute(a,value);
+  }));
+ }
+ let english=localStorage.getItem("myspace_language")==="en";
+ function apply(){
+  document.documentElement.lang=english?"en":"fa";
+  document.documentElement.dir=english?"ltr":"rtl";
+  walk(document.body,english);
+  btn.textContent=english?"فا":"EN";
+  btn.title=english?"Switch to Persian":"Switch to English";
+  btn.setAttribute("aria-label",btn.title);
+  localStorage.setItem("myspace_language",english?"en":"fa");
+ }
+ btn.addEventListener("click",()=>{english=!english;apply()});
+ apply();
+ const observer=new MutationObserver(records=>{
+  if(!english)return;
+  records.forEach(record=>{
+   record.addedNodes.forEach(node=>{
+    if(node.nodeType===Node.TEXT_NODE){
+     const original=node.nodeValue;
+     Object.entries(dict).forEach(([fa,en])=>{node.nodeValue=node.nodeValue.split(fa).join(en)});
+     originals.set(node,original);
+    }else if(node.nodeType===Node.ELEMENT_NODE)walk(node,true);
+   });
+  });
+ });
+ observer.observe(document.body,{childList:true,subtree:true});
+})();
+</script>
+
 </body>
 </html>
