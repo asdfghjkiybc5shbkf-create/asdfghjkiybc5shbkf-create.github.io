@@ -1020,12 +1020,12 @@ document.addEventListener('click',e=>{const b=e.target.closest('.button,.icon-bu
    btn.title=on?"خروج از ویرایش":"ویرایش سایت";
  }
  btn.addEventListener("click",()=>{
-   if(document.body.classList.contains("site-editing")){main.innerHTML=original;setEditing(false);return}
+   if(document.body.classList.contains("site-editing")){location.reload();return}
    original=main.innerHTML;setEditing(true);
  });
- document.getElementById("siteEditCancel").addEventListener("click",()=>{main.innerHTML=original;setEditing(false)});
+ document.getElementById("siteEditCancel").addEventListener("click",()=>location.reload());
  document.getElementById("siteEditSave").addEventListener("click",()=>{
-   try{localStorage.setItem(KEY,main.innerHTML);setEditing(false);alert("تغییرات صفحهٔ اصلی در همین مرورگر ذخیره شد.")}catch{alert("ذخیره انجام نشد؛ فضای ذخیره‌سازی مرورگر کافی نیست.")}
+   try{localStorage.setItem(KEY,main.innerHTML);alert("تغییرات صفحهٔ اصلی در همین مرورگر ذخیره شد.");location.reload()}catch{alert("ذخیره انجام نشد؛ فضای ذخیره‌سازی مرورگر کافی نیست.")}
  });
 })();
 </script>
