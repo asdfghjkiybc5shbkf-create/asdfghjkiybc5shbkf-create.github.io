@@ -561,6 +561,10 @@ html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.0
     </div>
     <button id="aiNew" class="icon-button" type="button" aria-label="چت جدید" title="چت جدید">＋</button>
   </div>
+  <div id="aiQuickTools" role="group" aria-label="حافظه و تاریخچه گفتگو">
+    <button id="aiMemoryToggleV2" type="button" aria-controls="aiMemoryPanel" aria-expanded="false">🧠 حافظهٔ من</button>
+    <button id="aiHistoryToggleV2" type="button" aria-controls="aiHist" aria-expanded="false">🕘 تاریخچهٔ گفتگوها</button>
+  </div>
   <select id="aiModel" class="model-select" aria-label="انتخاب مدل چاتی پاتی"><option value="gemini-3.8-flash">Gemini 3.8 Flash</option><option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite</option></select>
   <label style="display:flex;align-items:center;gap:8px;margin:0;font-size:13px"><input id="aiWebSearch" type="checkbox" style="width:auto;accent-color:var(--blue)"> جست‌وجوی وب (استفاده از Google Search)</label>
   <section id="aiMemoryPanel" class="ai-hist" hidden>
@@ -1433,5 +1437,16 @@ document.addEventListener("click", function(event) {
 @media(max-width:390px){#aiApp .aw-bar{gap:6px}#aiApp .ai-tool-btn{padding:0 9px;font-size:11px}}
 @media(prefers-reduced-motion:reduce){#aiApp .ai-hist{animation:none}}
 </style>
+
+<style id="ai-tools-visible-fix">
+#aiApp #aiQuickTools{display:grid!important;grid-template-columns:1fr 1fr;gap:10px;width:100%;flex:none;padding:2px 0 8px}
+#aiApp #aiQuickTools button{display:flex!important;align-items:center;justify-content:center;min-height:52px;padding:10px 8px;border:1px solid var(--purple);border-radius:16px;background:var(--panel2);color:var(--text);font:inherit;font-size:14px;font-weight:800;cursor:pointer}
+#aiApp #aiQuickTools button[aria-expanded="true"]{outline:2px solid var(--blue);outline-offset:2px}
+@media(max-width:360px){#aiApp #aiQuickTools{grid-template-columns:1fr}}
+</style>
+<script id="ai-tools-visible-fix-script">
+(()=>{const $=id=>document.getElementById(id);const pairs=[["aiMemoryToggleV2","aiMemoryPanel","aiHist","aiHistoryToggleV2"],["aiHistoryToggleV2","aiHist","aiMemoryPanel","aiMemoryToggleV2"]];pairs.forEach(([bid,pid,oid,obid])=>{const b=$(bid);if(!b)return;b.addEventListener("click",()=>{const p=$(pid),o=$(oid),show=p.hidden;p.hidden=!show;o.hidden=true;b.setAttribute("aria-expanded",String(show));$(obid).setAttribute("aria-expanded","false");});});})();
+</script>
+
 </body>
 </html>
