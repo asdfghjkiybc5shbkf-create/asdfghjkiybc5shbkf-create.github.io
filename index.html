@@ -596,19 +596,6 @@ footer{color:#ffffff9c!important}
 @media(min-width:600px){.overlay-panel{max-width:430px!important;margin:auto;height:min(900px,100dvh)!important;border-radius:42px!important;border:1px solid #ffffff33!important}}
 
 
-/* iOS-like startup sequence */
-#iosBoot{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 42%,#182b58 0%,#0b1530 42%,#050914 100%);color:#f7f9ff;opacity:1;visibility:visible;transition:opacity .75s cubic-bezier(.2,.7,.2,1),visibility .75s; padding:env(safe-area-inset-top) 20px env(safe-area-inset-bottom)}
-#iosBoot.boot-hidden{opacity:0;visibility:hidden;pointer-events:none}
-.boot-center{display:flex;align-items:center;flex-direction:column;transform:translateY(-2vh);animation:bootAppear 1.1s cubic-bezier(.2,.8,.2,1) both}
-.boot-mark{width:76px;height:76px;color:#f7f9ff;filter:drop-shadow(0 0 22px #7eb5ff66);animation:bootPulse 2.2s ease-in-out infinite}
-.boot-mark svg{width:100%;height:100%}
-.boot-name{font:600 12px/1.2 -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:5px;margin-top:23px;color:#e8efff}
-.boot-loader{height:3px;width:112px;border-radius:9px;background:#ffffff25;overflow:hidden;margin-top:34px}
-.boot-loader i{display:block;width:38%;height:100%;border-radius:9px;background:#eaf2ff;animation:bootLoad 1.65s ease-in-out infinite}
-@keyframes bootAppear{from{opacity:0;transform:translateY(8px) scale(.94)}to{opacity:1;transform:translateY(-2vh) scale(1)}}
-@keyframes bootPulse{0%,100%{opacity:.78;transform:scale(.97)}50%{opacity:1;transform:scale(1.03)}}
-@keyframes bootLoad{0%{transform:translateX(-110%)}100%{transform:translateX(300%)}}
-@media(prefers-reduced-motion:reduce){.boot-center,.boot-mark,.boot-loader i{animation:none!important}}
 
 </style>  
 </head>  
@@ -1171,8 +1158,5 @@ document.addEventListener('click',e=>{const b=e.target.closest('.button,.icon-bu
 })();
 </script>
 
-<script>
-(()=>{const boot=document.getElementById("iosBoot");if(!boot)return;const started=Date.now();let loaded=document.readyState==="complete";const finish=()=>{loaded=true;const wait=Math.max(0,2800-(Date.now()-started));setTimeout(()=>boot.classList.add("boot-hidden"),wait)};if(loaded)finish();else window.addEventListener("load",finish,{once:true});setTimeout(()=>boot.classList.add("boot-hidden"),8000);})();
-</script>
 </body>
 </html>
