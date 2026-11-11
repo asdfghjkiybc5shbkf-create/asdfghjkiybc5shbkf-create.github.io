@@ -482,6 +482,24 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 .app-tile.is-filtered{display:none}
 @media(max-width:360px){.widget-profile{flex-wrap:wrap}.profile-meta{min-width:90px}.widget-profile .button{margin-inline-start:auto}}
 </style>  
+
+<style>
+.theme-presets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.theme-presets button{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:12px;padding:9px;display:flex;align-items:center;gap:8px;cursor:pointer;font:inherit;font-size:12px}
+.theme-presets button.active{outline:2px solid var(--purple);background:color-mix(in srgb,var(--purple) 18%,var(--panel2))}
+.theme-presets i{width:27px;height:27px;border-radius:9px;flex:none;background:linear-gradient(135deg,var(--sw1),var(--sw2))}
+.updates-box{margin-top:14px;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.updates-box ul{padding-inline-start:20px;margin:8px 0;font-size:12px;color:var(--muted)}
+.updates-box small{color:var(--blue)}
+html{font-size:var(--myspace-font-size,100%)}
+body{font-family:var(--myspace-font-family,"Vazirmatn",Tahoma,sans-serif)}
+html[data-preset="pastel"]{--panel:rgba(255,255,255,.15);--panel2:rgba(255,255,255,.25);--line:rgba(255,255,255,.28)}
+html[data-preset="glass"] .glass{backdrop-filter:blur(30px) saturate(190%);-webkit-backdrop-filter:blur(30px) saturate(190%);background:color-mix(in srgb,var(--panel2) 58%,transparent)}
+html[data-preset="minimal"] .glass::before,html[data-preset="minimal"] .glass::after,html[data-preset="simple"] .glass::before,html[data-preset="simple"] .glass::after{display:none}
+html[data-preset="minimal"] .fx-blob,html[data-preset="simple"] .fx-blob{opacity:.12}
+html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.01ms!important;scroll-behavior:auto}
+</style>
+
 </head>  
 <body>  
 <div class="app-container">  
@@ -596,6 +614,27 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   <div class="settings-group"><b>تعداد ستون آیکون‌ها</b><select id="settingsColumns" class="model-select"><option value="3">۳ ستون</option><option value="4">۴ ستون</option><option value="5">۵ ستون</option></select></div>
   <div class="settings-group"><b>حرکت و جلوه‌ها</b><button id="settingsMotion" class="button secondary" type="button">روشن / خاموش کردن افکت‌ها</button><p class="extra-muted">برای کاهش مصرف باتری و حرکت کمتر، افکت‌ها را خاموش کن.</p></div>
   <div class="settings-actions"><button id="settingsReset" class="button secondary" type="button">بازنشانی شخصی‌سازی</button><button class="button" type="button" data-settings-close>بستن</button></div>
+
+  <div class="settings-group theme-studio">
+   <b>استودیو تم MYSPACE</b>
+   <p class="extra-muted">یکی از ۸ ظاهر را انتخاب کن؛ تغییرات فوراً نمایش داده و ذخیره می‌شوند.</p>
+   <button id="themeStudioToggle" class="button secondary full" type="button">خاموش کردن تم انتخابی</button>
+   <div class="theme-presets" id="themePresets">
+    <button type="button" data-preset="cosmic"><i style="--sw1:#8b5cf6;--sw2:#38bdf8"></i>Cosmic</button>
+    <button type="button" data-preset="cyberpunk"><i style="--sw1:#f000b8;--sw2:#00e5ff"></i>Cyberpunk</button>
+    <button type="button" data-preset="minimal"><i style="--sw1:#64748b;--sw2:#cbd5e1"></i>Minimal</button>
+    <button type="button" data-preset="emerald"><i style="--sw1:#10b981;--sw2:#064e3b"></i>Emerald</button>
+    <button type="button" data-preset="sunset"><i style="--sw1:#fb7185;--sw2:#f59e0b"></i>Sunset</button>
+    <button type="button" data-preset="glass"><i style="--sw1:#93c5fd;--sw2:#c4b5fd"></i>شیشه‌ای</button>
+    <button type="button" data-preset="pastel"><i style="--sw1:#f9a8d4;--sw2:#a7f3d0"></i>پاستیلی</button>
+    <button type="button" data-preset="simple"><i style="--sw1:#94a3b8;--sw2:#475569"></i>ساده</button>
+   </div>
+   <label for="fontSizeControl">اندازه نوشته‌ها: <output id="fontSizeValue">۱۰۰٪</output></label>
+   <input id="fontSizeControl" type="range" min="85" max="125" step="5" value="100">
+   <label for="fontFamilyControl">نوع فونت</label>
+   <select id="fontFamilyControl" class="model-select"><option value="Vazirmatn">وزیرمتن</option><option value="Tahoma">Tahoma</option><option value="Arial">Arial</option><option value="system-ui">System UI</option></select>
+   <div class="updates-box"><b>آخرین به‌روزرسانی‌ها</b><ul><li>اضافه‌شدن ۸ تم قابل انتخاب</li><li>کلید روشن/خاموش تم‌ها و ذخیره انتخاب</li><li>تنظیم اندازه و نوع فونت</li><li>حفظ تنظیمات پس از تازه‌سازی صفحه</li></ul><small>نسخه ۲.۰ — استودیو شخصی‌سازی</small></div>
+  </div>
   <div id="settingsStatus" class="status" role="status" aria-live="polite"></div>
  </section>
 </div>
@@ -1283,6 +1322,46 @@ document.addEventListener("click", function(event) {
   });
  });
  observer.observe(document.body,{childList:true,subtree:true});
+})();
+</script>
+
+
+<script>
+/* MYSPACE Theme Studio, typography and release notes */
+(()=> {
+ const root=document.documentElement, $=id=>document.getElementById(id);
+ const storeKey="myspace_theme_studio_v1";
+ const presets={
+  cosmic:["#8b5cf6","#38bdf8","#6366f1","#0ea5e9"],
+  cyberpunk:["#f000b8","#00e5ff","#701a75","#164e63"],
+  minimal:["#64748b","#cbd5e1","#94a3b8","#475569"],
+  emerald:["#10b981","#34d399","#065f46","#064e3b"],
+  sunset:["#fb7185","#f59e0b","#be185d","#ea580c"],
+  glass:["#93c5fd","#c4b5fd","#60a5fa","#a78bfa"],
+  pastel:["#f9a8d4","#a7f3d0","#fbcfe8","#bfdbfe"],
+  simple:["#94a3b8","#475569","#64748b","#334155"]
+ };
+ let state={preset:"cosmic",enabled:true,fontSize:100,font:"Vazirmatn"};
+ try{state={...state,...JSON.parse(localStorage.getItem(storeKey)||"{}")}}catch{}
+ const save=()=>{try{localStorage.setItem(storeKey,JSON.stringify(state))}catch{}};
+ function apply(){
+  const p=presets[state.preset]||presets.cosmic;
+  if(state.enabled){root.dataset.preset=state.preset;root.style.setProperty("--purple",p[0]);root.style.setProperty("--blue",p[1]);root.style.setProperty("--blob1",p[2]);root.style.setProperty("--blob2",p[3])}
+  else{delete root.dataset.preset;root.style.removeProperty("--purple");root.style.removeProperty("--blue");root.style.removeProperty("--blob1");root.style.removeProperty("--blob2")}
+  root.style.setProperty("--myspace-font-size",(state.fontSize||100)+"%");
+  root.style.setProperty("--myspace-font-family",'"'+(state.font||"Vazirmatn")+'"');
+  const toggle=$("themeStudioToggle");if(toggle)toggle.textContent=state.enabled?"خاموش کردن تم انتخابی":"روشن کردن تم انتخابی";
+  const size=$("fontSizeControl"),value=$("fontSizeValue"),font=$("fontFamilyControl");
+  if(size)size.value=state.fontSize||100;if(value)value.textContent=(state.fontSize||100)+"٪";if(font)font.value=state.font||"Vazirmatn";
+  document.querySelectorAll("[data-preset]").forEach(b=>b.classList.toggle("active",b.dataset.preset===state.preset&&state.enabled));
+ }
+ const grid=$("themePresets");
+ if(grid)grid.addEventListener("click",e=>{const b=e.target.closest("[data-preset]");if(!b)return;state.preset=b.dataset.preset;state.enabled=true;save();apply()});
+ if($("themeStudioToggle"))$("themeStudioToggle").onclick=()=>{state.enabled=!state.enabled;save();apply()};
+ if($("fontSizeControl"))$("fontSizeControl").oninput=e=>{state.fontSize=Number(e.target.value);save();apply()};
+ if($("fontFamilyControl"))$("fontFamilyControl").onchange=e=>{state.font=e.target.value;save();apply()};
+ apply();
+ const reset=$("settingsReset");if(reset)reset.addEventListener("click",()=>{state={preset:"cosmic",enabled:true,fontSize:100,font:"Vazirmatn"};save();apply()});
 })();
 </script>
 
