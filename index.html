@@ -1126,8 +1126,11 @@ document.addEventListener("click", function(event) {
 (()=>{
  const $=id=>document.getElementById(id), safe=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d))}catch{return d}};
  const faDate=()=>new Date().toLocaleDateString('fa-IR',{weekday:'long',day:'numeric',month:'long'});
- function refresh(){const n=new Date();$('widgetClock').textContent=n.toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});$('widgetDate').textContent=faDate();const notes=safe('myspace_notes_v1',[]),events=safe('myspace_events_v1',[]);$('widgetNotes').textContent=String(notes.length).replace(/\\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);$('widgetEvents').textContent=String(events.filter(e=>e.date&&new Date(e.date)>=new Date(new Date().toDateString())).length).replace(/\\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);}
- refresh();setInterval(refresh,30000);$('widgetRefresh').onclick=refresh;\n const widget=$('widgetContent').parentElement,toggle=$('widgetToggle');\n widget.classList.add('is-collapsed');\n toggle.addEventListener('click',()=>{const collapsed=widget.classList.toggle('is-collapsed');toggle.textContent=collapsed?'⌄':'⌃';toggle.setAttribute('aria-expanded',String(!collapsed));toggle.title=collapsed?'باز کردن ویجت‌ها':'بستن ویجت‌ها'});
+ function refresh(){const n=new Date();$('widgetClock').textContent=n.toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});$('widgetDate').textContent=faDate();const notes=safe('myspace_notes_v1',[]),events=safe('myspace_events_v1',[]);$('widgetNotes').textContent=String(notes.length).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);$('widgetEvents').textContent=String(events.filter(e=>e.date&&new Date(e.date)>=new Date(new Date().toDateString())).length).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);}
+ refresh();setInterval(refresh,30000);$('widgetRefresh').onclick=refresh;
+ const widget=$('widgetContent').parentElement,toggle=$('widgetToggle');
+ widget.classList.add('is-collapsed');
+ toggle.addEventListener('click',()=>{const collapsed=widget.classList.toggle('is-collapsed');toggle.textContent=collapsed?'⌄':'⌃';toggle.setAttribute('aria-expanded',String(!collapsed));toggle.title=collapsed?'باز کردن ویجت‌ها':'بستن ویجت‌ها'});
  $('widgetWeather').onclick=()=>{const b=document.querySelector('[data-open-app="weatherApp"]');if(b)b.click()};
  $('appSearch').addEventListener('input',e=>{const q=e.target.value.trim().toLocaleLowerCase();document.querySelectorAll('.app-grid .app-tile').forEach(tile=>{tile.classList.toggle('is-filtered',q&&!tile.textContent.toLocaleLowerCase().includes(q))})});
  const profile=safe('myspace_profile_v1',{name:'علی',avatar:'👤'});
