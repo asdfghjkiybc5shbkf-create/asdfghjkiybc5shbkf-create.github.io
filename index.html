@@ -1365,5 +1365,54 @@ document.addEventListener("click", function(event) {
 })();
 </script>
 
+
+<style>
+/* MYSPACE app interaction polish */
+.app-window{gap:14px;padding:clamp(14px,3.5vw,22px);scrollbar-width:thin;scrollbar-color:var(--purple) transparent}
+.app-window::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 85% 0%,color-mix(in srgb,var(--purple) 13%,transparent),transparent 42%),radial-gradient(ellipse at 0% 100%,color-mix(in srgb,var(--blue) 10%,transparent),transparent 40%)}
+.app-window .aw-bar{margin:0 -2px 4px;padding:10px 2px 14px;border-bottom:1px solid var(--line);border-radius:0 0 16px 16px}
+.aw-title{font-size:16px;letter-spacing:-.2px}
+.app-window .aw-bar .icon-button{width:42px;height:42px;font-size:18px}
+.app-window>p{line-height:1.9}
+.app-window section,.app-window .notes-compose,.app-window .calendar-compose,.app-window .weather-section,.app-window .ai-hist{box-shadow:0 10px 28px rgba(0,0,0,.08)}
+.app-window input:not([type=checkbox]):not([type=file]),.app-window textarea,.app-window select{min-height:44px;border-radius:14px;background:color-mix(in srgb,var(--panel2) 88%,transparent);border:1px solid var(--line);padding:11px 13px;color:var(--text);transition:border-color .2s,box-shadow .2s,background .2s}
+.app-window input:focus,.app-window textarea:focus,.app-window select:focus{border-color:var(--purple);box-shadow:0 0 0 3px color-mix(in srgb,var(--purple) 16%,transparent);outline:0}
+.app-window .button{min-height:43px;border-radius:14px;font-size:13px;letter-spacing:0;box-shadow:0 6px 16px color-mix(in srgb,var(--purple) 16%,transparent)}
+.app-window .button.secondary{background:var(--panel2);box-shadow:none}
+.app-window .tag{padding:5px 11px;border-radius:999px;background:color-mix(in srgb,var(--purple) 10%,var(--panel));}
+.app-window .notes-banner,.app-window .calendar-banner{border-radius:23px;padding:19px;box-shadow:0 12px 28px rgba(0,0,0,.08)}
+.notes-compose,.calendar-compose,.weather-section,.ai-hist{border-radius:19px}
+.notes-compose-title,.calendar-compose>b,.notes-list-head>b,.weather-section-title{font-size:14px}
+.extra-list{gap:10px}
+.extra-row{border-radius:16px;padding:13px 14px;background:color-mix(in srgb,var(--panel2) 80%,transparent);transition:transform .18s,border-color .18s,background .18s}
+.extra-row:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--purple) 45%,var(--line));background:var(--panel2)}
+.extra-row .button{min-height:36px}
+.ai-log{padding:10px 4px;scrollbar-width:thin}
+.ai-msg.user{border-radius:18px 18px 5px 18px;box-shadow:0 5px 14px rgba(0,0,0,.1)}
+.ai-msg.assistant{padding:10px 13px;border:1px solid var(--line);border-radius:17px 17px 5px 17px;background:var(--panel)}
+.ai-form{padding:7px;border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.ai-form textarea{border:0!important;background:transparent!important;box-shadow:none!important}
+.ai-form textarea:focus{outline:0!important}
+.ai-form .button{border-radius:13px}
+.gallery-grid{gap:13px}
+.gallery-item{padding:8px;border:1px solid var(--line);border-radius:17px;background:var(--panel);overflow:hidden}
+.gallery-item img{border-radius:12px}
+.gallery-item .button{width:100%;margin-top:3px}
+.weather-hero{border-radius:28px}
+.weather-stats>div{border:1px solid color-mix(in srgb,var(--line) 75%,transparent);border-radius:13px}
+.weather-hour{border:1px solid var(--line);border-radius:15px}
+.weather-day{border:1px solid var(--line);border-radius:14px}
+.music-art{border-radius:30px}
+.music-screen audio{width:100%;border-radius:14px}
+.music-pick{border-radius:16px;transition:background .2s,transform .2s}
+.music-pick:active{transform:scale(.985)}
+.extra-app{border-radius:15px;min-height:48px;padding:12px 14px;transition:transform .18s,border-color .18s,background .18s}
+.extra-app:hover{transform:translateY(-2px);border-color:var(--purple);background:var(--panel2)}
+.model-select{min-height:44px;border-radius:14px}
+.app-window button:focus-visible,.app-window [tabindex]:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+@media(max-width:420px){.app-window{gap:12px}.app-window .aw-bar{padding-bottom:10px}.app-window .aw-title{font-size:15px}.notes-banner,.calendar-banner{padding:15px}}
+@media(prefers-reduced-motion:reduce){.app-window .extra-row,.app-window .extra-app,.app-window .music-pick{transition:none}}
+</style>
+
 </body>
 </html>
