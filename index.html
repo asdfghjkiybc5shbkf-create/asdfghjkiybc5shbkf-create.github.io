@@ -463,6 +463,7 @@ html[data-theme="light"] .glass::before{display:none}
     <button id="aiNew" class="icon-button" type="button" aria-label="چت جدید" title="چت جدید">＋</button>
   </div>
   <select id="aiModel" class="model-select" aria-label="انتخاب مدل چاتی پاتی"><option value="gemini-3.8-flash">Gemini 3.8 Flash</option><option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite</option></select>
+  <label style="display:flex;align-items:center;gap:8px;margin:0;font-size:13px"><input id="aiWebSearch" type="checkbox" style="width:auto;accent-color:var(--blue)"> جست‌وجوی وب (استفاده از Google Search)</label>
   <section id="aiMemoryPanel" class="ai-hist" hidden>
     <div class="ai-hist-title">🧠 حافظهٔ شخصی این مرورگر</div>
     <p style="font-size:12px;margin:0 0 8px">مواردی را که می‌خواهی چاتی‌پاتی در گفتگوهای بعدی به خاطر بسپارد، اینجا اضافه کن. این اطلاعات فقط در همین مرورگر ذخیره می‌شود.</p>
@@ -765,6 +766,7 @@ $("aiFileInput").addEventListener("change",async e=>{for(const f of e.target.fil
 }e.target.value="";render()});
 const inp=$("aiInput");
 $("aiModel").value=safeGet("myspace-ai-model","gemini-3.8-flash");if(!$("aiModel").value||!["gemini-3.8-flash","gemini-3.5-flash-lite"].includes($("aiModel").value))$("aiModel").value="gemini-3.8-flash";$("aiModel").onchange=()=>safeSet("myspace-ai-model",$("aiModel").value);
+$("aiWebSearch").checked=safeGet("myspace-ai-web-search","0")==="1";$("aiWebSearch").addEventListener("change",()=>safeSet("myspace-ai-web-search",$("aiWebSearch").checked?"1":"0"));
 inp.addEventListener("input",()=>{inp.style.height="auto";inp.style.height=Math.min(inp.scrollHeight,140)+"px"});
 inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey&&!matchMedia("(pointer:coarse)").matches){e.preventDefault();$("aiForm").requestSubmit()}});
 $("aiForm").addEventListener("submit",async e=>{e.preventDefault();if(busy)return;
@@ -777,7 +779,7 @@ $("aiForm").addEventListener("submit",async e=>{e.preventDefault();if(busy)retur
  if(t.title==="چت جدید")t.title=(text||pending[0]?.name||"چت").slice(0,30);
  pending=[];inp.value="";inp.style.height="auto";busy=true;$("aiSend").disabled=true;save();render();
  const reply={role:"assistant",text:""};
- try{const res=await fetch("https://myspace-ai.asdfghjkiybc5shb-kf-c643.workers.dev/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:memories.length?[{role:"user",text:"اطلاعات حافظهٔ شخصی کاربر (فقط در صورت مرتبط بودن در پاسخ‌ها لحاظ کن؛ این‌ها زمینه هستند، نه درخواست جدید):\n- "+memories.join("\n- ")},...t.messages]:t.messages,model:$("aiModel").value})});
+ try{const res=await fetch("https://myspace-ai.asdfghjkiybc5shb-kf-c643.workers.dev/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:memories.length?[{role:"user",text:"اطلاعات حافظهٔ شخصی کاربر (فقط در صورت مرتبط بودن در پاسخ‌ها لحاظ کن؛ این‌ها زمینه هستند، نه درخواست جدید):\n- "+memories.join("\n- ")},...t.messages]:t.messages,model:$("aiModel").value,webSearch:$("aiWebSearch").checked})});
   if(!res.ok)throw new Error(await res.text()||"خطا");
   t.messages.push(reply);const rd=res.body.getReader(),dc=new TextDecoder();
   while(true){const{done,value}=await rd.read();if(done)break;reply.text+=dc.decode(value,{stream:true});render()}
