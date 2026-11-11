@@ -603,8 +603,8 @@ footer{color:#ffffff9c!important}
 .boot-mark{width:76px;height:76px;color:#f7f9ff;filter:drop-shadow(0 0 22px #7eb5ff66);animation:bootPulse 2.2s ease-in-out infinite}
 .boot-mark svg{width:100%;height:100%}
 .boot-name{font:600 12px/1.2 -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:5px;margin-top:23px;color:#e8efff}
-.boot-loader{height:3px;width:82px;border-radius:9px;background:#ffffff25;overflow:hidden;margin-top:34px}
-.boot-loader i{display:block;width:38%;height:100%;border-radius:9px;background:#eaf2ff;animation:bootLoad 1.25s ease-in-out infinite}
+.boot-loader{height:3px;width:112px;border-radius:9px;background:#ffffff25;overflow:hidden;margin-top:34px}
+.boot-loader i{display:block;width:38%;height:100%;border-radius:9px;background:#eaf2ff;animation:bootLoad 1.65s ease-in-out infinite}
 @keyframes bootAppear{from{opacity:0;transform:translateY(8px) scale(.94)}to{opacity:1;transform:translateY(-2vh) scale(1)}}
 @keyframes bootPulse{0%,100%{opacity:.78;transform:scale(.97)}50%{opacity:1;transform:scale(1.03)}}
 @keyframes bootLoad{0%{transform:translateX(-110%)}100%{transform:translateX(300%)}}
@@ -1172,7 +1172,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('.button,.icon-bu
 </script>
 
 <script>
-(()=>{const boot=document.getElementById("iosBoot");if(!boot)return;const hide=()=>setTimeout(()=>boot.classList.add("boot-hidden"),950);if(document.readyState==="complete")hide();else window.addEventListener("load",hide,{once:true});setTimeout(()=>boot.classList.add("boot-hidden"),6500);})();
+(()=>{const boot=document.getElementById("iosBoot");if(!boot)return;const started=Date.now();let loaded=document.readyState==="complete";const finish=()=>{loaded=true;const wait=Math.max(0,2800-(Date.now()-started));setTimeout(()=>boot.classList.add("boot-hidden"),wait)};if(loaded)finish();else window.addEventListener("load",finish,{once:true});setTimeout(()=>boot.classList.add("boot-hidden"),8000);})();
 </script>
 </body>
 </html>
