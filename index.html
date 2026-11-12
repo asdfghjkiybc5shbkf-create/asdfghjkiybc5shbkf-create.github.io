@@ -579,7 +579,7 @@ html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.0
  .app-window{position:fixed!important;inset:12px!important;width:auto!important;max-width:none!important;height:calc(100dvh - 24px)!important;max-height:calc(100dvh - 24px)!important;min-height:0!important;transform:none!important;margin:0!important;border-radius:22px!important;overflow-y:auto!important;overscroll-behavior:contain;}
 }
 </style>
-</head>  
+<style id="ai-back-button-visibility">#aiApp .ai-back-button{display:inline-flex!important;align-items:center;justify-content:center;gap:7px;flex:none;min-width:92px;min-height:42px;padding:7px 12px!important;font-size:13px!important;position:relative;z-index:12}#aiApp .ai-back-button span:first-child{font-size:20px;line-height:1}#aiApp .aw-bar{flex-wrap:nowrap!important}#aiApp .aw-title{min-width:0;overflow-wrap:anywhere}@media(max-width:420px){#aiApp .ai-back-button{min-width:82px;padding:6px 9px!important}#aiApp .ai-back-button span:last-child{font-size:12px}}</style>\n</head>  
 <body>  
 <div class="app-container">  
   <header class="wrap statusbar">
@@ -632,7 +632,7 @@ html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.0
 
 <div id="aiApp" class="app-window" hidden>
   <div class="aw-bar">
-    <button id="aiBack" class="icon-button" type="button" aria-label="بازگشت">→</button>
+    <button id="aiBack" class="button secondary ai-back-button" type="button" aria-label="بازگشت"><span aria-hidden="true">←</span><span data-fa="بازگشت">بازگشت</span></button>
     <div class="aw-title">💬 چاتی پاتی</div>
     <button id="aiNew" class="icon-button" type="button" aria-label="چت جدید" title="چت جدید">＋</button>
   </div>
@@ -714,7 +714,7 @@ html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.0
    <input id="fontSizeControl" type="range" min="85" max="125" step="5" value="100">
    <label for="fontFamilyControl">نوع فونت</label>
    <select id="fontFamilyControl" class="model-select"><option value="Vazirmatn">وزیرمتن</option><option value="Tahoma">Tahoma</option><option value="Arial">Arial</option><option value="system-ui">System UI</option></select>
-   <div class="updates-box"><b>آخرین به‌روزرسانی‌ها</b><ul><li>اضافه‌شدن ۸ تم قابل انتخاب</li><li>کلید روشن/خاموش تم‌ها و ذخیره انتخاب</li><li>تنظیم اندازه و نوع فونت</li><li>حفظ تنظیمات پس از تازه‌سازی صفحه</li></ul><small>نسخه ۲.۰ — استودیو شخصی‌سازی</small></div>
+   <div class="updates-box" id="releaseNotes"><b>آخرین به‌روزرسانی‌ها</b><ul><li>بهینه‌سازی چیدمان موبایل و پنجره برنامه‌ها</li><li>افزودن دکمه بازگشت واضح به چاتی‌پاتی</li><li>بهبود ترجمه انگلیسی بخش‌ها و پیام‌های پویا</li><li>نمایش فهرست تغییرات نسخه در همین قسمت</li><li>۸ تم قابل انتخاب و تنظیم اندازه و نوع فونت</li><li>ذخیره تنظیمات و انتخاب زبان در مرورگر</li></ul><small>نسخه ۲.۱ — بهبود تجربه کاربری و زبان</small></div>
   </div>
   <div id="settingsStatus" class="status" role="status" aria-live="polite"></div>
  </section>
