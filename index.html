@@ -732,7 +732,7 @@ html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.0
    <input id="fontSizeControl" type="range" min="85" max="125" step="5" value="100">
    <label for="fontFamilyControl">نوع فونت</label>
    <select id="fontFamilyControl" class="model-select"><option value="Vazirmatn">وزیرمتن</option><option value="Tahoma">Tahoma</option><option value="Arial">Arial</option><option value="system-ui">System UI</option></select>
-   <div class="updates-box" id="releaseNotes"><b>آخرین به‌روزرسانی‌ها</b><ul><li>بهینه‌سازی چیدمان موبایل و پنجره برنامه‌ها</li><li>افزودن دکمه بازگشت واضح به چاتی‌پاتی</li><li>بهبود ترجمه انگلیسی بخش‌ها و پیام‌های پویا</li><li>نمایش فهرست تغییرات نسخه در همین قسمت</li><li>۸ تم قابل انتخاب و تنظیم اندازه و نوع فونت</li><li>ذخیره تنظیمات و انتخاب زبان در مرورگر</li></ul><small>نسخه ۲.۱ — بهبود تجربه کاربری و زبان</small></div>
+   <div class="updates-box" id="releaseNotes"><b>آخرین به‌روزرسانی‌ها</b><ul><li>بهینه‌سازی چیدمان موبایل و نمایش تمام‌صفحه برنامه‌ها</li><li>جلوگیری از بازماندن و روی‌هم‌افتادن چند برنامه</li><li>افزودن دکمه بازگشت واضح به چاتی‌پاتی</li><li>بهبود ترجمه انگلیسی بخش‌ها و پیام‌های پویا</li><li>نمایش فهرست تغییرات نسخه در همین قسمت</li><li>۸ تم قابل انتخاب و تنظیم اندازه و نوع فونت</li><li>ذخیره تنظیمات و انتخاب زبان در مرورگر</li></ul><small>نسخه ۲.۱ — بهبود تجربه کاربری و زبان</small></div>
   </div>
   <div id="settingsStatus" class="status" role="status" aria-live="polite"></div>
  </section>
@@ -1399,7 +1399,9 @@ document.addEventListener("click", function(event) {
  "خروج از حساب":"Sign out","پنل ادمین":"Admin panel","چت‌های ذخیره‌شده":"Saved chats","کل پیام‌ها":"Total messages",
  "پاک‌کردن تاریخچه چت‌های این دستگاه":"Clear chat history on this device",
  "اضافه‌شدن ۸ تم قابل انتخاب":"Added 8 selectable themes","تنظیم اندازه و نوع فونت":"Font size and family controls",
- "حفظ تنظیمات پس از تازه‌سازی صفحه":"Settings persist after refresh"
+ "حفظ تنظیمات پس از تازه‌سازی صفحه":"Settings persist after refresh",
+ "بهینه‌سازی چیدمان موبایل و نمایش تمام‌صفحه برنامه‌ها":"Mobile layout and full-screen app views",
+ "جلوگیری از بازماندن و روی‌هم‌افتادن چند برنامه":"Prevented multiple apps from remaining open and overlapping"
  };
  const attrs=["placeholder","title","aria-label"];
  const originals=new WeakMap();
