@@ -572,13 +572,11 @@ html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.0
 </style>
 
 <style id="myspace-touch-desktop-viewport-fix">
-/* Keep the phone-sized workspace usable when a mobile browser requests Desktop Site. */
-@media (pointer:coarse) and (max-height:1100px){
- html,body{min-height:100%;}
+/* Desktop-site mode on touch devices: only activate when the CSS viewport is desktop-sized. */
+@media (pointer:coarse) and (min-width:600px) and (max-height:1100px){
  body{padding:0!important;}
- .app-container{width:min(400px,calc(100vw - 24px))!important;max-width:calc(100vw - 24px)!important;min-height:0!important;height:auto!important;margin:12px auto!important;padding:12px!important;overflow:visible!important;border-radius:30px!important;}
- .app-window{position:fixed!important;inset:12px!important;top:12px!important;left:12px!important;right:12px!important;width:auto!important;max-width:none!important;height:calc(100dvh - 24px)!important;max-height:calc(100dvh - 24px)!important;min-height:0!important;transform:none!important;margin:0!important;border-radius:26px!important;overflow-y:auto!important;overscroll-behavior:contain;}
- .app-window::before{position:absolute!important;inset:0!important;}
+ .app-container{width:min(520px,100%)!important;max-width:520px!important;min-height:100dvh!important;margin:0 auto!important;border:0!important;border-radius:0!important;padding:14px!important;overflow:visible!important;}
+ .app-window{position:fixed!important;inset:12px!important;width:auto!important;max-width:none!important;height:calc(100dvh - 24px)!important;max-height:calc(100dvh - 24px)!important;min-height:0!important;transform:none!important;margin:0!important;border-radius:22px!important;overflow-y:auto!important;overscroll-behavior:contain;}
 }
 </style>
 </head>  
