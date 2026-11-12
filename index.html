@@ -597,6 +597,30 @@ html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.0
  .overlay-panel{width:100%;max-height:calc(100dvh - 20px);padding:22px 16px}
 }
 </style>
+<style id="myspace-back-controls-visible-v4">
+/* Keep navigation controls visible above app content on every screen size. */
+.app-window .aw-bar{display:flex!important;align-items:center!important;gap:10px!important;min-height:54px!important;flex:0 0 auto!important;position:sticky!important;top:0!important;z-index:999!important;overflow:visible!important;padding:8px 2px 12px!important}
+.app-window .aw-bar button#aiBack,
+.app-window .aw-bar button#galleryBack,
+.app-window .aw-bar button[data-close]{
+ display:inline-flex!important;visibility:visible!important;opacity:1!important;
+ position:relative!important;z-index:1000!important;flex:0 0 auto!important;
+ align-items:center!important;justify-content:center!important;
+ min-width:46px!important;width:auto!important;min-height:44px!important;height:44px!important;
+ padding:0 12px!important;margin:0!important;transform:none!important;
+ color:var(--text)!important;background:var(--panel2)!important;
+ border:1px solid var(--line)!important;border-radius:13px!important;
+ font-size:14px!important;font-weight:800!important;line-height:1.2!important;
+ box-shadow:0 3px 12px rgba(0,0,0,.18)!important;cursor:pointer!important;
+}
+.app-window .aw-bar button#aiBack{min-width:94px!important;gap:7px!important}
+.app-window .aw-bar button#aiBack span{display:inline!important;visibility:visible!important;opacity:1!important}
+.app-window .aw-title{display:block!important;visibility:visible!important;opacity:1!important;min-width:0!important;flex:1 1 auto!important}
+@media(max-width:599px){
+ .app-window .aw-bar{min-height:58px!important;padding-top:8px!important}
+ .app-window .aw-bar button#aiBack{min-width:92px!important}
+}
+</style>
 </head>  
 <body>  
 <div class="app-container">  
@@ -732,7 +756,7 @@ html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.0
    <input id="fontSizeControl" type="range" min="85" max="125" step="5" value="100">
    <label for="fontFamilyControl">نوع فونت</label>
    <select id="fontFamilyControl" class="model-select"><option value="Vazirmatn">وزیرمتن</option><option value="Tahoma">Tahoma</option><option value="Arial">Arial</option><option value="system-ui">System UI</option></select>
-   <div class="updates-box" id="releaseNotes"><b>آخرین به‌روزرسانی‌ها</b><ul><li>بهینه‌سازی چیدمان موبایل و نمایش تمام‌صفحه برنامه‌ها</li><li>جلوگیری از بازماندن و روی‌هم‌افتادن چند برنامه</li><li>افزودن دکمه بازگشت واضح به چاتی‌پاتی</li><li>بهبود ترجمه انگلیسی بخش‌ها و پیام‌های پویا</li><li>نمایش فهرست تغییرات نسخه در همین قسمت</li><li>۸ تم قابل انتخاب و تنظیم اندازه و نوع فونت</li><li>ذخیره تنظیمات و انتخاب زبان در مرورگر</li></ul><small>نسخه ۲.۱ — بهبود تجربه کاربری و زبان</small></div>
+   <div class="updates-box" id="releaseNotes"><b>آخرین به‌روزرسانی‌ها</b><ul><li>بهینه‌سازی چیدمان موبایل و نمایش تمام‌صفحه برنامه‌ها</li><li>نمایش واضح‌تر دکمه‌های بازگشت در سربرگ همه برنامه‌ها</li><li>جلوگیری از بازماندن و روی‌هم‌افتادن چند برنامه</li><li>افزودن دکمه بازگشت واضح به چاتی‌پاتی</li><li>بهبود ترجمه انگلیسی بخش‌ها و پیام‌های پویا</li><li>نمایش فهرست تغییرات نسخه در همین قسمت</li><li>۸ تم قابل انتخاب و تنظیم اندازه و نوع فونت</li><li>ذخیره تنظیمات و انتخاب زبان در مرورگر</li></ul><small>نسخه ۲.۱ — بهبود تجربه کاربری و زبان</small></div>
   </div>
   <div id="settingsStatus" class="status" role="status" aria-live="polite"></div>
  </section>
@@ -1401,7 +1425,8 @@ document.addEventListener("click", function(event) {
  "اضافه‌شدن ۸ تم قابل انتخاب":"Added 8 selectable themes","تنظیم اندازه و نوع فونت":"Font size and family controls",
  "حفظ تنظیمات پس از تازه‌سازی صفحه":"Settings persist after refresh",
  "بهینه‌سازی چیدمان موبایل و نمایش تمام‌صفحه برنامه‌ها":"Mobile layout and full-screen app views",
- "جلوگیری از بازماندن و روی‌هم‌افتادن چند برنامه":"Prevented multiple apps from remaining open and overlapping"
+ "جلوگیری از بازماندن و روی‌هم‌افتادن چند برنامه":"Prevented multiple apps from remaining open and overlapping",
+ "نمایش واضح‌تر دکمه‌های بازگشت در سربرگ همه برنامه‌ها":"Made back buttons clearly visible in every app header"
  };
  const attrs=["placeholder","title","aria-label"];
  const originals=new WeakMap();
