@@ -4,7 +4,8 @@
 <meta charset="UTF-8">  
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">  
 <meta name="theme-color" content="#080a12">  
-<title>فضای شخصی علی | MYSPACE</title>  
+<title>فضای شخصی علی | MYSPACE</title>
+<script>window.mysLoc=function(){return document.documentElement.lang==="en"?"en-US":"fa-IR"};try{if(localStorage.getItem("myspace_language")==="en"){document.documentElement.lang="en";document.documentElement.dir="ltr"}}catch(e){}</script>  
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/vendor/katex/katex.min.css"><script src="/vendor/katex/katex.min.js"></script>
 <style>  
@@ -446,8 +447,7 @@ html[data-theme="light"] .glass::before{display:none}
  .app-icon{width:clamp(52px,15vw,62px);height:clamp(52px,15vw,62px);border-radius:17px;font-size:25px}
  .app-tile{font-size:11px}
  .home-hello{padding:17px}
- .home-hello h1{font-size:25px}
- .app-window{padding-left:10px;padding-right:10px}
+ .home-hello h1{font-size:25px} .app-window{padding-left:10px;padding-right:10px}
  .aw-bar{min-height:44px}
  .icon-button{min-width:42px;min-height:42px}
  .button{min-height:42px}
@@ -579,7 +579,8 @@ html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.0
  .app-window{position:fixed!important;inset:12px!important;width:auto!important;max-width:none!important;height:calc(100dvh - 24px)!important;max-height:calc(100dvh - 24px)!important;min-height:0!important;transform:none!important;margin:0!important;border-radius:22px!important;overflow-y:auto!important;overscroll-behavior:contain;}
 }
 </style>
-<style id="ai-back-button-visibility">#aiApp .ai-back-button{display:inline-flex!important;align-items:center;justify-content:center;gap:7px;flex:none;min-width:92px;min-height:42px;padding:7px 12px!important;font-size:13px!important;position:relative;z-index:12}#aiApp .ai-back-button span:first-child{font-size:20px;line-height:1}#aiApp .aw-bar{flex-wrap:nowrap!important}#aiApp .aw-title{min-width:0;overflow-wrap:anywhere}@media(max-width:420px){#aiApp .ai-back-button{min-width:82px;padding:6px 9px!important}#aiApp .ai-back-button span:last-child{font-size:12px}}</style>\n<style id="myspace-mobile-app-flow-v3">
+<style id="ai-back-button-visibility">#aiApp .ai-back-button{display:inline-flex!important;align-items:center;justify-content:center;gap:7px;flex:none;min-width:92px;min-height:42px;padding:7px 12px!important;font-size:13px!important;position:relative;z-index:12}#aiApp .ai-back-button span:first-child{font-size:20px;line-height:1}#aiApp .aw-bar{flex-wrap:nowrap!important}#aiApp .aw-title{min-width:0;overflow-wrap:anywhere}@media(max-width:420px){#aiApp .ai-back-button{min-width:82px;padding:6px 9px!important}#aiApp .ai-back-button span:last-child{font-size:12px}}</style>
+<style id="myspace-mobile-app-flow-v3">
 /* Real mobile layout: one app at a time, full viewport, no nested phone frame. */
 @media (max-width: 599px), (pointer:coarse) and (max-height: 1100px) {
  html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden}
@@ -895,8 +896,7 @@ const wallpaperInput = $("wallpaperInput");
 let gallery=[];try{gallery=JSON.parse(safeGet("myspace-gallery","[]"))}catch{}
 function applyWallpaper(data){if(data)root.style.setProperty("--bg-image",`url("${data}")`);else root.style.removeProperty("--bg-image");safeSet("myspace-custom-wallpaper",data||"");}
 function renderGallery(){const selected=safeGet("myspace-custom-wallpaper");$("galleryGrid").replaceChildren();if(!gallery.length){const empty=document.createElement("div");empty.className="gallery-empty";empty.textContent="هنوز عکسی نیست";$("galleryGrid").append(empty)}
- gallery.forEach((item,i)=>{const cell=document.createElement("div");cell.className="gallery-item"+(selected===item.data?" selected":"");const img=document.createElement("img");img.src=item.data;img.alt=item.name;const use=document.createElement("button");use.className="button";use.textContent=selected===item.data?"✓ پس‌زمینه فعلی":"انتخاب پس‌زمینه";use.onclick=()=>{applyWallpaper(item.data);renderGallery();$("galleryStatus").textContent="تصویر پس‌زمینه اعمال شد"};const del=document.createElement("button");del.className="button secondary";del.textContent="حذف عکس";del.onclick=()=>{if(selected===item.data)applyWallpaper(null);gallery.splice(i,1);safeSet("myspace-gallery",JSON.stringify(gallery));renderGallery()};cell.append(img,use,del);$("galleryGrid").append(cell)});
-}
+ gallery.forEach((item,i)=>{const cell=document.createElement("div");cell.className="gallery-item"+(selected===item.data?" selected":"");const img=document.createElement("img");img.src=item.data;img.alt=item.name;const use=document.createElement("button");use.className="button";use.textContent=selected===item.data?"✓ پس‌زمینه فعلی":"انتخاب پس‌زمینه";use.onclick=()=>{applyWallpaper(item.data);renderGallery();$("galleryStatus").textContent="تصویر پس‌زمینه اعمال شد"};const del=document.createElement("button");del.className="button secondary";del.textContent="حذف عکس";del.onclick=()=>{if(selected===item.data)applyWallpaper(null);gallery.splice(i,1);safeSet("myspace-gallery",JSON.stringify(gallery));renderGallery()};cell.append(img,use,del);$("galleryGrid").append(cell)});}
 $("galleryBtn").onclick=()=>{document.querySelectorAll(".app-window").forEach(app=>app.hidden=true);$("galleryApp").hidden=false;document.body.classList.add("in-app");renderGallery()};
 $("galleryBack").onclick=()=>{$("galleryApp").hidden=true;document.body.classList.remove("in-app")};
 $("galleryAdd").onclick=()=>wallpaperInput.click();
@@ -911,15 +911,15 @@ function renderIsland() {
   if (islandMode === 0) {  
     $("islandIcon").textContent = "🕰️";  
     $("islandMain").dir = "ltr";  
-    $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {  
+    $("islandMain").textContent = new Intl.DateTimeFormat(mysLoc(), {  
       hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false  
     }).format(now);  
     $("islandSub").textContent = "ساعت محلی دستگاه";  
   } else {  
     $("islandIcon").textContent = "📅";  
-    $("islandMain").dir = "rtl";  
-    $("islandMain").textContent = new Intl.DateTimeFormat("fa-IR", {  
-      weekday:"long", day:"numeric", month:"long", calendar:"persian"  
+    $("islandMain").dir = document.documentElement.dir;  
+    $("islandMain").textContent = new Intl.DateTimeFormat(mysLoc(), {  
+      weekday:"long", day:"numeric", month:"long", calendar:mysLoc()==="en-US"?"gregory":"persian"  
     }).format(now);  
     $("islandSub").textContent = "تاریخ امروز";  
   }  
@@ -1009,7 +1009,7 @@ $("aiMemoryList").addEventListener("click",e=>{const i=e.target.dataset.memoryDe
 $("aiMemoryClear").addEventListener("click",()=>{if(!memories.length)return;if(confirm("همهٔ موارد حافظه پاک شوند؟")){memories=[];saveMemories();renderMemories();$("aiMemoryStatus").textContent="حافظه پاک شد."}});
 renderMemories();
 function render(){
- $("aiThreads").innerHTML=threads.map(t=>`<div class="ai-thread ${t.id===active?"on":""}"><button type="button" data-open="${t.id}">💬 ${esc(t.title)}<small>${new Date(t.updated||+parseInt(t.id,36)||Date.now()).toLocaleString("fa-IR",{dateStyle:"short",timeStyle:"short"})} · ${t.messages.length} پیام</small></button><button type="button" class="x" data-del="${t.id}" aria-label="حذف">✕</button></div>`).join("");
+ $("aiThreads").innerHTML=threads.map(t=>`<div class="ai-thread ${t.id===active?"on":""}"><button type="button" data-open="${t.id}">💬 ${esc(t.title)}<small>${new Date(t.updated||+parseInt(t.id,36)||Date.now()).toLocaleString(mysLoc(),{dateStyle:"short",timeStyle:"short"})} · ${t.messages.length} پیام</small></button><button type="button" class="x" data-del="${t.id}" aria-label="حذف">✕</button></div>`).join("");
  const t=cur();
  log.innerHTML=t.messages.length?t.messages.map(m=>`<div class="ai-msg ${m.role}">${(m.attachments||[]).map(a=>a.kind==="image"&&a.data?`<img src="${a.data}" alt="">`:`<span class="ai-chip">📄 ${esc(a.name)}</span>`).join("")}<div>${m.role==="assistant"?md(m.text):esc(m.text).replace(/\n/g,"<br>")}</div></div>`).join(""):
   `<div class="ai-empty">سلام 👋 من چاتی پاتی هستم. سؤال بپرس یا فایل بفرست.</div>`;
@@ -1085,7 +1085,7 @@ function setSession(u){
   else localStorage.removeItem(SESSION_KEY);
 }
 function isAdmin(u){return !!(u&&u.email&&u.email.toLowerCase()===ADMIN_EMAIL);}
-function fa(d){try{return d?new Date(d).toLocaleString("fa-IR",{dateStyle:"medium",timeStyle:"short"}):"—";}catch{return "—";}}
+function fa(d){try{return d?new Date(d).toLocaleString(mysLoc(),{dateStyle:"medium",timeStyle:"short"}):"—";}catch{return "—";}}
 const st=(m)=>{$("accountStatus").textContent=m||"";};
 
 function showUser(u){
@@ -1237,13 +1237,13 @@ let notes=read("myspace_notes_v1",[]),editing=null;
 function renderNotes(){const box=$("noteList");box.replaceChildren();if(!notes.length){box.textContent="هنوز یادداشتی نداری. اولین یادداشتت را ثبت کن.";$("notesCount").textContent="۰ یادداشت";return}$("notesCount").textContent=notes.length+" یادداشت";notes.forEach((n,i)=>{const row=document.createElement("div");row.className="extra-row";const t=document.createElement("span");t.textContent="✦  "+n.title+"\\n"+n.body;const edit=document.createElement("button");edit.className="button secondary";edit.textContent="ویرایش";edit.onclick=()=>{$("noteTitle").value=n.title;$("noteBody").value=n.body;editing=i};const del=document.createElement("button");del.className="button secondary";del.textContent="حذف";del.onclick=()=>{notes.splice(i,1);write("myspace_notes_v1",notes);renderNotes()};row.append(t,edit,del);box.append(row)})}
 $("noteSave").onclick=()=>{const title=$("noteTitle").value.trim(),body=$("noteBody").value.trim();if(!title&&!body)return;const item={title:title||"بدون عنوان",body};if(editing===null)notes.unshift(item);else notes[editing]=item;editing=null;if(!write("myspace_notes_v1",notes)){alert("حافظه دستگاه پر است.");return}$("noteTitle").value="";$("noteBody").value="";renderNotes()};renderNotes();
 const weatherCode=code=>code===0?["آسمان صاف","☀️"]:code<=2?["کمی ابری","🌤️"]:code===3?["ابری","☁️"]:code<=48?["مه‌آلود","🌫️"]:code<=67?["بارانی","🌧️"]:code<=77?["برفی","❄️"]:code<=82?["رگبار","🌦️"]:code<=86?["برف","🌨️"]:["رعدوبرق","⛈️"];
-$("weatherLoad").onclick=()=>{const out=$("weatherResult");if(!navigator.geolocation){out.textContent="موقعیت‌یابی در این مرورگر در دسترس نیست.";return}out.textContent="در حال دریافت پیش‌بینی…";navigator.geolocation.getCurrentPosition(async p=>{try{const {latitude,longitude}=p.coords;const u="https://api.open-meteo.com/v1/forecast?latitude="+latitude+"&longitude="+longitude+"&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,weather_code&hourly=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=3";const r=await fetch(u);if(!r.ok)throw Error();const d=await r.json(),w=weatherCode(d.current.weather_code);$("weatherTemp").textContent=Math.round(d.current.temperature_2m)+"°";$("weatherFeels").textContent="دمای محسوس "+Math.round(d.current.apparent_temperature)+"°C";$("weatherHumidity").textContent=d.current.relative_humidity_2m+"٪";$("weatherWind").textContent=d.current.wind_speed_10m+" km/h";$("weatherHigh").textContent=Math.round(d.daily.temperature_2m_max[0])+"°";$("weatherLow").textContent=Math.round(d.daily.temperature_2m_min[0])+"°";$("weatherCondition").textContent=w[0];$("weatherIcon").textContent=w[1];$("weatherPlace").textContent="آب‌وهوای موقعیت فعلی";const now=new Date();$("weatherHourly").replaceChildren();let start=d.hourly.time.findIndex(t=>new Date(t)>=new Date(now.getTime()-3600000));if(start<0)start=0;for(let i=start;i<Math.min(start+12,d.hourly.time.length);i++){const el=document.createElement("div");el.className="weather-hour";const tm=document.createElement("span");tm.textContent=new Date(d.hourly.time[i]).toLocaleTimeString("fa-IR",{hour:"2-digit",minute:"2-digit"});const ic=document.createElement("i");ic.textContent=weatherCode(d.hourly.weather_code[i])[1];const temp=document.createElement("b");temp.textContent=Math.round(d.hourly.temperature_2m[i])+"°";el.append(tm,ic,temp);$("weatherHourly").append(el)}$("weatherDaily").replaceChildren();for(let i=0;i<d.daily.time.length;i++){const el=document.createElement("div");el.className="weather-day";const day=document.createElement("span");day.textContent=new Date(d.daily.time[i]+"T12:00:00").toLocaleDateString("fa-IR",{weekday:"long",day:"numeric",month:"short"})+" · "+weatherCode(d.daily.weather_code[i])[1];const hi=document.createElement("b");hi.textContent=Math.round(d.daily.temperature_2m_max[i])+"°";const lo=document.createElement("b");lo.style.color="var(--muted)";lo.textContent=Math.round(d.daily.temperature_2m_min[i])+"°";el.append(day,hi,lo);$("weatherDaily").append(el)}out.textContent="آخرین به‌روزرسانی: "+new Date().toLocaleTimeString("fa-IR",{hour:"2-digit",minute:"2-digit"})}catch{out.textContent="دریافت اطلاعات هوا ناموفق بود؛ اتصال اینترنت را بررسی و دوباره تلاش کن."}},()=>{out.textContent="اجازه موقعیت‌یابی داده نشد یا موقعیت در دسترس نیست."},{timeout:12000,maximumAge:600000})};
+$("weatherLoad").onclick=()=>{const out=$("weatherResult");if(!navigator.geolocation){out.textContent="موقعیت‌یابی در این مرورگر در دسترس نیست.";return}out.textContent="در حال دریافت پیش‌بینی…";navigator.geolocation.getCurrentPosition(async p=>{try{const {latitude,longitude}=p.coords;const u="https://api.open-meteo.com/v1/forecast?latitude="+latitude+"&longitude="+longitude+"&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,weather_code&hourly=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=3";const r=await fetch(u);if(!r.ok)throw Error();const d=await r.json(),w=weatherCode(d.current.weather_code);$("weatherTemp").textContent=Math.round(d.current.temperature_2m)+"°";$("weatherFeels").textContent="دمای محسوس "+Math.round(d.current.apparent_temperature)+"°C";$("weatherHumidity").textContent=d.current.relative_humidity_2m+"٪";$("weatherWind").textContent=d.current.wind_speed_10m+" km/h";$("weatherHigh").textContent=Math.round(d.daily.temperature_2m_max[0])+"°";$("weatherLow").textContent=Math.round(d.daily.temperature_2m_min[0])+"°";$("weatherCondition").textContent=w[0];$("weatherIcon").textContent=w[1];$("weatherPlace").textContent="آب‌وهوای موقعیت فعلی";const now=new Date();$("weatherHourly").replaceChildren();let start=d.hourly.time.findIndex(t=>new Date(t)>=new Date(now.getTime()-3600000));if(start<0)start=0;for(let i=start;i<Math.min(start+12,d.hourly.time.length);i++){const el=document.createElement("div");el.className="weather-hour";const tm=document.createElement("span");tm.textContent=new Date(d.hourly.time[i]).toLocaleTimeString(mysLoc(),{hour:"2-digit",minute:"2-digit"});const ic=document.createElement("i");ic.textContent=weatherCode(d.hourly.weather_code[i])[1];const temp=document.createElement("b");temp.textContent=Math.round(d.hourly.temperature_2m[i])+"°";el.append(tm,ic,temp);$("weatherHourly").append(el)}$("weatherDaily").replaceChildren();for(let i=0;i<d.daily.time.length;i++){const el=document.createElement("div");el.className="weather-day";const day=document.createElement("span");day.textContent=new Date(d.daily.time[i]+"T12:00:00").toLocaleDateString(mysLoc(),{weekday:"long",day:"numeric",month:"short"})+" · "+weatherCode(d.daily.weather_code[i])[1];const hi=document.createElement("b");hi.textContent=Math.round(d.daily.temperature_2m_max[i])+"°";const lo=document.createElement("b");lo.style.color="var(--muted)";lo.textContent=Math.round(d.daily.temperature_2m_min[i])+"°";el.append(day,hi,lo);$("weatherDaily").append(el)}out.textContent="آخرین به‌روزرسانی: "+new Date().toLocaleTimeString(mysLoc(),{hour:"2-digit",minute:"2-digit"})}catch{out.textContent="دریافت اطلاعات هوا ناموفق بود؛ اتصال اینترنت را بررسی و دوباره تلاش کن."}},()=>{out.textContent="اجازه موقعیت‌یابی داده نشد یا موقعیت در دسترس نیست."},{timeout:12000,maximumAge:600000})};
 let events=read("myspace_events_v1",[]);
-function renderEvents(){const box=$("eventList");box.replaceChildren();if(!events.length){box.textContent="هنوز رویدادی ثبت نشده.";return}events.sort((a,b)=>a.date.localeCompare(b.date)).forEach((ev,i)=>{const row=document.createElement("div");row.className="extra-row";const t=document.createElement("span");t.textContent=ev.title+" · "+new Date(ev.date).toLocaleString("fa-IR");const del=document.createElement("button");del.className="button secondary";del.textContent="حذف";del.onclick=()=>{events.splice(i,1);write("myspace_events_v1",events);renderEvents()};row.append(t,del);box.append(row)})}
-$("calendarToday").textContent=new Date().toLocaleDateString("fa-IR",{weekday:"long",day:"numeric",month:"long"});
+function renderEvents(){const box=$("eventList");box.replaceChildren();if(!events.length){box.textContent="هنوز رویدادی ثبت نشده.";return}events.sort((a,b)=>a.date.localeCompare(b.date)).forEach((ev,i)=>{const row=document.createElement("div");row.className="extra-row";const t=document.createElement("span");t.textContent=ev.title+" · "+new Date(ev.date).toLocaleString(mysLoc());const del=document.createElement("button");del.className="button secondary";del.textContent="حذف";del.onclick=()=>{events.splice(i,1);write("myspace_events_v1",events);renderEvents()};row.append(t,del);box.append(row)})}
+const setCalToday=()=>{$("calendarToday").textContent=new Date().toLocaleDateString(mysLoc(),{weekday:"long",day:"numeric",month:"long"})};setCalToday();window.addEventListener("myspace-lang",setCalToday);
 $("eventAdd").onclick=()=>{const title=$("eventTitle").value.trim(),date=$("eventDate").value;if(!title||!date)return;events.push({title,date,notified:false});write("myspace_events_v1",events);$("eventTitle").value="";renderEvents()};
 $("eventNotify").onclick=async()=>{if(!("Notification"in window)){alert("این مرورگر اعلان را پشتیبانی نمی‌کند.");return}const p=await Notification.requestPermission();alert(p==="granted"?"اعلان‌ها فعال شدند.":"اجازه اعلان داده نشد.")};
-function checkEvents(){if(!("Notification"in window)||Notification.permission!=="granted")return;const now=Date.now();let changed=false;events.forEach(e=>{const t=new Date(e.date).getTime();if(!e.notified&&t>now-60000&&t<now+60000){new Notification("یادآور MYSPACE",{body:e.title});e.notified=true;changed=true}});if(changed)write("myspace_events_v1",events)}
+function checkEvents(){if(!("Notification"in window)||Notification.permission!=="granted")return;const now=Date.now();let changed=false;events.forEach(e=>{const t=new Date(e.date).getTime();if(!e.notified&&t>now-60000&&t<now+60000){new Notification((window.myspaceTr?window.myspaceTr("یادآور MYSPACE"):"یادآور MYSPACE"),{body:e.title});e.notified=true;changed=true}});if(changed)write("myspace_events_v1",events)}
 setInterval(checkEvents,30000);renderEvents();
 let urls=[];$("musicFiles").onchange=()=>{urls.forEach(URL.revokeObjectURL);urls=[];const box=$("musicList");box.replaceChildren();[...$("musicFiles").files].forEach(f=>{const url=URL.createObjectURL(f);urls.push(url);const b=document.createElement("button");b.className="extra-app";b.textContent="▶ "+f.name;b.onclick=()=>{$("musicPlayer").src=url;$("musicNowName").textContent=f.name;$("musicPlayer").play().catch(()=>{})};box.append(b)});if(urls.length){$("musicPlayer").src=urls[0]}};
 const apps=[["📝 یادداشت‌ها","notesApp"],["🌤️ آب‌وهوا","weatherApp"],["📅 تقویم","calendarApp"],["🎵 موسیقی","musicApp"],["🖼️ گالری","galleryApp"],["💬 چاتی پاتی","aiApp"]];
@@ -1346,13 +1346,12 @@ document.addEventListener("click", function(event) {
  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!overlay.hidden)overlay.hidden=true});
 })();
 </script>
-
 <script>
 /* MYSPACE dashboard widgets, profile and local backup */
 (()=>{
  const $=id=>document.getElementById(id), safe=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d))}catch{return d}};
- const faDate=()=>new Date().toLocaleDateString('fa-IR',{weekday:'long',day:'numeric',month:'long'});
- function refresh(){const n=new Date();$('widgetClock').textContent=n.toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});$('widgetDate').textContent=faDate();const notes=safe('myspace_notes_v1',[]),events=safe('myspace_events_v1',[]);$('widgetNotes').textContent=String(notes.length).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);$('widgetEvents').textContent=String(events.filter(e=>e.date&&new Date(e.date)>=new Date(new Date().toDateString())).length).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);}
+ const faDate=()=>new Date().toLocaleDateString(mysLoc(),{weekday:'long',day:'numeric',month:'long'});
+ function refresh(){const n=new Date();$('widgetClock').textContent=n.toLocaleTimeString(mysLoc(),{hour:'2-digit',minute:'2-digit'});$('widgetDate').textContent=faDate();const notes=safe('myspace_notes_v1',[]),events=safe('myspace_events_v1',[]);$('widgetNotes').textContent=String(notes.length).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);$('widgetEvents').textContent=String(events.filter(e=>e.date&&new Date(e.date)>=new Date(new Date().toDateString())).length).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);}
  refresh();setInterval(refresh,30000);$('widgetRefresh').onclick=refresh;
  const widget=$('widgetContent').parentElement,toggle=$('widgetToggle');
  widget.classList.add('is-collapsed');
@@ -1428,6 +1427,13 @@ document.addEventListener("click", function(event) {
  "جلوگیری از بازماندن و روی‌هم‌افتادن چند برنامه":"Prevented multiple apps from remaining open and overlapping",
  "نمایش واضح‌تر دکمه‌های بازگشت در سربرگ همه برنامه‌ها":"Made back buttons clearly visible in every app header"
  };
+ const EXTRA={"تعداد ستون آیکون‌ها": "Icon columns", "افزودن دکمه بازگشت واضح به چاتی‌پاتی": "Added a clear back button to Chatipati", "تاریخ امروز": "Today's date", "پروفایل ذخیره شد.": "Profile saved.", "ذخیره نشد؛ احتمالاً تصویر انتخابی خیلی بزرگ است.": "Couldn't save. The selected image is probably too large.", "مورد انتخاب‌شده حذف شد.": "The selected item was deleted.", "رمز جدید معتبر نیست.": "The new password isn't valid.", "خارج شدی.": "You signed out.", "اول ایمیلت را وارد کن.": "Enter your email first.", "بستن ویجت‌ها": "Collapse widgets", "حرکت و جلوه‌ها": "Motion & effects", "هر چیزی که می‌خواهی یادت بماند…": "Anything you want to remember…", "ذخیره‌سازی در این مرورگر در دسترس نیست.": "Storage isn't available in this browser.", "در حال دریافت پیش‌بینی…": "Fetching forecast…", "ایمیل و رمز را وارد کن.": "Enter your email and password.", "۴ ستون": "4 columns", "موزیک پلیر": "Music player", "هنوز آهنگی انتخاب نشده": "No song selected yet", "خاموش کردن تم انتخابی": "Turn off selected theme", "© 2026 · تمامی حقوق محفوظ است": "© 2026 · All rights reserved", "یادداشت‌های من": "My notes", "بازگشت از گالری": "Back from gallery", "حافظه و تاریخچه گفتگو": "Memory & chat history", "یادداشت‌ها فقط روی همین دستگاه ذخیره می‌شوند.": "Notes are saved only on this device.", "برفی": "Snowy", "اطلاعات موجود با نسخه داخل فایل جایگزین شود؟ بهتر است ابتدا پشتیبان فعلی را بگیری.": "Replace existing data with the version in the file? It's best to back up your current data first.", "آسمان صاف": "Clear sky", "فضای ذخیره‌سازی مرورگر کافی نیست.": "Browser storage is insufficient.", "فضای شخصی تو": "Your personal space", "این مرورگر اعلان را پشتیبانی نمی‌کند.": "This browser doesn't support notifications.", "۸ تم قابل انتخاب و تنظیم اندازه و نوع فونت": "8 selectable themes and font size and family controls", "۵ ستون": "5 columns", "همهٔ موارد حافظه پاک شوند؟": "Clear all memory items?", "مثلاً مطالعه، کلاس یا قرار": "e.g., study, class, or meeting", "مه‌آلود": "Foggy", "تاریخچهٔ چت‌ها": "Chat history", "موقعیت‌یابی در این مرورگر در دسترس نیست.": "Geolocation isn't available in this browser.", "یکی از ۸ ظاهر را انتخاب کن؛ تغییرات فوراً نمایش داده و ذخیره می‌شوند.": "Choose one of 8 looks. Changes apply instantly and are saved.", "یادداشت تازه": "New note", "پس‌زمینه قبلی": "Previous wallpaper", "این ایمیل قبلاً ثبت شده؛ وارد شو.": "This email is already registered. Please sign in.", "تقویم و برنامه‌ریز": "Calendar & planner", "برنامه‌ریزی شخصی": "Personal planner", "برنامه‌های پیش رو": "Upcoming plans", "باز و بسته کردن ویجت‌ها": "Expand or collapse widgets", "رعدوبرق": "Thunderstorm", "رمز جدید را وارد کن (حداقل ۶ نویسه):": "Enter a new password (at least 6 characters):", "حافظه پاک شد.": "Memory cleared.", "تاریخچه این دستگاه پاک شد.": "Chat history on this device was cleared.", "ایمیل یا رمز اشتباه است.": "Incorrect email or password.", "📅 رویدادها": "📅 Events", "ویجت‌های صفحه اصلی": "Home screen widgets", "در حال پخش": "Now playing", "به چاتی پاتی پیام بده…": "Message Chatipati…", "داده‌ها از Open-Meteo دریافت می‌شوند.": "Data provided by Open-Meteo.", "جست‌وجوی برنامه‌ها…": "Search apps…", "پاسخی دریافت نشد.": "No response received.", "رگبار": "Showers", "روشن کردن تم انتخابی": "Turn on selected theme", "وارد شده‌اید.": "(signed in)", "حداقل ۶ نویسه": "At least 6 characters", "می‌خواهی تصویر پروفایل از دستگاه انتخاب کنی؟ برای حفظ ایموجی فعلی «لغو» را بزن.": "Choose a profile picture from your device? Tap Cancel to keep the current emoji.", "پس از دریافت اطلاعات نمایش داده می‌شود.": "Shown after data is loaded.", "همه چت‌های ذخیره‌شده روی این دستگاه پاک شود؟": "Delete all saved chats on this device?", "پس‌زمینه حذف شد": "Wallpaper removed", "حافظه پر است؛ چند عکس را حذف کن": "Storage is full. Delete a few photos.", "رمز عوض شد ✅ حالا وارد شو.": "Password changed ✅ Now sign in.", "کتابخانه محلی": "Local library", "امروز را هدفمند بساز": "Make today count", "این مورد خالی یا تکراری است.": "This item is empty or a duplicate.", "ذخیره تنظیمات و انتخاب زبان در مرورگر": "Settings and language choice are saved in your browser", "کارها و قرارهای مهمت را یک‌جا مدیریت کن.": "Manage your tasks and appointments in one place.", "برف": "Snow", "اندازه نوشته‌ها:": "Text size:", "رویدادها روی همین دستگاه ذخیره می‌شوند؛ برای اعلان، سایت باید باز باشد.": "Events are saved on this device. The site must be open to show notifications.", "نسخه ۲.۱ — بهبود تجربه کاربری و زبان": "Version 2.1 — improved user experience and language", "حساب ساخته شد ✅": "Account created ✅", "حسابی با این ایمیل نیست.": "No account exists with this email.", "رنگ دلخواه را انتخاب کن یا تغییر خودکار رنگ‌ها را روشن کن.": "Pick a custom color or turn on automatic color cycling.", "یک عکس انتخاب کن": "Choose a photo", "یادآور MYSPACE": "MYSPACE reminder", "--٪": "--%", "سه روز آینده": "Next 3 days", "موارد مطابق متن از حافظه حذف شدند.": "Matching items were removed from memory.", "تغییر بین ساعت و تاریخ": "Switch between clock and date", "بازیابی انجام شد؛ صفحه را تازه‌سازی کن.": "Restore complete. Refresh the page.", "تصویر باید کمتر از ۳ مگابایت باشد.": "The image must be under 3 MB.", "جست‌وجوی برنامه‌ها": "Search apps", "فایل‌ها از دستگاه خودت پخش می‌شوند و جایی آپلود نمی‌شوند.": "Files play from your own device and are never uploaded.", "شما با نقش": "Your role:", "۰ یادداشت": "0 notes", "فعال کردن تم تاریک": "Switch to dark theme", "صف پخش": "Play queue", "برای کاهش مصرف باتری و حرکت کمتر، افکت‌ها را خاموش کن.": "Turn effects off to save battery and reduce motion.", "بدون عنوان": "Untitled", "دفتر یادداشت": "Notebook", "نمایش فهرست تغییرات نسخه در همین قسمت": "Version changelog shown here", "۳ ستون": "3 columns", "ابری": "Cloudy", "خطا در ارتباط": "Connection error", "ساخته شده با ✦ توسط": "Made with ✦ by", "فعال کردن تم روشن": "Switch to light theme", "پاک‌کردن همهٔ حافظه": "Clear all memory", "در حال بارگذاری…": "Loading…", "استودیو تم MYSPACE": "MYSPACE Theme Studio", "فایل پشتیبان معتبر نیست.": "The backup file isn't valid.", "رویداد آینده": "Next event", "افکت‌ها: خاموش": "Effects: Off", "برای نمایش آب‌وهوای دقیق، دسترسی موقعیت مکانی را تأیید کن.": "Allow location access to show accurate weather.", "۱۰۰٪": "100%", "ایده‌هایت را ثبت کن": "Capture your ideas", "تنظیمات شخصی‌سازی": "Personalization settings", "بارانی": "Rainy", "حافظه دستگاه پر است.": "Device storage is full.", "تصویر پروفایل": "Profile picture", "ظاهر و چیدمان فضای شخصی‌ات را تنظیم کن. تغییرات روی همین مرورگر ذخیره می‌شوند.": "Adjust the look and layout of your personal space. Changes are saved in this browser.", "ایمیل و رمز (حداقل ۶ کاراکتر) لازم است.": "Email and password (at least 6 characters) are required.", "✅ فعال": "✅ On", "لطفاً یک فایل تصویری انتخاب کن.": "Please choose an image file.", "تنظیمات شخصی‌سازی بازنشانی شد.": "Customization was reset.", "این عکس خوانده نشد": "Couldn't read this photo", "عکس اضافه شد و پس‌زمینه اعمال شد": "Photo added and wallpaper applied", "ساعت محلی دستگاه": "Device local time", "بهبود ترجمه انگلیسی بخش‌ها و پیام‌های پویا": "Improved English translation for sections and dynamic messages", "(ادمین)": "(Admin)", "کمی ابری": "Partly cloudy", "افکت‌ها: روشن": "Effects: On", " پیام": " messages", "بیشتر از ۱۵ مگابایت است.": "is larger than 15 MB."},EXACT={"خطا": "Error", "اعلان‌ها": "Notifications", "فروشگاه": "Store", "بنفش": "Purple", "به‌روزرسانی": "Updates", "ادمین": "Admin", "پاستیلی": "Pastel", "یادداشت": "Note", "سبز": "Green", "تم": "Theme", "علی": "Ali", "۰": "0", "صورتی": "Pink", "ارسال": "Send", "وزیرمتن": "Vazirmatn", "طلایی": "Gold", "یادآورها": "Reminders", "شیشه‌ای": "Glass", "شخصی": "Personal", "آبی": "Blue", "ساده": "Simple", "چت": "Chat"};
+ Object.assign(dict,EXTRA);
+ const entries=Object.entries(dict).sort((a,b)=>b[0].length-a[0].length);
+ const hasFa=/[\u0600-\u06FF]/;
+ const tr=s=>{if(!hasFa.test(s))return s;const t=s.trim();if(Object.prototype.hasOwnProperty.call(EXACT,t))return s.replace(t,EXACT[t]);return entries.reduce((v,[fa,en])=>v.split(fa).join(en),s)};
+ window.myspaceTr=s=>english?tr(String(s)):s;
+ ["alert","confirm","prompt"].forEach(n=>{const o=window[n].bind(window);window[n]=(m,...r)=>o(english?tr(String(m)):m,...r)});
  const attrs=["placeholder","title","aria-label"];
  const originals=new WeakMap();
  function walk(root,english){
@@ -1438,7 +1444,7 @@ document.addEventListener("click", function(event) {
    if(!originals.has(n))originals.set(n,n.nodeValue);
    const original=originals.get(n);
    let value=original;
-   if(english) Object.entries(dict).forEach(([fa,en])=>{value=value.split(fa).join(en)});
+   if(english) value=tr(value);
    n.nodeValue=value;
   });
   root.querySelectorAll("*").forEach(el=>attrs.forEach(a=>{
@@ -1446,7 +1452,7 @@ document.addEventListener("click", function(event) {
    const key="data-fa-"+a;
    if(!el.hasAttribute(key))el.setAttribute(key,el.getAttribute(a));
    let value=el.getAttribute(key);
-   if(english)Object.entries(dict).forEach(([fa,en])=>{value=value.split(fa).join(en)});
+   if(english)value=tr(value);
    el.setAttribute(a,value);
   }));
  }
@@ -1459,6 +1465,7 @@ document.addEventListener("click", function(event) {
   btn.title=english?"Switch to Persian":"Switch to English";
   btn.setAttribute("aria-label",btn.title);
   localStorage.setItem("myspace_language",english?"en":"fa");
+  window.dispatchEvent(new Event("myspace-lang"));
  }
  btn.addEventListener("click",()=>{english=!english;apply()});
  apply();
@@ -1468,7 +1475,7 @@ document.addEventListener("click", function(event) {
    record.addedNodes.forEach(node=>{
     if(node.nodeType===Node.TEXT_NODE){
      const original=node.nodeValue;
-     Object.entries(dict).forEach(([fa,en])=>{node.nodeValue=node.nodeValue.split(fa).join(en)});
+     node.nodeValue=tr(node.nodeValue);
      originals.set(node,original);
     }else if(node.nodeType===Node.ELEMENT_NODE)walk(node,true);
    });
@@ -1592,5 +1599,6 @@ document.addEventListener("click", function(event) {
 @media(max-width:340px){#aiApp #aiQuickTools{grid-template-columns:1fr;gap:7px}#aiApp #aiQuickTools button{min-height:46px}}
 @media(min-width:600px){#aiApp #aiQuickTools{max-width:520px;align-self:center}}
 </style>
+<style id="myspace-mobile-polish">html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{min-height:100vh;min-height:100dvh}@media(max-width:599px){body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}img,video,canvas{max-width:100%;height:auto}}</style>
 </body>
 </html>
