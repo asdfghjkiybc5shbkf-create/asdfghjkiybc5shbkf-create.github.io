@@ -579,7 +579,25 @@ html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.0
  .app-window{position:fixed!important;inset:12px!important;width:auto!important;max-width:none!important;height:calc(100dvh - 24px)!important;max-height:calc(100dvh - 24px)!important;min-height:0!important;transform:none!important;margin:0!important;border-radius:22px!important;overflow-y:auto!important;overscroll-behavior:contain;}
 }
 </style>
-<style id="ai-back-button-visibility">#aiApp .ai-back-button{display:inline-flex!important;align-items:center;justify-content:center;gap:7px;flex:none;min-width:92px;min-height:42px;padding:7px 12px!important;font-size:13px!important;position:relative;z-index:12}#aiApp .ai-back-button span:first-child{font-size:20px;line-height:1}#aiApp .aw-bar{flex-wrap:nowrap!important}#aiApp .aw-title{min-width:0;overflow-wrap:anywhere}@media(max-width:420px){#aiApp .ai-back-button{min-width:82px;padding:6px 9px!important}#aiApp .ai-back-button span:last-child{font-size:12px}}</style>\n</head>  
+<style id="ai-back-button-visibility">#aiApp .ai-back-button{display:inline-flex!important;align-items:center;justify-content:center;gap:7px;flex:none;min-width:92px;min-height:42px;padding:7px 12px!important;font-size:13px!important;position:relative;z-index:12}#aiApp .ai-back-button span:first-child{font-size:20px;line-height:1}#aiApp .aw-bar{flex-wrap:nowrap!important}#aiApp .aw-title{min-width:0;overflow-wrap:anywhere}@media(max-width:420px){#aiApp .ai-back-button{min-width:82px;padding:6px 9px!important}#aiApp .ai-back-button span:last-child{font-size:12px}}</style>\n<style id="myspace-mobile-app-flow-v3">
+/* Real mobile layout: one app at a time, full viewport, no nested phone frame. */
+@media (max-width: 599px), (pointer:coarse) and (max-height: 1100px) {
+ html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden}
+ body{padding:0!important}
+ .app-container{width:100%!important;max-width:none!important;min-height:100dvh!important;margin:0!important;padding: max(10px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important}
+ .app-window,.app-window:not([hidden]){position:fixed!important;inset:0!important;top:0!important;left:0!important;right:0!important;bottom:0!important;width:100%!important;max-width:none!important;height:100vh!important;height:100dvh!important;max-height:none!important;min-height:0!important;margin:0!important;padding: max(12px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))!important;border:0!important;border-radius:0!important;transform:none!important;box-shadow:none!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch}
+ .app-window[hidden]{display:none!important}
+ .app-window .aw-bar{position:sticky!important;top:0!important;z-index:10;flex-shrink:0;padding:7px 0 12px!important;background:var(--bg)!important}
+ .app-window>*{min-width:0;max-width:100%}
+ .app-window input,.app-window textarea,.app-window select{max-width:100%;font-size:16px!important}
+ .app-window .ai-log{flex:1;min-height:180px;max-height:none;overflow-y:auto}
+ .app-window .ai-form{position:sticky;bottom:0;z-index:8;flex-shrink:0;background:var(--bg)}
+ .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .overlay{padding: max(10px,env(safe-area-inset-top)) 10px max(10px,env(safe-area-inset-bottom))}
+ .overlay-panel{width:100%;max-height:calc(100dvh - 20px);padding:22px 16px}
+}
+</style>
+</head>  
 <body>  
 <div class="app-container">  
   <header class="wrap statusbar">
@@ -855,7 +873,7 @@ function applyWallpaper(data){if(data)root.style.setProperty("--bg-image",`url("
 function renderGallery(){const selected=safeGet("myspace-custom-wallpaper");$("galleryGrid").replaceChildren();if(!gallery.length){const empty=document.createElement("div");empty.className="gallery-empty";empty.textContent="هنوز عکسی نیست";$("galleryGrid").append(empty)}
  gallery.forEach((item,i)=>{const cell=document.createElement("div");cell.className="gallery-item"+(selected===item.data?" selected":"");const img=document.createElement("img");img.src=item.data;img.alt=item.name;const use=document.createElement("button");use.className="button";use.textContent=selected===item.data?"✓ پس‌زمینه فعلی":"انتخاب پس‌زمینه";use.onclick=()=>{applyWallpaper(item.data);renderGallery();$("galleryStatus").textContent="تصویر پس‌زمینه اعمال شد"};const del=document.createElement("button");del.className="button secondary";del.textContent="حذف عکس";del.onclick=()=>{if(selected===item.data)applyWallpaper(null);gallery.splice(i,1);safeSet("myspace-gallery",JSON.stringify(gallery));renderGallery()};cell.append(img,use,del);$("galleryGrid").append(cell)});
 }
-$("galleryBtn").onclick=()=>{$("galleryApp").hidden=false;document.body.classList.add("in-app");renderGallery()};
+$("galleryBtn").onclick=()=>{document.querySelectorAll(".app-window").forEach(app=>app.hidden=true);$("galleryApp").hidden=false;document.body.classList.add("in-app");renderGallery()};
 $("galleryBack").onclick=()=>{$("galleryApp").hidden=true;document.body.classList.remove("in-app")};
 $("galleryAdd").onclick=()=>wallpaperInput.click();
 $("wallpaperReset").onclick=()=>{applyWallpaper(null);renderGallery();$("galleryStatus").textContent="پس‌زمینه حذف شد"};
@@ -986,7 +1004,7 @@ $("aiOpen").addEventListener("click",()=>{
     st("برای استفاده از چاتی پاتی اول وارد حسابت شو.");
     return;
   }
-  $("aiApp").hidden=false;document.body.classList.add("in-app");render();inp.focus();
+  document.querySelectorAll(".app-window").forEach(app=>app.hidden=true);$("aiApp").hidden=false;document.body.classList.add("in-app");render();inp.focus();
 });
 $("aiBack").addEventListener("click",()=>{$("aiApp").hidden=true;document.body.classList.remove("in-app")});
 $("aiNew").addEventListener("click",()=>{if(!busy){newThread();$("aiHist").hidden=true;$("aiInput").focus()}});
@@ -1187,7 +1205,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('.button,.icon-bu
 </script>
 <script>
 (()=>{
-const $=id=>document.getElementById(id),open=id=>{const el=$(id);if(!el)return;el.hidden=false;document.body.classList.add("in-app")},close=id=>{const el=$(id);if(el)el.hidden=true;if(!document.querySelector(".app-window:not([hidden])"))document.body.classList.remove("in-app")};
+const $=id=>document.getElementById(id),open=id=>{const el=$(id);if(!el)return;document.querySelectorAll(".app-window").forEach(app=>{app.hidden=app!==el});el.hidden=false;document.body.classList.add("in-app");},close=id=>{const el=$(id);if(el)el.hidden=true;if(!document.querySelector(".app-window:not([hidden])"))document.body.classList.remove("in-app")};
 document.querySelectorAll("[data-open-app]").forEach(b=>b.addEventListener("click",()=>{open(b.dataset.openApp);if(b.dataset.openApp==="notesApp")renderNotes();if(b.dataset.openApp==="calendarApp")renderEvents()}));
 document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>close(b.dataset.close)));
 const read=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d))}catch{return d}},write=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch{return false}};
