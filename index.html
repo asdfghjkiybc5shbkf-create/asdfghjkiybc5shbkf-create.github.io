@@ -555,10 +555,6 @@ html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.0
   <div class="aw-bar">
     <button id="aiBack" class="icon-button" type="button" aria-label="بازگشت">→</button>
     <div class="aw-title">💬 چاتی پاتی</div>
-    <div class="ai-top-actions" role="group" aria-label="ابزارهای گفتگو">
-      <button id="aiMemoryBtn" class="ai-tool-btn" type="button" aria-label="باز کردن حافظه" aria-controls="aiMemoryPanel" aria-expanded="false"><span aria-hidden="true">🧠</span><span>حافظه</span></button>
-      <button id="aiHistBtn" class="ai-tool-btn" type="button" aria-label="باز کردن تاریخچه" aria-controls="aiHist" aria-expanded="false"><span aria-hidden="true">🕘</span><span>تاریخچه</span></button>
-    </div>
     <button id="aiNew" class="icon-button" type="button" aria-label="چت جدید" title="چت جدید">＋</button>
   </div>
   <div id="aiQuickTools" role="group" aria-label="حافظه و تاریخچه گفتگو">
@@ -885,7 +881,7 @@ function addMemory(value){
   if(memories.some(x=>x.toLocaleLowerCase()===m.toLocaleLowerCase()))return false;
   memories.push(m);saveMemories();renderMemories();return true;
 }
-$("aiMemoryBtn").addEventListener("click",()=>{const p=$("aiMemoryPanel"),h=$("aiHist"),show=p.hidden;p.hidden=!show;h.hidden=true;$("aiMemoryBtn").setAttribute("aria-expanded",String(show));$("aiHistBtn").setAttribute("aria-expanded","false");if(show)renderMemories()});
+$("aiMemoryToggleV2").addEventListener("click",()=>{const p=$("aiMemoryPanel"),h=$("aiHist"),show=p.hidden;p.hidden=!show;h.hidden=true;$("aiMemoryToggleV2").setAttribute("aria-expanded",String(show));$("aiHistoryToggleV2").setAttribute("aria-expanded","false");if(show)renderMemories()});
 $("aiMemoryAdd").addEventListener("click",()=>{const v=$("aiMemoryInput").value;if(addMemory(v)){$("aiMemoryInput").value="";$("aiMemoryStatus").textContent="در حافظهٔ همین مرورگر ذخیره شد."}else $("aiMemoryStatus").textContent="متن خالی است یا قبلاً ذخیره شده."});
 $("aiMemoryInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("aiMemoryAdd").click()});
 $("aiMemoryList").addEventListener("click",e=>{const i=e.target.dataset.memoryDel;if(i!==undefined){memories.splice(+i,1);saveMemories();renderMemories();$("aiMemoryStatus").textContent="مورد انتخاب‌شده حذف شد."}});
@@ -903,7 +899,7 @@ function render(){
 $("aiThreads").addEventListener("click",e=>{const o=e.target.closest("[data-open]")?.dataset.open,d=e.target.closest("[data-del]")?.dataset.del;
  if(o&&!busy){active=o;$("aiHist").hidden=true;save();render()}
  if(d&&!busy){threads=threads.filter(t=>t.id!==d);if(!threads.length)newThread();else{if(active===d)active=threads[0].id;save();render()}}});
-$("aiHistBtn").addEventListener("click",()=>{const h=$("aiHist"),p=$("aiMemoryPanel"),show=h.hidden;h.hidden=!show;p.hidden=true;$("aiHistBtn").setAttribute("aria-expanded",String(show));$("aiMemoryBtn").setAttribute("aria-expanded","false");if(show)render()});
+$("aiHistoryToggleV2").addEventListener("click",()=>{const h=$("aiHist"),p=$("aiMemoryPanel"),show=h.hidden;h.hidden=!show;p.hidden=true;$("aiHistoryToggleV2").setAttribute("aria-expanded",String(show));$("aiMemoryToggleV2").setAttribute("aria-expanded","false");if(show)render()});
 $("aiOpen").addEventListener("click",()=>{
   const user=getSession();
   if(!user){
@@ -1439,14 +1435,11 @@ document.addEventListener("click", function(event) {
 </style>
 
 <style id="ai-tools-visible-fix">
-#aiApp #aiQuickTools{display:grid!important;grid-template-columns:1fr 1fr;gap:10px;width:100%;flex:none;padding:2px 0 8px}
-#aiApp #aiQuickTools button{display:flex!important;align-items:center;justify-content:center;min-height:52px;padding:10px 8px;border:1px solid var(--purple);border-radius:16px;background:var(--panel2);color:var(--text);font:inherit;font-size:14px;font-weight:800;cursor:pointer}
+#aiApp #aiQuickTools{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(7px,2.5vw,12px);width:100%;min-width:0;flex:none;padding:2px 0 10px}
+#aiApp #aiQuickTools button{display:flex!important;align-items:center;justify-content:center;min-width:0;min-height:48px;padding:10px clamp(7px,2vw,12px);border:1px solid var(--purple);border-radius:15px;background:var(--panel2);color:var(--text);font:inherit;font-size:clamp(12px,3.4vw,14px);font-weight:800;line-height:1.5;text-align:center;white-space:normal;overflow-wrap:anywhere;cursor:pointer;touch-action:manipulation}
 #aiApp #aiQuickTools button[aria-expanded="true"]{outline:2px solid var(--blue);outline-offset:2px}
-@media(max-width:360px){#aiApp #aiQuickTools{grid-template-columns:1fr}}
+@media(max-width:340px){#aiApp #aiQuickTools{grid-template-columns:1fr;gap:7px}#aiApp #aiQuickTools button{min-height:46px}}
+@media(min-width:600px){#aiApp #aiQuickTools{max-width:520px;align-self:center}}
 </style>
-<script id="ai-tools-visible-fix-script">
-(()=>{const $=id=>document.getElementById(id);const pairs=[["aiMemoryToggleV2","aiMemoryPanel","aiHist","aiHistoryToggleV2"],["aiHistoryToggleV2","aiHist","aiMemoryPanel","aiMemoryToggleV2"]];pairs.forEach(([bid,pid,oid,obid])=>{const b=$(bid);if(!b)return;b.addEventListener("click",()=>{const p=$(pid),o=$(oid),show=p.hidden;p.hidden=!show;o.hidden=true;b.setAttribute("aria-expanded",String(show));$(obid).setAttribute("aria-expanded","false");});});})();
-</script>
-
 </body>
 </html>
