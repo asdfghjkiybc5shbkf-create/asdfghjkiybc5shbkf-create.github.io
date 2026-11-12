@@ -500,6 +500,76 @@ html[data-preset="minimal"] .fx-blob,html[data-preset="simple"] .fx-blob{opacity
 html[data-preset="simple"] *,html[data-preset="minimal"] *{animation-duration:.01ms!important;scroll-behavior:auto}
 </style>
 
+
+<style id="myspace-mobile-layout-v2">
+/* Mobile-first page layout: use the real phone viewport, not a scaled desktop card. */
+@media (max-width: 599px) {
+  html,body{width:100%;min-width:0;min-height:100%;overflow-x:hidden}
+  body{padding:0!important;background-attachment:scroll;line-height:1.7}
+  .app-container{width:100%;max-width:none!important;min-height:100svh;min-height:100dvh;margin:0;padding: max(10px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));border:0!important;border-radius:0!important;box-shadow:none!important;overflow:visible}
+  header.statusbar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;padding:8px 0 12px;flex-wrap:nowrap}
+  .sb-left{gap:5px;min-width:0}
+  .sb-left .icon-button{width:38px;height:38px;min-width:38px;min-height:38px}
+  .statusbar .brand{font-size:clamp(15px,4.5vw,19px);text-align:center;white-space:nowrap;letter-spacing:0}
+  .statusbar .sb-icons{font-size:11px;white-space:nowrap}
+  #languageToggle{min-width:40px;min-height:38px;padding:0 8px!important}
+  .island-wrap{margin:4px 0 12px;top:4px}
+  .island{min-height:48px;width:min(100%,230px);padding:8px 16px}
+  .home{gap:14px}
+  .home-hello{padding:17px 15px;border-radius:21px}
+  .home-hello h1{font-size:clamp(22px,6vw,28px);overflow-wrap:anywhere}
+  .home-widgets{padding:12px;border-radius:19px;min-width:0}
+  .widget-top{gap:8px;align-items:center}
+  .widget-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .widget-box{min-width:0;min-height:88px;max-width:100%;padding:10px;border-radius:14px;resize:none;overflow:hidden}
+  .widget-box strong{font-size:clamp(15px,4.5vw,19px)}
+  .widget-profile{gap:8px;min-width:0;flex-wrap:wrap}
+  .profile-meta{flex:1 1 90px;min-width:0}
+  .widget-profile .button{flex:0 1 auto;min-height:40px}
+  .widget-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .widget-tools .button{min-width:0;min-height:42px;padding:9px 6px;font-size:11px;white-space:normal}
+  .widget-search input{min-height:46px;font-size:16px}
+  .app-grid{grid-template-columns:repeat(var(--app-columns,4),minmax(0,1fr));gap:18px 6px;padding:8px 0}
+  .app-tile{min-width:0;font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+  .app-icon{width:clamp(48px,14vw,60px);height:clamp(48px,14vw,60px);max-width:100%;border-radius:16px;font-size:24px}
+  footer{padding:18px 0 max(16px,env(safe-area-inset-bottom));font-size:11px}
+  /* App screens occupy the usable phone viewport and keep their own scroll. */
+  .app-window{position:fixed;inset:0!important;width:100%!important;height:100%;height:100dvh;max-height:100dvh;margin:0!important;padding: max(12px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));border:0!important;border-radius:0!important;transform:none!important;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
+  .app-window .aw-bar{position:sticky;top:0;z-index:8;min-height:48px;display:flex;align-items:center;gap:9px;padding:6px 0 10px;flex-wrap:nowrap}
+  .app-window .aw-title{font-size:15px;min-width:0;overflow-wrap:anywhere}
+  .app-window .aw-bar .icon-button{width:42px;height:42px;min-width:42px;min-height:42px;flex:none}
+  .app-window input:not([type=checkbox]):not([type=file]),.app-window textarea,.app-window select{font-size:16px;max-width:100%}
+  .app-window .button{max-width:100%;white-space:normal}
+  .app-window .ai-log{min-height:130px;max-height:none;overscroll-behavior:contain}
+  .app-window .ai-form{position:sticky;bottom:0;z-index:7;align-items:flex-end;padding:6px;gap:6px;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px);padding-bottom:max(6px,env(safe-area-inset-bottom))}
+  .app-window .ai-form textarea{min-width:0;max-height:28vh;font-size:16px;line-height:1.5}
+  .app-window .ai-form .icon-button{width:40px;height:40px;min-width:40px;min-height:40px}
+  .app-window .ai-form .button{min-width:42px;min-height:42px;padding:8px}
+  .ai-hist{max-height:35dvh;overflow:auto}
+  .weather-temp{font-size:clamp(54px,16vw,76px)}
+  .weather-hero{padding:16px}
+  .notes-banner,.calendar-banner{padding:15px;border-radius:18px}
+  .notes-compose,.calendar-compose,.weather-section{padding:12px}
+  .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .extra-app-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .overlay{align-items:flex-end;padding:0}
+  .overlay-panel{width:100%;max-height: min(92dvh,900px);border-radius:24px 24px 0 0;padding:24px 16px max(20px,env(safe-area-inset-bottom));}
+  #settingsOverlay .overlay-panel{max-height:94dvh}
+}
+@media (max-width:360px){
+  .app-container{padding-inline:11px}
+  header.statusbar{gap:5px}
+  .sb-left{gap:3px}
+  .sb-left .icon-button{width:34px;height:34px;min-width:34px;min-height:34px;font-size:14px}
+  .statusbar .brand{font-size:14px}
+  .statusbar .sb-icons{font-size:10px}
+  .app-grid{gap:15px 4px}
+  .app-tile{font-size:10px}
+  .widget-tools{grid-template-columns:1fr}
+  .weather-stats>div{font-size:10px;padding:8px}
+}
+@media (prefers-reduced-motion:reduce){#myspace-mobile-layout-v2 *{scroll-behavior:auto}}
+</style>
 </head>  
 <body>  
 <div class="app-container">  
