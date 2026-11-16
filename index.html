@@ -1639,7 +1639,7 @@ document.addEventListener("click", function(event) {
  .desktop-dock button{width:48px;height:48px;border:1px solid var(--line);border-radius:15px;background:var(--panel);color:var(--text);font-size:23px;cursor:pointer;transition:transform .18s,background .18s}
  .desktop-dock button:hover{transform:translateY(-5px);background:var(--panel2)}
 }
-.desktop-dock{display:none}
+.desktop-dock{display:none}@media (min-width:900px) and (pointer:fine){.desktop-dock{display:flex!important}}
 @media(prefers-reduced-motion:reduce){.desktop-dock button{transition:none}}
 </style>
 <script>
