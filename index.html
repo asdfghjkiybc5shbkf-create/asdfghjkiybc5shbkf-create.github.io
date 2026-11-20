@@ -832,7 +832,7 @@ button,.button,.icon-button,.app-icon,.widget-toggle,.extra-app{ -webkit-tap-hig
    <input id="fontSizeControl" type="range" min="85" max="125" step="5" value="100">
    <label for="fontFamilyControl">نوع فونت</label>
    <select id="fontFamilyControl" class="model-select"><option value="Vazirmatn">وزیرمتن</option><option value="Tahoma">Tahoma</option><option value="Arial">Arial</option><option value="system-ui">System UI</option></select>
-   <div class="updates-box" id="releaseNotes"><b>آخرین به‌روزرسانی‌ها</b><ul><li>بهینه‌سازی چیدمان موبایل و نمایش تمام‌صفحه برنامه‌ها</li><li>نمایش واضح‌تر دکمه‌های بازگشت در سربرگ همه برنامه‌ها</li><li>جلوگیری از بازماندن و روی‌هم‌افتادن چند برنامه</li><li>افزودن دکمه بازگشت واضح به چاتی‌پاتی</li><li>بهبود ترجمه انگلیسی بخش‌ها و پیام‌های پویا</li><li>نمایش فهرست تغییرات نسخه در همین قسمت</li><li>۸ تم قابل انتخاب و تنظیم اندازه و نوع فونت</li><li>ذخیره تنظیمات و انتخاب زبان در مرورگر</li><li>افزودن مرکز هوش مصنوعی با لینک رسمی سرویس‌ها و اتصال داخلی Gemini</li><li>افزودن مرکز پشتیبان‌گیری و نمایش شفاف وضعیت Cloud</li><li>افزودن نوار برنامه‌ها و چیدمان پنجره‌ای دسکتاپ در کنار نمایش تمام‌صفحه موبایل</li><li>بهبود نمایش نوار برنامه‌ها و عملکرد میانبرهای دسکتاپ</li><li>بازطراحی آیکون برنامه‌ها با نمادهای خطی مدرن و ظاهر لانچر اندروید</li><li>هماهنگ‌سازی ظاهر کنترل‌ها و بهبود اندازه لمس در موبایل</li><li>حذف DeepSeek و جست‌وجوی وب و بازگرداندن ظاهر سادهٔ چت</li><li>هماهنگ‌سازی پس‌زمینه پنجره‌های هوش مصنوعی با تم روشن و تاریک</li></ul><small>نسخه ۲.۷ — ساده‌سازی چت و حذف سرویس‌های غیرفعال</small></div>
+   <div class="updates-box" id="releaseNotes"><b>آخرین به‌روزرسانی‌ها</b><ul><li>اتصال احراز هویت Supabase با کد یک‌بارمصرف ایمیل و Google OAuth، همراه با نشست پایدار</li><li>Supabase authentication using email OTP and Google OAuth with persistent sessions</li><li>بهینه‌سازی چیدمان موبایل و نمایش تمام‌صفحه برنامه‌ها</li><li>نمایش واضح‌تر دکمه‌های بازگشت در سربرگ همه برنامه‌ها</li><li>جلوگیری از بازماندن و روی‌هم‌افتادن چند برنامه</li><li>افزودن دکمه بازگشت واضح به چاتی‌پاتی</li><li>بهبود ترجمه انگلیسی بخش‌ها و پیام‌های پویا</li><li>نمایش فهرست تغییرات نسخه در همین قسمت</li><li>۸ تم قابل انتخاب و تنظیم اندازه و نوع فونت</li><li>ذخیره تنظیمات و انتخاب زبان در مرورگر</li><li>افزودن مرکز هوش مصنوعی با لینک رسمی سرویس‌ها و اتصال داخلی Gemini</li><li>افزودن مرکز پشتیبان‌گیری و نمایش شفاف وضعیت Cloud</li><li>افزودن نوار برنامه‌ها و چیدمان پنجره‌ای دسکتاپ در کنار نمایش تمام‌صفحه موبایل</li><li>بهبود نمایش نوار برنامه‌ها و عملکرد میانبرهای دسکتاپ</li><li>بازطراحی آیکون برنامه‌ها با نمادهای خطی مدرن و ظاهر لانچر اندروید</li><li>هماهنگ‌سازی ظاهر کنترل‌ها و بهبود اندازه لمس در موبایل</li><li>حذف DeepSeek و جست‌وجوی وب و بازگرداندن ظاهر سادهٔ چت</li><li>هماهنگ‌سازی پس‌زمینه پنجره‌های هوش مصنوعی با تم روشن و تاریک</li></ul><small>نسخه ۲.۸ — ورود امن با ایمیل و Google</small></div>
   </div>
   <div id="settingsStatus" class="status" role="status" aria-live="polite"></div>
  </section>
@@ -846,15 +846,17 @@ button,.button,.icon-button,.app-icon,.widget-toggle,.extra-app{ -webkit-tap-hig
       <h2 id="dialogTitle">داشبورد</h2>  
       <p>برای ورود یا ساخت حساب، اطلاعاتت را وارد کن.</p>  
         
-      <form id="emailForm">  
-        <label for="email">ایمیل</label>  
-        <input id="email" type="email" autocomplete="email" placeholder="name@example.com" required>  
-        <label for="password">رمز عبور</label>  
-        <input id="password" type="password" minlength="6" autocomplete="current-password" placeholder="حداقل ۶ نویسه" required>  
-        <button id="signupButton" class="button full" type="submit">ساخت حساب</button>  
-        <button id="loginButton" class="button secondary full" type="button">ورود به حساب</button>  
-        <button id="resetButton" class="button secondary full" type="button">فراموشی رمز عبور</button>  
-      </form>  
+      <form id="emailForm">
+        <label for="email">ایمیل</label>
+        <input id="email" type="email" autocomplete="email" placeholder="name@example.com" required>
+        <div id="otpEntry" hidden>
+          <label for="emailOtp">کد یک‌بارمصرف ایمیل</label>
+          <input id="emailOtp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="کدی که ایمیل شده">
+        </div>
+        <button id="signupButton" class="button full" type="submit">ارسال کد ورود / ثبت‌نام</button>
+        <button id="loginButton" class="button secondary full" type="button">ورود با Google</button>
+        <button id="resetButton" class="button secondary full" type="button" hidden>فراموشی رمز عبور</button>
+      </form>
       <div id="accountStatus" class="status" role="status" aria-live="polite"></div>  
     </div>  
 
@@ -1141,122 +1143,65 @@ $("aiForm").addEventListener("submit",async e=>{e.preventDefault();if(busy)retur
 render();
 })();
 
-/* حساب کاربری — محلی (بدون Supabase / بدون وریفای ایمیل) */
-const fxOn=()=>!document.documentElement.classList.contains("no-fx");
-const ADMIN_EMAIL="yeganehali019@gmail.com";
-const USERS_KEY="myspace_users_v1";
-const SESSION_KEY="myspace_session_v1";
 
-function loadUsers(){
-  try{return JSON.parse(localStorage.getItem(USERS_KEY)||"{}");}catch{return {};}
-}
-function saveUsers(u){try{localStorage.setItem(USERS_KEY,JSON.stringify(u));}catch{}}
-function getSession(){
-  try{return JSON.parse(localStorage.getItem(SESSION_KEY)||"null");}catch{return null;}
-}
-function setSession(u){
-  if(u) localStorage.setItem(SESSION_KEY,JSON.stringify(u));
-  else localStorage.removeItem(SESSION_KEY);
-}
-function isAdmin(u){return !!(u&&u.email&&u.email.toLowerCase()===ADMIN_EMAIL);}
-function fa(d){try{return d?new Date(d).toLocaleString(mysLoc(),{dateStyle:"medium",timeStyle:"short"}):"—";}catch{return "—";}}
-const st=(m)=>{$("accountStatus").textContent=m||"";};
-
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+const supabase = createClient("https://zycdvcvxgnmymqygacek.supabase.co","sb_publishable_11J4EwQjg7-vCtKgFmkSmA_AMYL9z27");
+const el=(id)=>document.getElementById(id);
+const status=(m)=>{el("accountStatus").textContent=m||"";};
+const isAdmin=(u)=>!!(u&&u.email&&u.email.toLowerCase()==="yeganehali019@gmail.com");
+const fa=(d)=>{try{return d?new Date(d).toLocaleString(document.documentElement.lang==="en"?"en-US":"fa-IR",{dateStyle:"medium",timeStyle:"short"}):"—";}catch{return "—";}};
 function showUser(u){
-  $("loginBox").hidden=!!u;
-  $("dashboardBox").hidden=!u;
-  if(!u){
-    const ap=$("adminPanel"); if(ap) ap.hidden=true;
-    const badge=$("adminBadge"); if(badge) badge.hidden=true;
-    return;
-  }
+  el("loginBox").hidden=!!u;el("dashboardBox").hidden=!u;
+  if(!u){const p=el("adminPanel");if(p)p.hidden=true;const b=el("adminBadge");if(b)b.hidden=true;return;}
   const name=(u.email||"").split("@")[0]||"کاربر";
-  $("dashName").textContent=isAdmin(u)?name+" (ادمین)":name;
-  $("dashEmail").textContent=u.email||"—";
-  $("dashUid").textContent=u.id||"—";
-  $("dashVerifiedBadge").textContent="✅ فعال";
-  $("dashCreated").textContent=fa(u.created);
-  $("dashLastLogin").textContent=fa(u.lastLogin);
-  let badge=$("adminBadge");
+  el("dashName").textContent=isAdmin(u)?name+" (ادمین)":name;
+  el("dashEmail").textContent=u.email||"—";el("dashUid").textContent=u.id||"—";
+  el("dashVerifiedBadge").textContent=u.email_confirmed_at?"تأییدشده":"فعال";
+  el("dashCreated").textContent=fa(u.created_at);el("dashLastLogin").textContent=fa(u.last_sign_in_at);
+  let badge=el("adminBadge");
   if(isAdmin(u)){
-    if(!badge){badge=document.createElement("span");badge.id="adminBadge";badge.className="admin-badge";badge.textContent="ادمین";$("dashName").appendChild(badge);}
-    badge.hidden=false;
-    const ap=$("adminPanel");
-    if(ap){
-      ap.hidden=false;
-      try{
-        const th=JSON.parse(localStorage.getItem("myspace_ai_threads")||"[]");
-        $("adminThreadCount").textContent=String(th.length);
-        $("adminMsgCount").textContent=String(th.reduce((n,x)=>n+(x.messages||[]).length,0));
-      }catch{$("adminThreadCount").textContent="0";$("adminMsgCount").textContent="0";}
+    if(!badge){badge=document.createElement("span");badge.id="adminBadge";badge.className="admin-badge";badge.textContent="ادمین";el("dashName").appendChild(badge);}
+    badge.hidden=false;const p=el("adminPanel");
+    if(p){p.hidden=false;try{const th=JSON.parse(localStorage.getItem("myspace_ai_threads")||"[]");el("adminThreadCount").textContent=String(th.length);el("adminMsgCount").textContent=String(th.reduce((n,x)=>n+(x.messages||[]).length,0));}catch{el("adminThreadCount").textContent="0";el("adminMsgCount").textContent="0";}}
+  }else{if(badge)badge.hidden=true;const p=el("adminPanel");if(p)p.hidden=true;}
+}
+let otpSent=false;
+el("emailForm").addEventListener("submit",async(e)=>{
+  e.preventDefault();const email=(el("email").value||"").trim().toLowerCase();
+  if(!email){status("ایمیل را وارد کن.");return;}
+  const btn=el("signupButton");btn.disabled=true;
+  try{
+    if(!otpSent){
+      const {error}=await supabase.auth.signInWithOtp({email,options:{shouldCreateUser:true}});
+      if(error)throw error;
+      otpSent=true;el("otpEntry").hidden=false;el("emailOtp").required=true;
+      btn.textContent="تأیید کد و ورود";status("کد ورود به ایمیلت فرستاده شد. هرزنامه را هم بررسی کن.");el("emailOtp").focus();
+    }else{
+      const token=(el("emailOtp").value||"").trim();if(!token){status("کد ایمیل را وارد کن.");return;}
+      const {error}=await supabase.auth.verifyOtp({email,token,type:"email"});if(error)throw error;status("ورود موفق بود.");
     }
-  }else{
-    if(badge) badge.hidden=true;
-    const ap=$("adminPanel"); if(ap) ap.hidden=true;
-  }
-}
-
-// restore session on load
-showUser(getSession());
-
-function creds(){
-  return {email:($("email").value||"").trim().toLowerCase(), password:$("password").value||""};
-}
-
-$("emailForm").addEventListener("submit", (e)=>{
-  e.preventDefault();
-  const c=creds();
-  if(!c.email||c.password.length<6){st("ایمیل و رمز (حداقل ۶ کاراکتر) لازم است.");return;}
-  const users=loadUsers();
-  if(users[c.email]){st("این ایمیل قبلاً ثبت شده؛ وارد شو.");return;}
-  const user={
-    id:"local_"+Math.random().toString(36).slice(2,10),
-    email:c.email,
-    password:c.password, // فقط روی همین مرورگر؛ بدون سرور
-    created:new Date().toISOString(),
-    lastLogin:new Date().toISOString()
-  };
-  users[c.email]=user;
-  saveUsers(users);
-  const {password, ...safe}=user;
-  setSession(safe);
-  st("حساب ساخته شد ✅");
-  showUser(safe);
+  }catch(err){status("خطا: "+(err.message||"عملیات انجام نشد."));}
+  finally{btn.disabled=false;}
 });
-
-$("loginButton").addEventListener("click", ()=>{
-  const c=creds();
-  if(!c.email||!c.password){st("ایمیل و رمز را وارد کن.");return;}
-  const users=loadUsers();
-  const u=users[c.email];
-  if(!u||u.password!==c.password){st("ایمیل یا رمز اشتباه است.");return;}
-  u.lastLogin=new Date().toISOString();
-  users[c.email]=u;
-  saveUsers(users);
-  const {password, ...safe}=u;
-  setSession(safe);
-  st("");
-  showUser(safe);
+el("loginButton").addEventListener("click",async()=>{
+  const btn=el("loginButton");btn.disabled=true;
+  try{const {error}=await supabase.auth.signInWithOAuth({provider:"google",options:{redirectTo:window.location.origin+window.location.pathname}});if(error)throw error;}
+  catch(err){status("ورود Google انجام نشد: "+(err.message||"تنظیمات ارائه‌دهنده را بررسی کن."));btn.disabled=false;}
 });
-
-$("resetButton").addEventListener("click", ()=>{
-  const em=($("email").value||"").trim().toLowerCase();
-  if(!em){st("اول ایمیلت را وارد کن.");return;}
-  const users=loadUsers();
-  if(!users[em]){st("حسابی با این ایمیل نیست.");return;}
-  const p=prompt("رمز جدید را وارد کن (حداقل ۶ نویسه):");
-  if(!p||p.length<6){st("رمز جدید معتبر نیست.");return;}
-  users[em].password=p;
-  saveUsers(users);
-  st("رمز عوض شد ✅ حالا وارد شو.");
+el("logoutButton").addEventListener("click",async()=>{
+  const {error}=await supabase.auth.signOut();if(error){status("خروج انجام نشد: "+error.message);return;}
+  status("از حساب خارج شدی.");showUser(null);
 });
-
-$("logoutButton").addEventListener("click", ()=>{
-  setSession(null);
-  showUser(null);
-  st("خارج شدی.");
+el("adminClearChats")?.addEventListener("click",()=>{
+  if(!confirm("همه چت‌های ذخیره‌شده روی این دستگاه پاک شود؟"))return;
+  try{localStorage.removeItem("myspace_ai_threads");localStorage.removeItem("myspace_ai_threads_active");}catch{}
+  el("adminThreadCount").textContent="0";el("adminMsgCount").textContent="0";el("adminStatus").textContent="تاریخچه این دستگاه پاک شد.";
 });
+supabase.auth.onAuthStateChange((_event,session)=>showUser(session?.user||null));
+</script>
 
+const fxOn=()=>!document.documentElement.classList.contains("no-fx");
 $("adminClearChats")?.addEventListener("click",()=>{
   if(!confirm("همه چت‌های ذخیره‌شده روی این دستگاه پاک شود؟"))return;
   try{localStorage.removeItem("myspace_ai_threads");localStorage.removeItem("myspace_ai_threads_active");}catch{}
