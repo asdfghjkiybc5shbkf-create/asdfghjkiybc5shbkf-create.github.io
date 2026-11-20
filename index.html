@@ -1201,6 +1201,7 @@ el("adminClearChats")?.addEventListener("click",()=>{
 supabase.auth.onAuthStateChange((_event,session)=>showUser(session?.user||null));
 </script>
 
+<script>
 const fxOn=()=>!document.documentElement.classList.contains("no-fx");
 $("adminClearChats")?.addEventListener("click",()=>{
   if(!confirm("همه چت‌های ذخیره‌شده روی این دستگاه پاک شود؟"))return;
