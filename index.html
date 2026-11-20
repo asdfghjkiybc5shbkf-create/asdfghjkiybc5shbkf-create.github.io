@@ -832,7 +832,7 @@ button,.button,.icon-button,.app-icon,.widget-toggle,.extra-app{ -webkit-tap-hig
    <input id="fontSizeControl" type="range" min="85" max="125" step="5" value="100">
    <label for="fontFamilyControl">نوع فونت</label>
    <select id="fontFamilyControl" class="model-select"><option value="Vazirmatn">وزیرمتن</option><option value="Tahoma">Tahoma</option><option value="Arial">Arial</option><option value="system-ui">System UI</option></select>
-   <div class="updates-box" id="releaseNotes"><b>آخرین به‌روزرسانی‌ها</b><ul><li>اتصال احراز هویت Supabase با کد یک‌بارمصرف ایمیل و Google OAuth، همراه با نشست پایدار</li><li>Supabase authentication using email OTP and Google OAuth with persistent sessions</li><li>بهینه‌سازی چیدمان موبایل و نمایش تمام‌صفحه برنامه‌ها</li><li>نمایش واضح‌تر دکمه‌های بازگشت در سربرگ همه برنامه‌ها</li><li>جلوگیری از بازماندن و روی‌هم‌افتادن چند برنامه</li><li>افزودن دکمه بازگشت واضح به چاتی‌پاتی</li><li>بهبود ترجمه انگلیسی بخش‌ها و پیام‌های پویا</li><li>نمایش فهرست تغییرات نسخه در همین قسمت</li><li>۸ تم قابل انتخاب و تنظیم اندازه و نوع فونت</li><li>ذخیره تنظیمات و انتخاب زبان در مرورگر</li><li>افزودن مرکز هوش مصنوعی با لینک رسمی سرویس‌ها و اتصال داخلی Gemini</li><li>افزودن مرکز پشتیبان‌گیری و نمایش شفاف وضعیت Cloud</li><li>افزودن نوار برنامه‌ها و چیدمان پنجره‌ای دسکتاپ در کنار نمایش تمام‌صفحه موبایل</li><li>بهبود نمایش نوار برنامه‌ها و عملکرد میانبرهای دسکتاپ</li><li>بازطراحی آیکون برنامه‌ها با نمادهای خطی مدرن و ظاهر لانچر اندروید</li><li>هماهنگ‌سازی ظاهر کنترل‌ها و بهبود اندازه لمس در موبایل</li><li>حذف DeepSeek و جست‌وجوی وب و بازگرداندن ظاهر سادهٔ چت</li><li>هماهنگ‌سازی پس‌زمینه پنجره‌های هوش مصنوعی با تم روشن و تاریک</li></ul><small>نسخه ۲.۸ — ورود امن با ایمیل و Google</small></div>
+   <div class="updates-box" id="releaseNotes"><b>آخرین به‌روزرسانی‌ها</b><ul><li>تغییر ورود ایمیلی از کد عددی به لینک امن Magic Link</li><li>Switched email sign-in from numeric OTP to secure Magic Link</li><li>اتصال احراز هویت Supabase با کد یک‌بارمصرف ایمیل و Google OAuth، همراه با نشست پایدار</li><li>Supabase authentication using email OTP and Google OAuth with persistent sessions</li><li>بهینه‌سازی چیدمان موبایل و نمایش تمام‌صفحه برنامه‌ها</li><li>نمایش واضح‌تر دکمه‌های بازگشت در سربرگ همه برنامه‌ها</li><li>جلوگیری از بازماندن و روی‌هم‌افتادن چند برنامه</li><li>افزودن دکمه بازگشت واضح به چاتی‌پاتی</li><li>بهبود ترجمه انگلیسی بخش‌ها و پیام‌های پویا</li><li>نمایش فهرست تغییرات نسخه در همین قسمت</li><li>۸ تم قابل انتخاب و تنظیم اندازه و نوع فونت</li><li>ذخیره تنظیمات و انتخاب زبان در مرورگر</li><li>افزودن مرکز هوش مصنوعی با لینک رسمی سرویس‌ها و اتصال داخلی Gemini</li><li>افزودن مرکز پشتیبان‌گیری و نمایش شفاف وضعیت Cloud</li><li>افزودن نوار برنامه‌ها و چیدمان پنجره‌ای دسکتاپ در کنار نمایش تمام‌صفحه موبایل</li><li>بهبود نمایش نوار برنامه‌ها و عملکرد میانبرهای دسکتاپ</li><li>بازطراحی آیکون برنامه‌ها با نمادهای خطی مدرن و ظاهر لانچر اندروید</li><li>هماهنگ‌سازی ظاهر کنترل‌ها و بهبود اندازه لمس در موبایل</li><li>حذف DeepSeek و جست‌وجوی وب و بازگرداندن ظاهر سادهٔ چت</li><li>هماهنگ‌سازی پس‌زمینه پنجره‌های هوش مصنوعی با تم روشن و تاریک</li></ul><small>نسخه ۲.۹ — ورود ایمیلی با Magic Link</small></div>
   </div>
   <div id="settingsStatus" class="status" role="status" aria-live="polite"></div>
  </section>
@@ -849,11 +849,8 @@ button,.button,.icon-button,.app-icon,.widget-toggle,.extra-app{ -webkit-tap-hig
       <form id="emailForm">
         <label for="email">ایمیل</label>
         <input id="email" type="email" autocomplete="email" placeholder="name@example.com" required>
-        <div id="otpEntry" hidden>
-          <label for="emailOtp">کد یک‌بارمصرف ایمیل</label>
-          <input id="emailOtp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="کدی که ایمیل شده">
-        </div>
-        <button id="signupButton" class="button full" type="submit">ارسال کد ورود / ثبت‌نام</button>
+        <p class="muted">برای ورود یا ساخت حساب، لینک امن ورود به ایمیلت ارسال می‌شود.</p>
+        <button id="signupButton" class="button full" type="submit">ارسال لینک ورود به ایمیل</button>
         <button id="loginButton" class="button secondary full" type="button">ورود با Google</button>
         <button id="resetButton" class="button secondary full" type="button" hidden>فراموشی رمز عبور</button>
       </form>
@@ -1146,7 +1143,7 @@ render();
 
 <script type="module">
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
-const supabase = createClient("https://zycdvcvxgnmymqygacek.supabase.co","sb_publishable_11J4EwQjg7-vCtKgFmkSmA_AMYL9z27");
+const supabase = createClient("https://zycdvcvxgnmymqygacek.supabase.co","sb_publishable_11J4EwQjg7-vCtKgFmkSmA_AMYL9z27",{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 const el=(id)=>document.getElementById(id);
 const status=(m)=>{el("accountStatus").textContent=m||"";};
 const isAdmin=(u)=>!!(u&&u.email&&u.email.toLowerCase()==="yeganehali019@gmail.com");
@@ -1166,23 +1163,24 @@ function showUser(u){
     if(p){p.hidden=false;try{const th=JSON.parse(localStorage.getItem("myspace_ai_threads")||"[]");el("adminThreadCount").textContent=String(th.length);el("adminMsgCount").textContent=String(th.reduce((n,x)=>n+(x.messages||[]).length,0));}catch{el("adminThreadCount").textContent="0";el("adminMsgCount").textContent="0";}}
   }else{if(badge)badge.hidden=true;const p=el("adminPanel");if(p)p.hidden=true;}
 }
-let otpSent=false;
 el("emailForm").addEventListener("submit",async(e)=>{
-  e.preventDefault();const email=(el("email").value||"").trim().toLowerCase();
+  e.preventDefault();
+  const email=(el("email").value||"").trim().toLowerCase();
   if(!email){status("ایمیل را وارد کن.");return;}
   const btn=el("signupButton");btn.disabled=true;
   try{
-    if(!otpSent){
-      const {error}=await supabase.auth.signInWithOtp({email,options:{shouldCreateUser:true}});
-      if(error)throw error;
-      otpSent=true;el("otpEntry").hidden=false;el("emailOtp").required=true;
-      btn.textContent="تأیید کد و ورود";status("کد ورود به ایمیلت فرستاده شد. هرزنامه را هم بررسی کن.");el("emailOtp").focus();
-    }else{
-      const token=(el("emailOtp").value||"").trim();if(!token){status("کد ایمیل را وارد کن.");return;}
-      const {error}=await supabase.auth.verifyOtp({email,token,type:"email"});if(error)throw error;status("ورود موفق بود.");
-    }
-  }catch(err){status("خطا: "+(err.message||"عملیات انجام نشد."));}
-  finally{btn.disabled=false;}
+    const {error}=await supabase.auth.signInWithOtp({
+      email,
+      options:{
+        shouldCreateUser:true,
+        emailRedirectTo:window.location.origin+window.location.pathname
+      }
+    });
+    if(error)throw error;
+    status("لینک ورود به ایمیلت ارسال شد. صندوق ورودی و پوشه هرزنامه را بررسی کن؛ لینک را روی همین دستگاه باز کن.");
+  }catch(err){
+    status("ارسال لینک انجام نشد: "+(err.message||"تنظیمات ایمیل یا آدرس بازگشت را بررسی کن."));
+  }finally{btn.disabled=false;}
 });
 el("loginButton").addEventListener("click",async()=>{
   const btn=el("loginButton");btn.disabled=true;
@@ -1192,11 +1190,6 @@ el("loginButton").addEventListener("click",async()=>{
 el("logoutButton").addEventListener("click",async()=>{
   const {error}=await supabase.auth.signOut();if(error){status("خروج انجام نشد: "+error.message);return;}
   status("از حساب خارج شدی.");showUser(null);
-});
-el("adminClearChats")?.addEventListener("click",()=>{
-  if(!confirm("همه چت‌های ذخیره‌شده روی این دستگاه پاک شود؟"))return;
-  try{localStorage.removeItem("myspace_ai_threads");localStorage.removeItem("myspace_ai_threads_active");}catch{}
-  el("adminThreadCount").textContent="0";el("adminMsgCount").textContent="0";el("adminStatus").textContent="تاریخچه این دستگاه پاک شد.";
 });
 supabase.auth.onAuthStateChange((_event,session)=>showUser(session?.user||null));
 </script>
